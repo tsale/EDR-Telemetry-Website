@@ -133,33 +133,6 @@ nav .inactive-tab::after {
     margin-top: 30px;
 }
 
-.big-button {
-    display: inline-block;
-    padding: 20px 40px;
-    font-size: 24px;
-    color: white;
-    background-color: var(--primary-color);
-    border: none;
-    border-radius: 8px;
-    text-decoration: none;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.big-button:hover {
-    background-color: var(--secondary-color);
-}
-
-.big-button.disabled {
-    background-color: grey;
-    cursor: not-allowed;
-}
-
-.big-button.disabled:hover {
-    background-color: grey;
-}
-
-/* Score Table Styles */
 #scoreTableContainer {
     margin-top: 30px;
     overflow-x: auto;
@@ -516,4 +489,55 @@ td:first-child {
 .separator {
     margin: 40px 0;
     border-bottom: 1px solid #ccc;
+}
+
+/* Highlight Class */
+.highlight {
+    color: #2980b9; /* Modern blue color */
+}
+
+/* Update Heading Styles */
+.container h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+/* Update Paragraph Styles */
+.container p {
+    font-size: 1.2em;
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 15px;
+}
+
+/* Big Button Styles */
+.big-button {
+    font-size: 1.5em;
+    padding: 15px 30px;
+    background-color: #2980b9;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.big-button:hover:not(.disabled) {
+    background-color: #1f6391;
+}
+
+.big-button.disabled {
+    background-color: #a1a4a6;
+    cursor: not-allowed;
+}
+
+.big-button.disabled:hover {
+    background-color: #bdc3c7;
+}
+
+/* Button Container */
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 40px;
 }
