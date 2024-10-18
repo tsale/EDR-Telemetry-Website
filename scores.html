@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EDR Telemetry Representation - Scores</title>
+    <!-- Link to external CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Link to Google Fonts for better typography -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="index.html">EDR Telemetry</a>
+        <a href="scores.html">Scores</a>
+        <a href="about.html">About</a>
+        <span class="inactive-tab">Premium Services (Coming Soon)</span>
+    </nav>
+    <div class="container">
+        <h1>EDR Telemetry Scores</h1>
+        <p>This page displays the comparative scores of different EDR solutions based on their telemetry capabilities.</p>
+        <div id="scoreTableContainer"></div>
+
+        <!-- Scoring Logic Section -->
+        <div class="scoring-logic">
+            <h2>Scoring Logic</h2>
+            <p>The scores are calculated based on two factors:</p>
+            <ol>
+                <li>
+                    <strong>Status Values:</strong> Each possible status a feature can have is assigned a specific value:
+                    <ul>
+                        <li><strong>Yes:</strong> 1</li>
+                        <li><strong>No:</strong> 0</li>
+                        <li><strong>Via EnablingTelemetry:</strong> 1</li>
+                        <li><strong>Partially:</strong> 0.5</li>
+                        <li><strong>Via EventLogs:</strong> 0.75</li>
+                        <li><strong>Pending Response:</strong> 0</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Feature Weights:</strong> Each telemetry feature (Sub-Category) has a weight representing its importance.
+                    <p>For the full list of feature weights, please refer to the project's <a href="https://github.com/tsale/EDR-Telemetry/blob/a1bb71c826fb1f0626bc29359ffe67abbdeb6cce/Tools/compare.py#L8-L60" target="_blank">Code Scoring Logic</a>.</p>
+                </li>
+            </ol>
+            <p>The total score for each EDR is calculated by summing the products of the status values and the feature weights for all telemetry features:</p>
+            <p class="formula"><em>Total Score = Σ (Status Value × Feature Weight)</em></p>
+            <p>This scoring method provides a nuanced comparison, taking into account both the availability of features and their relative importance.</p>
+        </div>
+    </div>
+    <!-- Link to external JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
