@@ -26,11 +26,12 @@ nav {
     background-color: var(--primary-color);
     display: flex;
     align-items: center;
-    justify-content: center; /* Add this line */
+    justify-content: center; /* Centers the navigation links */
     padding: 0 20px;
     position: sticky;
     top: 0;
     z-index: 1000;
+    flex-wrap: wrap; /* Allows items to wrap on smaller screens */
 }
 
 nav a {
@@ -67,7 +68,7 @@ nav a:hover {
     color: #ECF0F1;
 }
 
-/* Add this new class for inactive nav items */
+/* Inactive Nav Item Styles */
 nav .inactive-tab {
     color: #ccc; /* Gray color to indicate inactivity */
     padding: 20px 15px;
@@ -79,7 +80,7 @@ nav .inactive-tab {
 }
 
 nav .inactive-tab:hover {
-    color: #a9a9a9; /* Maintain gray color on hover */
+    color: #a9a9a9; /* Slightly darker gray on hover */
 }
 
 nav .inactive-tab::after {
@@ -107,7 +108,7 @@ nav .inactive-tab::after {
     text-align: center;
     margin-bottom: 30px;
     font-weight: 700;
-    font-size: 2.2em;
+    font-size: 2.5em; /* Updated font size */
     color: var(--primary-color);
 }
 
@@ -120,9 +121,15 @@ nav .inactive-tab::after {
 
 /* Paragraph Styles */
 .container p {
-    font-size: 1.1em;
-    line-height: 1.6;
+    font-size: 1.2em; /* Updated font size */
+    line-height: 1.8; /* Updated line height */
     color: #555;
+    margin-bottom: 15px; /* Added margin-bottom */
+}
+
+/* Highlight Class */
+.highlight {
+    color: #2980b9; /* Modern blue color */
 }
 
 /* Button Container */
@@ -130,137 +137,64 @@ nav .inactive-tab::after {
     display: flex;
     justify-content: center;
     gap: 20px;
-    margin-top: 30px;
-}
-
-#scoreTableContainer {
-    margin-top: 30px;
-    overflow-x: auto;
-}
-
-#scoreTable {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 30px;
-}
-
-#scoreTable th, #scoreTable td {
-    padding: 12px 15px;
-    text-align: center;
-    border-bottom: 1px solid var(--border-color);
-}
-
-#scoreTable th {
-    background-color: var(--primary-color);
-    color: #fff;
-    font-weight: 700;
-}
-
-#scoreTable tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-#scoreTable tr:hover {
-    background-color: #f1f1f1;
-}
-
-/* Scoring Logic Section Styles */
-.scoring-logic {
     margin-top: 40px;
 }
 
-.scoring-logic h2 {
-    font-size: 1.8em;
-    color: var(--primary-color);
-    margin-bottom: 20px;
-}
-
-.scoring-logic ol {
-    margin-left: 20px;
-    font-size: 1.1em;
-}
-
-.scoring-logic ul {
-    list-style-type: disc;
-    margin-left: 40px;
-    margin-top: 10px;
-}
-
-.scoring-logic p, .scoring-logic li {
-    line-height: 1.6;
-    color: #555;
-}
-
-.scoring-logic em {
-    display: block;
-    margin: 20px 0;
-    font-size: 1.2em;
-    text-align: center;
-    color: #333;
-}
-
-.scoring-logic a {
-    color: var(--primary-color);
-    text-decoration: none;
-}
-
-.scoring-logic a:hover {
-    text-decoration: underline;
-}
-
-/* Formula Styling */
-.formula {
-    background-color: #f7f7f7;
-    padding: 15px;
-    border-left: 4px solid var(--primary-color);
-    font-size: 1.2em;
-    font-style: italic;
-    margin: 20px 0;
-}
-
-/* Table Styles for Windows Page */
-#navigationButtons, #filters {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-#navigationButtons label, #filters label {
-    align-self: center;
-    font-weight: bold;
-}
-
-button, select {
-    padding: 10px 15px;
-    border: 1px solid var(--border-color);
+/* Big Button Styles */
+.big-button {
+    font-size: 1.5em;
+    padding: 15px 30px;
+    background-color: #2980b9;
+    color: #fff;
     border-radius: 5px;
-    background-color: white;
-    color: var(--text-color);
-    cursor: pointer;
-    font-size: 16px;
+    text-decoration: none;
     transition: background-color 0.3s;
 }
 
-button:hover, select:hover {
-    background-color: var(--hover-color);
+.big-button:hover:not(.disabled) {
+    background-color: #1f6391;
 }
 
-table {
+.big-button.disabled {
+    background-color: #a1a4a6;
+    cursor: not-allowed;
+}
+
+.big-button.disabled:hover {
+    background-color: #bdc3c7;
+}
+
+/* Score Table Container */
+#scoreTableContainer {
+    margin-top: 30px;
+    overflow-x: auto;
+    display: flex;
+    justify-content: center;
+}
+
+#scoreTable th {
+    border-bottom: 2px solid var(--border-color); /* Adds a line below the headers */
+    font-size: 1.5em; /* Increased font size */
+}
+
+#scoreTable td {
+    font-size: 1.2em; /* Increased font size for table data */
+}
+
+/* Table Styles for Windows Page */
+#content table {
     margin-top: 20px;
     background-color: white;
     border-collapse: separate;
     border-spacing: 0;
-    border: 1px solid var(--border-color);
+    border: 2px solid var(--border-color);
     border-radius: 5px;
     overflow: hidden;
-    width: auto;
-    max-width: 100%;
-    margin: 0 auto;
+    width: 100%;
+    min-width: 800px; /* Set a minimum width for horizontal scrolling */
 }
 
-th, td {
+#content th, #content td {
     padding: 12px;
     text-align: center;
     border-bottom: 1px solid var(--border-color);
@@ -268,27 +202,27 @@ th, td {
     transition: background-color 0.3s;
 }
 
-th {
+#content th {
     background-color: var(--primary-color);
     color: white;
     font-weight: 700;
     border-left: 1px solid var(--border-color);
 }
 
-th:first-child, td:first-child {
+#content th:first-child, #content td:first-child {
     border-left: none;
 }
 
-tr:nth-child(even) {
+#content tr:nth-child(even) {
     background-color: #F8F9F9;
 }
 
-th:nth-child(1), th:nth-child(2) {
+#content th:nth-child(1), #content th:nth-child(2) {
     font-family: 'Montserrat', sans-serif;
     font-size: 18px;
 }
 
-td:nth-child(1), td:nth-child(2) {
+#content td:nth-child(1), #content td:nth-child(2) {
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
     font-size: 16px;
@@ -366,48 +300,10 @@ td:first-child {
     transition: opacity 0.3s;
 }
 
-/* Responsive Styles */
-@media (max-width: 768px) {
-    nav {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    nav a {
-        padding: 15px 10px;
-        margin: 5px 0;
-    }
-
-    .container {
-        padding: 15px 20px;
-    }
-
-    .container h1 {
-        font-size: 1.8em;
-    }
-
-    .scoring-logic h2 {
-        font-size: 1.6em;
-    }
-
-    #scoreTable th,
-    #scoreTable td {
-        padding: 10px 12px;
-    }
-
-    #navigationButtons, #filters {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .button-container {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    button, select {
-        width: 100%;
-    }
+/* Separator Styles */
+.separator {
+    margin: 40px 0;
+    border-bottom: 1px solid #ccc;
 }
 
 /* Author Section Styles */
@@ -459,8 +355,85 @@ td:first-child {
     margin-right: 8px;
 }
 
-/* Responsive Adjustments for Author Section */
+/* Responsive Styles */
 @media (max-width: 768px) {
+    /* Navigation Adjustments */
+    nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 5px 10px; /* Reduced padding */
+    }
+
+    nav a, nav .inactive-tab {
+        padding: 10px 5px; /* Reduced padding */
+        margin: 2px 5px; /* Reduced margin */
+        font-size: 1em; /* Reduced font size */
+    }
+
+    /* Container Adjustments */
+    .container {
+        padding: 15px 20px;
+        margin: 20px auto;
+    }
+
+    .container h1 {
+        font-size: 2em; /* Reduced font size */
+        margin-bottom: 20px;
+    }
+
+    .container p {
+        font-size: 1.1em; /* Reduced font size */
+        margin-bottom: 15px;
+    }
+
+    /* Styles for the table in windows.html */
+    #content {
+        overflow-x: auto; /* Enable horizontal scrolling */
+    }
+
+    #content table {
+        min-width: 800px; /* Set a minimum width for the table */
+        table-layout: auto; /* Allow columns to adjust width */
+    }
+
+    #content th, #content td {
+        padding: 8px 5px; /* Reduced padding */
+        font-size: 0.9em; /* Reduced font size */
+        word-wrap: break-word; /* Allow content to wrap */
+    }
+
+    /* Adjust first two columns for better readability */
+    #content th:nth-child(1),
+    #content th:nth-child(2),
+    #content td:nth-child(1),
+    #content td:nth-child(2) {
+        min-width: 120px; /* Set a minimum width */
+    }
+
+    /* Styles for the table in scores.html */
+    #scoreTable {
+        min-width: unset; /* Remove any min-width */
+        width: 100%; /* Ensure the table fits within the viewport */
+    }
+
+    #scoreTable th, #scoreTable td {
+        padding: 10px 8px; /* Adjust padding for mobile */
+        font-size: 0.9em; /* Adjust font size */
+    }
+
+    /* Button Adjustments */
+    .big-button {
+        width: 100%;
+        text-align: center;
+        padding: 12px 25px; /* Adjusted padding */
+        font-size: 1.3em; /* Reduced font size */
+    }
+
+    button, select {
+        width: 100%;
+    }
+
+    /* Author Section Adjustments */
     .author-section {
         flex-direction: column;
         align-items: center;
@@ -485,59 +458,157 @@ td:first-child {
     }
 }
 
-/* Separator Styles */
-.separator {
-    margin: 40px 0;
-    border-bottom: 1px solid #ccc;
+@media (max-width: 480px) {
+    /* Further adjustments for very small screens */
+    nav {
+        padding: 5px 10px; /* Further reduced padding */
+    }
+
+    nav a, nav .inactive-tab {
+        padding: 8px 5px; /* Further reduced padding */
+        margin: 2px 3px; /* Further reduced margin */
+        font-size: 0.9em; /* Further reduced font size */
+    }
+
+    .container h1 {
+        font-size: 1.8em; /* Further reduced font size */
+        margin-bottom: 15px;
+    }
+
+    .container p {
+        font-size: 1em; /* Further reduced font size */
+        margin-bottom: 10px;
+    }
+
+    /* Styles for the table in windows.html */
+    #content th, #content td {
+        padding: 6px 3px; /* Further reduced padding */
+        font-size: 0.8em; /* Further reduced font size */
+    }
+
+    #content th:nth-child(1),
+    #content th:nth-child(2),
+    #content td:nth-child(1),
+    #content td:nth-child(2) {
+        min-width: 100px; /* Reduced minimum width */
+    }
+
+    /* Styles for the table in scores.html */
+    #scoreTable th, #scoreTable td {
+        padding: 8px 5px; /* Further adjusted padding */
+        font-size: 0.85em; /* Adjusted font size */
+    }
+
+    /* Button Adjustments */
+    .big-button {
+        font-size: 1.2em; /* Reduced font size */
+        padding: 10px 20px; /* Adjusted padding */
+    }
+
+    .button-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Social Media Links Adjustments */
+    .social-media a {
+        font-size: 1em; /* Adjusted font size */
+    }
 }
 
-/* Highlight Class */
-.highlight {
-    color: #2980b9; /* Modern blue color */
+/* Additional Styles */
+
+/* Scoring Logic Section Styles */
+.scoring-logic {
+    margin-top: 40px;
 }
 
-/* Update Heading Styles */
-.container h1 {
-    font-size: 2.5em;
+.scoring-logic h2 {
+    font-size: 1.8em;
+    color: var(--primary-color);
     margin-bottom: 20px;
 }
 
-/* Update Paragraph Styles */
-.container p {
-    font-size: 1.2em;
-    color: #555;
-    line-height: 1.8;
-    margin-bottom: 15px;
+.scoring-logic ol {
+    margin-left: 20px;
+    font-size: 1.1em;
 }
 
-/* Big Button Styles */
-.big-button {
-    font-size: 1.5em;
-    padding: 15px 30px;
-    background-color: #2980b9;
-    color: #fff;
-    border-radius: 5px;
+.scoring-logic ul {
+    list-style-type: disc;
+    margin-left: 40px;
+    margin-top: 10px;
+}
+
+.scoring-logic p, .scoring-logic li {
+    line-height: 1.6;
+    color: #555;
+}
+
+.scoring-logic em {
+    display: block;
+    margin: 20px 0;
+    font-size: 1.2em;
+    text-align: center;
+    color: #333;
+}
+
+.scoring-logic a {
+    color: var(--primary-color);
     text-decoration: none;
+}
+
+.scoring-logic a:hover {
+    text-decoration: underline;
+}
+
+/* Formula Styling */
+.formula {
+    background-color: #f7f7f7;
+    padding: 15px;
+    border-left: 4px solid var(--primary-color);
+    font-size: 1.2em;
+    font-style: italic;
+    margin: 20px 0;
+}
+
+/* Styles for Buttons and Selects */
+button, select {
+    padding: 10px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background-color: white;
+    color: var(--text-color);
+    cursor: pointer;
+    font-size: 16px;
     transition: background-color 0.3s;
 }
 
-.big-button:hover:not(.disabled) {
-    background-color: #1f6391;
+button:hover, select:hover {
+    background-color: var(--hover-color);
 }
 
-.big-button.disabled {
-    background-color: #a1a4a6;
-    cursor: not-allowed;
-}
-
-.big-button.disabled:hover {
-    background-color: #bdc3c7;
-}
-
-/* Button Container */
-.button-container {
+/* Table Styles for Filters and Navigation Buttons */
+#navigationButtons, #filters {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    gap: 20px;
-    margin-top: 40px;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+#navigationButtons label, #filters label {
+    align-self: center;
+    font-weight: bold;
+}
+
+/* Tooltip Styles */
+[data-tooltip]::after {
+    opacity: 0; /* Start hidden */
+    visibility: hidden; /* Start hidden */
+}
+
+[data-tooltip]:hover::after {
+    visibility: visible; /* Show on hover */
+    opacity: 1; /* Fade in */
 }

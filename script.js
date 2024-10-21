@@ -149,7 +149,7 @@ function displayTelemetry(data, filter = 'all', comparison = [], isComparisonMod
 
     // Create table
     const table = document.createElement('table');
-    table.id = 'telemetryTable';
+    table.id = 'scoreTable';
 
     // Set table width based on number of columns
     const tableWidth = Math.min(displayedHeaders.length * 150 + 300, window.innerWidth - 40);
