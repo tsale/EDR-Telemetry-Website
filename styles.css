@@ -164,6 +164,11 @@ nav .inactive-tab::after {
 }
 
 /* Score Table Container */
+#scoreTable {
+    width: auto;
+    border-collapse: collapse;
+}
+
 #scoreTableContainer {
     margin-top: 30px;
     overflow-x: auto;
@@ -174,10 +179,19 @@ nav .inactive-tab::after {
 #scoreTable th {
     border-bottom: 2px solid var(--border-color);
     font-size: 1.5em;
+    width: auto;
+    text-align: center; /* Align headers to match table contents */
+    border-right: 1px solid var(--border-color); /* Add horizontal line to separate each column */
 }
 
 #scoreTable td {
     font-size: 1.2em;
+    border-bottom: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color); /* Add horizontal line to separate each column */
+    text-align: center; /* Ensure table contents are centered */
+    padding: 10px; /* Add padding for better spacing */
+    vertical-align: middle; /* Vertically center the content */
+}
 }
 
 /* Telemetry Table Styles */
@@ -343,16 +357,6 @@ nav .inactive-tab::after {
         min-width: 120px;
     }
 
-    /* Score Table Adjustments */
-    #scoreTable {
-        width: 100%;
-    }
-
-    #scoreTable th, #scoreTable td {
-        padding: 10px 8px;
-        font-size: 0.9em;
-    }
-
     /* Button Adjustments */
     .big-button {
         width: 100%;
@@ -418,12 +422,6 @@ nav .inactive-tab::after {
     #telemetryTable td:nth-child(1),
     #telemetryTable td:nth-child(2) {
         min-width: 100px;
-    }
-
-    /* Score Table Adjustments */
-    #scoreTable th, #scoreTable td {
-        padding: 8px 5px;
-        font-size: 0.85em;
     }
 
     /* Button Adjustments */
