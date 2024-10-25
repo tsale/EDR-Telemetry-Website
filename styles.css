@@ -192,7 +192,6 @@ nav .inactive-tab::after {
     padding: 10px; /* Add padding for better spacing */
     vertical-align: middle; /* Vertically center the content */
 }
-}
 
 /* Telemetry Table Styles */
 #telemetryTable {
