@@ -612,3 +612,245 @@ button:hover, select:hover {
     visibility: visible; /* Show on hover */
     opacity: 1; /* Fade in */
 }
+
+/* Contact Form Styles */
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+.contact-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: var(--primary-color);
+}
+
+.contact-form .required {
+    color: red;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-size: 1em;
+    box-sizing: border-box;
+}
+
+.contact-form button {
+    padding: 12px 25px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.contact-form button:hover {
+    background-color: #1f6391;
+}
+
+/* Footer Styles */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: var(--primary-color);
+    color: white;
+    margin-top: 50px;
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.9em;
+}
+
+/* Styles for Google Form iframe */
+.google-form-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.google-form-container iframe {
+    width: 100%;
+    border: none;
+    background-color: transparent;
+}
+
+/* Sponsorship Section Styles */
+.sponsorship-section {
+    position: relative;
+    padding: 60px 20px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.sponsor-content {
+    max-width: 1000px; /* Maximum width for the content */
+    margin: 0 auto;    /* Centers the content horizontally */
+    padding: 30px 20px;
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+}
+
+.sponsorship-section h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: var(--primary-color);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.sponsorship-section p {
+    font-size: 1.3em;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.sponsor-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 15px 30px;
+    background-color: var(--primary-color);
+    color: #fff;
+    font-size: 1.2em;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.sponsor-button:hover {
+    background-color: #1f6391;
+    transform: translateY(-3px);
+}
+
+/* Decorative Lines */
+.sponsorship-section::before,
+.sponsorship-section::after {
+    content: '';
+    position: absolute;
+    width: 50%;
+    height: 2px;
+    background-color: var(--primary-color);
+    top: 20px;
+}
+
+.sponsorship-section::before {
+    left: 25%;
+}
+
+.sponsorship-section::after {
+    bottom: 20px;
+    left: 25%;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .sponsorship-section h2 {
+        font-size: 2em;
+    }
+    .sponsorship-section p {
+        font-size: 1.1em;
+    }
+    .sponsor-button {
+        font-size: 1em;
+        padding: 12px 25px;
+    }
+    .sponsor-content {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .sponsorship-section h2 {
+        font-size: 1.8em;
+    }
+    .sponsorship-section p {
+        font-size: 1em;
+    }
+    .sponsor-button {
+        font-size: 0.9em;
+        padding: 10px 20px;
+    }
+}
+
+/* Animation Keyframes */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Apply Animation to Sponsor Content */
+.sponsor-content {
+    animation: fadeInUp 1s ease-in-out;
+}
+
+/* Styles for Icon Button */
+.icon-button {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+    cursor: pointer;
+}
+
+.icon-button:hover {
+    background-color: none;
+    transform: translateY(-3px);
+}
+
+.icon-button img {
+    width: 210px; /* Adjust the size of the icon */
+    vertical-align: middle;
+    transition: transform 0.3s;
+}
+
+.icon-button:hover img {
+    transform: rotate(08deg); /* Subtle rotation on hover for interaction */
+}
+
+/* Contact Us Section Styles */
+.contact-us-section {
+    text-align: center;
+    margin-top: 50px;
+    padding: 30px 20px;
+    background-color: #fdfbfb;
+    border-radius: 8px;
+}
+
+.contact-us-section p {
+    font-size: 1.2em;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.contact-us-button {
+    display: inline-block;
+    padding: 15px 30px;
+    background-color: var(--primary-color);
+    color: #fff;
+    font-size: 1.1em;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.contact-us-button:hover {
+    background-color: #1f6391;
+    transform: translateY(-3px);
+}
