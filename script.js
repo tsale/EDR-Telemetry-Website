@@ -1,5 +1,6 @@
+// Initialize variables
 let telemetryData = [];
-let hoverEnabled = false; // Variable to track hover state
+let hoverEnabled = localStorage.getItem('hoverEnabled') === 'true'; // Retrieve saved hover state
 
 // Define the scoring dictionaries
 const FEATURES_DICT_VALUED = {
@@ -67,6 +68,7 @@ const CATEGORIES_VALUED = {
     "Script-Block Activity": 1
 };
 
+// Function to load telemetry data
 async function loadTelemetry() {
     if (telemetryData.length > 0) {
         return; // Data already loaded
@@ -83,6 +85,7 @@ async function loadTelemetry() {
     }
 }
 
+// Function to populate filter options
 function populateFilterOptions() {
     // Clear existing options
     const filterSelect = document.getElementById('edrFilter');
@@ -102,11 +105,14 @@ function populateFilterOptions() {
         compareOption.textContent = header;
         comparisonSelect.appendChild(compareOption);
     });
+
+    // Event listener for EDR filter
     filterSelect.addEventListener('change', () => {
         const selectedEDR = filterSelect.value;
         displayTelemetry(telemetryData, selectedEDR);
     });
 
+    // Event listener for compare button
     document.getElementById('compareButton').addEventListener('click', () => {
         const selectedEDRs = Array.from(comparisonSelect.selectedOptions).map(option => option.value);
         if (selectedEDRs.length > 0) {
@@ -116,25 +122,32 @@ function populateFilterOptions() {
         }
     });
 
+    // Event listener for show scores button
     document.getElementById('showScoresButton').addEventListener('click', () => {
         window.location.href = 'scores.html';
     });
+
+    // Event listener for back button
     document.getElementById('backButton').addEventListener('click', () => {
         displayTelemetry(telemetryData);
         document.getElementById('backButton').classList.add('hidden');
     });
 
     // Event listener for hover toggle
-    document.getElementById('hoverToggle').addEventListener('change', function() {
+    const hoverToggle = document.getElementById('hoverToggle');
+    hoverToggle.checked = hoverEnabled; // Set the checkbox based on saved state
+    hoverToggle.addEventListener('change', function() {
         hoverEnabled = this.checked;
         localStorage.setItem('hoverEnabled', hoverEnabled); // Save state
         addHoverEffect(); // Apply or remove hover effects immediately
     });
 }
 
+// Function to display telemetry data
 function displayTelemetry(data, filter = 'all', comparison = [], isComparisonMode = false) {
     const contentDiv = document.getElementById('content');
     contentDiv.innerHTML = '';
+
     const edrHeaders = Object.keys(data[0]).filter(key => key !== 'Telemetry Feature Category' && key !== 'Sub-Category');
 
     // Determine which headers to display
@@ -149,11 +162,11 @@ function displayTelemetry(data, filter = 'all', comparison = [], isComparisonMod
 
     // Create table
     const table = document.createElement('table');
-    table.id = 'scoreTable';
+    table.id = 'telemetryTable';
 
-    // Set table width based on number of columns
-    const tableWidth = Math.min(displayedHeaders.length * 150 + 300, window.innerWidth - 40);
-    table.style.width = `${tableWidth}px`;
+    // Create thead and tbody elements
+    const thead = document.createElement('thead');
+    const tbody = document.createElement('tbody');
 
     // Create header row
     const headerRow = document.createElement('tr');
@@ -161,7 +174,8 @@ function displayTelemetry(data, filter = 'all', comparison = [], isComparisonMod
     displayedHeaders.forEach((header, index) => {
         headerRow.innerHTML += `<th data-col-index="${index}">${header}</th>`;
     });
-    table.appendChild(headerRow);
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
 
     // Create data rows
     data.forEach((entry, rowIndex) => {
@@ -183,8 +197,9 @@ function displayTelemetry(data, filter = 'all', comparison = [], isComparisonMod
 
             row.appendChild(cell);
         });
-        table.appendChild(row);
+        tbody.appendChild(row);
     });
+    table.appendChild(tbody);
 
     contentDiv.appendChild(table);
 
@@ -194,6 +209,7 @@ function displayTelemetry(data, filter = 'all', comparison = [], isComparisonMod
 
     // Add hover effect
     addHoverEffect();
+
     if (filter !== 'all' || comparison.length > 0) {
         document.getElementById('backButton').classList.remove('hidden');
     } else {
@@ -201,6 +217,7 @@ function displayTelemetry(data, filter = 'all', comparison = [], isComparisonMod
     }
 }
 
+// Function to get status icon
 function getStatusIcon(status) {
     switch (status) {
         case "Yes":
@@ -220,6 +237,7 @@ function getStatusIcon(status) {
     }
 }
 
+// Function to highlight differences in comparison mode
 function highlightDifferences(table, numEDRs) {
     const rows = table.getElementsByTagName('tr');
     for (let i = 1; i < rows.length; i++) { // Skip header row
@@ -238,6 +256,7 @@ function highlightDifferences(table, numEDRs) {
     }
 }
 
+// Function to display scores on scores page
 function displayScoresOnScoresPage() {
     const contentDiv = document.getElementById('scoreTableContainer');
     contentDiv.innerHTML = '';
@@ -250,7 +269,7 @@ function displayScoresOnScoresPage() {
 
     // Create table
     const table = document.createElement('table');
-    table.id = 'scoreTable';
+    table.id = 'telemetryTable';
 
     // Create header row
     const headerRow = document.createElement('tr');
@@ -267,6 +286,7 @@ function displayScoresOnScoresPage() {
     contentDiv.appendChild(table);
 }
 
+// Function to calculate scores
 function calculateScores(data) {
     const edrHeaders = Object.keys(data[0]).filter(
         key => key !== 'Telemetry Feature Category' && key !== 'Sub-Category'
@@ -293,6 +313,7 @@ function calculateScores(data) {
     return scores;
 }
 
+// Function to add hover effect
 function addHoverEffect() {
     const table = document.getElementById('telemetryTable');
     if (!table) return;
