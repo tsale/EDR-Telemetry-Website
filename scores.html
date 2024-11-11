@@ -22,11 +22,20 @@
 <body>
     <!-- Navigation Bar -->
     <nav>
-        <a href="index.html">EDR Telemetry</a>
-        <a href="scores.html" class="active">Scores</a>
-        <a href="roadmap.html">Roadmap</a>
-        <a href="sponsorship.html">Sponsorship</a>
-        <a href="about.html">About</a>
+        <div class="nav-container">
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">EDR Telemetry</a>
+                <a href="scores.html">Scores</a>
+                <a href="roadmap.html">Roadmap</a>
+                <a href="sponsorship.html">Sponsorship</a>
+                <a href="about.html">About</a>
+            </div>
+        </div>
     </nav>
 
     <div class="hero-section scores-hero">
@@ -106,7 +115,18 @@
             </div>
         </section>
     </div>
-
+    <!-- Add Mobile Navigation Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            
+            menuToggle?.addEventListener('click', () => {
+                menuToggle.classList.toggle('active');
+                navLinks?.classList.toggle('active');
+            });
+        });
+    </script>
     <script src="script.js"></script>
 </body>
 </html>

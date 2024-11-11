@@ -24,12 +24,38 @@ body {
 /* Updated Navigation Bar Styles */
 nav {
     background: linear-gradient(90deg, #1a1a1a, #2d2d2d);
-    padding: 0.8rem;
+    padding: 1rem;
+    position: relative;
+    z-index: 100;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    transition: all 0.3s ease;
 }
 
 nav a {
@@ -317,6 +343,8 @@ nav .inactive-tab::after {
 /* Responsive Table Container */
 #content {
     overflow-x: auto;
+    max-height: 80vh;
+    overflow-y: auto;
 }
 
 .table-container {
@@ -534,6 +562,52 @@ nav .inactive-tab::after {
 
     .about-grid {
         gap: 1rem;
+    }
+
+    .menu-toggle {
+        display: flex;
+    }
+
+    .nav-links {
+        display: none;
+        width: 100%;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: #2d2d2d;
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links a {
+        padding: 0.8rem;
+        width: 100%;
+        text-align: center;
+    }
+
+    .menu-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .menu-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menu-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+    }
+
+    /* Legend mobile adjustments */
+    .legend-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .filter-control {
+        min-width: 100%;
     }
 }
 
@@ -1872,3 +1946,452 @@ html {
 }
 
 /* ...existing styles... */
+
+/* Legend Styles */
+.legend-container {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin: 2rem auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    max-width: 800px;
+}
+
+.legend-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.legend-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+    background: #f8f9fa;
+}
+
+.legend-icon {
+    font-size: 1.2rem;
+    width: 30px;
+    text-align: center;
+}
+
+.legend-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.legend-label {
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.legend-description {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+/* Sysmon specific styles */
+.sysmon-row td {
+    background-color: #fff3e0 !important;
+}
+
+.sysmon-row:hover td {
+    background-color: #ffe0b2 !important;
+}
+
+/* Updated Sysmon specific styles */
+.sysmon-header {
+    position: relative;
+}
+
+.sysmon-header::after {
+    content: '(Not an EDR)';
+    display: block;
+    font-size: 0.7em;
+    font-weight: normal;
+    color: #e65100;
+    margin-top: 4px;
+    font-style: italic;
+}
+
+.sysmon-column {
+    position: relative;
+}
+
+.sysmon-column::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-left: 3px solid #ff9800;
+    border-right: 3px solid #ff9800;
+    pointer-events: none;
+}
+
+/* Remove old sysmon styles */
+.sysmon-badge {
+    display: none;
+}
+
+/* Update highlight styles to work with Sysmon */
+.highlight-column.sysmon-column {
+    background-color: rgba(255, 152, 0, 0.2) !important;
+}
+
+.highlight-cell.sysmon-column {
+    background-color: rgba(255, 152, 0, 0.4) !important;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+    text-align: center;
+    padding: 2rem;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid var(--border-color);
+    border-radius: 50%;
+    border-top-color: var(--primary-color);
+    margin: 0 auto 1rem;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.error-message {
+    text-align: center;
+    padding: 2rem;
+    background: #fee;
+    border-radius: 8px;
+    margin: 1rem 0;
+}
+
+.error-message button {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Filter Controls Styles */
+.filter-controls {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.filter-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1rem 0;
+}
+
+.filter-group:not(:last-child) {
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Toggle Switch */
+.toggle-switch {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.toggle-switch input[type="checkbox"] {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+}
+
+.toggle-switch label {
+    cursor: pointer;
+    text-indent: -9999px;
+    width: 50px;
+    height: 25px;
+    background: #bbb;
+    display: block;
+    border-radius: 100px;
+    position: relative;
+}
+
+.toggle-switch label:after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 19px;
+    height: 19px;
+    background: #fff;
+    border-radius: 90px;
+    transition: 0.3s;
+}
+
+.toggle-switch input:checked + label {
+    background: var(--primary-color);
+}
+
+.toggle-switch input:checked + label:after {
+    left: calc(100% - 3px);
+    transform: translateX(-100%);
+}
+
+/* Filter Controls */
+.filter-select {
+    min-width: 200px;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 0.9rem;
+    background-color: white;
+}
+
+.filter-select[multiple] {
+    height: 100px;
+}
+
+/* Action Buttons */
+.action-button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.primary-button {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.primary-button:hover {
+    background-color: #1f6391;
+}
+
+.secondary-button {
+    background-color: #f0f0f0;
+    color: var(--text-color);
+}
+
+.secondary-button:hover {
+    background-color: #e0e0e0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .filter-group {
+        flex-direction: column;
+    }
+    
+    .filter-select {
+        width: 100%;
+    }
+    
+    .action-button {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Enhanced Filter Controls */
+.filter-control {
+    flex: 1;
+    min-width: 200px;
+    max-width: 300px; /* Add max-width to limit the search box size */
+}
+
+.filter-control label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--primary-color);
+}
+
+/* Search-style Filter */
+.search-select {
+    position: relative;
+    max-width: 100%;
+}
+
+/* Add specific width control for the EDR search input */
+#edrFilter {
+    max-width: 200px; /* Adjust this value to make the search box shorter */
+    width: 100%;
+}
+
+/* Search-style Filter */
+.search-select {
+    position: relative;
+}
+
+.search-select input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    padding-left: 2.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    background-color: #f8f9fa;
+}
+
+.search-select input:focus {
+    background-color: white;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.1);
+    outline: none;
+}
+
+.search-select::before {
+    content: '🔍';
+    position: absolute;
+    left: 0.8rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+    font-size: 1rem;
+}
+
+/* Comparison Tags Container */
+.comparison-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    min-height: 35px;
+    padding: 0.25rem;
+}
+
+/* Individual Tag Style */
+.comparison-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.8rem;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    animation: fadeIn 0.3s ease;
+}
+
+.comparison-tag .remove {
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+
+.comparison-tag .remove:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Dropdown Menu */
+.edr-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    margin-top: 0.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    max-height: 300px;
+    overflow-y: auto;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s;
+}
+
+.edr-dropdown.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.edr-option {
+    padding: 0.8rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.edr-option:hover {
+    background-color: #f8f9fa;
+}
+
+.edr-option.selected {
+    background-color: #e3f2fd;
+    color: var(--primary-color);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Updated Compare Button */
+.compare-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.compare-button:hover {
+    background: #1f6391;
+    transform: translateY(-1px);
+}
+
+.compare-button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.compare-button .icon {
+    font-size: 1.2rem;
+}

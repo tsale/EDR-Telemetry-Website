@@ -68,153 +68,210 @@ const CATEGORIES_VALUED = {
     "Script-Block Activity": 1
 };
 
+// Add loading spinner to container
+function showLoading(container) {
+    container.innerHTML = `
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Loading telemetry data...</p>
+        </div>
+    `;
+}
+
+// Validate telemetry data
+function isValidTelemetryData(data) {
+    return Array.isArray(data) && 
+           data.length > 0 && 
+           data[0].hasOwnProperty('Telemetry Feature Category') &&
+           data[0].hasOwnProperty('Sub-Category');
+}
+
+// Function to sort data with Sysmon first and group together
+function sortDataWithSysmonFirst(data) {
+    if (!Array.isArray(data) || !data.length) return data;
+    
+    const sysmonEntries = [];
+    const nonSysmonEntries = [];
+    
+    // Separate Sysmon and non-Sysmon entries
+    data.forEach(entry => {
+        const category = String(entry['Telemetry Feature Category'] || '');
+        if (category.toLowerCase().includes('sysmon')) {
+            sysmonEntries.push(entry);
+        } else {
+            nonSysmonEntries.push(entry);
+        }
+    });
+    
+    // Return combined array with Sysmon entries first
+    return [...sysmonEntries, ...nonSysmonEntries];
+}
+
 // Function to load telemetry data
 async function loadTelemetry() {
-    if (telemetryData.length > 0) {
-        return; // Data already loaded
-    }
+    const contentDiv = document.getElementById('content') || document.getElementById('scoreTableContainer');
+    
     try {
         const response = await fetch('https://raw.githubusercontent.com/tsale/EDR-Telemetry/main/EDR_telem.json');
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        telemetryData = await response.json();
+        if (!response.ok) throw new Error('Network response was not ok');
+        
+        const data = await response.json();
+        telemetryData = sortDataWithSysmonFirst(data);
+        return telemetryData;
     } catch (error) {
-        const contentDiv = document.getElementById('content') || document.getElementById('scoreTableContainer');
-        contentDiv.innerHTML = `<p>Error loading telemetry data: ${error.message}</p>`;
+        console.error('Error loading telemetry:', error);
+        contentDiv.innerHTML = `
+            <div class="error-message">
+                <h3>Error loading telemetry data</h3>
+                <p>${error.message}</p>
+                <button onclick="location.reload()">Retry</button>
+            </div>
+        `;
+        throw error;
     }
 }
 
 // Function to populate filter options
 function populateFilterOptions() {
-    // Clear existing options
-    const filterSelect = document.getElementById('edrFilter');
-    const comparisonSelect = document.getElementById('comparisonMode');
-    filterSelect.innerHTML = '<option value="all">All</option>';
-    comparisonSelect.innerHTML = '';
+    const filterSelect = document.querySelector('#edrFilter');
+    const comparisonSelect = document.querySelector('#comparisonMode');
+    
+    // Return early if elements don't exist
+    if (!filterSelect || !comparisonSelect) {
+        console.debug('Filter elements not found');
+        return;
+    }
 
-    const edrHeaders = Object.keys(telemetryData[0]).filter(key => key !== 'Telemetry Feature Category' && key !== 'Sub-Category');
-    edrHeaders.forEach(header => {
-        const option = document.createElement('option');
-        option.value = header;
-        option.textContent = header;
-        filterSelect.appendChild(option);
+    // Get unique EDR names from telemetry data
+    const edrNames = Object.keys(telemetryData[0] || {}).filter(key => 
+        key !== 'Telemetry Feature Category' && 
+        key !== 'Sub-Category'
+    );
 
-        const compareOption = document.createElement('option');
-        compareOption.value = header;
-        compareOption.textContent = header;
-        comparisonSelect.appendChild(compareOption);
-    });
-
-    // Event listener for EDR filter
-    filterSelect.addEventListener('change', () => {
-        const selectedEDR = filterSelect.value;
-        displayTelemetry(telemetryData, selectedEDR);
-    });
-
-    // Event listener for compare button
-    document.getElementById('compareButton').addEventListener('click', () => {
-        const selectedEDRs = Array.from(comparisonSelect.selectedOptions).map(option => option.value);
-        if (selectedEDRs.length > 0) {
-            displayTelemetry(telemetryData, 'all', selectedEDRs, true);
-        } else {
-            alert('Please select at least one EDR for comparison.');
+    // Update dropdown with EDR options
+    if (edrNames.length > 0) {
+        const edrDropdown = document.querySelector('.edr-dropdown');
+        if (edrDropdown) {
+            edrDropdown.innerHTML = edrNames.map(edr => `
+                <div class="edr-option" data-edr="${edr}">
+                    ${edr}
+                </div>
+            `).join('');
         }
-    });
-
-    // Event listener for show scores button
-    document.getElementById('showScoresButton').addEventListener('click', () => {
-        window.location.href = 'scores.html';
-    });
-
-    // Event listener for back button
-    document.getElementById('backButton').addEventListener('click', () => {
-        displayTelemetry(telemetryData);
-        document.getElementById('backButton').classList.add('hidden');
-    });
-
-    // Event listener for hover toggle
-    const hoverToggle = document.getElementById('hoverToggle');
-    hoverToggle.checked = hoverEnabled; // Set the checkbox based on saved state
-    hoverToggle.addEventListener('change', function() {
-        hoverEnabled = this.checked;
-        localStorage.setItem('hoverEnabled', hoverEnabled); // Save state
-        addHoverEffect(); // Apply or remove hover effects immediately
-    });
+    }
 }
+
+// Enhanced display function with memoization
+const memoizedDisplayTelemetry = (() => {
+    let lastArgs = null;
+    let lastResult = null;
+
+    return (data, filter = 'all', comparison = [], isComparisonMode = false) => {
+        const argsKey = JSON.stringify({ data, filter, comparison, isComparisonMode });
+        
+        if (lastArgs === argsKey) {
+            console.debug('Using memoized table display');
+            return lastResult;
+        }
+
+        console.debug('Rendering new table configuration');
+        lastArgs = argsKey;
+        lastResult = displayTelemetry(data, filter, comparison, isComparisonMode);
+        return lastResult;
+    };
+})();
 
 // Function to display telemetry data
 function displayTelemetry(data, filter = 'all', comparison = [], isComparisonMode = false) {
-    const contentDiv = document.getElementById('content');
-    contentDiv.innerHTML = '';
-
-    const edrHeaders = Object.keys(data[0]).filter(key => key !== 'Telemetry Feature Category' && key !== 'Sub-Category');
-
-    // Determine which headers to display
-    let displayedHeaders;
-    if (comparison.length > 0) {
-        displayedHeaders = comparison;
-    } else if (filter !== 'all') {
-        displayedHeaders = [filter];
-    } else {
-        displayedHeaders = edrHeaders;
+    if (!data || !data.length) {
+        console.error('No data to display');
+        return;
     }
 
-    // Create table
+    const contentDiv = document.getElementById('content');
+    if (!contentDiv) return;
+    
+    contentDiv.innerHTML = '';
+
+    // Get headers and ensure Sysmon is first if it exists
+    const edrHeaders = Object.keys(data[0])
+        .filter(key => key !== 'Telemetry Feature Category' && key !== 'Sub-Category');
+    
+    // Move Sysmon to the front if it exists
+    const sysmonIndex = edrHeaders.findIndex(header => header.toLowerCase().includes('sysmon'));
+    if (sysmonIndex > -1) {
+        const sysmon = edrHeaders.splice(sysmonIndex, 1)[0];
+        edrHeaders.unshift(sysmon);
+    }
+
+    // Determine which headers to display
+    let displayedHeaders = comparison.length > 0 ? comparison : 
+                         filter !== 'all' ? [filter] : 
+                         edrHeaders;
+
+    // Create table structure
     const table = document.createElement('table');
     table.id = 'telemetryTable';
-
-    // Create thead and tbody elements
-    const thead = document.createElement('thead');
-    const tbody = document.createElement('tbody');
-
+    
     // Create header row
     const headerRow = document.createElement('tr');
-    headerRow.innerHTML = `<th>Telemetry Feature Category</th><th>Sub-Category</th>`;
-    displayedHeaders.forEach((header, index) => {
-        headerRow.innerHTML += `<th data-col-index="${index}">${header}</th>`;
-    });
+    headerRow.innerHTML = `
+        <th>Telemetry Feature Category</th>
+        <th>Sub-Category</th>
+        ${displayedHeaders.map((header, index) => {
+            const isSysmon = header.toLowerCase().includes('sysmon');
+            const sysmonClass = isSysmon ? 'class="sysmon-header"' : '';
+            return `<th ${sysmonClass} data-col-index="${index}">${header}</th>`;
+        }).join('')}
+    `;
+    
+    const thead = document.createElement('thead');
     thead.appendChild(headerRow);
     table.appendChild(thead);
 
-    // Create data rows
+    // Create tbody and populate rows
+    const tbody = document.createElement('tbody');
     data.forEach((entry, rowIndex) => {
         const row = document.createElement('tr');
-        row.innerHTML += `<td>${entry['Telemetry Feature Category'] || ''}</td>`;
-        row.innerHTML += `<td>${entry['Sub-Category'] || ''}</td>`;
+        
+        // Add category and sub-category
+        row.innerHTML = `
+            <td>${entry['Telemetry Feature Category'] || ''}</td>
+            <td>${entry['Sub-Category'] || ''}</td>
+        `;
 
+        // Add data cells for each EDR
         displayedHeaders.forEach((header, colIndex) => {
             const cell = document.createElement('td');
-            cell.dataset.rowIndex = rowIndex + 1; // +1 to account for header row
-            cell.dataset.colIndex = colIndex + 2; // +2 to account for first two columns
-
-            const status = entry[header];
-            cell.innerHTML = `<span class="status-${status.replace(/\s+/g, '')}" data-tooltip="${status}">${getStatusIcon(status)}</span>`;
-
+            const isSysmon = header.toLowerCase().includes('sysmon');
+            if (isSysmon) cell.classList.add('sysmon-column');
+            
+            const status = entry[header] || '';
+            cell.innerHTML = `
+                <span class="status-${status.replace(/\s+/g, '')}" 
+                      data-tooltip="${status}">
+                    ${getStatusIcon(status)}
+                </span>
+            `;
+            
             if (isComparisonMode) {
                 cell.dataset.status = status;
             }
-
+            
             row.appendChild(cell);
         });
+        
         tbody.appendChild(row);
     });
+    
     table.appendChild(tbody);
-
     contentDiv.appendChild(table);
 
     if (isComparisonMode && displayedHeaders.length > 1) {
-        highlightDifferences(table, displayedHeaders.length);
+        highlightDifferences(table);
     }
 
-    // Add hover effect
     addHoverEffect();
-
-    if (filter !== 'all' || comparison.length > 0) {
-        document.getElementById('backButton').classList.remove('hidden');
-    } else {
-        document.getElementById('backButton').classList.add('hidden');
-    }
 }
 
 // Function to get status icon
@@ -323,10 +380,11 @@ function calculateScores(data) {
 function addHoverEffect() {
     const table = document.getElementById('telemetryTable');
     if (!table) return;
+
     const cells = table.getElementsByTagName('td');
     const headers = table.getElementsByTagName('th');
 
-    // Remove existing event listeners if any
+    // Remove existing event listeners
     for (let cell of cells) {
         cell.onmouseenter = null;
         cell.onmouseleave = null;
@@ -336,101 +394,268 @@ function addHoverEffect() {
         header.onmouseleave = null;
     }
 
-    if (hoverEnabled) {
-        for (let cell of cells) {
-            cell.addEventListener('mouseenter', function() {
-                const rowIndex = cell.parentElement.rowIndex;
-                const colIndex = cell.cellIndex;
+    // Only add new listeners if hover is enabled
+    if (!hoverEnabled) return;
 
-                // Highlight row
-                const row = table.rows[rowIndex];
-                for (let cell of row.cells) {
-                    cell.classList.add('highlight-row');
+    // Add cell hover effects
+    for (let cell of cells) {
+        cell.addEventListener('mouseenter', function() {
+            if (!hoverEnabled) return;
+            const rowIndex = cell.parentElement.rowIndex;
+            const colIndex = cell.cellIndex;
+
+            // Highlight row
+            const row = table.rows[rowIndex];
+            for (let cell of row.cells) {
+                cell.classList.add('highlight-row');
+            }
+
+            // Highlight column
+            for (let i = 0; i < table.rows.length; i++) {
+                const cell = table.rows[i].cells[colIndex];
+                if (cell) {
+                    cell.classList.add('highlight-column');
                 }
+            }
 
-                // Highlight column
-                for (let i = 0; i < table.rows.length; i++) {
-                    const cell = table.rows[i].cells[colIndex];
-                    if (cell) {
-                        cell.classList.add('highlight-column');
-                    }
+            // Highlight current cell
+            cell.classList.add('highlight-cell');
+        });
+
+        cell.addEventListener('mouseleave', function() {
+            if (!hoverEnabled) return;
+            const rowIndex = cell.parentElement.rowIndex;
+            const colIndex = cell.cellIndex;
+
+            // Remove highlight from row
+            const row = table.rows[rowIndex];
+            for (let cell of row.cells) {
+                cell.classList.remove('highlight-row');
+            }
+
+            // Remove highlight from column
+            for (let i = 0; i < table.rows.length; i++) {
+                const cell = table.rows[i].cells[colIndex];
+                if (cell) {
+                    cell.classList.remove('highlight-column');
                 }
+            }
 
-                // Highlight current cell
-                cell.classList.add('highlight-cell');
-            });
+            // Remove highlight from current cell
+            cell.classList.remove('highlight-cell');
+        });
+    }
 
-            cell.addEventListener('mouseleave', function() {
-                const rowIndex = cell.parentElement.rowIndex;
-                const colIndex = cell.cellIndex;
+    // Add header hover effects
+    for (let i = 2; i < headers.length; i++) {
+        let headerCell = headers[i];
+        headerCell.addEventListener('mouseenter', function() {
+            if (!hoverEnabled) return;
+            const colIndex = headerCell.cellIndex;
 
-                // Remove highlight from row
-                const row = table.rows[rowIndex];
-                for (let cell of row.cells) {
-                    cell.classList.remove('highlight-row');
+            // Highlight column
+            for (let i = 0; i < table.rows.length; i++) {
+                const cell = table.rows[i].cells[colIndex];
+                if (cell) {
+                    cell.classList.add('highlight-column');
                 }
+            }
 
-                // Remove highlight from column
-                for (let i = 0; i < table.rows.length; i++) {
-                    const cell = table.rows[i].cells[colIndex];
-                    if (cell) {
-                        cell.classList.remove('highlight-column');
-                    }
+            // Highlight current header cell
+            headerCell.classList.add('highlight-cell');
+        });
+
+        headerCell.addEventListener('mouseleave', function() {
+            if (!hoverEnabled) return;
+            const colIndex = headerCell.cellIndex;
+
+            // Remove highlight from column
+            for (let i = 0; i < table.rows.length; i++) {
+                const cell = table.rows[i].cells[colIndex];
+                if (cell) {
+                    cell.classList.remove('highlight-column');
                 }
+            }
 
-                // Remove highlight from current cell
-                cell.classList.remove('highlight-cell');
-            });
-        }
-
-        // Add hover effect to EDR header cells
-        for (let i = 2; i < headers.length; i++) { // Start from 2 to skip first two headers
-            let headerCell = headers[i];
-            headerCell.addEventListener('mouseenter', function() {
-                const colIndex = headerCell.cellIndex;
-
-                // Highlight column
-                for (let i = 0; i < table.rows.length; i++) {
-                    const cell = table.rows[i].cells[colIndex];
-                    if (cell) {
-                        cell.classList.add('highlight-column');
-                    }
-                }
-
-                // Highlight current header cell
-                headerCell.classList.add('highlight-cell');
-            });
-
-            headerCell.addEventListener('mouseleave', function() {
-                const colIndex = headerCell.cellIndex;
-
-                // Remove highlight from column
-                for (let i = 0; i < table.rows.length; i++) {
-                    const cell = table.rows[i].cells[colIndex];
-                    if (cell) {
-                        cell.classList.remove('highlight-column');
-                    }
-                }
-
-                // Remove highlight from current header cell
-                headerCell.classList.remove('highlight-cell');
-            });
-        }
+            // Remove highlight from current header cell
+            headerCell.classList.remove('highlight-cell');
+        });
     }
 }
 
-// Load telemetry data when the page is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    if (document.getElementById('edrFilter')) {
-        // We're on windows.html
-        loadTelemetry().then(() => {
-            populateFilterOptions();
-            displayTelemetry(telemetryData);
-        });
-    } else if (document.getElementById('scoreTableContainer')) {
-        // We're on scores.html
-        loadTelemetry().then(() => {
-            displayScoresOnScoresPage();
+// EDR Filter Functionality
+function initializeEDRFilter() {
+    const searchInput = document.querySelector('#edrFilter');
+    const dropdown = document.querySelector('.edr-dropdown');
+    const comparisonTags = document.querySelector('.comparison-tags');
+    const compareButton = document.querySelector('#compareButton');
+    
+    // Return early if required elements are missing
+    if (!searchInput || !dropdown || !comparisonTags || !compareButton) {
+        console.debug('Required filter elements not found');
+        return;
+    }
+
+    // Extract EDR names from telemetry data
+    const edrNames = telemetryData.length > 0 ? 
+        Object.keys(telemetryData[0]).filter(key => 
+            key !== 'Telemetry Feature Category' && 
+            key !== 'Sub-Category'
+        ) : [];
+
+    let selectedEDRs = new Set();
+
+    // Populate dropdown with EDR options
+    function populateDropdown(edrs) {
+        if (!dropdown) return;
+        dropdown.innerHTML = edrs.map(edr => `
+            <div class="edr-option" data-edr="${edr}">
+                ${edr}
+            </div>
+        `).join('');
+    }
+
+    // Rest of event listeners
+    searchInput.addEventListener('input', (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        const filteredEDRs = edrNames.filter(edr => 
+            edr.toLowerCase().includes(searchTerm)
+        );
+        populateDropdown(filteredEDRs);
+        dropdown.classList.add('active');
+    });
+
+    // Handle focus/blur of search input
+    searchInput.addEventListener('focus', () => {
+        populateDropdown(edrNames);
+        dropdown.classList.add('active');
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.search-select')) {
+            dropdown.classList.remove('active');
+        }
+    });
+
+    // Handle EDR selection
+    dropdown.addEventListener('click', (e) => {
+        const option = e.target.closest('.edr-option');
+        if (!option) return;
+
+        const edrName = option.dataset.edr;
+        if (!selectedEDRs.has(edrName)) {
+            selectedEDRs.add(edrName);
+            updateComparisonTags();
+        }
+        
+        searchInput.value = '';
+        dropdown.classList.remove('active');
+    });
+
+    // Update comparison tags
+    function updateComparisonTags() {
+        comparisonTags.innerHTML = Array.from(selectedEDRs).map(edr => `
+            <div class="comparison-tag">
+                ${edr}
+                <span class="remove" data-edr="${edr}">×</span>
+            </div>
+        `).join('');
+
+        // Enable compare button if at least one EDR is selected
+        compareButton.disabled = selectedEDRs.size < 1;
+    }
+
+    // Handle tag removal
+    comparisonTags.addEventListener('click', (e) => {
+        if (e.target.classList.contains('remove')) {
+            const edrToRemove = e.target.dataset.edr;
+            selectedEDRs.delete(edrToRemove);
+            updateComparisonTags();
+        }
+    });
+
+    // Handle compare button click
+    compareButton.addEventListener('click', () => {
+        if (selectedEDRs.size > 0) {
+            displayTelemetry(telemetryData, 'all', Array.from(selectedEDRs), true);
+        }
+    });
+
+    // Initial setup with safety check
+    if (edrNames.length > 0) {
+        populateDropdown(edrNames);
+        updateComparisonTags();
+    } else {
+        console.debug('No EDR names available');
+    }
+
+    // Add hover toggle listener
+    const hoverToggle = document.getElementById('hoverToggle');
+    if (hoverToggle) {
+        hoverToggle.checked = hoverEnabled;
+        hoverToggle.addEventListener('change', function() {
+            hoverEnabled = this.checked;
+            localStorage.setItem('hoverEnabled', hoverEnabled);
+            
+            // Remove all existing highlights when disabled
+            if (!hoverEnabled) {
+                const table = document.getElementById('telemetryTable');
+                if (table) {
+                    table.querySelectorAll('.highlight-row, .highlight-column, .highlight-cell')
+                        .forEach(el => {
+                            el.classList.remove('highlight-row', 'highlight-column', 'highlight-cell');
+                        });
+                }
+            }
+            
+            // Reinitialize hover effects
+            addHoverEffect();
         });
     }
+}
+
+// Update the event listener to use memoized display
+document.addEventListener('DOMContentLoaded', async () => {
+    const contentDiv = document.getElementById('content') || document.getElementById('scoreTableContainer');
+    if (!contentDiv) return;
+
+    showLoading(contentDiv);
+    
+    try {
+        const data = await loadTelemetry();
+        if (!data) throw new Error('No data loaded');
+
+        // Initialize filters only if we're on the main page
+        if (window.location.pathname.includes('windows.html')) {
+            populateFilterOptions();
+            displayTelemetry(data);
+            initializeEDRFilter();
+        } else if (document.getElementById('scoreTableContainer')) {
+            displayScoresOnScoresPage();
+        }
+    } catch (error) {
+        console.error('Failed to initialize:', error);
+        if (contentDiv) {
+            contentDiv.innerHTML = `
+                <div class="error-message">
+                    <h3>Failed to load data</h3>
+                    <p>Please try refreshing the page</p>
+                </div>
+            `;
+        }
+    }
 });
+
+// Add debug mode for development
+const DEBUG_MODE = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+if (DEBUG_MODE) {
+    window.debugTelemetry = {
+        clearCache: () => {
+            localStorage.removeItem(CACHE_KEY);
+            console.log('Telemetry cache cleared');
+        },
+        getData: () => telemetryData,
+        refreshData: () => loadTelemetry(3)
+    };
+}
