@@ -23,25 +23,37 @@
         <a href="index.html">EDR Telemetry</a>
         <a href="scores.html">Scores</a>
         <a href="about.html">About</a>
-        <span class="inactive-tab">Premium Services (Coming Soon)</span>
+        <a href="roadmap.html">Roadmap</a>
+        <a href="sponsorship.html">Sponsorship</a>
     </nav>
-    <div id="navigationButtons">
-        <label for="hoverToggle">Enable Hover Highlight:</label>
-        <input type="checkbox" id="hoverToggle">
-        <button id="showScoresButton">Show Scores</button>
-        <button id="backButton" class="hidden">Back to Telemetry Table</button>
+
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1>Windows EDR Telemetry</h1>
+            <p>Explore detailed telemetry capabilities and comparisons for Windows-based EDR solutions.</p>
+        </div>
     </div>
-    <div id="filters">
-        <label for="edrFilter">Filter by EDR:</label>
-        <select id="edrFilter">
-            <option value="all">All</option>
-        </select>
-        <label for="comparisonMode">Comparison Mode:</label>
-        <select id="comparisonMode" multiple>
-        </select>
-        <button id="compareButton">Compare</button>
+
+    <div class="content-section">
+        <div id="navigationButtons">
+            <label for="hoverToggle">Enable Hover Highlight:</label>
+            <input type="checkbox" id="hoverToggle">
+            <button id="showScoresButton">Show Scores</button>
+            <button id="backButton" class="hidden">Back to Telemetry Table</button>
+        </div>
+        <div id="filters">
+            <label for="edrFilter">Filter by EDR:</label>
+            <select id="edrFilter">
+                <option value="all">All</option>
+            </select>
+            <label for="comparisonMode">Comparison Mode:</label>
+            <select id="comparisonMode" multiple>
+            </select>
+            <button id="compareButton">Compare</button>
+        </div>
+        <div id="content"></div>
     </div>
-    <div id="content"></div>
+
     <!-- Link to external JavaScript -->
     <script src="script.js"></script>
 </body>

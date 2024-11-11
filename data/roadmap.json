@@ -1,0 +1,66 @@
+{
+  "timeline": [
+    {
+      "quarter": "Q1 2023",
+      "title": "Windows Support Release",
+      "status": "done"
+    },
+    {
+      "quarter": "Q1 2024",
+      "title": "Scoring System Implementation",
+      "status": "done"
+    },
+    {
+      "quarter": "Q4 2024",
+      "title": "Linux Support",
+      "status": "current"
+    },
+    {
+      "quarter": "Q4 2024",
+      "title": "New EDR Additions - Windows",
+      "status": "planned"
+    },
+    {
+      "quarter": "Q2 2025",
+      "title": "MacOS Support",
+      "status": "planned"
+    }
+  ],
+  "inProgress": [
+    {
+      "title": "Linux Support",
+      "description": "Adding comprehensive EDR telemetry comparison for Linux systems.",
+      "status": "Expected: Q4 2024"
+    },
+    {
+      "title": "Pull Request Reviews",
+      "description": "Processing community contributions and EDR updates.",
+      "status": "Ongoing"
+    }
+  ],
+  "planned": [
+    {
+      "title": "New EDR Additions",
+      "description": "Integration of additional EDR solutions including:",
+      "items": ["FortiEDR", "Cylance"],
+      "status": "Planned for Q4 2024"
+    }
+  ],
+  "backlog": [
+    {
+        "title": "Wazuh EDR",
+        "description": "Integration with Wazuh EDR and telemetry analysis.",
+        "status": "Planning - Q4 2024"
+      },
+    {
+      "title": "Cisco EDR",
+      "description": "Integration with Cisco EDR platform and telemetry collection.",
+      "status": "Planning - Q1 2025"
+    },
+    {
+      "title": "MacOS Support",
+      "description": "Expanding platform support to include MacOS systems.",
+      "status": "Not Started"
+    }
+  ]
+}

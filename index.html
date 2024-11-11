@@ -20,31 +20,53 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Navigation Bar -->
     <nav>
-        <a href="index.html">EDR Telemetry</a>
+        <a href="index.html" class="active">EDR Telemetry</a>
         <a href="scores.html">Scores</a>
         <a href="about.html">About</a>
-        <span class="inactive-tab">Premium Services (Coming Soon)</span>
+        <a href="roadmap.html">Roadmap</a>
+        <a href="sponsorship.html">Sponsorship</a>
     </nav>
-    <div class="container">
-        <h1>Welcome to the <span class="highlight">EDR Telemetry Project</span></h1>
-        <p>Your comprehensive resource for comparing <strong>Endpoint Detection and Response (EDR)</strong> telemetry capabilities across multiple platforms. Gain insights, make informed decisions, and enhance your understanding in EDR telemetry with our detailed comparisons.</p>
-        <!-- Separator added here -->
-        <div class="separator"></div>
-        <p><strong>Select your platform to get started:</strong></p>
-        <div class="button-container">
-            <a href="windows.html" class="big-button">Windows</a>
-            <a href="linux.html" class="big-button disabled">Linux (Coming Soon)</a>
+
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1>Transform Your<br>EDR Telemetry Understanding</h1>
+            <p>Comprehensive analysis and comparison of Endpoint Detection and Response capabilities across multiple platforms, helping you make informed security decisions.</p>
+            <div class="hero-buttons">
+                <a href="#platforms" class="big-button">Explore Platforms</a>
+                <a href="about.html" class="big-button">Learn More</a>
+            </div>
         </div>
     </div>
-    <!-- Sponsorship Section -->
-    <div class="sponsorship-section">
-        <div class="sponsor-content">
-            <h2>Sponsor Us</h2>
-            <p>Your sponsorship can help us maintain and improve the EDR Telemetry Project, providing valuable resources to the community.</p>
-            <a href="contact.html" class="icon-button">
-                <img src="images/supporting-icon.png" alt="Support Icon" class="support-icon">
+
+    <section id="platforms" class="platform-section">
+        <div class="platform-grid">
+            <a href="windows.html" class="platform-card">
+                <h3>Windows Platform</h3>
+                <p>Deep dive into Windows EDR telemetry capabilities with detailed comparisons and insights.</p>
+                <div class="big-button">Get Started</div>
+            </a>
+            <div class="platform-card disabled">
+                <h3>Linux Platform</h3>
+                <p>Coming soon - Comprehensive analysis of Linux EDR telemetry capabilities.</p>
+                <div class="big-button disabled">Coming Soon</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="sponsor-teaser">
+        <div class="teaser-content">
+            <div class="teaser-badge">Support Open Research</div>
+            <h2>Join Our Community of Sponsors</h2>
+            <p>Help shape the future of EDR telemetry research while gaining exclusive benefits and early access to new features.</p>
+            <div class="teaser-highlights">
+                <span>🏆 Premium Access</span>
+                <span>📊 Custom Reports</span>
+                <span>🤝 Direct Support</span>
+            </div>
+            <a href="sponsorship.html" class="learn-more-button">
+                Learn More About Sponsorship
+                <span class="arrow">→</span>
             </a>
         </div>
     </div>
