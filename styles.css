@@ -5,8 +5,8 @@
     --background-color: #ECF0F1;
     --text-color: #2C3E50;
     --border-color: #BDC3C7;
-    --highlight-color: #a8e1e3;
-    --accent-color: #5ec9c7be;
+    --highlight-color: #e3f7ff;  /* Lighter version of the nav highlight */
+    --accent-color: #4cd7ff80;   /* Semi-transparent version of highlight color */
     --hover-color: #D6EAF8;
     --first-column-color: #1A5276;
     --difference-border-color: #e74c3c;
@@ -23,40 +23,58 @@ body {
 
 /* Updated Navigation Bar Styles */
 nav {
-    background-color: rgba(255, 255, 255, 0.98);
-    position: fixed;
-    width: 100%;
+    background: linear-gradient(90deg, #1a1a1a, #2d2d2d);
+    padding: 0.8rem;
     display: flex;
-    align-items: center;
-    justify-content: space-around;
+    justify-content: center;
     flex-wrap: wrap;
-    padding: 0.5rem;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+    gap: 0.5rem;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
 }
 
-nav a, nav .inactive-tab {
-    color: var(--primary-color);
+nav a {
+    color: #e1e1e1;
     text-decoration: none;
-    padding: 0.5rem 0.8rem;
-    margin: 0.2rem;
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: 500;
-    letter-spacing: 0.3px;
+    letter-spacing: 0.5px;
+    padding: 0.5rem 0.8rem;
+    border-radius: 4px;
     transition: all 0.3s ease;
-    border-radius: 6px;
+    position: relative;
     white-space: nowrap;
 }
 
 nav a:hover {
-    background-color: rgba(44, 62, 80, 0.06);
-    color: var(--primary-color);
+    color: #4cd7ff;  /* Changed hover color to a bright blue */
+    transform: translateY(-2px);
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    background: linear-gradient(90deg, #4cd7ff, #00a6e6);  /* Updated gradient colors */
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+nav a:hover::after {
+    width: 100%;
 }
 
 nav a.active {
-    background-color: var(--primary-color);
-    color: white;
+    color: #4cd7ff;  /* Match hover color */
+    font-weight: 600;
+}
+
+nav a.active::after {
+    width: 100%;
+    opacity: 1;
+    background: linear-gradient(90deg, #4cd7ff, #00a6e6);  /* Match hover gradient */
 }
 
 /* Inactive Nav Item Styles */
@@ -310,14 +328,19 @@ nav .inactive-tab::after {
 /* Responsive Styles */
 @media (max-width: 768px) {
     nav {
-        padding: 0.3rem;
-        justify-content: center;
+        padding: 0.5rem;
+        gap: 0.3rem;
     }
 
     nav a, nav .inactive-tab {
         padding: 0.4rem 0.6rem;
-        font-size: 0.85rem;
-        margin: 0.1rem;
+        font-size: 0.9rem;
+        margin: 0;
+    }
+
+    nav a::after {
+        bottom: -2px;
+        height: 1px;
     }
 
     .hero-section {
@@ -516,13 +539,14 @@ nav .inactive-tab::after {
 
 @media (max-width: 480px) {
     nav {
-        padding: 5px 10px;
+        padding: 0.4rem;
+        gap: 0.2rem;
     }
 
     nav a, nav .inactive-tab {
-        padding: 8px 5px;
-        margin: 2px 3px;
-        font-size: 0.9em;
+        padding: 0.3rem 0.5rem;
+        font-size: 0.85rem;
+        letter-spacing: 0;
     }
 
     .container h1 {
@@ -1490,14 +1514,19 @@ footer p {
 /* Mobile Styles */
 @media (max-width: 768px) {
     nav {
-        padding: 0.3rem;
-        justify-content: center;
+        padding: 0.5rem;
+        gap: 0.3rem;
     }
 
     nav a, nav .inactive-tab {
         padding: 0.4rem 0.6rem;
-        font-size: 0.85rem;
-        margin: 0.1rem;
+        font-size: 0.9rem;
+        margin: 0;
+    }
+
+    nav a::after {
+        bottom: -2px;
+        height: 1px;
     }
 
     .hero-section {
