@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WSE4W22ZYG"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-WSE4W22ZYG');
+    </script>
+    <meta charset="UTF-8">
+    <title>Blog - EDR Telemetry Project</title>
+    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+    <style>
+        .blog-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .blog-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+        .blog-card:hover {
+            transform: translateY(-5px);
+        }
+        .blog-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .blog-content {
+            padding: 1.5rem;
+        }
+        .blog-title {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        .blog-excerpt {
+            color: #666;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        .blog-link {
+            display: inline-block;
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .blog-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">EDR Telemetry</a>
+                <a href="blog.html" class="active">Blog</a>
+                <a href="scores.html">Scores</a>
+                <a href="roadmap.html">Roadmap</a>
+                <a href="sponsorship.html">Sponsorship</a>
+                <a href="about.html">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1>EDR Telemetry Blog</h1>
+            <p>Insights and analysis from our research into EDR telemetry capabilities</p>
+        </div>
+    </div>
+
+    <div class="blog-container">
+        <div class="blog-grid">
+            <a href="https://medium.com/detect-fyi/edr-telemetry-project-a-comprehensive-comparison-d5ed1745384b" 
+               target="_blank" 
+               class="blog-card">
+                <img src="https://miro.medium.com/v2/resize:fit:1400/1*0OcHUG_HXa5xN7JM3gO_Kg.png" 
+                     alt="EDR Telemetry Project Comparison" 
+                     class="blog-image"
+                     onerror="this.src='images/edr_telemetry_logo.png'; this.onerror=null;">
+                <div class="blog-content">
+                    <h2 class="blog-title">EDR Telemetry Project: A Comprehensive Comparison</h2>
+                    <p class="blog-excerpt">Dive into a detailed analysis of EDR solutions and their telemetry capabilities. Learn how different vendors stack up in terms of data collection and monitoring features.</p>
+                    <span class="blog-link">Read More →</span>
+                </div>
+            </a>
+
+            <a href="https://medium.com/@kostas-ts/telemetry-on-linux-vs-windows-a-comparative-analysis-849f6b43ef8e" 
+               target="_blank" 
+               class="blog-card">
+                <img src="https://miro.medium.com/v2/resize:fit:1400/1*qYUvh-EtES8MbcYCJdw0pQ.png" 
+                     alt="Linux vs Windows Telemetry Analysis" 
+                     class="blog-image"
+                     onerror="this.src='images/windows_vs_linux_telemetry.png'; this.onerror=null;">
+                <div class="blog-content">
+                    <h2 class="blog-title">Telemetry on Linux vs Windows: A Comparative Analysis</h2>
+                    <p class="blog-excerpt">Explore the differences in telemetry capabilities between Linux and Windows operating systems, and understand the implications for security monitoring.</p>
+                    <span class="blog-link">Read More →</span>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            
+            menuToggle?.addEventListener('click', () => {
+                menuToggle.classList.toggle('active');
+                navLinks?.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>
