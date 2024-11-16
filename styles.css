@@ -340,6 +340,34 @@ nav .inactive-tab::after {
     visibility: visible;
 }
 
+/* Tooltip styles */
+.tooltip-trigger {
+    position: relative;
+    display: inline-block;
+}
+
+[data-tooltip] {
+    position: relative;
+}
+
+[data-tooltip]:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 5px 10px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 1000;
+    min-width: 200px;
+    white-space: normal;
+    text-align: center;
+}
+
 /* Responsive Table Container */
 #content {
     overflow-x: auto;

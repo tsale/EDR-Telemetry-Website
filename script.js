@@ -1,5 +1,6 @@
 // Initialize variables
 let telemetryData = [];
+let partiallyExplanations = [];  // New variable for explanations
 let hoverEnabled = localStorage.getItem('hoverEnabled') === 'true'; // Retrieve saved hover state
 
 // Define the scoring dictionaries
@@ -112,17 +113,28 @@ async function loadTelemetry() {
     const contentDiv = document.getElementById('content') || document.getElementById('scoreTableContainer');
     
     try {
-        const response = await fetch('https://raw.githubusercontent.com/tsale/EDR-Telemetry/main/EDR_telem.json');
-        if (!response.ok) throw new Error('Network response was not ok');
+        // Fetch both resources in parallel
+        const [telemetryResponse, explanationsResponse] = await Promise.all([
+            fetch('https://raw.githubusercontent.com/tsale/EDR-Telemetry/main/EDR_telem.json'),
+            fetch('https://raw.githubusercontent.com/tsale/EDR-Telemetry/main/partially_value_explanations.json')
+        ]);
+
+        if (!telemetryResponse.ok || !explanationsResponse.ok) 
+            throw new Error('Network response was not ok');
         
-        const data = await response.json();
-        telemetryData = sortDataWithSysmonFirst(data);
+        const [telemetry, explanations] = await Promise.all([
+            telemetryResponse.json(),
+            explanationsResponse.json()
+        ]);
+
+        telemetryData = sortDataWithSysmonFirst(telemetry);
+        partiallyExplanations = explanations;
         return telemetryData;
     } catch (error) {
-        console.error('Error loading telemetry:', error);
+        console.error('Error loading data:', error);
         contentDiv.innerHTML = `
             <div class="error-message">
-                <h3>Error loading telemetry data</h3>
+                <h3>Error loading data</h3>
                 <p>${error.message}</p>
                 <button onclick="location.reload()">Retry</button>
             </div>
@@ -233,11 +245,12 @@ function displayTelemetry(data, filter = 'all', comparison = [], isComparisonMod
     const tbody = document.createElement('tbody');
     data.forEach((entry, rowIndex) => {
         const row = document.createElement('tr');
+        const category = entry['Telemetry Feature Category'] || '';
+        const subcategory = entry['Sub-Category'] || '';
         
-        // Add category and sub-category
         row.innerHTML = `
-            <td>${entry['Telemetry Feature Category'] || ''}</td>
-            <td>${entry['Sub-Category'] || ''}</td>
+            <td>${category}</td>
+            <td>${subcategory}</td>
         `;
 
         // Add data cells for each EDR
@@ -248,9 +261,8 @@ function displayTelemetry(data, filter = 'all', comparison = [], isComparisonMod
             
             const status = entry[header] || '';
             cell.innerHTML = `
-                <span class="status-${status.replace(/\s+/g, '')}" 
-                      data-tooltip="${status}">
-                    ${getStatusIcon(status)}
+                <span class="status-${status.replace(/\s+/g, '')}">
+                    ${getStatusIcon(status, entry['Telemetry Feature Category'], entry['Sub-Category'], header)}
                 </span>
             `;
             
@@ -274,23 +286,53 @@ function displayTelemetry(data, filter = 'all', comparison = [], isComparisonMod
     addHoverEffect();
 }
 
+// Helper function to escape HTML special characters
+function escapeHtml(unsafe) {
+    return unsafe
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
 // Function to get status icon
-function getStatusIcon(status) {
+function getStatusIcon(status, category, subcategory, vendor) {
+    // Find explanation for "Partially" status
+    let explanation = '';
+    if (status === "Partially" && partiallyExplanations) {
+        const entry = partiallyExplanations.find(e => 
+            e['Sub-Category'] === subcategory
+        );
+        
+        // Debug log to see what we found
+        console.log('Found entry:', entry);
+        
+        // Access the nested Partially value correctly
+        if (entry && entry[vendor] && entry[vendor].Partially) {
+            explanation = entry[vendor].Partially;
+            console.log('Found explanation:', explanation);
+        }
+    }
+
+    // Escape the explanation for use in the title attribute
+    const escapedExplanation = explanation ? escapeHtml(explanation) : '';
+    
     switch (status) {
         case "Yes":
-            return "✅";
+            return `<span data-tooltip="Yes">✅</span>`;
         case "No":
-            return "❌";
+            return `<span data-tooltip="No">❌</span>`;
         case "Partially":
-            return "⚠️";
+            return `<span class="tooltip-trigger" data-tooltip="${escapedExplanation || 'Partially implemented'}" style="cursor: help;">⚠️</span>`;
         case "Pending Response":
-            return "❓";
+            return `<span data-tooltip="Pending Response">❓</span>`;
         case "Via EventLogs":
-            return "🪵";
+            return `<span data-tooltip="Via EventLogs">🪵</span>`;
         case "Via EnablingTelemetry":
-            return "🎚️";
+            return `<span data-tooltip="Via EnablingTelemetry">🎚️</span>`;
         default:
-            return "";
+            return '';
     }
 }
 
