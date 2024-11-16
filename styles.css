@@ -239,6 +239,7 @@ nav .inactive-tab::after {
     width: 100%;
     position: sticky;
     border-collapse: collapse;
+    min-width: 900px; /* Ensure minimum width for content */
 }
 
 #telemetryTable th, #telemetryTable td {
@@ -373,12 +374,9 @@ nav .inactive-tab::after {
     overflow-x: auto;
     max-height: 80vh;
     overflow-y: auto;
-}
-
-.table-container {
-    max-height: 70vh;
-    overflow-y: auto;
-    margin-top: 20px;
+    margin: 0 -1rem; /* Negative margin to allow full width in container */
+    padding: 0 1rem; /* Add padding back to maintain spacing */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
 }
 
 /* Responsive Styles */
@@ -567,11 +565,8 @@ nav .inactive-tab::after {
     }
 
     .content-section {
+        max-width: 95%; /* Even wider on mobile */
         padding: 2rem 1rem;
-        margin-top: -2rem;
-    }
-
-    .container {
         margin-top: -2rem;
     }
 
@@ -1651,7 +1646,7 @@ footer p {
 
 /* Content Section Styles */
 .content-section {
-    max-width: 1200px;
+    max-width: 90%; /* Increased from 1200px to 90% of viewport */
     margin: 0 auto;
     padding: 4rem 2rem;
     background-color: white;
@@ -1660,6 +1655,8 @@ footer p {
     margin-top: -4rem;
     position: relative;
     z-index: 3;
+    overflow-x: auto; /* Enable horizontal scroll if needed */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
 }
 
 /* About Page Specific Styles */
