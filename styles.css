@@ -2552,3 +2552,24 @@ html {
         font-size: 2rem;
     }
 }
+
+/* ...existing code... */
+.action-button {
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s;
+    margin-right: 10px;
+}
+
+.primary-button {
+    background-color: #007bff;
+    color: white;
+}
+
+.primary-button:hover {
+    background-color: #0056b3;
+}
+/* ...existing code... */
