@@ -632,6 +632,10 @@ nav .inactive-tab::after {
     .filter-control {
         min-width: 100%;
     }
+
+    .commit-count {
+        font-size: 0.7rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -2572,4 +2576,825 @@ html {
 .primary-button:hover {
     background-color: #0056b3;
 }
+/* ...existing code... */
+
+/* Community Section Styles */
+.community-section {
+    padding: 4rem 0;
+    background: #f8fafc;
+}
+
+.section-group {
+    margin-bottom: 3rem;
+}
+
+.section-group h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--primary-color);
+}
+
+.contributors-grid,
+.sponsors-grid,
+.donors-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+.contributor-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: var(--text-color);
+    transition: transform 0.3s ease;
+}
+
+.contributor-link:hover {
+    transform: translateY(-5px);
+}
+
+.contributor-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.contributor-name {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    text-align: center;
+    margin-bottom: 0.2rem; /* Add space between name and commit count */
+}
+
+.commit-count {
+    font-size: 0.8rem;
+    color: #666;
+    text-align: center;
+}
+
+.placeholder-message {
+    text-align: center;
+    color: #666;
+    font-style: italic;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .community-section {
+        padding: 2rem 0;
+    }
+
+    .contributor-avatar {
+        width: 50px;
+        height: 50px;
+    }
+
+    .contributor-name {
+        font-size: 0.8rem;
+    }
+
+    .commit-count {
+        font-size: 0.7rem;
+    }
+}
+
+/* ...existing code... */
+
+/* Empty State Styles */
+.empty-state {
+    text-align: center;
+    padding: 3rem 2rem;
+}
+
+.become-sponsor-message {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.become-sponsor-message h3 {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.become-sponsor-message p {
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+
+.sponsor-cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.sponsor-cta-button:hover {
+    background: #1f6391;
+    transform: translateY(-2px);
+}
+
+/* Donor Card Styles */
+.donor-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.3rem;
+    background: white;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease;
+    width: 65px;  /* Much smaller width */
+    min-width: unset;  /* Remove min-width constraint */
+    text-align: center;
+}
+
+.donor-avatar,
+.donor-avatar-initials {
+    width: 32px;  /* Smaller avatar */
+    height: 32px;  /* Smaller avatar */
+    border-radius: 50%;
+    margin-bottom: 0.2rem;
+}
+
+.donor-avatar-initials {
+    font-size: 0.8rem;  /* Smaller font for initials */
+}
+
+.donor-name {
+    font-size: 0.7rem;  /* Smaller font for name */
+    font-weight: 500;
+    color: var(--primary-color);
+    margin-bottom: 0.15rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    padding: 0 2px;
+}
+
+.donor-social {
+    display: flex;
+    gap: 0.2rem;
+    margin-top: 0.15rem;
+}
+
+.social-link {
+    padding: 0.15rem;
+}
+
+.social-icon {
+    width: 12px;  /* Even smaller icons */
+    height: 12px;
+}
+
+/* Updated Donors Grid */
+.donors-grid {
+    gap: 0.35rem;
+    padding: 0.35rem;
+}
+
+/* Updated Donors Grid */
+.donors-grid {
+    gap: 0.5rem;
+    padding: 0.5rem;
+}
+
+/* Updated Sponsors Section */
+.sponsors-grid {
+    padding: 1rem;
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.become-sponsor-card {
+    background: linear-gradient(145deg, #ffffff, #f8f9fa);
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.sponsor-message {
+    font-size: 1rem;
+    color: #666;
+    margin: 0.5rem 0 1rem;
+}
+
+/* Updated Donor Card Styles */
+.donors-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: flex-start;
+}
+
+.donor-card {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.8rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease;
+    width: auto;
+    min-width: 200px;
+}
+
+.donor-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.donor-name {
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+}
+
+.donor-social {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.social-link svg {
+    width: 14px;
+    height: 14px;
+}
+
+/* ...existing code... */
+
+/* Updated Community Section Styles */
+.community-section {
+    padding: 6rem 0;
+    background: linear-gradient(to bottom, #f8fafc, #ffffff);
+}
+
+.section-group {
+    max-width: 1200px;
+    margin: 0 auto 4rem;
+    padding: 0 1rem;
+}
+
+.section-group:last-child {
+    margin-bottom: 0;
+}
+
+.section-group h2 {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    color: var(--primary-color);
+    font-size: 1.8rem;
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+.section-group h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-color), #4cd7ff);
+    border-radius: 2px;
+}
+
+/* Updated Sponsors Grid */
+.sponsors-grid {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.become-sponsor-card {
+    text-align: center;
+    padding: 2rem;
+    background: linear-gradient(145deg, #ffffff, #f8f9fa);
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sponsor-message {
+    font-size: 1.1rem;
+    color: #555;
+    margin: 0.5rem 0 1.5rem;
+    line-height: 1.5;
+}
+
+/* Updated Donors Grid */
+.donors-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    padding: 1rem;
+    margin: 0 auto;
+    max-width: 1000px;
+}
+
+.donor-card {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.8rem 1.2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    width: auto;
+    min-width: 180px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.donor-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.donor-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.donor-name {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--primary-color);
+    margin-bottom: 0.2rem;
+}
+
+.donor-social {
+    display: flex;
+    gap: 0.6rem;
+    margin-top: 0.3rem;
+}
+
+.social-link {
+    padding: 0.4rem;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.social-link svg {
+    width: 16px;
+    height: 16px;
+}
+
+.social-link:hover {
+    transform: translateY(-1px);
+}
+
+.social-link.twitter:hover {
+    background-color: rgba(29, 161, 242, 0.1);
+    color: #1DA1F2;
+}
+
+.social-link.linkedin:hover {
+    background-color: rgba(0, 119, 181, 0.1);
+    color: #0077B5;
+}
+
+/* ...existing code... */
+
+/* Sponsors Section */
+.sponsors-section {
+    text-align: center;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 12px;
+    margin: 2rem auto;
+    max-width: 800px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sponsor-message {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 1.5rem;
+}
+
+.sponsor-button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--primary-color);
+    color: #fff;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.sponsor-button:hover {
+    background-color: #1f6391; /* Adjusted hover color */
+}
+
+/* Donors Section */
+.donors-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin: 2rem auto;
+    max-width: 1000px;
+}
+
+.donor-card {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+    width: 180px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.donor-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.donor-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 0.5rem;
+}
+
+.donor-name {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+}
+
+.donor-social {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.social-link {
+    color: inherit;
+    transition: color 0.3s ease;
+}
+
+.social-link:hover {
+    color: var(--primary-color);
+}
+
+/* ...existing code... */
+
+/* ...existing code... */
+
+.donor-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+    width: 200px;
+    text-align: center;
+}
+
+.donor-avatar,
+.donor-avatar-initials {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+}
+
+.donor-avatar-initials {
+    background: linear-gradient(135deg, var(--primary-color), #4cd7ff);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.donor-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.donor-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.donor-social {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.social-link {
+    color: #666;
+    transition: all 0.3s ease;
+    padding: 0.5rem;
+    border-radius: 8px;
+}
+
+.social-link:hover {
+    transform: translateY(-2px);
+}
+
+.social-link.twitter:hover {
+    color: #1DA1F2;
+    background-color: rgba(29, 161, 242, 0.1);
+}
+
+.social-link.linkedin:hover {
+    color: #0077B5;
+    background-color: rgba(0, 119, 181, 0.1);
+}
+
+.social-icon {
+    width: 20px;
+    height: 20px;
+}
+
+/* ...existing code... */
+
+/* Donor Card Styles - Updated for smaller size */
+.donor-card {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease;
+    width: 120px; /* Much smaller width */
+    min-width: unset; /* Remove min-width constraint */
+}
+
+.donor-avatar,
+.donor-initials {
+    width: 24px; /* Smaller avatar */
+    height: 24px; /* Smaller avatar */
+    border-radius: 50%;
+    margin-bottom: 0;
+}
+
+.donor-info {
+    flex: 1;
+    min-width: 0; /* Allow text to shrink */
+}
+
+.donor-name {
+    font-size: 0.75rem; /* Smaller font for name */
+    font-weight: 500;
+    color: var(--primary-color);
+    margin-bottom: 0.2rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.donor-social {
+    display: flex;
+    gap: 0.3rem;
+}
+
+.social-link {
+    padding: 0.2rem;
+}
+
+.social-icon {
+    width: 12px; /* Smaller icons */
+    height: 12px;
+}
+
+/* Updated Donors Grid */
+.donors-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    padding: 0.5rem;
+}
+
+/* Remove any conflicting donor card styles */
+/* ...existing code... */
+
+/* Modern Community Section Styles */
+.community-section {
+    padding: 4rem 2rem;
+    background: linear-gradient(to bottom, #f8fafc 0%, #ffffff 100%);
+}
+
+.section-group {
+    position: relative;
+    padding: 2rem;
+    border-radius: 16px;
+    background: white;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    margin-bottom: 3rem;
+}
+
+.section-group h2 {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 2rem;
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+.section-group h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-color), #4cd7ff);
+    border-radius: 2px;
+}
+
+/* Modern Sponsors Section */
+.sponsors-section {
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.sponsors-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(76, 215, 255, 0.1) 0%, rgba(44, 62, 80, 0.1) 100%);
+    z-index: 0;
+}
+
+.sponsor-content {
+    position: relative;
+    z-index: 1;
+}
+
+.sponsor-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.sponsor-button:hover {
+    transform: translateY(-2px);
+    background: #1f6391;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Modern Donors Grid */
+.donors-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.donor-card {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.8rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    width: 120px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.donor-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary-color);
+}
+
+.donor-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.donor-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.donor-name {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.donor-social {
+    display: flex;
+    gap: 0.4rem;
+    margin-top: 0.3rem;
+}
+
+.social-link {
+    color: #666;
+    transition: all 0.3s ease;
+}
+
+.social-link:hover {
+    transform: translateY(-1px);
+}
+
+.social-link.twitter:hover {
+    color: #1DA1F2;
+}
+
+.social-link.linkedin:hover {
+    color: #0077B5;
+}
+
+.social-icon {
+    width: 14px;
+    height: 14px;
+}
+
+/* Empty State Styles */
+.empty-state {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 12px;
+    margin: 1rem 0;
+}
+
+.empty-state h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+}
+
+.empty-state p {
+    color: #666;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+}
+
 /* ...existing code... */

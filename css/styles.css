@@ -1,0 +1,47 @@
+
+.donor-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px;
+    border-radius: 8px;
+    background: #f8f9fa;
+    margin-bottom: 8px;
+}
+
+.donor-avatar, .donor-initials {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.donor-initials {
+    background: #007bff;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.donor-info {
+    flex: 1;
+}
+
+.donor-name {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.donor-social {
+    display: flex;
+    gap: 8px;
+}
+
+.social-icon {
+    width: 14px;
+    height: 14px;
+    fill: #6c757d;
+}
