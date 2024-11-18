@@ -55,7 +55,7 @@ class ContributorsManager {
     async fetchOneTimeDonors() {
         const donors = [
             {
-                name: "Tanisha",
+                name: "Tanisha L. Turner",
                 twitter: "cybersecdiva",
                 linkedin: "tanisha-l-t-079a7b17"
             },
