@@ -68,7 +68,11 @@ class ContributorsManager {
             },
             {
                 name: "Anonymous"
-            }
+            },
+            {
+                name: "Tristan P.",
+                linkedin: "tpinceaux"
+            },
         ];
 
         const donorsHtml = donors.map(donor => `
