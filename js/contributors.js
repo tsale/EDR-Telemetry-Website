@@ -211,6 +211,7 @@ class ContributorsManager {
             },
             {
                 name: "Anonymous",
+                handle: "anonymous"
             }
         ];
 
