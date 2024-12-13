@@ -42,7 +42,7 @@
     {
       "title": "New EDR Additions",
       "description": "Integration of additional EDR solutions including:",
-      "items": ["FortiEDR", "Cylance"],
+      "items": ["Cylance"],
       "status": "Planned for Q4 2024"
     }
   ],
