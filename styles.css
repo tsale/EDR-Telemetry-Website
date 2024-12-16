@@ -1797,11 +1797,36 @@ footer p {
 
 /* Scores Page Specific Styles */
 .scores-hero {
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('path-to-your-background-image.jpg');
-    background-size: cover;
+    background: linear-gradient(145deg, #2c3e50 0%, #3498db 100%);
     padding: 4rem 2rem;
+    text-align: center;
+    color: white;
 }
 
+/* Score Tables Container */
+.score-tables {
+    position: relative;
+    width: 100%;
+    min-height: 200px; /* Minimum height to prevent layout shift */
+}
+
+.table-container {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.table-container.active {
+    display: block;
+    opacity: 1;
+}
+
+.table-content {
+    width: 100%;
+    overflow-x: auto;
+}
+
+/* Section Header */
 .section-header {
     text-align: center;
     margin-bottom: 3rem;
@@ -2142,6 +2167,59 @@ html {
 }
 
 .highlight-cell.sysmon-column {
+    background-color: rgba(255, 152, 0, 0.4) !important;
+}
+
+/* Auditd specific styles */
+.auditd-row td {
+    background-color: #fff3e0 !important;
+}
+
+.auditd-row:hover td {
+    background-color: #ffe0b2 !important;
+}
+
+/* Updated auditd specific styles */
+.auditd-header {
+    position: relative;
+}
+
+.auditd-header::after {
+    content: '(Not an EDR)';
+    display: block;
+    font-size: 0.7em;
+    font-weight: normal;
+    color: #e65100;
+    margin-top: 4px;
+    font-style: italic;
+}
+
+.auditd-column {
+    position: relative;
+}
+
+.auditd-column::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-left: 3px solid #ff9800;
+    pointer-events: none;
+}
+
+/* Remove old auditd styles */
+.auditd-badge {
+    display: none;
+}
+
+/* Update highlight styles to work with auditd */
+.highlight-column.auditd-column {
+    background-color: rgba(255, 152, 0, 0.2) !important;
+}
+
+.highlight-cell.auditd-column {
     background-color: rgba(255, 152, 0, 0.4) !important;
 }
 
@@ -2672,7 +2750,7 @@ html {
     flex-direction: column;
     align-items: center;
     text-decoration: none;
-    color: var(--text-color);
+    color: var (--text-color);
     transition: transform 0.3s ease;
 }
 
@@ -4051,3 +4129,238 @@ html {
     background-color: #cd7f32;
     color: #fff;
 }
+
+/* OS Tab System */
+.os-tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.5rem;
+}
+
+.tab-button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    background: none;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 4px 4px 0 0;
+}
+
+.tab-button:hover {
+    color: #333;
+    background-color: #f5f5f5;
+}
+
+.tab-button.active {
+    color: #007bff;
+    border-bottom: 2px solid #007bff;
+    margin-bottom: -2px;
+}
+
+.table-container {
+    display: none;
+}
+
+.table-container.active {
+    display: block;
+}
+
+/* Ensure smooth transition between tables */
+.table-container {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.table-container.active {
+    opacity: 1;
+}
+
+.table-container {
+    /* Add styles for the container */
+    margin: 20px;
+}
+
+.table-content {
+    /* Add styles for the content */
+    overflow-x: auto;
+}
+
+/* ...existing styles... */
+
+/* Modern Scores Display */
+.score-section {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+}
+
+.scores-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    justify-items: center;
+    padding: 1rem;
+}
+
+.score-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    width: 100%;
+    max-width: 320px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.score-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.score-card.top-score {
+    background: linear-gradient(135deg, #fff 0%, #f0f7ff 100%);
+    border: 2px solid #3498db;
+}
+
+.rank-badge {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    background: #f8f9fa;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.edr-name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.score-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-top: 0.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .scores-grid {
+        grid-template-columns: 1fr;
+        padding: 0.5rem;
+    }
+    
+    .score-card {
+        max-width: 100%;
+    }
+}
+
+/* ...existing styles... */
+
+/* Modern Score Table Styles */
+.score-section {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.scores-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.scores-table th,
+.scores-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.scores-table th {
+    background: var(--primary-color);
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+}
+
+.scores-table tr:last-child td {
+    border-bottom: none;
+}
+
+.scores-table tbody tr {
+    transition: all 0.3s ease;
+}
+
+.scores-table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.scores-table td:first-child {
+    font-weight: 600;
+    color: var(--primary-color);
+    width: 60px;
+    text-align: center;
+}
+
+.scores-table .rank-medal {
+    font-size: 1.5rem;
+    display: inline-block;
+}
+
+.scores-table .score-value {
+    font-weight: 600;
+    color: #2c3e50;
+    text-align: right;
+}
+
+.scores-table tr:nth-child(1) {
+    background: linear-gradient(to right, rgba(255, 215, 0, 0.1), transparent);
+}
+
+.scores-table tr:nth-child(2) {
+    background: linear-gradient(to right, rgba(192, 192, 192, 0.1), transparent);
+}
+
+.scores-table tr:nth-child(3) {
+    background: linear-gradient(to right, rgba(205, 127, 50, 0.1), transparent);
+}
+
+@media (max-width: 768px) {
+    .score-section {
+        padding: 1rem;
+        margin: 1rem;
+    }
+
+    .scores-table th,
+    .scores-table td {
+        padding: 0.75rem;
+    }
+}
+
+/* ...existing code... */
+
