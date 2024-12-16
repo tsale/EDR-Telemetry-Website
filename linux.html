@@ -14,19 +14,142 @@
     <title>EDR Telemetry Project - Linux</title>
     <!-- Link to external CSS -->
     <link rel="stylesheet" href="styles.css">
+    <!-- Meta tag for mobile responsiveness -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    <!-- Navigation Bar -->
+    <!-- Updated Navigation Bar -->
     <nav>
-        <a href="index.html">EDR Telemetry</a>
-        <a href="scores.html">Scores</a>
-        <a href="roadmap.html">Roadmap</a>
-        <a href="sponsorship.html">Sponsorship</a>
-        <a href="about.html">About</a>
+        <div class="nav-container">
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">EDR Telemetry</a>
+                <a href="blog.html">Blog</a>
+                <a href="scores.html">Scores</a>
+                <a href="roadmap.html">Roadmap</a>
+                <a href="sponsorship.html">Sponsorship</a>
+                <a href="about.html">About</a>
+            </div>
+        </div>
     </nav>
-    <div class="container">
-        <h1>EDR Telemetry Project - Linux</h1>
-        <p>Linux version coming soon!</p>
+
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1>Linux EDR Telemetry</h1>
+            <p>Explore detailed telemetry capabilities and comparisons for Linux-based EDR solutions.</p>
+        </div>
     </div>
+
+    <div class="content-section">
+        <!-- Add Legend Section -->
+        <div class="legend-container">
+            <div class="legend-title">Legend</div>
+            <div class="legend-grid">
+                <div class="legend-item">
+                    <span class="legend-icon">✅</span>
+                    <div class="legend-text">
+                        <span class="legend-label">Yes</span>
+                        <span class="legend-description">Implemented</span>
+                    </div>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-icon">❌</span>
+                    <div class="legend-text">
+                        <span class="legend-label">No</span>
+                        <span class="legend-description">Not Implemented</span>
+                    </div>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-icon">⚠️</span>
+                    <div class="legend-text">
+                        <span class="legend-label">Partially</span>
+                        <span class="legend-description">Partially Implemented (hover-over for explanation)</span>
+                    </div>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-icon">❓</span>
+                    <div class="legend-text">
+                        <span class="legend-label">Pending</span>
+                        <span class="legend-description">Pending Response</span>
+                    </div>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-icon">🎚️</span>
+                    <div class="legend-text">
+                        <span class="legend-label">Via EnablingTelemetry</span>
+                        <span class="legend-description">Additional telemetry collection capability that can be enabled as part of the EDR product but is not ON by default.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="filter-controls">
+            <div class="filter-group">
+                <div class="toggle-switch">
+                    <input type="checkbox" id="hoverToggle" />
+                    <label for="hoverToggle">Toggle</label>
+                    <span>Enable Hover Highlight</span>
+                </div>
+                <button id="showScoresButton" class="action-button primary-button" onclick="window.location.href='scores.html'">
+                    <span>Show Scores</span>
+                </button>
+                <button id="showMitreButton" class="action-button primary-button" onclick="window.location.href='mitre_mappings.html'">
+                    <span>Mitre ATT&CK Mappings</span>
+                </button>
+            </div>
+            
+            <div class="filter-group">
+                <div class="filter-control">
+                    <label for="edrFilter">Filter by EDR:</label>
+                    <div class="search-select">
+                        <input type="text" id="edrFilter" placeholder="Search EDR solutions...">
+                        <div class="edr-dropdown">
+                            <!-- Dropdown options will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+                <div class="filter-control">
+                    <label>Selected for Comparison:</label>
+                    <div class="comparison-tags">
+                        <!-- Selected EDR tags will be added here -->
+                    </div>
+                </div>
+                <button id="compareButton" class="compare-button" disabled>
+                    <span class="icon">⟷</span>
+                    <span>Compare</span>
+                </button>
+            </div>
+        </div>
+        
+        <div id="content"></div>
+    </div>
+
+    <!-- Add Mobile Navigation Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            
+            menuToggle?.addEventListener('click', () => {
+                menuToggle.classList.toggle('active');
+                navLinks?.classList.toggle('active');
+            });
+        });
+    </script>
+    <script>
+        // Add retryLoad to window scope
+        window.retryLoad = function() {
+            const contentDiv = document.getElementById('content');
+            if (contentDiv) {
+                contentDiv.innerHTML = '<div class="loading-spinner"><div class="spinner"></div><p>Loading telemetry data...</p></div>';
+                initializePage().catch(handleError);
+            }
+        };
+    </script>
+    <script src="js/linux_res_pull.js"></script>
 </body>
 </html>
