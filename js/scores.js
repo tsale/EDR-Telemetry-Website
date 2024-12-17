@@ -6,11 +6,11 @@ let linuxTelemetryData = null;
 async function loadAllTelemetryData() {
     try {
         // Load Windows data
-        const windowsResponse = await fetch('https://raw.githubusercontent.com/tsale/EDR-Telemetry/main/EDR_telem.json');
+        const windowsResponse = await fetch('https://raw.githubusercontent.com/tsale/EDR-Telemetry/main/EDR_telem_windows.json');
         windowsTelemetryData = await windowsResponse.json();
 
         // Load Linux data
-        const linuxResponse = await fetch('https://raw.githubusercontent.com/tsale/EDR-Telemetry/refs/heads/linux-implementation-1/EDR_telem_linux.json');
+        const linuxResponse = await fetch('https://raw.githubusercontent.com/tsale/EDR-Telemetry/main/EDR_telem_linux.json');
         linuxTelemetryData = await linuxResponse.json();
 
         // Display initial scores (Windows by default)

@@ -49,8 +49,8 @@ async function loadTelemetry() {
     try {
         // Fetch both resources in parallel
         const [telemetryResponse, explanationsResponse] = await Promise.all([
-            fetch('https://raw.githubusercontent.com/tsale/EDR-Telemetry/main/EDR_telem.json'),
-            fetch('https://raw.githubusercontent.com/tsale/EDR-Telemetry/main/partially_value_explanations.json')
+            fetch('https://raw.githubusercontent.com/tsale/EDR-Telemetry/main/EDR_telem_windows.json'),
+            fetch('https://raw.githubusercontent.com/tsale/EDR-Telemetry/main/partially_value_explanations_windows.json')
         ]);
 
         if (!telemetryResponse.ok || !explanationsResponse.ok) 
