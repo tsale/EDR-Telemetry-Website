@@ -13,12 +13,17 @@
     {
       "quarter": "Q4 2024",
       "title": "Linux Support",
-      "status": "current"
+      "status": "done"
     },
     {
       "quarter": "Q4 2024",
       "title": "New EDR Additions - Windows",
-      "status": "planned"
+      "status": "done"
+    },
+    {
+      "quarter": "Q1 2025",
+      "title": "New EDR Additions - Windows/Linux",
+      "status": "current"
     },
     {
       "quarter": "Q2 2025",

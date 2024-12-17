@@ -1,73 +1,7 @@
 // Initialize variables
-let telemetryData = [];
-let partiallyExplanations = [];  // New variable for explanations
+let linuxTelemetryData = [];
+let linuxPartiallyExplanations = [];
 let hoverEnabled = localStorage.getItem('hoverEnabled') === 'true'; // Retrieve saved hover state
-
-// Define the scoring dictionaries
-const FEATURES_DICT_VALUED = {
-    "Yes": 1,
-    "No": 0,
-    "Via EnablingTelemetry": 1,
-    "Partially": 0.5,
-    "Via EventLogs": 0.5,
-    "Pending Response": 0
-};
-
-const CATEGORIES_VALUED = {
-    "Process Creation": 1,
-    "Process Termination": 0.5,
-    "Process Access": 1,
-    "Image/Library Loaded": 1,
-    "Remote Thread Creation": 1,
-    "Process Tampering Activity": 1,
-    "File Creation": 1,
-    "File Opened": 1,
-    "File Deletion": 1,
-    "File Modification": 1,
-    "File Renaming": 0.7,
-    "Local Account Creation": 1,
-    "Local Account Modification": 1,
-    "Local Account Deletion": 0.5,
-    "Account Login": 0.7,
-    "Account Logoff": 0.4,
-    "TCP Connection": 1,
-    "UDP Connection": 1,
-    "URL": 1,
-    "DNS Query": 1,
-    "File Downloaded": 1,
-    "MD5": 1,
-    "SHA": 1,
-    "IMPHASH": 1,
-    "Key/Value Creation": 1,
-    "Key/Value Modification": 1,
-    "Key/Value Deletion": 0.7,
-    "Scheduled Task Creation": 0.7,
-    "Scheduled Task Modification": 0.7,
-    "Scheduled Task Deletion": 0.5,
-    "Service Creation": 1,
-    "Service Modification": 0.7,
-    "Service Deletion": 0.6,
-    "Driver Loaded": 1,
-    "Driver Modification": 1,
-    "Driver Unloaded": 1,
-    "Virtual Disk Mount": 0.5,
-    "USB Device Unmount": 0.7,
-    "USB Device Mount": 1,
-    "Group Policy Modification": 0.3,
-    "Pipe Creation": 0.8,
-    "Pipe Connection": 1,
-    "Agent Start": 0.2,
-    "Agent Stop": 0.8,
-    "Agent Install": 0.2,
-    "Agent Uninstall": 1,
-    "Agent Keep-Alive": 0.2,
-    "Agent Errors": 0.2,
-    "WmiEventConsumerToFilter": 1,
-    "WmiEventConsumer": 1,
-    "WmiEventFilter": 1,
-    "BIT JOBS Activity": 1,
-    "Script-Block Activity": 1
-};
 
 // Add loading spinner to container
 function showLoading(container) {
@@ -87,25 +21,28 @@ function isValidTelemetryData(data) {
            data[0].hasOwnProperty('Sub-Category');
 }
 
-// Function to sort data with Sysmon first and group together
+// Function to sort data with Sysmon and Auditd first and group together
 function sortDataWithSysmonFirst(data) {
     if (!Array.isArray(data) || !data.length) return data;
     
     const sysmonEntries = [];
-    const nonSysmonEntries = [];
+    const auditdEntries = [];
+    const otherEntries = [];
     
-    // Separate Sysmon and non-Sysmon entries
+    // Separate Sysmon, Auditd and other entries
     data.forEach(entry => {
         const category = String(entry['Telemetry Feature Category'] || '');
         if (category.toLowerCase().includes('sysmon')) {
             sysmonEntries.push(entry);
+        } else if (category.toLowerCase().includes('auditd')) {
+            auditdEntries.push(entry);
         } else {
-            nonSysmonEntries.push(entry);
+            otherEntries.push(entry);
         }
     });
     
-    // Return combined array with Sysmon entries first
-    return [...sysmonEntries, ...nonSysmonEntries];
+    // Return combined array with Sysmon and Auditd entries first
+    return [...sysmonEntries, ...auditdEntries, ...otherEntries];
 }
 
 // Function to load telemetry data
@@ -115,8 +52,8 @@ async function loadTelemetry() {
     try {
         // Fetch both resources in parallel
         const [telemetryResponse, explanationsResponse] = await Promise.all([
-            fetch('https://raw.githubusercontent.com/tsale/EDR-Telemetry/main/EDR_telem.json'),
-            fetch('https://raw.githubusercontent.com/tsale/EDR-Telemetry/main/partially_value_explanations.json')
+            fetch('https://raw.githubusercontent.com/tsale/EDR-Telemetry/main/EDR_telem_linux.json'),
+            fetch('https://raw.githubusercontent.com/tsale/EDR-Telemetry/main/partially_value_explanations_linux.json')
         ]);
 
         if (!telemetryResponse.ok || !explanationsResponse.ok) 
@@ -205,16 +142,19 @@ function displayTelemetry(data, filter = 'all', comparison = [], isComparisonMod
     
     contentDiv.innerHTML = '';
 
-    // Get headers and ensure Sysmon is first if it exists
+    // Get headers and ensure Sysmon and Auditd are first if they exist
     const edrHeaders = Object.keys(data[0])
         .filter(key => key !== 'Telemetry Feature Category' && key !== 'Sub-Category');
     
-    // Move Sysmon to the front if it exists
-    const sysmonIndex = edrHeaders.findIndex(header => header.toLowerCase().includes('sysmon'));
-    if (sysmonIndex > -1) {
-        const sysmon = edrHeaders.splice(sysmonIndex, 1)[0];
-        edrHeaders.unshift(sysmon);
-    }
+    // Move Sysmon and Auditd to the front if they exist
+    const priorityTools = ['sysmon', 'auditd'];
+    priorityTools.forEach(tool => {
+        const index = edrHeaders.findIndex(header => header.toLowerCase().includes(tool));
+        if (index > -1) {
+            const item = edrHeaders.splice(index, 1)[0];
+            edrHeaders.unshift(item);
+        }
+    });
 
     // Determine which headers to display
     let displayedHeaders = comparison.length > 0 ? comparison : 
@@ -232,8 +172,10 @@ function displayTelemetry(data, filter = 'all', comparison = [], isComparisonMod
         <th>Sub-Category</th>
         ${displayedHeaders.map((header, index) => {
             const isSysmon = header.toLowerCase().includes('sysmon');
-            const sysmonClass = isSysmon ? 'class="sysmon-header"' : '';
-            return `<th ${sysmonClass} data-col-index="${index}">${header}</th>`;
+            const isAuditd = header.toLowerCase().includes('auditd');
+            const specialClass = isSysmon ? 'class="sysmon-header"' : 
+                               isAuditd ? 'class="auditd-header"' : '';
+            return `<th ${specialClass} data-col-index="${index}">${header}</th>`;
         }).join('')}
     `;
     
@@ -257,7 +199,13 @@ function displayTelemetry(data, filter = 'all', comparison = [], isComparisonMod
         displayedHeaders.forEach((header, colIndex) => {
             const cell = document.createElement('td');
             const isSysmon = header.toLowerCase().includes('sysmon');
-            if (isSysmon) cell.classList.add('sysmon-column');
+            const isAuditd = header.toLowerCase().includes('auditd');
+            
+            if (isSysmon) {
+                cell.classList.add('sysmon-column');
+            } else if (isAuditd) {
+                cell.classList.add('auditd-column');
+            }
             
             const status = entry[header] || '';
             cell.innerHTML = `
@@ -327,8 +275,6 @@ function getStatusIcon(status, category, subcategory, vendor) {
             return `<span class="tooltip-trigger" data-tooltip="${escapedExplanation || 'Partially implemented'}" style="cursor: help;">⚠️</span>`;
         case "Pending Response":
             return `<span data-tooltip="Pending Response">❓</span>`;
-        case "Via EventLogs":
-            return `<span data-tooltip="Via EventLogs">🪵</span>`;
         case "Via EnablingTelemetry":
             return `<span data-tooltip="Via EnablingTelemetry">🎚️</span>`;
         default:
@@ -359,7 +305,7 @@ function highlightDifferences(table, numEDRs) {
 function displayScoresOnScoresPage() {
     const contentDiv = document.getElementById('scoreTableContainer');
     contentDiv.innerHTML = '';
-    const scores = calculateScores(telemetryData);
+    const scores = calculateScores(telemetryData, 'linux');
 
     if (!scores) {
         contentDiv.innerHTML = '<p>Scores data not available.</p>';
@@ -389,33 +335,6 @@ function displayScoresOnScoresPage() {
     table.appendChild(tbody);
 
     contentDiv.appendChild(table);
-}
-
-// Function to calculate scores
-function calculateScores(data) {
-    const edrHeaders = Object.keys(data[0]).filter(
-        key => key !== 'Telemetry Feature Category' && key !== 'Sub-Category'
-    );
-
-    // Initialize scores object for each EDR
-    let scores = edrHeaders.map(edr => ({ edr: edr, score: 0 }));
-
-    data.forEach(entry => {
-        const subCategory = entry['Sub-Category'];
-        const featureWeight = CATEGORIES_VALUED[subCategory] || 0;
-
-        edrHeaders.forEach((edr, index) => {
-            const status = entry[edr];
-            const statusValue = FEATURES_DICT_VALUED[status] !== undefined ? FEATURES_DICT_VALUED[status] : 0;
-            const scoreIncrement = statusValue * featureWeight;
-            scores[index].score += scoreIncrement;
-        });
-    });
-
-    // Sort scores in descending order
-    scores.sort((a, b) => b.score - a.score);
-
-    return scores;
 }
 
 // Function to add hover effect
@@ -669,7 +588,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (!data) throw new Error('No data loaded');
 
         // Initialize filters only if we're on the main page
-        if (window.location.pathname.includes('windows.html')) {
+        if (window.location.pathname.includes('linux.html')) {
             populateFilterOptions();
             displayTelemetry(data);
             initializeEDRFilter();

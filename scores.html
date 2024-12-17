@@ -47,13 +47,33 @@
     </div>
 
     <div class="content-section">
-        <!-- Score Table Section -->
-        <section class="table-section">
-            <div class="section-header">
-                <h2>Comparison Table</h2>
-                <p>Interactive comparison of EDR solutions and their telemetry features</p>
+        <!-- OS Tabs -->
+        <div class="os-tabs">
+            <button class="tab-button active" data-os="windows">Windows</button>
+            <button class="tab-button" data-os="linux">Linux</button>
+        </div>
+
+        <!-- Unified Score Table Container -->
+        <div id="scoreTableContainer" class="scores-container">
+            <!-- Scores will be displayed here -->
+        </div>
+
+            
+            <!-- Modern Card-based Scores Display -->
+            <div class="scores-grid" id="scoresGrid">
+                <!-- Score cards will be dynamically populated by script.js -->
             </div>
-            <div id="scoreTableContainer" class="table-container"></div>
+
+            <!-- Traditional Table View -->
+            <div class="scores-table-container">
+                <table class="scores-table">
+                    <thead>
+                    </thead>
+                    <tbody id="scoreTableContainer">
+                        <!-- Table rows will be dynamically populated by script.js -->
+                    </tbody>
+                </table>
+            </div>
         </section>
 
         <!-- Scoring Logic Section -->
@@ -116,18 +136,8 @@
             </div>
         </section>
     </div>
-    <!-- Add Mobile Navigation Script -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const menuToggle = document.querySelector('.menu-toggle');
-            const navLinks = document.querySelector('.nav-links');
-            
-            menuToggle?.addEventListener('click', () => {
-                menuToggle.classList.toggle('active');
-                navLinks?.classList.toggle('active');
-            });
-        });
-    </script>
-    <script src="script.js"></script>
+    <!-- Include scripts in correct order -->
+    <script src="js/scoring.js"></script>
+    <script src="js/scores.js"></script>
 </body>
 </html>
