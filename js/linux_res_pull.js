@@ -21,25 +21,28 @@ function isValidTelemetryData(data) {
            data[0].hasOwnProperty('Sub-Category');
 }
 
-// Function to sort data with Sysmon first and group together
+// Function to sort data with Sysmon and Auditd first and group together
 function sortDataWithSysmonFirst(data) {
     if (!Array.isArray(data) || !data.length) return data;
     
     const sysmonEntries = [];
-    const nonSysmonEntries = [];
+    const auditdEntries = [];
+    const otherEntries = [];
     
-    // Separate Sysmon and non-Sysmon entries
+    // Separate Sysmon, Auditd and other entries
     data.forEach(entry => {
         const category = String(entry['Telemetry Feature Category'] || '');
         if (category.toLowerCase().includes('sysmon')) {
             sysmonEntries.push(entry);
+        } else if (category.toLowerCase().includes('auditd')) {
+            auditdEntries.push(entry);
         } else {
-            nonSysmonEntries.push(entry);
+            otherEntries.push(entry);
         }
     });
     
-    // Return combined array with Sysmon entries first
-    return [...sysmonEntries, ...nonSysmonEntries];
+    // Return combined array with Sysmon and Auditd entries first
+    return [...sysmonEntries, ...auditdEntries, ...otherEntries];
 }
 
 // Function to load telemetry data
@@ -139,16 +142,19 @@ function displayTelemetry(data, filter = 'all', comparison = [], isComparisonMod
     
     contentDiv.innerHTML = '';
 
-    // Get headers and ensure Sysmon is first if it exists
+    // Get headers and ensure Sysmon and Auditd are first if they exist
     const edrHeaders = Object.keys(data[0])
         .filter(key => key !== 'Telemetry Feature Category' && key !== 'Sub-Category');
     
-    // Move Sysmon to the front if it exists
-    const sysmonIndex = edrHeaders.findIndex(header => header.toLowerCase().includes('sysmon'));
-    if (sysmonIndex > -1) {
-        const sysmon = edrHeaders.splice(sysmonIndex, 1)[0];
-        edrHeaders.unshift(sysmon);
-    }
+    // Move Sysmon and Auditd to the front if they exist
+    const priorityTools = ['sysmon', 'auditd'];
+    priorityTools.forEach(tool => {
+        const index = edrHeaders.findIndex(header => header.toLowerCase().includes(tool));
+        if (index > -1) {
+            const item = edrHeaders.splice(index, 1)[0];
+            edrHeaders.unshift(item);
+        }
+    });
 
     // Determine which headers to display
     let displayedHeaders = comparison.length > 0 ? comparison : 
@@ -166,8 +172,10 @@ function displayTelemetry(data, filter = 'all', comparison = [], isComparisonMod
         <th>Sub-Category</th>
         ${displayedHeaders.map((header, index) => {
             const isSysmon = header.toLowerCase().includes('sysmon');
-            const sysmonClass = isSysmon ? 'class="sysmon-header"' : '';
-            return `<th ${sysmonClass} data-col-index="${index}">${header}</th>`;
+            const isAuditd = header.toLowerCase().includes('auditd');
+            const specialClass = isSysmon ? 'class="sysmon-header"' : 
+                               isAuditd ? 'class="auditd-header"' : '';
+            return `<th ${specialClass} data-col-index="${index}">${header}</th>`;
         }).join('')}
     `;
     
@@ -191,7 +199,13 @@ function displayTelemetry(data, filter = 'all', comparison = [], isComparisonMod
         displayedHeaders.forEach((header, colIndex) => {
             const cell = document.createElement('td');
             const isSysmon = header.toLowerCase().includes('sysmon');
-            if (isSysmon) cell.classList.add('sysmon-column');
+            const isAuditd = header.toLowerCase().includes('auditd');
+            
+            if (isSysmon) {
+                cell.classList.add('sysmon-column');
+            } else if (isAuditd) {
+                cell.classList.add('auditd-column');
+            }
             
             const status = entry[header] || '';
             cell.innerHTML = `

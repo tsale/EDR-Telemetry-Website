@@ -2151,7 +2151,7 @@ html {
     left: 0;
     right: 0;
     bottom: 0;
-    border-left: 3px solid #ff9800;
+
     border-right: 3px solid #ff9800;
     pointer-events: none;
 }
@@ -2206,6 +2206,7 @@ html {
     right: 0;
     bottom: 0;
     border-left: 3px solid #ff9800;
+    border-right: 3px solid #ff9800;
     pointer-events: none;
 }
 
