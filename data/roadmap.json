@@ -26,17 +26,12 @@
       "status": "current"
     },
     {
-      "quarter": "Q2 2025",
+      "quarter": "Q4 2025",
       "title": "MacOS Support",
       "status": "planned"
     }
   ],
   "inProgress": [
-    {
-      "title": "Linux Support",
-      "description": "Adding comprehensive EDR telemetry comparison for Linux systems.",
-      "status": "Expected: Q4 2024"
-    },
     {
       "title": "Pull Request Reviews",
       "description": "Processing community contributions and EDR updates.",
@@ -47,7 +42,7 @@
     {
       "title": "New EDR Additions",
       "description": "Integration of additional EDR solutions including:",
-      "items": ["Cylance"],
+      "items": ["Cylance","BitDefender"],
       "status": "Planned for Q4 2024"
     }
   ],

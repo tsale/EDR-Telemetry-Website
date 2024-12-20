@@ -25,12 +25,26 @@
                 <span></span>
             </div>
             <div class="nav-links">
-                <a href="index.html">EDR Telemetry</a>
-                <a href="blog.html">Blog</a>
-                <a href="scores.html">Scores</a>
-                <a href="roadmap.html" class="active">Roadmap</a>
-                <a href="premium_services.html">Premium Services</a>
-                <a href="about.html">About</a>
+                <div class="nav-item">
+                    <a href="index.html">Home</a>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="parent">EDR Telemetry</a>
+                    <div class="subnav">
+                        <a href="eligibility.html">Eligibility Criteria</a>
+                        <a href="scores.html">Scores</a>
+                        <a href="roadmap.html">Roadmap</a>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <a href="blog.html">Blog</a>
+                </div>
+                <div class="nav-item">
+                    <a href="premium_services.html" class="active">Premium Services</a>
+                </div>
+                <div class="nav-item">
+                    <a href="about.html">About</a>
+                </div>
             </div>
         </div>
     </nav>
@@ -81,10 +95,35 @@
         document.addEventListener('DOMContentLoaded', () => {
             const menuToggle = document.querySelector('.menu-toggle');
             const navLinks = document.querySelector('.nav-links');
+            const navItems = document.querySelectorAll('.nav-item');
             
             menuToggle?.addEventListener('click', () => {
                 menuToggle.classList.toggle('active');
                 navLinks?.classList.toggle('active');
+            });
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('nav') && navLinks?.classList.contains('active')) {
+                    menuToggle?.classList.remove('active');
+                    navLinks?.classList.remove('active');
+                }
+            });
+
+            // Toggle subnav on mobile
+            navItems.forEach(item => {
+                const parent = item.querySelector('.parent');
+                const subnav = item.querySelector('.subnav');
+                
+                if (parent && subnav) {
+                    parent.addEventListener('click', (e) => {
+                        if (window.innerWidth <= 768) {
+                            e.preventDefault();
+                            subnav.style.display = 
+                                subnav.style.display === 'block' ? 'none' : 'block';
+                        }
+                    });
+                }
             });
         });
     </script>
