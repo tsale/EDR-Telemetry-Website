@@ -53,11 +53,6 @@
         "status": "Planning - Q4 2024"
       },
     {
-      "title": "Cisco EDR",
-      "description": "Integration with Cisco EDR platform and telemetry collection.",
-      "status": "Planning - Q1 2025"
-    },
-    {
       "title": "MacOS Support",
       "description": "Expanding platform support to include MacOS systems.",
       "status": "Not Started"
