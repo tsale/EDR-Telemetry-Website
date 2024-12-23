@@ -15,6 +15,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
     <script src="js/roadmap.js" defer></script>
+    <link rel="stylesheet" href="css/christmas-theme.css">
+    <script src="js/christmas.js" defer></script>
 </head>
 <body>
     <nav>
@@ -54,6 +56,7 @@
     </nav>
 
     <div class="hero-section">
+        <div class="snow-container" id="snow"></div>
         <div class="hero-content">
             <h1>Project Roadmap</h1>
             <p>Explore our development timeline and future plans for the EDR Telemetry Project.</p>
@@ -129,7 +132,24 @@
                     });
                 }
             });
+
+            createSnow();
         });
+
+        function createSnow() {
+            const snowContainer = document.getElementById('snow');
+            const snowflakes = ['❄', '❅', '❆'];
+            
+            for (let i = 0; i < 50; i++) {
+                const snowflake = document.createElement('span');
+                snowflake.className = 'snowflake';
+                snowflake.innerHTML = snowflakes[Math.floor(Math.random() * snowflakes.length)];
+                snowflake.style.left = Math.random() * 100 + 'vw';
+                snowflake.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                snowflake.style.opacity = Math.random();
+                snowContainer.appendChild(snowflake);
+            }
+        }
     </script>
 </body>
 </html>

@@ -18,6 +18,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Link to Google Fonts for better typography -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/christmas-theme.css">
+    <script src="js/christmas.js" defer></script>
 </head>
 <body>
     <!-- Navigation Bar -->
@@ -58,6 +60,7 @@
     </nav>
 
     <div class="about-container">
+        <div class="snow-container" id="snow"></div>
         <div class="about-header">
             <h1>About the EDR Telemetry Project</h1>
             <p>A comprehensive comparison of EDR solutions based on their telemetry capabilities, helping organizations make informed security decisions.</p>
@@ -130,6 +133,21 @@
                 navLinks?.classList.toggle('active');
             });
         });
+
+        function createSnow() {
+            const snowContainer = document.getElementById('snow');
+            const snowflakes = ['❄', '❅', '❆'];
+            
+            for (let i = 0; i < 50; i++) {
+                const snowflake = document.createElement('span');
+                snowflake.className = 'snowflake';
+                snowflake.innerHTML = snowflakes[Math.floor(Math.random() * snowflakes.length)];
+                snowflake.style.left = Math.random() * 100 + 'vw';
+                snowflake.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                snowflake.style.opacity = Math.random();
+                snowContainer.appendChild(snowflake);
+            }
+        }
     </script>
 </body>
 </html>
