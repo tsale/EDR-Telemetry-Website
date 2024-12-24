@@ -83,6 +83,31 @@
             position: absolute;
             left: 0;
         }
+
+        .arrow-down {
+            width: 40px;
+            height: 40px;
+            margin: 20px auto 0;
+            animation: bounce 2s infinite;
+        }
+
+        .arrow-down::before {
+            content: "⌄";
+            font-size: 40px;
+            color: #007bff;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-15px);
+            }
+            60% {
+                transform: translateY(-7px);
+            }
+        }
     </style>
 </head>
 <body>
@@ -114,6 +139,7 @@
                 <div class="nav-item">
                     <a href="about.html" class="parent">About</a>
                     <div class="subnav">
+                        <a href="contribute.html">Contribute</a>
                         <a href="sponsorship.html">Support Us</a>
                         <a href="contact.html">Contact Us</a>
                     </div>
@@ -178,11 +204,16 @@
         </div>
 
         <div class="cta-section">
-            <h2>Ready to enhance your security posture?</h2>
-            <p>Let's find the perfect EDR solution for your environment</p>
-            <a href="contact.html" class="cta-button">Schedule Consultation</a>
+            <h2>Ready to start planning?</h2>
+            <p>Schedule your consultation using the calendar below to find the perfect EDR solution for your environment</p>
+            <div class="arrow-down"></div>
         </div>
+        <!-- Calendly inline widget begin -->
+        <div class="calendly-inline-widget" data-url="https://calendly.com/kostas-edr-telemetry/30min-initial-consultation" style="min-width:320px;height:700px;"></div>
+        <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+        <!-- Calendly inline widget end -->
     </div>
+
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
