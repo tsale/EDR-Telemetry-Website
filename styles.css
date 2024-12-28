@@ -3679,18 +3679,6 @@ html {
     position: relative;
 }
 
-.subscriber-info {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.subscriber-avatar {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-}
-
 .subscriber-details {
     display: flex;
     flex-direction: column;
@@ -3867,17 +3855,6 @@ html {
     margin: 0 auto;
 }
 
-.subscriber-item {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    text-decoration: none;
-    padding: 0.75rem;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    background: #f8f9fa;
-    width: 100%;
-}
 
 .subscriber-item:hover {
     background: #eef2f7;
@@ -4109,20 +4086,6 @@ html {
 
 
 /* Updated Subscriber Item Styles */
-.subscriber-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 0.75rem 0.5rem;
-    width: 120px;  /* Slightly wider to accommodate text */
-    margin: 0.25rem;
-    background: white;
-    border-radius: 8px;
-    transition: transform 0.2s ease;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-}
-
 .subscriber-info {
     display: flex;
     flex-direction: column;
@@ -5544,4 +5507,71 @@ nav a.active {
         max-width: none;
     }
 }
+
+.subscribers-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Set exactly 2 columns */
+    gap: 1rem; /* Adjust gap for spacing between items */
+    padding: 1rem;
+    width: 100%;
+}
+
+.subscriber-item {
+    display: flex;
+    flex-direction: column; /* Ensure proper stacking within each item */
+    align-items: center;
+    padding: 0.75rem 0.5rem;
+    background: white;
+    border-radius: 8px;
+    transition: transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    text-align: center;
+}
+
+.subscriber-avatar {
+    width: 40px; /* Reduced from 48px */
+    height: 40px; /* Reduced from 48px */
+    border-radius: 50%;
+    margin-bottom: 0.35rem;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.subscriber-name {
+    font-size: 0.8rem; /* Reduced font size */
+    line-height: 1.2;
+    margin-bottom: 0.15rem;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.subscriber-handle {
+    font-size: 0.7rem;
+    color: #666;
+    margin-bottom: 0.25rem;
+}
+
+.subscriber-social {
+    display: flex;
+    gap: 0.3rem; /* Reduced gap */
+    margin-top: 0.15rem;
+}
+
+.subscriber-tier {
+    font-size: 0.65rem; /* Reduced font size */
+    padding: 0.2rem 0.4rem;
+    border-radius: 10px;
+    margin-bottom: 0.25rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .subscribers-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* Even smaller on mobile */
+    }
+}
+
+/* ...existing code... */
 
