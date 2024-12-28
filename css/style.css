@@ -1,0 +1,25 @@
+.subscriber-social {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    gap: 8px;
+}
+
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    z-index: 3;
+}
+
+.social-link:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.subscriber-item {
+    position: relative;
+}
