@@ -57,13 +57,13 @@
 
     <div class="content-container">
         <div class="criteria-header">
-            <h1>EDR Eligibility Criteria</h1>
+            <h1 id="edr-eligibility-criteria">EDR Eligibility Criteria</h1>
             <p>Understanding which solutions qualify for comparison in the EDR Telemetry Project</p>
         </div>
 
         <div class="requirements-section">
             <div class="definition-card eligibility">
-                <h3>Core Requirements</h3>
+                <h3 id="core-requirements">Core Requirements</h3>
                 <p>For an EDR solution to be included in our comparison, it must meet these basic requirements:</p>
                 <ul>
                     <li>Provide real-time or near real-time event collection</li>
@@ -75,14 +75,14 @@
             </div>
 
             <div class="definition-card telemetry">
-                <h3>EDR Telemetry Definition</h3>
+                <h3 id="edr-telemetry-definition">EDR Telemetry Definition</h3>
                 <p>In this project, EDR Telemetry refers to data or events that are:</p>
                 <div class="includes">
-                    <h4>✓ Included</h4>
+                    <h4 id="included-telemetry">✓ Included</h4>
                     <p>Automatically collected and transmitted by a sensor in real-time or near real-time as events occur</p>
                 </div>
                 <div class="excludes">
-                    <h4>✗ Not Included</h4>
+                    <h4 id="excluded-telemetry">✗ Not Included</h4>
                     <ul>
                         <li>Historical events prior to EDR installation</li>
                         <li>Live querying of artifacts</li>
@@ -94,37 +94,103 @@
             </div>
 
             <div id="telemetry-vs-inferred" class="definition-card telemetry-vs-inferred">
-                <h3>Telemetry Events vs. Inferred Activity</h3>
+                <h3 id="telemetry-vs-inferred-comparison">Telemetry Events vs. Inferred Activity</h3>
                 <p>Each telemetry event must represent a distinct and independent system action, captured directly rather than inferred:</p>
                 <div class="includes">
-                    <h4>✓ Direct Telemetry</h4>
+                    <h4 id="direct-telemetry">✓ Direct Telemetry</h4>
                     <p>Explicit event recording of service creation through Windows Service Control Manager</p>
                 </div>
                 <div class="excludes">
-                    <h4>✗ Inferred Activity</h4>
+                    <h4 id="inferred-activity">✗ Inferred Activity</h4>
                     <p>Assuming service creation by detecting new registry keys under HKLM\SYSTEM\CurrentControlSet\services</p>
                 </div>
             </div>
 
             <div class="definition-card excluded-edrs">
-                <h3>Solutions Not Currently Meeting Criteria</h3>
-                <p>The following solutions are not included in our comparison as they don't currently meet one or more of the eligibility criteria:</p>
-                <div class="excluded-list">
-                    <div class="excluded-item">
-                        <span class="product">Velociraptor</span>
-                        <span class="reason">Requires manual querying for artifact collection</span>
+                <h3 id="ineligible-solutions">Solutions Not Currently Meeting Criteria</h3>
+                <p class="disclaimer"><strong>Important Note:</strong> The exclusion of a product from this comparison does not reflect on its overall quality or effectiveness. Each solution listed below may excel in its intended use case and could be the ideal choice depending on your specific environment, security requirements, and operational needs. Our eligibility criteria are specifically designed for comparing traditional EDR telemetry capabilities and should not be the sole factor in evaluating security solutions for your organization.</p>
+                <p>The following solutions are not included in our comparison due to specific limitations in meeting our eligibility criteria:</p>
+                <div class="exclusion-table">
+                    <div class="exclusion-row header">
+                        <div class="product-col">Product</div>
+                        <div class="primary-reason-col">Primary Limitation</div>
+                        <div class="details-col">Additional Details</div>
                     </div>
-                    <div class="excluded-item">
-                        <span class="product">OSquery (standalone)</span>
-                        <span class="reason">No automated real-time event collection</span>
+                    <div class="exclusion-row">
+                        <div class="product-col">Sandfly</div>
+                        <div class="primary-reason-col">No Real-time Streaming</div>
+                        <div class="details-col">
+                            <ul>
+                                <li>Lacks continuous real-time telemetry streaming capabilities of traditional EDR solutions</li>
+                                <li>Focuses on periodic scanning and threat hunting rather than continuous monitoring</li>
+                                <li>Designed for point-in-time forensics and incident response rather than real-time detection</li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="excluded-item">
-                        <span class="product">Huntress EDR</span>
-                        <span class="reason">Limited automated telemetry collection</span>
+                    <div class="exclusion-row">
+                        <div class="product-col">Velociraptor</div>
+                        <div class="primary-reason-col">Manual Collection Required</div>
+                        <div class="details-col">
+                            <ul>
+                                <li>Relies on manual VQL queries for artifact collection</li>
+                                <li>No continuous automated telemetry stream</li>
+                                <li>Better suited for incident response than continuous monitoring</li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="excluded-item">
-                        <span class="product">Cisco EDR</span>
-                        <span class="reason">Requires additional modules for basic EDR functionality</span>
+                    <div class="exclusion-row">
+                        <div class="product-col">OSquery (standalone)</div>
+                        <div class="primary-reason-col">No Real-time Collection</div>
+                        <div class="details-col">
+                            <ul>
+                                <li>Designed for point-in-time queries</li>
+                                <li>Lacks native event streaming capability</li>
+                                <li>Requires additional tooling for continuous monitoring</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="exclusion-row">
+                        <div class="product-col">Huntress EDR</div>
+                        <div class="primary-reason-col">Limited EDR Functionality</div>
+                        <div class="details-col">
+                            <ul>
+                                <li>Lacks direct access to raw telemetry data for customer analysis and investigation</li>
+                                <li>Managed threat hunting platform rather than traditional EDR</li>
+                                <li>Limited endpoint telemetry visibility for customers</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="exclusion-row">
+                        <div class="product-col">Cisco EDR</div>
+                        <div class="primary-reason-col">Limited EDR Functionality</div>
+                        <div class="details-col">
+                            <ul>
+                                <li>Lacks direct access to raw telemetry data for customer analysis and investigation</li>
+                                <li>Requires additional modules and licensing for basic EDR capabilities</li>
+                                <li>Limited endpoint telemetry visibility in base product</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="exclusion-row">
+                        <div class="product-col">Tanium</div>
+                        <div class="primary-reason-col">Limited Real-Time Telemetry</div>
+                        <div class="details-col">
+                            <ul>
+                                <li>Primarily focuses on forensic endpoint visibility rather than real-time telemetry ingestion</li>
+                                <li>Uses polling-based architecture instead of continuous event streaming, leading to potential telemetry gaps</li>
+                                <li>Lacks continuous real-time process creation, file modification, and script execution monitoring</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="exclusion-row">
+                        <div class="product-col">Kaspersky</div>
+                        <div class="primary-reason-col">Limited Telemetry Access</div>
+                        <div class="details-col">
+                            <ul>
+                                <li>Does not provide open access to detailed raw telemetry data</li>
+                                <li>Telemetry data is aggregated, limiting granular event-level visibility</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -142,5 +208,6 @@
             });
         });
     </script>
+    <script src="js/heading-links.js"></script>
 </body>
 </html>

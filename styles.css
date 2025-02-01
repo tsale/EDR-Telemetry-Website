@@ -5482,3 +5482,191 @@ html {
 
 /* ...existing code... */
 
+.exclusion-table {
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 1.5rem;
+}
+
+.exclusion-row {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 2.5fr;
+    gap: 1rem;
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 0.2s ease;
+}
+
+.exclusion-row:last-child {
+    border-bottom: none;
+}
+
+.exclusion-row:hover:not(.header) {
+    background-color: var(--highlight-color);
+}
+
+.exclusion-row.header {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 600;
+    padding: 0.8rem 1rem;
+}
+
+.exclusion-row.header .product-col,
+.exclusion-row.header .primary-reason-col,
+.exclusion-row.header .details-col {
+    color: white;
+}
+
+.product-col {
+    font-weight: 600;
+    color: var(--first-column-color);
+}
+
+.primary-reason-col {
+    color: #e74c3c;
+}
+
+.details-col ul {
+    margin: 0;
+    padding-left: 1.2rem;
+    list-style-type: none;
+}
+
+.details-col li {
+    position: relative;
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+    color: #666;
+}
+
+.details-col li:last-child {
+    margin-bottom: 0;
+}
+
+.details-col li::before {
+    content: "•";
+    color: #e74c3c;
+    position: absolute;
+    left: -1.2rem;
+    top: 0;
+}
+
+@media (max-width: 768px) {
+    .exclusion-row {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+
+    .exclusion-row.header {
+        display: none;
+    }
+
+    .product-col {
+        font-size: 1.1em;
+        margin-bottom: 0.3rem;
+    }
+
+    .primary-reason-col {
+        font-size: 0.95em;
+        margin-bottom: 0.5rem;
+    }
+
+    .details-col ul {
+        font-size: 0.9em;
+    }
+}
+
+.definition-card p.disclaimer {
+    background-color: #f8f9fa;
+    border-left: 4px solid #2C3E50;
+    padding: 1rem;
+    margin: 1rem 0;
+    font-style: italic;
+    color: #495057;
+    border-radius: 0 4px 4px 0;
+    line-height: 1.6;
+}
+
+.definition-card p.disclaimer strong {
+    color: #2C3E50;
+}
+
+/* Heading link styles */
+h1[id],
+h2[id],
+h3[id],
+h4[id] {
+    position: relative;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    margin-left: 1.5em;  /* Add space for the link on the left */
+}
+
+h1[id]:hover .heading-link,
+h2[id]:hover .heading-link,
+h3[id]:hover .heading-link,
+h4[id]:hover .heading-link {
+    opacity: 1;
+}
+
+.heading-link {
+    position: absolute;
+    left: -1.5em;  /* Position it to the left of the heading */
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    padding: 0.2em;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 0.8em;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+}
+
+.heading-link:hover {
+    color: var(--accent-color);
+}
+
+/* Tooltip styles */
+.copy-tooltip {
+    position: absolute;
+    background: #333;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    white-space: nowrap;
+    z-index: 1000;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 5px;
+}
+
+.copy-tooltip.show {
+    opacity: 1;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    h1[id],
+    h2[id],
+    h3[id],
+    h4[id] {
+        gap: 0.3em;
+        margin-left: 1.8em;  /* Slightly larger margin for mobile */
+    }
+
+    .heading-link {
+        font-size: 0.7em;
+        left: -1.8em;  /* Adjust position for mobile */
+    }
+}
+

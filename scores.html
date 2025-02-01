@@ -61,7 +61,7 @@
     <div class="hero-section scores-hero">
         <div class="snow-container" id="snow"></div>
         <div class="hero-content">
-            <h1>EDR Telemetry Scores</h1>
+            <h1 id="edr-telemetry-scores">EDR Telemetry Scores</h1>
             <p class="hero-description">Compare and analyze the performance metrics of different EDR solutions based on their telemetry capabilities.</p>
         </div>
     </div>
@@ -99,13 +99,13 @@
         <!-- Scoring Logic Section -->
         <section class="scoring-logic-section">
             <div class="section-header">
-                <h2>Understanding the Scores</h2>
+                <h2 id="understanding-scores">Understanding the Scores</h2>
                 <p>Learn how we calculate and compare EDR telemetry capabilities</p>
             </div>
             
             <div class="scoring-cards">
                 <div class="scoring-card status-values">
-                    <h3>Status Values</h3>
+                    <h3 id="status-values">Status Values</h3>
                     <div class="status-grid">
                         <div class="status-item">
                             <span class="status yes">Yes</span>
@@ -135,7 +135,7 @@
                 </div>
 
                 <div class="scoring-card weights">
-                    <h3>Feature Weights</h3>
+                    <h3 id="feature-weights">Feature Weights</h3>
                     <p>Each telemetry feature is weighted based on its importance in the overall assessment.</p>
                     <div class="weight-info">
                         <a href="https://github.com/tsale/EDR-Telemetry/blob/a1bb71c826fb1f0626bc29359ffe67abbdeb6cce/Tools/compare.py#L8-L60" 
@@ -147,7 +147,7 @@
                 </div>
 
                 <div class="scoring-card formula">
-                    <h3>Final Score Calculation</h3>
+                    <h3 id="score-calculation">Final Score Calculation</h3>
                     <div class="formula-container">
                         <p class="formula-text">Total Score = Σ (Status Value × Feature Weight)</p>
                         <p class="formula-description">The final score represents the weighted sum of all features, providing a comprehensive evaluation of each EDR solution's telemetry capabilities.</p>
