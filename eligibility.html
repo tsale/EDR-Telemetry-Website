@@ -70,6 +70,7 @@
                     <li>Offer automated telemetry collection without manual intervention</li>
                     <li>Include out-of-the-box telemetry capabilities</li>
                     <li>Function as a dedicated endpoint detection and response solution</li>
+                    <li>Collect direct telemetry events rather than inferred activities <a href="#telemetry-vs-inferred">(See detailed explanation below)</a></li>
                 </ul>
             </div>
 
@@ -89,6 +90,19 @@
                         <li>Signals or detections based on correlation</li>
                         <li>Additional modules or integrations</li>
                     </ul>
+                </div>
+            </div>
+
+            <div id="telemetry-vs-inferred" class="definition-card telemetry-vs-inferred">
+                <h3>Telemetry Events vs. Inferred Activity</h3>
+                <p>Each telemetry event must represent a distinct and independent system action, captured directly rather than inferred:</p>
+                <div class="includes">
+                    <h4>✓ Direct Telemetry</h4>
+                    <p>Explicit event recording of service creation through Windows Service Control Manager</p>
+                </div>
+                <div class="excludes">
+                    <h4>✗ Inferred Activity</h4>
+                    <p>Assuming service creation by detecting new registry keys under HKLM\SYSTEM\CurrentControlSet\services</p>
                 </div>
             </div>
 
