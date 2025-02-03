@@ -54,15 +54,14 @@
         </div>
     </nav>
 
-    <div class="content-section">
-        <div class="contribute-hero">
-            <div class="contribute-header">
-                <div class="header-badge">Contributing Guide</div>
-                <h1 id="how-to-contribute">How to Contribute</h1>
-                <p>Join our community of contributors and help improve EDR telemetry understanding</p>
-            </div>
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1>How to Contribute</h1>
+            <p>Join our community of contributors and help improve EDR telemetry understanding</p>
         </div>
+    </div>
 
+    <div class="content-section">
         <div class="contribute-container">
             <div class="contribute-grid">
                 <div class="contribute-card intro">
@@ -102,94 +101,94 @@
                 
                 <div class="steps-flow">
                     <div class="step-card">
-                        <div class="step-header">
-                            <div class="step-number">1</div>
-                            <h3 id="step-fork">Fork Repository</h3>
-                        </div>
+                        <div class="step-number">1</div>
                         <div class="step-content">
-                            <p>Create your own copy of the project:</p>
-                            <ol class="step-list">
-                                <li>Visit main repository</li>
-                                <li>Click "Fork" button</li>
-                                <li>Select your account</li>
-                            </ol>
-                        </div>
-                    </div>
-
-                    <div class="step-arrow">→</div>
-
-                    <div class="step-card">
-                        <div class="step-header">
-                            <div class="step-number">2</div>
-                            <h3 id="step-branch">Create Branch</h3>
-                        </div>
-                        <div class="step-content">
-                            <p>Make a new branch for your changes</p>
-                            <div class="code-snippet">
-                                <code>git checkout -b feature-branch-name</code>
+                            <h3 class="step-title">Fork Repository</h3>
+                            <div class="step-description">
+                                <p>Create your own copy of the project:</p>
+                                <ol class="step-list">
+                                    <li>Visit main repository</li>
+                                    <li>Click "Fork" button</li>
+                                    <li>Select your account</li>
+                                </ol>
                             </div>
                         </div>
                     </div>
 
-                    <div class="step-arrow">→</div>
+                    <div class="step-arrow">↓</div>
 
                     <div class="step-card">
-                        <div class="step-header">
-                            <div class="step-number">3</div>
-                            <h3 id="step-changes">Make Changes</h3>
-                        </div>
+                        <div class="step-number">2</div>
                         <div class="step-content">
-                            <p>Use these values in your changes:</p>
-                            <div class="values-grid">
-                                <div class="value-item">
-                                    <span class="icon">✅</span>
-                                    <span class="label">Yes</span>
-                                    <span class="description">Implemented</span>
-                                </div>
-                                <div class="value-item">
-                                    <span class="icon">❌</span>
-                                    <span class="label">No</span>
-                                    <span class="description">Not Implemented</span>
-                                </div>
-                                <div class="value-item">
-                                    <span class="icon">⚠️</span>
-                                    <span class="label">Partially</span>
-                                    <span class="description">Partially Implemented</span>
-                                </div>
-                                <div class="value-item">
-                                    <span class="icon">❓</span>
-                                    <span class="label">Pending</span>
-                                    <span class="description">Pending Response</span>
-                                </div>
-                                <div class="value-item">
-                                    <span class="icon">🪵</span>
-                                    <span class="label">Via EventLogs</span>
-                                    <span class="description">Collected from Windows Event Logs</span>
-                                </div>
-                                <div class="value-item">
-                                    <span class="icon">🎚️</span>
-                                    <span class="label">Via EnablingTelemetry</span>
-                                    <span class="description">Additional telemetry capability</span>
+                            <h3 class="step-title">Create Branch</h3>
+                            <div class="step-description">
+                                <p>Make a new branch for your changes</p>
+                                <div class="code-snippet">
+                                    git checkout -b feature-branch-name
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="step-arrow">→</div>
+                    <div class="step-arrow">↓</div>
 
                     <div class="step-card">
-                        <div class="step-header">
-                            <div class="step-number">4</div>
-                            <h3 id="step-pr">Submit PR</h3>
-                        </div>
+                        <div class="step-number">3</div>
                         <div class="step-content">
-                            <p>Create a pull request:</p>
-                            <ul class="pr-checklist">
-                                <li class="checked">Push your changes</li>
-                                <li class="checked">Open pull request</li>
-                                <li class="checked">Add documentation</li>
-                                <li class="checked">Wait for review</li>
-                            </ul>
+                            <h3 class="step-title">Make Changes</h3>
+                            <div class="step-description">
+                                <p>Use these values in your changes:</p>
+                                <div class="values-grid">
+                                    <div class="value-item">
+                                        <span class="icon">✅</span>
+                                        <span class="label">Yes</span>
+                                        <span class="description">Implemented</span>
+                                    </div>
+                                    <div class="value-item">
+                                        <span class="icon">❌</span>
+                                        <span class="label">No</span>
+                                        <span class="description">Not Implemented</span>
+                                    </div>
+                                    <div class="value-item">
+                                        <span class="icon">⚠️</span>
+                                        <span class="label">Partially</span>
+                                        <span class="description">Partially Implemented</span>
+                                    </div>
+                                    <div class="value-item">
+                                        <span class="icon">❓</span>
+                                        <span class="label">Pending</span>
+                                        <span class="description">Pending Response</span>
+                                    </div>
+                                    <div class="value-item">
+                                        <span class="icon">🪵</span>
+                                        <span class="label">Via EventLogs</span>
+                                        <span class="description">Collected from Windows Event Logs</span>
+                                    </div>
+                                    <div class="value-item">
+                                        <span class="icon">🎚️</span>
+                                        <span class="label">Via EnablingTelemetry</span>
+                                        <span class="description">Additional telemetry capability</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-arrow">↓</div>
+
+                    <div class="step-card">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h3 class="step-title">Submit PR</h3>
+                            <div class="step-description">
+                                <p>Create a pull request:</p>
+                                <ul class="pr-checklist">
+                                    <li class="checked">Push your changes</li>
+                                    <li class="checked">Open pull request</li>
+                                    <li class="checked">Add documentation</li>
+                                    <li class="checked">Wait for review</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -228,7 +227,33 @@
     </div>
 
     <script>
-        // Add any required JavaScript here
+        // Mobile navigation toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            const navItems = document.querySelectorAll('.nav-item');
+
+            // Toggle menu on hamburger click
+            menuToggle.addEventListener('click', function() {
+                menuToggle.classList.toggle('active');
+                navLinks.classList.toggle('active');
+            });
+
+            // Handle submenu toggles on mobile
+            navItems.forEach(item => {
+                const hasSubmenu = item.querySelector('.subnav');
+                const link = item.querySelector('a');
+
+                if (hasSubmenu && window.innerWidth <= 768) {
+                    link.addEventListener('click', function(e) {
+                        if (window.innerWidth <= 768) {
+                            e.preventDefault();
+                            item.classList.toggle('active');
+                        }
+                    });
+                }
+            });
+        });
     </script>
 </body>
 </html>
