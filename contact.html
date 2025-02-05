@@ -69,5 +69,17 @@
     <footer>
         <p>&copy; 2024 EDR Telemetry Project. All rights reserved.</p>
     </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            
+            menuToggle?.addEventListener('click', () => {
+                menuToggle.classList.toggle('active');
+                navLinks?.classList.toggle('active');
+            });
+        });
+    </script>
+    <script src="js/heading-links.js"></script>
 </body>
 </html>
