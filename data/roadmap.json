@@ -38,7 +38,7 @@
       "status": "Ongoing"
     }
   ],
-  "Planned": [
+  "planned": [
     {
       "title": "New EDR Additions",
       "description": "Integration of additional EDR solutions including:",
