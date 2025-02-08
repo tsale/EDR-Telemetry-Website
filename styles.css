@@ -70,7 +70,7 @@ nav {
     margin: 0 auto;
     padding: 1rem;
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     gap: 1rem;
 }
@@ -2152,7 +2152,7 @@ footer p {
     
     .platform-grid {
         grid-template-columns: 1fr;
-        gap: 1rem;
+        gap: 4rem;
     }
     
     .platform-card {
@@ -5675,7 +5675,6 @@ html {
     padding: 4rem 2rem;
     color: white;
     text-align: center;
-    margin-top: 60px;
 }
 
 .hero-content {
@@ -5952,7 +5951,7 @@ html {
     }
 }
 
-// ... existing code ...
+
 
 /* Exclusion Table Styles */
 .exclusion-table {
@@ -5993,6 +5992,11 @@ html {
     padding: 16px 20px;
     display: flex;
     align-items: center;
+    border-right: 1px solid #e2e8f0;
+}
+
+.exclusion-row > div:last-child {
+    border-right: none;
 }
 
 .product-col {
@@ -6026,16 +6030,39 @@ html {
     color: #94a3b8;
 }
 
+@media (max-width: 768px) {
+    .exclusion-table {
+        overflow-x: auto;
+        display: block;
+        border: 1px solid #e2e8f0;
+    }
+
+    .exclusion-row {
+        min-width: 700px; /* Minimum width to ensure content is readable */
+    }
+}
+
 /* Important Note Styling */
 .disclaimer {
-    background: linear-gradient(to right, #f8fafc, #f1f5f9);
-    border-left: 4px solid #3b82f6;
-    border-radius: 8px;
-    padding: 1.5rem 2rem;
-    margin: 30px 0;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    background: repeating-radial-gradient(#f8fafc, #f1f5f9);
+    border-left: 6px solid #3b82f6;
+    border-radius: 22px;
+    padding: 2rem 2.5rem;
+    margin: 2rem 0;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1),
+                inset 0 2px 4px rgba(255, 255, 255, 0.5);
     position: relative;
     overflow: hidden;
+    backdrop-filter: blur(8px);
+    font-style: italic;
+    font-family: 'Georgia', serif;
+    letter-spacing: 0.02em;
+    line-height: 1.7;
+    transform: perspective(1000px) rotateX(1deg);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
 }
 
 .disclaimer::before {
