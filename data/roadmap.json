@@ -38,12 +38,12 @@
       "status": "Ongoing"
     }
   ],
-  "planned": [
+  "Currently Evaluating": [
     {
       "title": "New EDR Additions",
       "description": "Integration of additional EDR solutions including:",
-      "items": ["Cylance","BitDefender"],
-      "status": "Planned for Q4 2024"
+      "items": ["BitDefender","MalwareBytes"],
+      "status": "Planned for Q1 2025"
     }
   ],
   "backlog": [
