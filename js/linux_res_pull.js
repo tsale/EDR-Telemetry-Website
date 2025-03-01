@@ -165,6 +165,11 @@ function displayTelemetry(data, filter = 'all', comparison = [], isComparisonMod
     const table = document.createElement('table');
     table.id = 'telemetryTable';
     
+    // Add comparison-mode class if in comparison mode
+    if (isComparisonMode) {
+        table.classList.add('comparison-mode');
+    }
+    
     // Create header row
     const headerRow = document.createElement('tr');
     headerRow.innerHTML = `
@@ -283,7 +288,7 @@ function getStatusIcon(status, category, subcategory, vendor) {
 }
 
 // Function to highlight differences in comparison mode
-function highlightDifferences(table, numEDRs) {
+function highlightDifferences(table) {
     const rows = table.getElementsByTagName('tr');
     for (let i = 1; i < rows.length; i++) { // Skip header row
         const cells = rows[i].getElementsByTagName('td');
@@ -292,7 +297,9 @@ function highlightDifferences(table, numEDRs) {
             const cell = cells[j];
             statuses.push(cell.dataset.status);
         }
-        if (statuses.some(status => status !== statuses[0])) {
+        
+        // Only highlight if there are differences and more than one status
+        if (statuses.length > 1 && statuses.some(status => status !== statuses[0])) {
             // Highlight cells that are different
             for (let j = 2; j < cells.length; j++) {
                 cells[j].classList.add('difference');
