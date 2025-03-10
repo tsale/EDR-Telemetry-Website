@@ -90,6 +90,7 @@ const LINUX_CATEGORIES_VALUED = {
     "Raw Access Read": 1,
     "Process Access": 1,
     "Process Tampering": 1,
+    "Process Call Stacks":1,
     "Service Creation": 1,
     "Service Modification": 0.7,
     "Service Deletion": 0.6,
