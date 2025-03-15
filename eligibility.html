@@ -109,6 +109,13 @@
                 <h3 id="ineligible-solutions">Solutions Not Currently Meeting Criteria</h3>
                 <p class="disclaimer"><strong>Important Note:</strong> The exclusion of a product from this comparison does not reflect on its overall quality or effectiveness. Each solution listed below may excel in its intended use case and could be the ideal choice depending on your specific environment, security requirements, and operational needs. Our eligibility criteria are specifically designed for comparing traditional EDR telemetry capabilities and should not be the sole factor in evaluating security solutions for your organization.</p>
                 <p>The following solutions are not included in our comparison due to specific limitations in meeting our eligibility criteria:</p>
+                
+                <div class="exclusion-filter">
+                    <div class="exclusion-search">
+                        <input type="text" id="exclusionSearch" placeholder="Search for products or limitations..." aria-label="Search exclusion table">
+                    </div>
+                </div>
+                
                 <div class="exclusion-table">
                     <div class="exclusion-row header">
                         <div class="product-col">Product</div>
@@ -213,6 +220,17 @@
                             </ul>
                         </div>
                     </div>
+                    <div class="exclusion-row">
+                        <div class="product-col">BitDefender EDR</div>
+                        <div class="primary-reason-col">Limited EDR Functionality</div>
+                        <div class="details-col">
+                            <ul>
+                                <li>No ability to search logs unless an alert fires</li>
+                                <li>No continuous event ingestion for full system visibility</li>
+                                <li>Functions more like an NGAV than a true EDR</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -227,6 +245,134 @@
                 menuToggle.classList.toggle('active');
                 navLinks?.classList.toggle('active');
             });
+            
+            // Exclusion table search functionality
+            const searchInput = document.getElementById('exclusionSearch');
+            const exclusionRows = document.querySelectorAll('.exclusion-row:not(.header)');
+            const exclusionFilter = document.querySelector('.exclusion-filter');
+            
+            if (searchInput) {
+                searchInput.addEventListener('input', function() {
+                    const searchTerm = this.value.toLowerCase().trim();
+                    let visibleCount = 0;
+                    
+                    exclusionRows.forEach(row => {
+                        const productName = row.querySelector('.product-col').textContent.toLowerCase();
+                        const primaryReason = row.querySelector('.primary-reason-col').textContent.toLowerCase();
+                        const details = row.querySelector('.details-col').textContent.toLowerCase();
+                        
+                        const matchesSearch = 
+                            productName.includes(searchTerm) || 
+                            primaryReason.includes(searchTerm) || 
+                            details.includes(searchTerm);
+                        
+                        if (matchesSearch) {
+                            row.style.display = '';
+                            visibleCount++;
+                            // Highlight the matching text
+                            if (searchTerm.length > 0) {
+                                highlightText(row, searchTerm);
+                            } else {
+                                // Remove highlights if search is cleared
+                                removeHighlights(row);
+                            }
+                        } else {
+                            row.style.display = 'none';
+                        }
+                    });
+                    
+                    // Update the result count
+                    if (exclusionFilter) {
+                        exclusionFilter.setAttribute('data-count', visibleCount);
+                        if (searchTerm.length > 0) {
+                            exclusionFilter.classList.add('has-count');
+                        } else {
+                            exclusionFilter.classList.remove('has-count');
+                        }
+                    }
+                });
+                
+                // Function to highlight matching text
+                function highlightText(row, term) {
+                    // First remove any existing highlights
+                    removeHighlights(row);
+                    
+                    // Get all text nodes in the row
+                    const textNodes = getTextNodes(row);
+                    
+                    textNodes.forEach(node => {
+                        const text = node.nodeValue;
+                        const lowerText = text.toLowerCase();
+                        let position = lowerText.indexOf(term);
+                        
+                        if (position !== -1) {
+                            // Create a document fragment to hold the new nodes
+                            const fragment = document.createDocumentFragment();
+                            let lastPosition = 0;
+                            
+                            while (position !== -1) {
+                                // Add text before the match
+                                if (position > lastPosition) {
+                                    fragment.appendChild(document.createTextNode(text.substring(lastPosition, position)));
+                                }
+                                
+                                // Create a span for the highlighted text
+                                const highlight = document.createElement('span');
+                                highlight.className = 'highlight';
+                                highlight.appendChild(document.createTextNode(text.substring(position, position + term.length)));
+                                fragment.appendChild(highlight);
+                                
+                                lastPosition = position + term.length;
+                                position = lowerText.indexOf(term, lastPosition);
+                            }
+                            
+                            // Add any remaining text
+                            if (lastPosition < text.length) {
+                                fragment.appendChild(document.createTextNode(text.substring(lastPosition)));
+                            }
+                            
+                            // Replace the original node with the fragment
+                            node.parentNode.replaceChild(fragment, node);
+                        }
+                    });
+                }
+                
+                // Function to get all text nodes in an element
+                function getTextNodes(element) {
+                    const textNodes = [];
+                    const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, null, false);
+                    
+                    let node;
+                    while (node = walker.nextNode()) {
+                        if (node.nodeValue.trim() !== '') {
+                            textNodes.push(node);
+                        }
+                    }
+                    
+                    return textNodes;
+                }
+                
+                // Function to remove highlights
+                function removeHighlights(element) {
+                    const highlights = element.querySelectorAll('.highlight');
+                    highlights.forEach(highlight => {
+                        const parent = highlight.parentNode;
+                        parent.replaceChild(document.createTextNode(highlight.textContent), highlight);
+                        parent.normalize();
+                    });
+                }
+                
+                // Add placeholder animation
+                searchInput.addEventListener('focus', function() {
+                    this.placeholder = '';
+                });
+                
+                searchInput.addEventListener('blur', function() {
+                    if (!this.value) {
+                        this.placeholder = 'Search for products or limitations...';
+                    }
+                });
+            }
         });
     </script>
     <script src="js/heading-links.js"></script>
