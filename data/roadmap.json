@@ -42,16 +42,11 @@
     {
       "title": "New EDR Additions",
       "description": "Integration of additional EDR solutions including:",
-      "items": ["BitDefender","MalwareBytes"],
+      "items": ["MalwareBytes"],
       "status": "Planned for Q1 2025"
     }
   ],
   "backlog": [
-    {
-        "title": "Wazuh EDR",
-        "description": "Integration with Wazuh EDR and telemetry analysis.",
-        "status": "Planning - Q4 2024"
-      },
     {
       "title": "MacOS Support",
       "description": "Expanding platform support to include MacOS systems.",
