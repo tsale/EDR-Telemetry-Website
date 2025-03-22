@@ -8,7 +8,7 @@ First, clone the repository:
 
 ```bash
 git clone <repository-url>
-cd <repository-directory>/next-app
+cd <repository-directory>
 ```
 
 Then, install the dependencies:
