@@ -701,6 +701,15 @@
 
 .stripe-container {
   width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.stripe-container stripe-buy-button {
+  margin: 0 auto;
+  display: block;
+  max-width: 100%;
 }
 
 .donation-loading {
