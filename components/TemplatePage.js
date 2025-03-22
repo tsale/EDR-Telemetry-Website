@@ -109,6 +109,9 @@ export default function TemplatePage({ children, title = 'EDR Telemetry Project'
               <li className={isActive('/scores')}>
                 <Link href="/scores">Scores</Link>
               </li>
+              <li className={isActive('/statistics')}>
+                <Link href="/statistics">Statistics</Link>
+              </li>
               <li className={isActive('/sponsorship')}>
                 <Link href="/sponsorship">Support Us</Link>
               </li>
@@ -151,6 +154,7 @@ export default function TemplatePage({ children, title = 'EDR Telemetry Project'
                 <li><Link href="/windows">Platforms</Link></li>
                 <li><Link href="/eligibility">Eligibility</Link></li>
                 <li><Link href="/scores">Scores</Link></li>
+                <li><Link href="/statistics">Statistics</Link></li>
                 <li><Link href="/sponsorship">Support Us</Link></li>
                 <li><Link href="/premium-services">Premium Services</Link></li>
                 <li><Link href="/about">About</Link></li>
