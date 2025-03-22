@@ -502,7 +502,13 @@ footer {
 }
 
 .footer-section li {
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.25rem;
+  padding: 0.1rem 0;
+  transition: transform 0.2s ease;
+}
+
+.footer-section li:hover {
+  transform: translateX(3px);
 }
 
 .footer-section a {
@@ -522,39 +528,43 @@ footer {
   flex-wrap: wrap;
 }
 
-.social-link {
+.social-icon-link {
+  text-decoration: none;
+}
+
+.social-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
+  width: 45px;
+  height: 11px;
   border-radius: 50%;
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   background-color: #2563eb; /* Default blue */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
 }
 
-.social-link:hover {
-  transform: translateY(-5px);
+.social-icon-link:hover .social-icon {
+  transform: translateY(-3px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
-.social-link.twitter {
+.social-icon.twitter {
   background-color: #1DA1F2; /* Twitter blue */
 }
 
-.social-link.linkedin {
+.social-icon.linkedin {
   background-color: #0A66C2; /* LinkedIn blue */
 }
 
-.social-link.github {
+.social-icon.github {
   background-color: #24292F; /* GitHub dark */
 }
 
-.social-icon {
-  width: 28px;
-  height: 28px;
-  fill: white !important;
+.social-icon svg {
+  width: 22px;
+  height: 22px;
+  fill: white;
 }
 
 /* Footer Social Links Enhancement */
@@ -564,39 +574,51 @@ footer {
   margin-top: 1.5rem;
 }
 
-.footer-container .social-link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.1);
-  transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
-}
-
-.footer-container .social-link:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
-}
-
-.footer-container .social-link.twitter {
-  background-color: #1DA1F2;
-}
-
-.footer-container .social-link.linkedin {
-  background-color: #0A66C2;
-}
-
-.footer-container .social-link.github {
-  background-color: #24292F;
+.footer-container .social-icon-link {
+  text-decoration: none;
 }
 
 .footer-container .social-icon {
-  width: 32px;
-  height: 32px;
-  fill: white !important;
+  display: contents;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.footer-container .social-icon.twitter {
+  background-color: #1DA1F2;
+}
+
+.footer-container .social-icon.linkedin {
+  background-color: #0A66C2;
+}
+
+.footer-container .social-icon.github {
+  background-color: #24292F;
+}
+
+.footer-container .social-icon svg {
+  width: 24px;
+  height: 24px;
+  fill: white;
+}
+
+.footer-container .social-icon-link:hover .social-icon {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.footer-container .social-icon-link:focus {
+  outline: none;
+}
+
+.footer-container .social-icon-link:focus .social-icon {
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
 }
 
 .footer-bottom {
@@ -701,17 +723,18 @@ footer {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
-  background-color: rgba(255, 255, 255, 0.1);
+  width: 40px;
+  height: 40px;
+  background-color: rgba(37, 99, 235, 0.9);
   border-radius: 50%;
-  font-size: 1rem;
-  font-weight: bold;
-  transition: background-color 0.2s;
+  transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .social-icon:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-3px);
+  background-color: rgba(37, 99, 235, 1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* About section styling */
@@ -1960,15 +1983,16 @@ footer {
 }
 
 .social-icon {
-  display: inline-block;
-  width: 24px;
-  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
   background-color: var(--primary-color);
   border-radius: 50%;
   color: white;
-  text-align: center;
-  line-height: 24px;
-  margin-right: 0.5rem;
+  transition: transform 0.2s, background-color 0.2s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .contact-us-section {

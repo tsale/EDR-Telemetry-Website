@@ -106,50 +106,47 @@
 }
 
 .social-media {
-  margin-top: 1rem;
+  margin-top: 15px;
+}
+
+.social-media a {
+  text-decoration: none;
+  margin-right: 12px;
 }
 
 .social-icon {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  margin-right: 8px;
-  vertical-align: middle;
-}
-
-.twitter-icon {
-  background-color: #1da1f2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
-  position: relative;
+  background-color: #2563eb;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.twitter-icon::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 12px;
-  height: 10px;
-  background-color: white;
-  clip-path: polygon(40% 35%, 95% 35%, 95% 50%, 60% 50%, 60% 65%, 45% 65%, 45% 50%, 5% 50%, 5% 35%, 40% 35%);
+.social-icon svg {
+  width: 18px;
+  height: 18px;
+  fill: white;
 }
 
-.linkedin-icon {
-  background-color: #0077b5;
-  border-radius: 3px;
-  position: relative;
+.social-icon.twitter {
+  background-color: #1DA1F2;
 }
 
-.linkedin-icon::before {
-  content: "in";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 12px;
-  font-weight: bold;
-  color: white;
+.social-icon.linkedin {
+  background-color: #0A66C2;
+}
+
+.social-icon.github {
+  background-color: #24292F;
+}
+
+.social-media a:hover .social-icon {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Contact section */

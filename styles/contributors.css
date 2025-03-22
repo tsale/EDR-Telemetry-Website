@@ -165,12 +165,11 @@
 .subscriber-social .social-link {
   width: 48px;
   height: 48px;
-  display: flex;
+  display: contents;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
   transition: transform 0.3s, box-shadow 0.3s;
-  background-color: #2563eb;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 

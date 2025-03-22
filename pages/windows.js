@@ -539,14 +539,23 @@ export default function Windows() {
       
       .telemetry-table th,
       .telemetry-table td {
-        padding: 0.6rem 0.5rem;
-        font-size: 0.9rem;
+        padding: 0.5rem 0.3rem;
+        font-size: 0.85rem;
+      }
+      
+      .telemetry-table .feature-column,
+      .telemetry-table .subcategory-column {
+        min-width: 120px;
+      }
+      
+      .telemetry-table th.subcategory-column {
+        left: 120px;
       }
       
       .status-icon {
-        width: 24px;
-        height: 24px;
-        font-size: 1rem;
+        width: 22px;
+        height: 22px;
+        font-size: 0.9rem;
       }
       
       .custom-tooltip {
@@ -554,7 +563,122 @@ export default function Windows() {
       }
       
       .telemetry-table-container {
-        max-width: 95vw;
+        max-width: 100vw;
+        margin-left: -0.5rem;
+        margin-right: -0.5rem;
+        border-radius: 0;
+      }
+      
+      .filter-controls {
+        padding: 0.8rem;
+      }
+      
+      .comparison-tag {
+        padding: 0.3rem 0.5rem;
+        font-size: 0.8rem;
+      }
+      
+      .compare-button {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.9rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .telemetry-table th,
+      .telemetry-table td {
+        padding: 0.4rem 0.2rem;
+        font-size: 0.75rem;
+      }
+      
+      .telemetry-table .feature-column,
+      .telemetry-table .subcategory-column {
+        min-width: 100px;
+      }
+      
+      .telemetry-table th.subcategory-column {
+        left: 100px;
+      }
+      
+      .status-icon {
+        width: 18px;
+        height: 18px;
+        font-size: 0.8rem;
+      }
+      
+      .legend-item {
+        padding: 0.3rem;
+      }
+      
+      .legend-icon {
+        font-size: 1rem;
+        margin-right: 0.5rem;
+        min-width: 24px;
+      }
+      
+      .legend-label {
+        font-size: 0.85rem;
+      }
+      
+      .legend-description {
+        font-size: 0.7rem;
+      }
+    }
+    
+    @media (max-width: 360px) {
+      .telemetry-table .feature-column,
+      .telemetry-table .subcategory-column {
+        min-width: 90px;
+      }
+      
+      .telemetry-table th.subcategory-column {
+        left: 90px;
+      }
+      
+      .telemetry-table th,
+      .telemetry-table td {
+        padding: 0.35rem 0.15rem;
+        font-size: 0.7rem;
+      }
+      
+      .status-icon {
+        width: 16px;
+        height: 16px;
+        font-size: 0.75rem;
+      }
+      
+      .toggle-switch label {
+        width: 40px;
+        height: 20px;
+      }
+      
+      .toggle-switch label:after {
+        width: 14px;
+        height: 14px;
+      }
+      
+      .toggle-switch span {
+        font-size: 0.8rem;
+      }
+    }
+    
+    /* Touch-friendly enhancements */
+    @media (hover: none) {
+      .telemetry-table td:active .status-icon {
+        transform: scale(1.2);
+      }
+      
+      .compare-button:active:not(:disabled) {
+        background-color: #1976d2;
+      }
+      
+      .edr-option:active {
+        background-color: #f0f7ff;
+      }
+      
+      .custom-tooltip-wrapper:active .custom-tooltip {
+        visibility: visible;
+        opacity: 1;
       }
     }
   `;
@@ -917,14 +1041,20 @@ export default function Windows() {
             <tr>
               <th className="feature-column">Telemetry Feature Category</th>
               <th className="subcategory-column">Sub-Category</th>
-              {displayedEdrs.map(edr => (
-                <th 
-                  key={edr} 
-                  className={`edr-column ${edr.toLowerCase().includes('sysmon') ? 'sysmon-header' : ''}`}
-                >
-                  {edr}
-                </th>
-              ))}
+              {displayedEdrs.map(edr => {
+                // Format EDR name for better display on mobile
+                const displayName = window.innerWidth <= 480 ? 
+                  edr.replace(/\s*\(.+\)/, '').trim() : edr;
+                
+                return (
+                  <th 
+                    key={edr} 
+                    className={`edr-column ${edr.toLowerCase().includes('sysmon') ? 'sysmon-header' : ''}`}
+                  >
+                    {displayName}
+                  </th>
+                );
+              })}
             </tr>
           </thead>
           <tbody>
