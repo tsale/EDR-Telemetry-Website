@@ -1,0 +1,1078 @@
+/* Sponsorship Page Styles */
+
+.sponsor-card {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 1rem;
+}
+
+.sponsor-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.sponsor-card a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.sponsor-logo {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-right: 1rem;
+}
+
+.sponsor-name-logo {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #007bff;
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  border-radius: 50%;
+  margin-right: 1rem;
+}
+
+.sponsor-details {
+  flex: 1;
+}
+
+.sponsor-details h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.25rem;
+}
+
+.sponsor-tier {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  background-color: #e9f5ff;
+  color: #007bff;
+  border-radius: 4px;
+  font-size: 0.875rem;
+}
+
+.donor-card {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.donor-card:hover {
+  background-color: #e9ecef;
+}
+
+.donor-name {
+  font-weight: 500;
+}
+
+.donor-amount {
+  color: #28a745;
+  font-weight: bold;
+}
+
+.no-sponsors,
+.no-donors {
+  text-align: center;
+  padding: 2rem;
+  color: #6c757d;
+}
+
+.no-sponsors a,
+.no-donors a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.no-sponsors a:hover,
+.no-donors a:hover {
+  text-decoration: underline;
+}
+
+@media (min-width: 768px) {
+  #sponsorsSection .section-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+  }
+}
+
+.tier-button-link {
+  display: inline-block;
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.tier-button-link:hover {
+  background-color: #0056b3;
+}
+
+.content-section {
+  max-width: 90vw;
+  margin: 0 auto;
+  padding: 0 2rem 3rem;
+}
+
+.sponsor-content {
+  max-width: 90vw;
+  margin: 0 auto;
+}
+
+.sponsorship-quick-nav {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.quick-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+  position: relative;
+  width: 200px;
+}
+
+.quick-nav-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.quick-nav-item.highlight {
+  border-color: #007bff;
+  background-color: rgba(0, 123, 255, 0.05);
+}
+
+.quick-nav-item .icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.quick-nav-item .badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background-color: #ff5722;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.benefit-item {
+  padding: 1.5rem;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.benefit-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+}
+
+.benefit-item h4 {
+  margin-top: 0;
+  color: #343a40;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.one-time-support,
+.subscription-section {
+  margin: 3rem 0;
+  padding: 2rem;
+  border-radius: 10px;
+  background-color: #f8f9fa;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.one-time-support h3,
+.subscription-section h3 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #343a40;
+}
+
+.donation-box {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.sponsorship-tiers {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+/* Tier Card Styles */
+.tier-card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.tier-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+}
+
+.tier-card.popular {
+  border-color: #007bff;
+  position: relative;
+  box-shadow: 0 10px 20px rgba(0,123,255,0.1);
+}
+
+.tier-card.popular:before {
+  content: "Popular";
+  position: absolute;
+  top: -12px;
+  right: 20px;
+  background-color: #007bff;
+  color: white;
+  padding: 0.25rem 1rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.tier-name {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #343a40;
+}
+
+.tier-price {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: #343a40;
+}
+
+.tier-price span {
+  font-size: 1rem;
+  color: #6c757d;
+  font-weight: normal;
+}
+
+.tier-content {
+  padding: 1.5rem 2rem;
+  flex-grow: 1;
+}
+
+.tier-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tier-features li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  color: #4a5568;
+  line-height: 1.5;
+}
+
+.tier-features li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #3182ce;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.tier-features li:last-child {
+  margin-bottom: 0;
+}
+
+/* Community section */
+.community-section {
+  padding: 4rem 0;
+  background-color: #f8f9faaa;
+}
+
+.community-section .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.section-group {
+  margin-bottom: 4rem;
+  position: relative;
+}
+
+.section-group:last-child {
+  margin-bottom: 0;
+}
+
+.section-group h2 {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  color: #0A192F;
+  font-size: 2rem;
+  font-weight: 700;
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+.section-group h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background-color: #007bff;
+  border-radius: 3px;
+}
+
+.section-content {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+/* One-Time Supporters Section */
+.community-section .donors-grid {
+  justify-content: center;
+  flex-wrap: wrap;
+  display: flex;
+  gap: 1.5rem;
+  padding: 0 1rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.support-note {
+  text-align: center;
+  font-style: italic;
+  margin-top: 1rem;
+  color: #6c757d;
+}
+
+@media (max-width: 768px) {
+  .sponsorship-quick-nav {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .quick-nav-item {
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .sponsorship-tiers {
+    grid-template-columns: 1fr;
+  }
+  
+  .section-group h2 {
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
+  }
+  
+  .community-section .donors-grid {
+    gap: 1rem;
+  }
+  
+  .content-section {
+    max-width: 95vw;
+  }
+}
+
+/* Hero Section */
+.hero-section {
+  background-color: #0A192F;
+  color: white;
+  text-align: center;
+  padding: 4rem 2rem;
+  margin-bottom: 2rem;
+}
+
+.hero-content h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Navigation Tabs */
+.sponsor-nav-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 3rem;
+  border-bottom: 1px solid #eaeaea;
+  padding-bottom: 0;
+  justify-content: center;
+}
+
+.nav-tab {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.85rem 1.5rem;
+  text-decoration: none;
+  color: #555;
+  border-radius: 4px 4px 0 0;
+  transition: all 0.2s ease;
+  border-bottom: 3px solid transparent;
+  background: transparent;
+}
+
+.nav-tab::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: transparent;
+  transition: background-color 0.2s ease;
+}
+
+.nav-tab:hover {
+  color: #0A192F;
+}
+
+.nav-tab:hover::after {
+  background-color: rgba(10, 25, 47, 0.3);
+}
+
+.nav-tab.active {
+  color: #007bff;
+  font-weight: 500;
+}
+
+.nav-tab.active::after {
+  background-color: #007bff;
+}
+
+.tab-icon {
+  margin-right: 0.75rem;
+  font-size: 1.25rem;
+}
+
+.tab-text {
+  font-size: 1rem;
+}
+
+.tab-badge {
+  position: absolute;
+  top: -10px;
+  right: -5px;
+  background-color: #ff5a5f;
+  color: white;
+  font-size: 0.65rem;
+  padding: 0.15rem 0.4rem;
+  border-radius: 10px;
+  font-weight: 500;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Benefits Grid */
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin: 1.5rem 0 3rem;
+}
+
+.benefit-item {
+  padding: 1.5rem;
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.benefit-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.benefit-item h4 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  color: #0A192F;
+}
+
+.benefit-item p {
+  margin: 0;
+  color: #555;
+}
+
+/* One-time Support Section */
+.one-time-support {
+  background-color: #f8f9fa;
+  padding: 3rem 2rem;
+  border-radius: 12px;
+  margin-bottom: 3rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+}
+
+.one-time-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.header-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  background-color: #fff8f8;
+  width: 70px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.one-time-support h3 {
+  color: #0A192F;
+  margin-top: 0;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.donation-intro {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 2.5rem;
+}
+
+.donation-intro p {
+  color: #555;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* Donation Container - Two Column Layout */
+.donation-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.donation-left, .donation-right {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Donation Benefits */
+.donation-benefits {
+  background-color: white;
+  border-radius: 12px;
+  padding: 2rem;
+  height: 100%;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+.donation-benefits h4 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: #0A192F;
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.donation-benefits-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.donation-benefits-list li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.donation-benefits-list li:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.benefit-icon {
+  font-size: 1.5rem;
+  margin-right: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Donation Card */
+.donation-card {
+  background-color: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.donation-card-header {
+  background-color: #0A192F;
+  color: white;
+  padding: 1.25rem 1.5rem;
+  text-align: center;
+}
+
+.donation-card-header h4 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: white;
+}
+
+.donation-card-content {
+  padding: 2rem 1.5rem;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stripe-container {
+  width: 100%;
+}
+
+.donation-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0;
+}
+
+.spinner-small {
+  width: 30px;
+  height: 30px;
+  border: 3px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top-color: #007bff;
+  animation: spin 1s ease-in-out infinite;
+  margin-bottom: 1rem;
+}
+
+.donation-card-footer {
+  padding: 1rem 1.5rem;
+  background-color: #f8f9fa;
+  border-top: 1px solid #eee;
+}
+
+/* Donation Testimonial */
+.donation-testimonial {
+  text-align: center;
+  margin-top: 2rem;
+  padding: 0 2rem;
+}
+
+.donation-testimonial blockquote {
+  font-style: italic;
+  font-size: 1.2rem;
+  color: #555;
+  margin: 0 0 1.5rem;
+  position: relative;
+  padding: 0 1.5rem;
+}
+
+.donation-testimonial blockquote::before,
+.donation-testimonial blockquote::after {
+  content: '"';
+  font-size: 2rem;
+  color: #ddd;
+  position: absolute;
+}
+
+.donation-testimonial blockquote::before {
+  left: 0;
+  top: -10px;
+}
+
+.donation-testimonial blockquote::after {
+  right: 0;
+  bottom: -20px;
+}
+
+.donation-note {
+  color: #666;
+  font-size: 1rem;
+}
+
+/* Security Indicator */
+.donation-security {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.security-icon {
+  color: #28a745;
+}
+
+/* Modernized Monthly Sponsorship Section */
+.subscription-section {
+  margin: 5rem 0;
+  padding: 3rem 2rem;
+  border-radius: 16px;
+  background-color: #f9fafb;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.subscription-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.subscription-header .header-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  display: inline-block;
+  position: relative;
+  background: linear-gradient(135deg, #ff9f43, #ff6b6b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subscription-header h3 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #1a202c;
+  margin-bottom: 1rem;
+  position: relative;
+  display: inline-block;
+}
+
+.subscription-header p {
+  font-size: 1.1rem;
+  color: #64748b;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.sponsorship-tiers {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+/* Tier Card Styles */
+.tier-card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.tier-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+}
+
+/* Popular Card */
+.tier-card.popular {
+  border: 2px solid #3182ce;
+  z-index: 1;
+  transform: scale(1.03);
+}
+
+.tier-card.popular:hover {
+  transform: scale(1.03) translateY(-10px);
+}
+
+.popular-tag {
+  position: absolute;
+  top: 18px;
+  right: -32px;
+  background: linear-gradient(90deg, #3182ce, #4299e1);
+  color: white;
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 0.3rem 2rem;
+  transform: rotate(45deg);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+/* Enterprise Card */
+.tier-card.enterprise {
+  border: 2px solid #805ad5;
+}
+
+/* Tier Header */
+.tier-header {
+  padding: 2rem 2rem 1.5rem;
+  text-align: center;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.tier-badge {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #718096;
+  margin-bottom: 0.75rem;
+}
+
+.tier-card.popular .tier-badge {
+  color: #3182ce;
+}
+
+.tier-card.enterprise .tier-badge {
+  color: #805ad5;
+}
+
+.tier-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a202c;
+  margin-bottom: 1rem;
+}
+
+.tier-price {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+}
+
+.price-amount {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2d3748;
+  line-height: 1;
+}
+
+.price-period {
+  font-size: 1rem;
+  color: #718096;
+  margin-left: 0.25rem;
+}
+
+/* Tier Footer */
+.tier-footer {
+  padding: 1.5rem 2rem 2rem;
+  text-align: center;
+}
+
+.tier-button-link {
+  display: inline-block;
+  width: 100%;
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.tier-card .tier-button-link {
+  background-color: #4a5568;
+  color: white;
+  box-shadow: 0 4px 6px rgba(74, 85, 104, 0.2);
+}
+
+.tier-card .tier-button-link:hover {
+  background-color: #2d3748;
+  box-shadow: 0 6px 12px rgba(74, 85, 104, 0.3);
+  transform: translateY(-2px);
+}
+
+.tier-card.popular .tier-button-link {
+  background-color: #3182ce;
+  box-shadow: 0 4px 6px rgba(49, 130, 206, 0.2);
+}
+
+.tier-card.popular .tier-button-link:hover {
+  background-color: #2b6cb0;
+  box-shadow: 0 6px 12px rgba(49, 130, 206, 0.3);
+}
+
+.tier-card.enterprise .tier-button-link {
+  background-color: #805ad5;
+  box-shadow: 0 4px 6px rgba(128, 90, 213, 0.2);
+}
+
+.tier-card.enterprise .tier-button-link:hover {
+  background-color: #6b46c1;
+  box-shadow: 0 6px 12px rgba(128, 90, 213, 0.3);
+}
+
+/* Subscription Footer */
+.subscription-footer {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.subscription-note {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.subscription-note p {
+  margin-bottom: 0.75rem;
+  color: #4a5568;
+}
+
+.subscription-note p:last-child {
+  margin-bottom: 0;
+}
+
+.subscription-note a {
+  color: #3182ce;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.subscription-note a:hover {
+  color: #2b6cb0;
+  text-decoration: underline;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+  .sponsorship-tiers {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  
+  .tier-header, 
+  .tier-content,
+  .tier-footer {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+  
+  .tier-name {
+    font-size: 1.25rem;
+  }
+  
+  .price-amount {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .sponsorship-tiers {
+    grid-template-columns: 1fr;
+  }
+  
+  .tier-card.popular {
+    transform: scale(1);
+    order: -1;
+  }
+  
+  .tier-card.popular:hover {
+    transform: translateY(-8px);
+  }
+  
+  .subscription-header h3 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    padding: 3rem 1rem;
+  }
+  
+  .content-section {
+    padding: 0 1rem 2rem;
+  }
+  
+  .nav-tab {
+    padding: 0.75rem 0.75rem;
+  }
+  
+  .tab-icon {
+    margin-right: 0.5rem;
+  }
+  
+  .tier-card {
+    padding: 1.5rem;
+  }
+} 

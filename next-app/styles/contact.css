@@ -1,0 +1,39 @@
+/* Contact page specific styles */
+
+.contact-form-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Hero section with contact-specific color scheme */
+.hero-section {
+  background: linear-gradient(135deg, #14328f 0%, #5b96f9 100%);
+  color: white;
+  padding: 4rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Custom iframe styles */
+iframe {
+  border: none;
+  width: 100%;
+  min-height: 600px;
+  transition: height 0.5s ease-in-out;
+}
+
+/* Media queries for responsive design */
+@media (max-width: 768px) {
+  .contact-form-container {
+    padding: 1rem;
+  }
+  
+  iframe {
+    min-height: 700px; /* Taller on mobile */
+  }
+} 
