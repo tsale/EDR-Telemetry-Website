@@ -116,12 +116,15 @@ export default function TemplatePage({ children, title = 'EDR Telemetry Project'
                 fontWeight: 'bold',
                 background: 'linear-gradient(90deg, rgba(52, 152, 219, 0.2), transparent)',
                 borderRadius: '4px',
-                padding: '0 10px'
+                padding: '0 1px'
               }}>
                 <Link href="/premium-services">Premium Services</Link>
               </li>
               <li className={isActive('/about')}>
                 <Link href="/about">About</Link>
+              </li>
+              <li className={isActive('/blog')}>
+                <Link href="/blog">Blog</Link>
               </li>
             </ul>
           </nav>
