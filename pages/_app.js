@@ -1,7 +1,7 @@
 import '../styles/globals.css'
 import '../styles/windows.css'
 import '../styles/linux.css'
-import '../styles/macOS.css'
+import '../styles/macos.css'
 import '../styles/about.css'
 import '../styles/contact.css'
 import '../styles/roadmap.css'
