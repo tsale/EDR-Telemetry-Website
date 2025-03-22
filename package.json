@@ -1,7 +1,7 @@
 {
-  "name": "next-app",
+  "name": "edr-telemetry-website",
   "version": "1.0.0",
-  "description": "",
+  "description": "EDR Telemetry Project Website",
   "main": "index.js",
   "scripts": {
     "dev": "next dev",
