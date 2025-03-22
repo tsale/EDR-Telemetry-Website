@@ -37,10 +37,10 @@ export default function Navigation() {
             </div>
           </div>
           <div className="nav-item">
-            <Link href="/blog">Blog</Link>
+            <Link href="/premium-services">Premium Services</Link>
           </div>
           <div className="nav-item">
-            <Link href="/premium-services">Premium Services</Link>
+            <Link href="/blog">Blog</Link>
           </div>
           <div className="nav-item">
             <Link href="/about" className="parent">About</Link>
