@@ -2,6 +2,7 @@ import TemplatePage from '../components/TemplatePage'
 import { useEffect, useState, useRef } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
+import Script from 'next/script'
 
 export default function Sponsorship() {
   const [loading, setLoading] = useState(true);
@@ -10,58 +11,61 @@ export default function Sponsorship() {
 
   useEffect(() => {
     // Client-side code for Sponsorship page
-    const loadScripts = async () => {
+    const loadStripe = async () => {
       // Only initialize Stripe once
       if (stripeInitialized.current) return;
 
-      // Function to create stripe button
-      const createStripeButton = () => {
-        if (!stripeContainerRef.current || stripeInitialized.current) return;
-        
-        // Get container and clear it
-        const container = stripeContainerRef.current;
-        container.innerHTML = '';
-        
-        // Create a custom container to prevent auto-initialization
-        const customContainer = document.createElement('div');
-        customContainer.id = 'custom-stripe-container';
-        container.appendChild(customContainer);
-        
-        // Create stripe button manually
-        const stripeBuyButton = document.createElement('stripe-buy-button');
-        stripeBuyButton.setAttribute('buy-button-id', 'buy_btn_1QJlViJOUX0qB6cCvUZ0hBUX');
-        stripeBuyButton.setAttribute('publishable-key', 'pk_live_51IRtXuJOUX0qB6cCpzTTp982wIxr0zmR5xv7U79jAGLFuO7J3DJipFUezg1M2q67MABnewnfRUwXadgUnOO1tjjd00uHUj8bS9');
-        
-        // Add button to custom container
-        customContainer.appendChild(stripeBuyButton);
-        
-        // Mark as initialized
-        stripeInitialized.current = true;
-      };
+      // Wait for DOM to be ready
+      if (typeof window === 'undefined' || !document.body) return;
 
-      // First remove any existing Stripe scripts to avoid duplicates
-      const existingScripts = document.querySelectorAll('script[src*="stripe.com"]');
-      existingScripts.forEach(script => script.remove());
-
-      // Load Stripe script
-      const stripeScript = document.createElement('script');
-      stripeScript.async = true;
-      stripeScript.src = 'https://js.stripe.com/v3/buy-button.js';
-      
-      // Set loading to false and create button after stripe loads
-      stripeScript.onload = () => {
-        setTimeout(() => {
+      try {
+        // Function to create stripe button
+        const createStripeButton = () => {
+          if (!stripeContainerRef.current) return;
+          
+          // Get container and clear it
+          const container = stripeContainerRef.current;
+          container.innerHTML = '';
+          
+          // Create stripe button manually
+          const stripeBuyButton = document.createElement('stripe-buy-button');
+          stripeBuyButton.setAttribute('buy-button-id', 'buy_btn_1QJlViJOUX0qB6cCvUZ0hBUX');
+          stripeBuyButton.setAttribute('publishable-key', 'pk_live_51IRtXuJOUX0qB6cCpzTTp982wIxr0zmR5xv7U79jAGLFuO7J3DJipFUezg1M2q67MABnewnfRUwXadgUnOO1tjjd00uHUj8bS9');
+          
+          // Add button to container
+          container.appendChild(stripeBuyButton);
+          
+          // Mark as initialized
+          stripeInitialized.current = true;
           setLoading(false);
-          createStripeButton();
-        }, 500);
-      };
-      
-      document.body.appendChild(stripeScript);
+        };
 
-      // Load contributors.js if it exists
+        // Load Stripe script
+        if (!document.querySelector('script[src*="js.stripe.com/v3/buy-button.js"]')) {
+          const script = document.createElement('script');
+          script.src = 'https://js.stripe.com/v3/buy-button.js';
+          script.async = true;
+          script.onload = () => {
+            // Give time for Stripe to initialize
+            setTimeout(() => {
+              createStripeButton();
+            }, 1000);
+          };
+          document.body.appendChild(script);
+        } else {
+          // Script already exists, try to initialize
+          setTimeout(createStripeButton, 1000);
+        }
+      } catch (error) {
+        console.error('Error initializing Stripe:', error);
+        setLoading(false);
+      }
+    };
+
+    // Load contributors.js if it exists
+    const loadContributors = async () => {
       if (typeof window !== 'undefined') {
         try {
-          // Dynamically load the contributors script
           const contributorsModule = await import('../utils/contributors');
           if (contributorsModule.default) {
             contributorsModule.default();
@@ -72,7 +76,7 @@ export default function Sponsorship() {
       }
     };
 
-    // Cleanup and initialize
+    // Cleanup function
     const cleanup = () => {
       if (stripeContainerRef.current) {
         stripeContainerRef.current.innerHTML = '';
@@ -80,8 +84,11 @@ export default function Sponsorship() {
       stripeInitialized.current = false;
     };
 
-    cleanup();
-    loadScripts();
+    // Execute functions with a slight delay to ensure DOM is ready
+    setTimeout(() => {
+      loadStripe();
+      loadContributors();
+    }, 500);
     
     // Cleanup function
     return cleanup;
