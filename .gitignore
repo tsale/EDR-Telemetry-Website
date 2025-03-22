@@ -2,14 +2,14 @@
 .old-website/
 
 # Next.js
-/next-app/.next/
-/next-app/out/
-/next-app/node_modules/
-/next-app/.env
-/next-app/.env.local
-/next-app/.env.development.local
-/next-app/.env.test.local
-/next-app/.env.production.local
+.next/
+out/
+node_modules/
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 # Logs
 npm-debug.log*
