@@ -7,12 +7,29 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 export default function TemplatePage({ children, title = 'EDR Telemetry Project', description = 'EDR Telemetry Project - Exploring telemetry capabilities of EDR solutions' }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [platformsMenuOpen, setPlatformsMenuOpen] = useState(false)
+  const [reportsMenuOpen, setReportsMenuOpen] = useState(false)
   const router = useRouter()
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile device on client side
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
 
   // Close mobile menu on route change
   useEffect(() => {
     setMobileMenuOpen(false)
     setPlatformsMenuOpen(false)
+    setReportsMenuOpen(false)
   }, [router.pathname])
   
   // Close menu when clicking outside (for mobile)
@@ -40,8 +57,26 @@ export default function TemplatePage({ children, title = 'EDR Telemetry Project'
     setMobileMenuOpen(!mobileMenuOpen)
   }
 
-  const togglePlatformsMenu = () => {
+  const togglePlatformsMenu = (e) => {
+    if (e) e.preventDefault()
+    
+    // On mobile, make sure both menus are open with one click
+    if (isMobile && !mobileMenuOpen) {
+      setMobileMenuOpen(true);
+    }
+    
     setPlatformsMenuOpen(!platformsMenuOpen)
+  }
+  
+  const toggleReportsMenu = (e) => {
+    if (e) e.preventDefault()
+    
+    // On mobile, make sure both menus are open with one click
+    if (isMobile && !mobileMenuOpen) {
+      setMobileMenuOpen(true);
+    }
+    
+    setReportsMenuOpen(!reportsMenuOpen)
   }
   
   // Check if the current path matches the link
@@ -52,6 +87,11 @@ export default function TemplatePage({ children, title = 'EDR Telemetry Project'
   // Check if any platform page is active
   const isPlatformsActive = () => {
     return ['/windows', '/linux', '/macOS'].includes(router.pathname) ? 'active' : ''
+  }
+
+  // Check if any reports page is active
+  const isReportsActive = () => {
+    return ['/scores', '/statistics'].includes(router.pathname) ? 'active' : ''
   }
 
   return (
@@ -88,9 +128,34 @@ export default function TemplatePage({ children, title = 'EDR Telemetry Project'
                 <Link href="/">Home</Link>
               </li>
               <li className={`dropdown ${isPlatformsActive()}`}>
-                <a href="#" onClick={(e) => { e.preventDefault(); togglePlatformsMenu() }}>
-                  Platforms {platformsMenuOpen ? '▲' : '▼'}
-                </a>
+                <div 
+                  style={{ display: 'flex', alignItems: 'center' }}
+                  onClick={(e) => {
+                    if (isMobile) {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      togglePlatformsMenu(e);
+                    }
+                  }}
+                >
+                  <a href="#" onClick={(e) => !isMobile && togglePlatformsMenu(e)}>
+                    Platforms
+                  </a>
+                  <a 
+                    href="#" 
+                    className="dropdown-toggle" 
+                    onClick={(e) => { e.preventDefault(); togglePlatformsMenu(e) }}
+                    onTouchStart={(e) => { e.preventDefault(); togglePlatformsMenu(e) }}
+                    style={{ 
+                      marginLeft: '5px', 
+                      fontSize: '0.7rem',
+                      display: 'inline-block',
+                      padding: '2px 5px'
+                    }}
+                  >
+                    {platformsMenuOpen ? '▲' : '▼'}
+                  </a>
+                </div>
                 <ul className={`dropdown-menu ${platformsMenuOpen ? 'active' : ''}`}>
                   <li className={isActive('/windows')}>
                     <Link href="/windows">Windows</Link>
@@ -106,11 +171,38 @@ export default function TemplatePage({ children, title = 'EDR Telemetry Project'
               <li className={isActive('/eligibility')}>
                 <Link href="/eligibility">Eligibility</Link>
               </li>
-              <li className={isActive('/scores')}>
-                <Link href="/scores">Scores</Link>
-              </li>
-              <li className={isActive('/statistics')}>
-                <Link href="/statistics">Statistics</Link>
+              <li className={`dropdown ${isReportsActive()}`}>
+                <div 
+                  style={{ display: 'flex', alignItems: 'center' }}
+                  onClick={(e) => {
+                    if (isMobile) {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      toggleReportsMenu(e);
+                    }
+                  }}
+                >
+                  <Link href="/scores" className={isActive('/scores')}>Scores</Link>
+                  <a 
+                    href="#" 
+                    className="dropdown-toggle" 
+                    onClick={(e) => { e.preventDefault(); toggleReportsMenu(e) }}
+                    onTouchStart={(e) => { e.preventDefault(); toggleReportsMenu(e) }}
+                    style={{ 
+                      marginLeft: '5px', 
+                      fontSize: '0.7rem',
+                      display: 'inline-block',
+                      padding: '2px 5px'
+                    }}
+                  >
+                    {reportsMenuOpen ? '▲' : '▼'}
+                  </a>
+                </div>
+                <ul className={`dropdown-menu ${reportsMenuOpen ? 'active' : ''}`}>
+                  <li className={isActive('/statistics')}>
+                    <Link href="/statistics">Statistics</Link>
+                  </li>
+                </ul>
               </li>
               <li className={isActive('/sponsorship')}>
                 <Link href="/sponsorship">Support Us</Link>

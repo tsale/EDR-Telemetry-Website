@@ -313,6 +313,7 @@ nav ul li.dropdown .dropdown-menu a:hover {
   width: 30px;
   height: 20px;
   padding: 0;
+  margin-right: 10px; /* Add a small margin to move it slightly left from the edge */
 }
 
 .mobile-menu-toggle span {
