@@ -1308,4 +1308,229 @@
   .search-input {
     width: 100%;
   }
+}
+
+/* Tab Navigation styles */
+.tab-navigation {
+  display: flex;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #e9ecef;
+  overflow-x: auto;
+  padding-bottom: 1px;
+}
+
+.tab-button {
+  padding: 0.75rem 1.25rem;
+  background-color: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  margin-right: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #6c757d;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.tab-button:hover {
+  color: #3367d6;
+  border-bottom-color: #a2b9e2;
+}
+
+.tab-active {
+  color: #4285F4;
+  border-bottom-color: #4285F4;
+  font-weight: 600;
+}
+
+.tab-content {
+  background-color: #fff;
+  border-radius: 0.25rem;
+  padding: 0.5rem 0;
+}
+
+.tab-description {
+  margin-bottom: 1.5rem;
+  padding: 0.5rem;
+  background-color: #f8f9fa;
+  border-radius: 0.25rem;
+  color: #495057;
+}
+
+.tab-description p {
+  margin: 0;
+  padding: 0.5rem;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .tab-navigation {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .tab-button {
+    flex: 0 0 auto;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Navigation Quick Links */
+.nav-links {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.nav-links button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: #f8f9fa;
+  color: #495057;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.nav-links button:hover {
+  background-color: #e9ecef;
+  transform: translateY(-2px);
+}
+
+.nav-links button.active {
+  background-color: #4285f4;
+  color: white;
+  border-color: #4285f4;
+}
+
+/* Accordion Styles */
+.accordion-section {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+  transition: box-shadow 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.accordion-section:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.accordion-header {
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  position: relative;
+}
+
+.accordion-header:hover {
+  background-color: rgba(66, 133, 244, 0.05);
+}
+
+.accordion-header.expanded {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.accordion-header h2 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 1.75rem;
+  font-weight: 700;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.accordion-description {
+  padding: 0 2rem;
+  margin: 0;
+  margin-top: -0.75rem;
+  margin-bottom: 1rem;
+  color: #6c757d;
+  font-size: 1rem;
+}
+
+.accordion-toggle {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: #f8f9fa;
+  color: #495057;
+  font-size: 1.5rem;
+  line-height: 1;
+  transition: all 0.2s ease;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.accordion-header:hover .accordion-toggle {
+  background-color: #4285f4;
+  color: white;
+}
+
+.accordion-header.expanded .accordion-toggle {
+  background-color: #4285f4;
+  color: white;
+  transform: rotate(180deg);
+}
+
+.accordion-content {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.3s ease;
+}
+
+.accordion-content.expanded {
+  height: auto;
+  padding: 1.5rem 2rem 2rem;
+}
+
+.accordion-inner-content {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .nav-links button {
+    flex: 1;
+    min-width: 120px;
+    padding: 0.75rem 0.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .accordion-header {
+    padding: 1.25rem 1.5rem;
+  }
+  
+  .accordion-header h2 {
+    font-size: 1.5rem;
+  }
+  
+  .accordion-content.expanded {
+    padding: 1.25rem 1.5rem 1.5rem;
+  }
+  
+  .accordion-description {
+    padding: 0 1.5rem;
+  }
 } 

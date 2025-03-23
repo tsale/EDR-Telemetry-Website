@@ -4,6 +4,18 @@ import useHeadingLinks from '../hooks/useHeadingLinks';
 import { Chart as ChartJS, registerables } from 'chart.js';
 import { Bar, Pie, Doughnut, Radar } from 'react-chartjs-2';
 import styles from '../styles/statistics.module.css';
+import dynamic from 'next/dynamic';
+
+// Dynamically import our new components to prevent SSR issues with Chart.js
+const FeatureAdoptionTimeline = dynamic(
+  () => import('../components/FeatureAdoptionTimeline'),
+  { ssr: false }
+);
+
+const FeatureExplorer = dynamic(
+  () => import('../components/FeatureExplorer'),
+  { ssr: false }
+);
 
 ChartJS.register(...registerables);
 
@@ -34,6 +46,22 @@ export default function Statistics() {
   });
   const [platformComparison, setPlatformComparison] = useState([]);
   
+  // Add state for accordion sections
+  const [expandedSections, setExpandedSections] = useState({
+    summary: true,    // Initially expanded
+    vendors: false,
+    features: false,
+    explore: false
+  });
+
+  // Function to toggle section expansion
+  const toggleSection = (sectionId) => {
+    setExpandedSections(prev => ({
+      ...prev,
+      [sectionId]: !prev[sectionId]
+    }));
+  };
+  
   // Add heading links
   useHeadingLinks();
   
@@ -62,6 +90,31 @@ export default function Statistics() {
       return () => clearTimeout(timer);
     }
   }, [isLoading, error]);
+
+  // Accordion Component for organizing content
+  const Accordion = ({ id, title, description, isExpanded, onToggle, children }) => {
+    return (
+      <div className={styles["accordion-section"]}>
+        <div 
+          className={`${styles["accordion-header"]} ${isExpanded ? styles["expanded"] : ""}`}
+          onClick={() => onToggle(id)}
+        >
+          <h2 id={id}>{title}</h2>
+          <div className={styles["accordion-toggle"]}>
+            <span>{isExpanded ? "−" : "+"}</span>
+          </div>
+        </div>
+        
+        {description && (
+          <p className={styles["accordion-description"]}>{description}</p>
+        )}
+        
+        <div className={`${styles["accordion-content"]} ${isExpanded ? styles["expanded"] : ""}`}>
+          {isExpanded && children}
+        </div>
+      </div>
+    );
+  };
 
   // Load telemetry data from both platforms
   const loadAllTelemetryData = async () => {
@@ -1440,6 +1493,17 @@ export default function Statistics() {
     );
   };
 
+  // Add state for the active explore tab
+  const [activeExploreTab, setActiveExploreTab] = useState('timeline');
+  
+  // Add platform state if it doesn't exist
+  const [platform, setPlatform] = useState('windows');
+  
+  // Add a function to handle tab switching
+  const handleExploreTabChange = (tab) => {
+    setActiveExploreTab(tab);
+  };
+
   if (isLoading) {
     return (
       <TemplatePage title="EDR Statistics | EDR Telemetry Project" description="Statistics and analysis of EDR telemetry capabilities across different platforms">
@@ -1485,112 +1549,197 @@ export default function Statistics() {
         </div>
       ) : (
         <div className={styles["stats-container"]}>
-          {summaryStats && (
-            <div className={styles["stats-card"]}>
-              <h2 id="summary-statistics">Summary Statistics</h2>
-              <p className={styles["summary-description"]}>
-                These cards summarize telemetry support across EDR vendors and platforms.
-                Overall support percentages are calculated as the simple average of Windows and Linux support percentages,
-                giving equal weight to both platforms. Use the platform selector to view statistics for specific platforms.
-              </p>
+          {/* Navigation quick links */}
+          <div className={styles["nav-links"]}>
+            <button onClick={() => toggleSection('summary')} className={expandedSections.summary ? styles["active"] : ""}>
+              Summary
+            </button>
+            <button onClick={() => toggleSection('vendors')} className={expandedSections.vendors ? styles["active"] : ""}>
+              Vendors
+            </button>
+            <button onClick={() => toggleSection('features')} className={expandedSections.features ? styles["active"] : ""}>
+              Features
+            </button>
+            <button onClick={() => toggleSection('explore')} className={expandedSections.explore ? styles["active"] : ""}>
+              Explore
+            </button>
+          </div>
+          
+          {/* Summary Statistics Section */}
+          <Accordion 
+            id="summary" 
+            title="Summary Statistics" 
+            description="Overview of telemetry support across all EDR vendors"
+            isExpanded={expandedSections.summary}
+            onToggle={toggleSection}
+          >
+            {summaryStats && (
+              <div className={styles["accordion-inner-content"]}>
+                <p className={styles["summary-description"]}>
+                  These cards summarize telemetry support across EDR vendors and platforms.
+                  Overall support percentages are calculated as the simple average of Windows and Linux support percentages,
+                  giving equal weight to both platforms. Use the platform selector to view statistics for specific platforms.
+                </p>
+                
+                <SummaryDashboard vendorStats={vendorStats} summaryStats={summaryStats} />
+              </div>
+            )}
+          </Accordion>
+          
+          {/* Vendor Overview Section */}
+          <Accordion 
+            id="vendors" 
+            title="Vendor Overview" 
+            description="Comprehensive analysis of each EDR vendor's telemetry capabilities"
+            isExpanded={expandedSections.vendors}
+            onToggle={toggleSection}
+          >
+            <div className={styles["accordion-inner-content"]}>
+              <VendorOverview vendorStats={vendorStats} />
               
-              <SummaryDashboard vendorStats={vendorStats} summaryStats={summaryStats} />
+              <h3 id="vendor-table-view">Vendor Table View</h3>
+              <VendorComparisonTable vendorStats={vendorStats} />
             </div>
-          )}
+          </Accordion>
           
-          <div className={styles["stats-card"]}>
-            <h2 id="vendor-overview">Vendor Overview</h2>
-            <p>Comprehensive analysis of each EDR vendor's telemetry capabilities across platforms.</p>
-            
-            <VendorOverview vendorStats={vendorStats} />
-
-            <h3 id="vendor-table-view">Vendor Table View</h3>
-            <VendorComparisonTable vendorStats={vendorStats} />
-          </div>
-          
-          <div className={styles["stats-card"]}>
-            <h2 id="platform-features">Platform Telemetry Features</h2>
-            <p>Explore telemetry features by platform and see which ones have the most support among vendors.</p>
-            
-            <TabsComponent defaultTab="windows">
-              <TabPanel tabId="windows">
-                <PlatformFeatures 
-                  platform="windows" 
-                  topFeatures={topFeatures} 
-                  leastSupportedFeatures={leastSupportedFeatures}
-                />
-              </TabPanel>
-              
-              <TabPanel tabId="linux">
-                <PlatformFeatures 
-                  platform="linux" 
-                  topFeatures={topFeatures} 
-                  leastSupportedFeatures={leastSupportedFeatures}
-                />
-              </TabPanel>
-              
-              <TabPanel tabId="comparison">
-                <div className={styles["platform-comparison"]}>
-                  <div className={styles["platform-header"]}>
-                    <h3>Platform Telemetry Comparison</h3>
-                    <p>Compare telemetry support across Windows and Linux platforms.</p>
-                  </div>
-                  
-                  <div className={styles["section-divider"]}></div>
-                  
-                  <div className={styles["section-header"]}>
-                    <h3>Platform Telemetry Comparison Charts</h3>
-                    <p>Visualizations of vendor telemetry feature support across Windows and Linux platforms.</p>
-                  </div>
-                  
-                  {platformComparison.length > 0 && 
-                    <PlatformComparisonCharts platformComparisonData={platformComparison} />
-                  }
-                  
-                  <div className={styles["section-divider"]}></div>
-                  
-                  <div className={styles["section-header"]}>
-                    <h3>Platform Telemetry Comparison Table</h3>
-                    <p>This table compares telemetry feature support across Windows and Linux platforms for each vendor.</p>
-                  </div>
-                  
-                  <p className={`${styles.mb4} ${styles.description}`} style={{ fontSize: '0.9rem', color: '#6c757d' }}>
-                    The <strong>Overall</strong> percentage is calculated as the simple average of Windows and Linux support percentages,
-                    giving equal weight to both platforms: (Windows% + Linux%) ÷ 2. Each percentage represents the level of 
-                    telemetry feature support on that platform.
-                  </p>
-                  
-                  <table className={styles["vendor-comparison"]}>
-                    <thead>
-                      <tr>
-                        <th>Vendor</th>
-                        <th>Windows Telemetry</th>
-                        <th>Linux Telemetry</th>
-                        <th>Overall Telemetry</th>
-                        <th>Platform Bias</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {platformComparison.map((vendor, index) => (
-                        <tr key={index}>
-                          <td>{vendor.vendor}</td>
-                          <td>{vendor.windows.toFixed(2)}%</td>
-                          <td>{vendor.linux.toFixed(2)}%</td>
-                          <td>{vendor.overall.toFixed(2)}%</td>
-                          <td>
-                            <span className={`${styles.favors} ${styles[vendor.favors]}`}>
-                              {vendor.favors === 'equal' ? 'Equal' : 
-                              vendor.favors === 'windows' ? 'Windows' : 'Linux'}
-                            </span>
-                          </td>
+          {/* Platform Features Section */}
+          <Accordion 
+            id="features" 
+            title="Platform Telemetry Features" 
+            description="Explore telemetry features by platform and their support among vendors"
+            isExpanded={expandedSections.features}
+            onToggle={toggleSection}
+          >
+            <div className={styles["accordion-inner-content"]}>
+              <TabsComponent defaultTab="windows">
+                <TabPanel tabId="windows">
+                  <PlatformFeatures 
+                    platform="windows" 
+                    topFeatures={topFeatures} 
+                    leastSupportedFeatures={leastSupportedFeatures}
+                  />
+                </TabPanel>
+                
+                <TabPanel tabId="linux">
+                  <PlatformFeatures 
+                    platform="linux" 
+                    topFeatures={topFeatures} 
+                    leastSupportedFeatures={leastSupportedFeatures}
+                  />
+                </TabPanel>
+                
+                <TabPanel tabId="comparison">
+                  <div className={styles["platform-comparison"]}>
+                    <div className={styles["platform-header"]}>
+                      <h3>Platform Telemetry Comparison</h3>
+                      <p>Compare telemetry support across Windows and Linux platforms.</p>
+                    </div>
+                    
+                    <div className={styles["section-divider"]}></div>
+                    
+                    <div className={styles["section-header"]}>
+                      <h3>Platform Telemetry Comparison Charts</h3>
+                      <p>Visualizations of vendor telemetry feature support across Windows and Linux platforms.</p>
+                    </div>
+                    
+                    {platformComparison.length > 0 && 
+                      <PlatformComparisonCharts platformComparisonData={platformComparison} />
+                    }
+                    
+                    <div className={styles["section-divider"]}></div>
+                    
+                    <div className={styles["section-header"]}>
+                      <h3>Platform Telemetry Comparison Table</h3>
+                      <p>This table compares telemetry feature support across Windows and Linux platforms for each vendor.</p>
+                    </div>
+                    
+                    <p className={`${styles.mb4} ${styles.description}`} style={{ fontSize: '0.9rem', color: '#6c757d' }}>
+                      The <strong>Overall</strong> percentage is calculated as the simple average of Windows and Linux support percentages,
+                      giving equal weight to both platforms: (Windows% + Linux%) ÷ 2. Each percentage represents the level of 
+                      telemetry feature support on that platform.
+                    </p>
+                    
+                    <table className={styles["vendor-comparison"]}>
+                      <thead>
+                        <tr>
+                          <th>Vendor</th>
+                          <th>Windows Telemetry</th>
+                          <th>Linux Telemetry</th>
+                          <th>Overall Telemetry</th>
+                          <th>Platform Bias</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </TabPanel>
-            </TabsComponent>
-          </div>
+                      </thead>
+                      <tbody>
+                        {platformComparison.map((vendor, index) => (
+                          <tr key={index}>
+                            <td>{vendor.vendor}</td>
+                            <td>{vendor.windows.toFixed(2)}%</td>
+                            <td>{vendor.linux.toFixed(2)}%</td>
+                            <td>{vendor.overall.toFixed(2)}%</td>
+                            <td>
+                              <span className={`${styles.favors} ${styles[vendor.favors]}`}>
+                                {vendor.favors === 'equal' ? 'Equal' : 
+                                vendor.favors === 'windows' ? 'Windows' : 'Linux'}
+                              </span>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </TabPanel>
+              </TabsComponent>
+            </div>
+          </Accordion>
+          
+          {/* Explore Telemetry Data Section */}
+          <Accordion 
+            id="explore" 
+            title="Explore Telemetry Data Adoption" 
+            description="Interactive visualizations and data exploration tools"
+            isExpanded={expandedSections.explore}
+            onToggle={toggleSection}
+          >
+            <div className={styles["accordion-inner-content"]}>
+              <div className={styles['tab-navigation']}>
+                <button 
+                  className={`${styles['tab-button']} ${activeExploreTab === 'timeline' ? styles['tab-active'] : ''}`}
+                  onClick={() => handleExploreTabChange('timeline')}
+                >
+                  Feature Adoption Timeline
+                </button>
+                <button 
+                  className={`${styles['tab-button']} ${activeExploreTab === 'explorer' ? styles['tab-active'] : ''}`}
+                  onClick={() => handleExploreTabChange('explorer')}
+                >
+                  Interactive Feature Explorer
+                </button>
+              </div>
+              
+              <div className={styles['tab-content']}>
+                {activeExploreTab === 'timeline' && (
+                  <div>
+                    <div className={styles['tab-description']}>
+                      <p>Track how telemetry feature adoption has evolved over time across different platforms. This timeline shows the percentage of vendors supporting key telemetry features by quarter.</p>
+                    </div>
+                    <FeatureAdoptionTimeline 
+                      platform={platform} 
+                      onPlatformChange={(newPlatform) => setPlatform(newPlatform)}
+                    />
+                  </div>
+                )}
+                
+                {activeExploreTab === 'explorer' && (
+                  <div>
+                    <div className={styles['tab-description']}>
+                      <p>Explore telemetry features in depth with interactive filtering and visualization tools. Select vendors, categories, and chart types to analyze feature support across the industry.</p>
+                    </div>
+                    <FeatureExplorer initialPlatform={platform} />
+                  </div>
+                )}
+              </div>
+            </div>
+          </Accordion>
         </div>
       )}
     </TemplatePage>
