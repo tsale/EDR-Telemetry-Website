@@ -1,14 +1,14 @@
-# EDR Telemetry Project - Next.js Version
+# EDR Telemetry Website
 
-This is the Next.js implementation of the EDR Telemetry Website, featuring Vercel Speed Insights integration for performance monitoring.
+A comprehensive Next.js implementation of the EDR Telemetry Website, featuring Vercel Speed Insights for performance monitoring.
 
 ## Getting Started
 
 First, clone the repository:
 
 ```bash
-git clone <repository-url>
-cd <repository-directory>
+git clone https://github.com/tsale/EDR-Telemetry-Website.git
+cd EDR-Telemetry-Website
 ```
 
 Then, install the dependencies:
@@ -28,10 +28,27 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to see the r
 ## Project Structure
 
 ```
-next-app/
+EDR-Telemetry-Website/
 ├── components/     # Reusable React components
 ├── hooks/          # Custom React hooks
 ├── pages/          # Page components and routes
+│   ├── about.js
+│   ├── blog.js
+│   ├── contact.js
+│   ├── contribute.js
+│   ├── eligibility.js
+│   ├── index.js    # Homepage
+│   ├── linux.js
+│   ├── macos.js
+│   ├── mitre-mappings.js
+│   ├── premium-services.js
+│   ├── roadmap.js
+│   ├── scores.js
+│   ├── sponsorship.js
+│   ├── statistics.js
+│   ├── windows.js
+│   ├── _app.js     # Custom App component
+│   └── _document.js # Custom Document
 ├── public/         # Static assets (images, etc.)
 ├── styles/         # CSS files
 └── utils/          # Utility functions
@@ -40,17 +57,22 @@ next-app/
 ## Features
 
 - **Speed Insights**: Integrated Vercel Speed Insights for performance monitoring
+- **Chart.js Integration**: Data visualization with Chart.js and react-chartjs-2
 - **Responsive Design**: Mobile-friendly interface
 - **React Components**: Modular, reusable components
 - **Next.js Routing**: File-based routing system
+- **Platform-specific Pages**: Dedicated pages for Windows, Linux, and macOS
 
-## Documentation
+## Technologies Used
 
-For detailed information on completing the migration and deploying the site, refer to these guides:
+- **Next.js**: React framework for production
+- **React**: UI library
+- **Chart.js**: Data visualization
+- **Vercel Speed Insights**: Performance monitoring
 
-- [Migration Guide](./MIGRATION-GUIDE.md) - Guide for converting HTML to Next.js
-- [Next Steps](./NEXT-STEPS.md) - Remaining tasks to complete the migration
-- [Vercel Deployment](./VERCEL-DEPLOY.md) - Steps to deploy to Vercel with Speed Insights
+## Deployment
+
+This project is configured for deployment on Vercel, with `vercel.json` providing custom configuration.
 
 ## Contributing
 
@@ -64,4 +86,4 @@ Please ensure your code follows the existing style and structure.
 
 ## License
 
-This project is licensed under the same terms as the original EDR Telemetry Project. 
+ISC License 
