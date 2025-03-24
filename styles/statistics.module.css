@@ -577,10 +577,10 @@
 
 /* Feature Table Controls */
 .feature-table-container {
+  margin: 1.5rem 0;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  margin-bottom: 2rem;
   overflow: hidden;
 }
 
@@ -1186,10 +1186,30 @@
 @media (max-width: 576px) {
   .feature-table-container {
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-left: -1rem;
+    margin-right: -1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    position: relative;
+    width: calc(100% + 2rem);
   }
   
-  .feature-table {
+  .feature-table,
+  .vendor-comparison {
     min-width: 700px;
+    margin-bottom: 1rem;
+  }
+
+  /* Add a horizontal scroll indicator */
+  .feature-table-container::after {
+    content: "← Scroll →";
+    display: block;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #6c757d;
+    padding: 0.5rem 0;
+    opacity: 0.7;
   }
 }
 
@@ -1490,20 +1510,50 @@
 }
 
 .accordion-content {
-  height: 0;
+  max-height: 0;
   overflow: hidden;
-  transition: height 0.3s ease;
+  transition: max-height 0.5s ease;
 }
 
 .accordion-content.expanded {
-  height: auto;
+  max-height: 5000px; /* Set a large max-height for the transition to work */
   padding: 1.5rem 2rem 2rem;
 }
 
 .accordion-inner-content {
-  animation: fadeIn 0.3s ease-in;
+  opacity: 0;
+  transition: opacity 0.3s ease-in;
 }
 
+.accordion-content.expanded .accordion-inner-content {
+  opacity: 1;
+}
+
+/* Mobile table container styles */
+.mobile-table-container {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Scrollable class for mobile tables */
+.scrollable {
+  position: relative;
+}
+
+.scrollable::after {
+  content: '← Scroll →';
+  display: block;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #6c757d;
+  padding: 0.5rem 0;
+  opacity: 0.7;
+  background-color: #f8f9fa;
+  border-top: 1px solid #e9ecef;
+}
+
+/* Optimize for mobile */
 @media (max-width: 768px) {
   .nav-links {
     flex-direction: row;
@@ -1527,10 +1577,142 @@
   }
   
   .accordion-content.expanded {
-    padding: 1.25rem 1.5rem 1.5rem;
+    padding: 1.25rem 0.5rem 1.5rem;
+    overflow-x: hidden;
   }
   
   .accordion-description {
     padding: 0 1.5rem;
+  }
+
+  .accordion-inner-content {
+    width: 100%;
+    overflow-x: visible;
+  }
+
+  /* Make sure chart containers don't overflow */
+  .charts-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    width: calc(100% + 1rem);
+  }
+
+  /* Improve table display */
+  .feature-table th,
+  .feature-table td,
+  .vendor-comparison th,
+  .vendor-comparison td {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.85rem;
+  }
+
+  /* Better accommodate smaller screens */
+  .tab-content {
+    padding: 1rem 0.5rem;
+  }
+
+  /* Ensure summary dashboard fits on mobile */
+  .summary-stat-boxes {
+    flex-direction: column;
+  }
+
+  .summary-stat-box {
+    width: 100%;
+  }
+}
+
+/* Further mobile optimizations */
+@media (max-width: 576px) {
+  /* Make sure accordion padding doesn't interfere with table scrolling */
+  .accordion-content.expanded {
+    padding: 1.25rem 0 1.5rem;
+  }
+  
+  /* Adjust table container for mobile */
+  .feature-table-container {
+    border-radius: 0;
+    box-shadow: none;
+    margin: 1rem 0;
+    overflow-x: hidden; /* Changed from auto to hidden since we're handling overflow in the inner container */
+  }
+
+  /* Optimize feature-table-header for mobile */
+  .feature-table-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+  }
+
+  .feature-table-controls {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .search-container, 
+  .items-per-page {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+
+  .search-input {
+    width: 100%;
+  }
+  
+  .items-per-page select {
+    width: 100%;
+  }
+
+  /* Adjust the pagination controls */
+  .pagination {
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0.75rem;
+  }
+
+  .pagination-button {
+    width: 32px;
+    height: 32px;
+    font-size: 0.8rem;
+  }
+  
+  /* Chart related mobile optimizations */
+  .chart-row {
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    width: calc(100% + 1rem);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .chart-col, .chart-col-wide {
+    min-width: 300px;
+    flex-shrink: 0;
+  }
+
+  /* Make vendor stat cards more readable on mobile */
+  .vendor-stat-card {
+    padding: 1rem;
+  }
+  
+  /* Better spacing for stat items on mobile */
+  .stat-item {
+    padding: 0.3rem 0;
+  }
+  
+  /* Make dashboard items stack better */
+  .dashboard-card {
+    padding: 1rem;
+  }
+  
+  /* Optimize platform comparison table */
+  .platform-comparison {
+    overflow-x: hidden;
   }
 } 

@@ -70,6 +70,42 @@ export default function Statistics() {
     loadAllTelemetryData();
   }, []);
   
+  // Add useEffect to handle mobile table scrolling indicators
+  useEffect(() => {
+    const handleMobileTableScroll = () => {
+      const tableContainers = document.querySelectorAll(`.${styles["mobile-table-container"]}`);
+      
+      tableContainers.forEach(container => {
+        if (container.scrollWidth > container.clientWidth) {
+          container.classList.add(styles["scrollable"]);
+        } else {
+          container.classList.remove(styles["scrollable"]);
+        }
+      });
+    };
+    
+    // Run once on component mount
+    if (!isLoading && !error) {
+      setTimeout(handleMobileTableScroll, 500);
+      
+      // Add event listener for window resize
+      window.addEventListener('resize', handleMobileTableScroll);
+      
+      // Add event listeners for accordion expansion/collapse
+      const accordionHeaders = document.querySelectorAll(`.${styles["accordion-header"]}`);
+      accordionHeaders.forEach(header => {
+        header.addEventListener('click', () => {
+          setTimeout(handleMobileTableScroll, 500);
+        });
+      });
+      
+      // Clean up
+      return () => {
+        window.removeEventListener('resize', handleMobileTableScroll);
+      };
+    }
+  }, [isLoading, error, expandedSections]);
+  
   // Additional useEffect to re-apply heading links after content loads
   useEffect(() => {
     if (!isLoading && !error) {
@@ -1002,42 +1038,44 @@ export default function Statistics() {
           </div>
         </div>
         
-        <table className={styles["feature-table"]}>
-          <thead>
-            <tr>
-              <th onClick={() => requestSort('feature')} className={styles.sortable}>
-                Telemetry Feature {getSortDirectionIndicator('feature')}
-              </th>
-              <th onClick={() => requestSort('supportPercentage')} className={styles.sortable}>
-                Support Percentage {getSortDirectionIndicator('supportPercentage')}
-              </th>
-              <th onClick={() => requestSort('supportCount')} className={styles.sortable}>
-                Full Support {getSortDirectionIndicator('supportCount')}
-              </th>
-              <th onClick={() => requestSort('partialCount')} className={styles.sortable}>
-                Partial Support {getSortDirectionIndicator('partialCount')}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentItems.length > 0 ? (
-              currentItems.map((feature, index) => (
-                <tr key={index}>
-                  <td>{feature.feature}</td>
-                  <td className={styles[getColorClass(feature.supportPercentage)]}>
-                    {feature.supportPercentage}%
-                  </td>
-                  <td>{feature.supportCount}/{feature.totalVendors}</td>
-                  <td>{feature.partialCount}/{feature.totalVendors}</td>
-                </tr>
-              ))
-            ) : (
+        <div className={styles["mobile-table-container"]}>
+          <table className={styles["feature-table"]}>
+            <thead>
               <tr>
-                <td colSpan="4" className={styles["no-results"]}>No matching features found</td>
+                <th onClick={() => requestSort('feature')} className={styles.sortable}>
+                  Telemetry Feature {getSortDirectionIndicator('feature')}
+                </th>
+                <th onClick={() => requestSort('supportPercentage')} className={styles.sortable}>
+                  Support % {getSortDirectionIndicator('supportPercentage')}
+                </th>
+                <th onClick={() => requestSort('supportCount')} className={styles.sortable}>
+                  Full Support {getSortDirectionIndicator('supportCount')}
+                </th>
+                <th onClick={() => requestSort('partialCount')} className={styles.sortable}>
+                  Partial Support {getSortDirectionIndicator('partialCount')}
+                </th>
               </tr>
-            )}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {currentItems.length > 0 ? (
+                currentItems.map((feature, index) => (
+                  <tr key={index}>
+                    <td>{feature.feature}</td>
+                    <td className={styles[getColorClass(feature.supportPercentage)]}>
+                      {feature.supportPercentage}%
+                    </td>
+                    <td>{feature.supportCount}/{feature.totalVendors}</td>
+                    <td>{feature.partialCount}/{feature.totalVendors}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="4" className={styles["no-results"]}>No matching features found</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
         
         {totalPages > 1 && (
           <div className={styles.pagination}>
@@ -1148,50 +1186,52 @@ export default function Statistics() {
           </div>
         </div>
         
-        <table className={styles["feature-table"]}>
-          <thead>
-            <tr>
-              <th onClick={() => requestSort('vendor')} className={styles.sortable}>
-                Vendor {getSortDirectionIndicator('vendor')}
-              </th>
-              <th onClick={() => requestSort('overall.supportPercentage')} className={styles.sortable}>
-                Overall Telemetry Support {getSortDirectionIndicator('overall.supportPercentage')}
-              </th>
-              <th onClick={() => requestSort('windows.supportPercentage')} className={styles.sortable}>
-                Windows Telemetry Support {getSortDirectionIndicator('windows.supportPercentage')}
-              </th>
-              <th onClick={() => requestSort('linux.supportPercentage')} className={styles.sortable}>
-                Linux Telemetry Support {getSortDirectionIndicator('linux.supportPercentage')}
-              </th>
-              <th onClick={() => requestSort('overall.totalFeatures')} className={styles.sortable}>
-                Total Telemetry Features {getSortDirectionIndicator('overall.totalFeatures')}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {sortedVendors.length > 0 ? (
-              sortedVendors.map(([vendor, stats]) => (
-                <tr key={vendor}>
-                  <td><strong>{vendor}</strong></td>
-                  <td className={styles[getColorClass(stats.overall.supportPercentage)]}>
-                    {stats.overall.supportPercentage}%
-                  </td>
-                  <td className={styles[getColorClass(stats.windows.supportPercentage)]}>
-                    {stats.windows.supportPercentage}%
-                  </td>
-                  <td className={styles[getColorClass(stats.linux.supportPercentage)]}>
-                    {stats.linux.supportPercentage}%
-                  </td>
-                  <td>{stats.overall.totalFeatures} telemetry features</td>
-                </tr>
-              ))
-            ) : (
+        <div className={styles["mobile-table-container"]}>
+          <table className={styles["feature-table"]}>
+            <thead>
               <tr>
-                <td colSpan="5" className={styles["no-results"]}>No matching vendors found</td>
+                <th onClick={() => requestSort('vendor')} className={styles.sortable}>
+                  Vendor {getSortDirectionIndicator('vendor')}
+                </th>
+                <th onClick={() => requestSort('overall.supportPercentage')} className={styles.sortable}>
+                  Overall Telemetry Support {getSortDirectionIndicator('overall.supportPercentage')}
+                </th>
+                <th onClick={() => requestSort('windows.supportPercentage')} className={styles.sortable}>
+                  Windows Telemetry Support {getSortDirectionIndicator('windows.supportPercentage')}
+                </th>
+                <th onClick={() => requestSort('linux.supportPercentage')} className={styles.sortable}>
+                  Linux Telemetry Support {getSortDirectionIndicator('linux.supportPercentage')}
+                </th>
+                <th onClick={() => requestSort('overall.totalFeatures')} className={styles.sortable}>
+                  Total Telemetry Features {getSortDirectionIndicator('overall.totalFeatures')}
+                </th>
               </tr>
-            )}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {sortedVendors.length > 0 ? (
+                sortedVendors.map(([vendor, stats]) => (
+                  <tr key={vendor}>
+                    <td><strong>{vendor}</strong></td>
+                    <td className={styles[getColorClass(stats.overall.supportPercentage)]}>
+                      {stats.overall.supportPercentage}%
+                    </td>
+                    <td className={styles[getColorClass(stats.windows.supportPercentage)]}>
+                      {stats.windows.supportPercentage}%
+                    </td>
+                    <td className={styles[getColorClass(stats.linux.supportPercentage)]}>
+                      {stats.linux.supportPercentage}%
+                    </td>
+                    <td>{stats.overall.totalFeatures} telemetry features</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="5" className={styles["no-results"]}>No matching vendors found</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     );
   };
@@ -1659,33 +1699,37 @@ export default function Statistics() {
                       telemetry feature support on that platform.
                     </p>
                     
-                    <table className={styles["vendor-comparison"]}>
-                      <thead>
-                        <tr>
-                          <th>Vendor</th>
-                          <th>Windows Telemetry</th>
-                          <th>Linux Telemetry</th>
-                          <th>Overall Telemetry</th>
-                          <th>Platform Bias</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {platformComparison.map((vendor, index) => (
-                          <tr key={index}>
-                            <td>{vendor.vendor}</td>
-                            <td>{vendor.windows.toFixed(2)}%</td>
-                            <td>{vendor.linux.toFixed(2)}%</td>
-                            <td>{vendor.overall.toFixed(2)}%</td>
-                            <td>
-                              <span className={`${styles.favors} ${styles[vendor.favors]}`}>
-                                {vendor.favors === 'equal' ? 'Equal' : 
-                                vendor.favors === 'windows' ? 'Windows' : 'Linux'}
-                              </span>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                    <div className={styles["feature-table-container"]}>
+                      <div className={styles["mobile-table-container"]}>
+                        <table className={styles["vendor-comparison"]}>
+                          <thead>
+                            <tr>
+                              <th>Vendor</th>
+                              <th>Windows Telemetry</th>
+                              <th>Linux Telemetry</th>
+                              <th>Overall Telemetry</th>
+                              <th>Platform Bias</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {platformComparison.map((vendor, index) => (
+                              <tr key={index}>
+                                <td>{vendor.vendor}</td>
+                                <td>{vendor.windows.toFixed(2)}%</td>
+                                <td>{vendor.linux.toFixed(2)}%</td>
+                                <td>{vendor.overall.toFixed(2)}%</td>
+                                <td>
+                                  <span className={`${styles.favors} ${styles[vendor.favors]}`}>
+                                    {vendor.favors === 'equal' ? 'Equal' : 
+                                    vendor.favors === 'windows' ? 'Windows' : 'Linux'}
+                                  </span>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
                   </div>
                 </TabPanel>
               </TabsComponent>
