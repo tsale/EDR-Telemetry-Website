@@ -119,11 +119,13 @@ export default function TemplatePage({ children, title = 'EDR Telemetry Project'
       </Head>
 
       <header>
-        <div className="header-container">
-          <div className="logo">
-            <Link href="/">
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <img src="/images/edr_telemetry_logo.png" alt="EDR Telemetry Logo" className="logo-icon" />
+        <div className="header-container" style={{ display: 'flex', alignItems: 'center', padding: '0' }}>
+          <div className="logo" style={{ padding: '0', margin: '0', marginRight: '3rem' }}>
+            <Link href="/" style={{ display: 'block', margin: '0', padding: '0' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', margin: '0', padding: '0' }}>
+                <div style={{ display: 'flex', justifyContent: 'center', width: '100%', margin: '0', padding: '0' }}>
+                  <img src="/images/edr_telemetry_logo.png" alt="EDR Telemetry Logo" className="logo-icon" />
+                </div>
                 <span style={{ fontSize: '0.85rem', lineHeight: '1.2', textAlign: 'center' }}>EDR Telemetry</span>
               </div>
             </Link>
@@ -150,7 +152,7 @@ export default function TemplatePage({ children, title = 'EDR Telemetry Project'
             <span></span>
           </button>
           
-          <nav className={mobileMenuOpen ? 'active' : ''}>
+          <nav style={{ flex: 1, display: 'flex', justifyContent: 'center' }} className={mobileMenuOpen ? 'active' : ''}>
             <ul>
               <li className={isActive('/')}>
                 <Link href="/">Home</Link>
