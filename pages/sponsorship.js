@@ -365,13 +365,13 @@ export default function Sponsorship() {
             <div className="subscription-header">
               <div className="header-icon">⭐</div>
               <h3>Monthly Sponsorship Plans</h3>
-              <p>Support us continuously and receive exclusive benefits</p>
+              <p>Join our community of supporters and help drive innovation in EDR telemetry research. Choose a plan that matches your commitment to advancing security intelligence.</p>
             </div>
             
             <div className="sponsorship-tiers">
-              <div className="tier-card">
+              <div className="tier-card coffee">
                 <div className="tier-header">
-                  <div className="tier-badge">Coffee</div>
+                  <div className="tier-icon">☕️</div>
                   <h4 className="tier-name">Coffee Supporter</h4>
                   <div className="tier-price">
                     <span className="price-amount">$5</span>
@@ -397,18 +397,18 @@ export default function Sponsorship() {
                 <div className="tier-footer">
                   <a 
                     href="https://buy.stripe.com/dR6bKJgm69ko2yIaEJ" 
-                    className="tier-button-link"
+                    className="tier-button coffee"
                     onClick={handleCoffeeSupporterClick}
                   >
-                    Buy me a coffee monthly
+                    Buy me a coffee
                   </a>
                 </div>
               </div>
 
-              <div className="tier-card">
+              <div className="tier-card premium">
+                <div className="popular-badge">Most Popular</div>
                 <div className="tier-header">
-                  <div className="tier-badge">Premium</div>
-                  <div className="popular-tag">Popular</div>
+                  <div className="tier-icon">⭐</div>
                   <h4 className="tier-name">Premium Supporter</h4>
                   <div className="tier-price">
                     <div className="price-display">
@@ -456,7 +456,7 @@ export default function Sponsorship() {
                 <div className="tier-footer">
                   <a 
                     href="#" 
-                    className="tier-button-link"
+                    className="tier-button premium"
                     id="premium-subscribe-button"
                     onClick={(e) => handlePremiumSubscribe(e)}
                   >
@@ -472,7 +472,7 @@ export default function Sponsorship() {
 
               <div className="tier-card enterprise">
                 <div className="tier-header">
-                  <div className="tier-badge">Elite</div>
+                  <div className="tier-icon">🏢</div>
                   <h4 className="tier-name">Enterprise Sponsor</h4>
                   <div className="tier-price">
                     <span className="price-amount">Custom</span>
@@ -496,7 +496,7 @@ export default function Sponsorship() {
                   </ul>
                 </div>
                 <div className="tier-footer">
-                  <a href="/contact" className="tier-button-link">Contact Us</a>
+                  <a href="/contact" className="tier-button enterprise">Contact Us</a>
                 </div>
               </div>
             </div>
@@ -534,202 +534,6 @@ export default function Sponsorship() {
           </div>
         </div>
       </div>
-
-      <style jsx>{`
-        .price-display {
-          text-align: center;
-          margin-bottom: 2rem;
-        }
-
-        .price-amount {
-          font-size: 3rem;
-          font-weight: bold;
-          color: #2d3748;
-        }
-
-        .price-period {
-          color: #718096;
-          margin-left: 0.5rem;
-          font-size: 1.2rem;
-        }
-
-        .slider-container {
-          width: 100%;
-          max-width: 400px;
-          padding: 0;
-          margin: 2rem auto;
-          position: relative;
-        }
-
-        .price-slider {
-          width: calc(100% - 24px);
-          height: 8px;
-          -webkit-appearance: none;
-          background: #e2e8f0;
-          border-radius: 4px;
-          outline: none;
-          margin: 2rem 12px;
-          position: relative;
-        }
-
-        .price-markers {
-          display: flex;
-          justify-content: space-between;
-          width: calc(100% - 24px);
-          margin: 1rem auto 0;
-          position: relative;
-          padding: 0;
-        }
-
-        .price-markers::before {
-          content: '';
-          position: absolute;
-          top: -12px;
-          left: 0;
-          right: 0;
-          height: 2px;
-          background: #e2e8f0;
-          z-index: -1;
-        }
-
-        .price-marker {
-          font-size: 1rem;
-          color: #718096;
-          cursor: pointer;
-          transition: all 0.2s ease;
-          position: relative;
-          padding-top: 1rem;
-          text-align: center;
-          flex: 1;
-          transform-origin: top center;
-        }
-
-        .price-marker::before {
-          content: '';
-          position: absolute;
-          top: -12px;
-          left: 50%;
-          transform: translateX(-50%);
-          width: 2px;
-          height: 8px;
-          background: #cbd5e0;
-        }
-
-        .price-marker:first-child {
-          text-align: left;
-        }
-
-        .price-marker:last-child {
-          text-align: right;
-        }
-
-        .price-marker.active {
-          color: #4299e1;
-          font-weight: 600;
-          transform: scale(1.1);
-        }
-
-        .price-marker.active::before {
-          background: #4299e1;
-          height: 10px;
-        }
-
-        .price-slider::-webkit-slider-thumb {
-          -webkit-appearance: none;
-          appearance: none;
-          width: 24px;
-          height: 24px;
-          background: #4299e1;
-          border-radius: 50%;
-          cursor: pointer;
-          transition: all 0.2s ease;
-          border: 2px solid white;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .price-slider::-webkit-slider-thumb:hover {
-          transform: scale(1.1);
-          background: #3182ce;
-        }
-
-        .price-slider::-moz-range-thumb {
-          width: 24px;
-          height: 24px;
-          background: #4299e1;
-          border-radius: 50%;
-          cursor: pointer;
-          border: 2px solid white;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-          transition: all 0.2s ease;
-        }
-
-        .price-slider::-moz-range-thumb:hover {
-          transform: scale(1.1);
-          background: #3182ce;
-        }
-
-        .tier-price {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          width: 100%;
-          padding: 1.5rem;
-        }
-
-        @media (max-width: 640px) {
-          .slider-container {
-            padding: 0;
-          }
-
-          .price-slider {
-            width: calc(100% - 16px);
-            margin: 1.5rem 8px;
-          }
-
-          .price-markers {
-            width: calc(100% - 16px);
-          }
-
-          .price-marker {
-            font-size: 0.875rem;
-          }
-
-          .price-amount {
-            font-size: 2.5rem;
-          }
-
-          .price-period {
-            font-size: 1rem;
-          }
-
-          .price-slider::-webkit-slider-thumb {
-            width: 20px;
-            height: 20px;
-          }
-
-          .price-slider::-moz-range-thumb {
-            width: 20px;
-            height: 20px;
-          }
-        }
-
-        @media (max-width: 380px) {
-          .price-marker {
-            font-size: 0.75rem;
-          }
-
-          .slider-container {
-            padding: 0;
-          }
-        }
-
-        .error-message {
-          color: #e53e3e;
-          font-size: 0.875rem;
-          margin-top: 0.5rem;
-          text-align: center;
-        }
-      `}</style>
     </TemplatePage>
   )
 } 

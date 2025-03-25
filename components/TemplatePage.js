@@ -124,7 +124,7 @@ export default function TemplatePage({ children, title = 'EDR Telemetry Project'
             <Link href="/">
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <img src="/images/edr_telemetry_logo.png" alt="EDR Telemetry Logo" className="logo-icon" />
-                <span style={{ fontSize: '0.85rem', lineHeight: '1.2', textAlign: 'center' }}>EDR Telemetry Project</span>
+                <span style={{ fontSize: '0.85rem', lineHeight: '1.2', textAlign: 'center' }}>EDR Telemetry</span>
               </div>
             </Link>
           </div>

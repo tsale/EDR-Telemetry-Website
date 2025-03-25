@@ -13,6 +13,7 @@ import '../styles/contributors.css'
 import '../styles/premium-services.css'
 import '../styles/scores.css'
 import '../styles/mitre-mappings.css'
+import '../styles/sponsorship.css'
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import Script from 'next/script'
 import { useEffect } from 'react'
