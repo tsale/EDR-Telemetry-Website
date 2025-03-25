@@ -196,7 +196,25 @@ export default function Sponsorship() {
       <Head>
         <title>Sponsorship - EDR Telemetry Project</title>
         <meta name="description" content="Support the EDR Telemetry Project and help us maintain independence in EDR research and analysis." />
-        <meta httpEquiv="Content-Security-Policy" content="font-src 'self' data: https:; img-src 'self' data: https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com; frame-src https://js.stripe.com https://hooks.stripe.com; connect-src 'self' https://api.stripe.com https://js.stripe.com;" />
+        <meta httpEquiv="Content-Security-Policy" content="
+          default-src 'self';
+          script-src 'self' 'unsafe-inline' 'unsafe-eval' 
+            https://js.stripe.com 
+            https://www.googletagmanager.com 
+            https://vercel.live 
+            https://www.google-analytics.com;
+          style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+          font-src 'self' data: https://fonts.gstatic.com;
+          img-src 'self' data: https:;
+          frame-src 'self' 
+            https://js.stripe.com 
+            https://hooks.stripe.com 
+            https://www.google.com;
+          connect-src 'self' 
+            https://api.stripe.com 
+            https://js.stripe.com 
+            https://www.google-analytics.com;
+        " />
       </Head>
 
       {/* Load Stripe script using Next.js Script component */}
