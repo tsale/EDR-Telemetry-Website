@@ -3,11 +3,13 @@ import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import Search from './Search'
 
 export default function TemplatePage({ children, title = 'EDR Telemetry Project', description = 'EDR Telemetry Project - Exploring telemetry capabilities of EDR solutions' }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [platformsMenuOpen, setPlatformsMenuOpen] = useState(false)
   const [reportsMenuOpen, setReportsMenuOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
   const router = useRouter()
   const [isMobile, setIsMobile] = useState(false);
 
@@ -53,6 +55,19 @@ export default function TemplatePage({ children, title = 'EDR Telemetry Project'
     };
   }, [mobileMenuOpen]);
 
+  // Add keyboard shortcut for search
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      // Command/Control + K or Command/Control + /
+      if ((e.metaKey || e.ctrlKey) && (e.key === 'k' || e.key === '/')) {
+        e.preventDefault()
+        setSearchOpen(true)
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [])
+
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen)
   }
@@ -86,7 +101,7 @@ export default function TemplatePage({ children, title = 'EDR Telemetry Project'
 
   // Check if any platform page is active
   const isPlatformsActive = () => {
-    return ['/windows', '/linux', '/macOS'].includes(router.pathname) ? 'active' : ''
+    return ['/windows', '/linux', '/macos'].includes(router.pathname) ? 'active' : ''
   }
 
   // Check if any reports page is active
@@ -107,10 +122,23 @@ export default function TemplatePage({ children, title = 'EDR Telemetry Project'
         <div className="header-container">
           <div className="logo">
             <Link href="/">
-              <img src="/images/edr_telemetry_logo.png" alt="EDR Telemetry Logo" className="logo-icon" />
-              <span>EDR Telemetry Project</span>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <img src="/images/edr_telemetry_logo.png" alt="EDR Telemetry Logo" className="logo-icon" />
+                <span style={{ fontSize: '0.85rem', lineHeight: '1.2', textAlign: 'center' }}>EDR Telemetry Project</span>
+              </div>
             </Link>
           </div>
+          
+          <button 
+            className="search-trigger"
+            onClick={() => setSearchOpen(true)}
+            aria-label="Open search"
+          >
+            <svg viewBox="0 0 24 24" width="20" height="20">
+              <path fill="none" stroke="currentColor" strokeWidth="2" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14z"/>
+            </svg>
+            <span className="search-shortcut">⌘K</span>
+          </button>
           
           <button 
             className={`mobile-menu-toggle ${mobileMenuOpen ? 'active' : ''}`}
@@ -138,23 +166,29 @@ export default function TemplatePage({ children, title = 'EDR Telemetry Project'
                     }
                   }}
                 >
-                  <a href="#" onClick={(e) => !isMobile && togglePlatformsMenu(e)}>
-                    Platforms
-                  </a>
                   <a 
                     href="#" 
-                    className="dropdown-toggle" 
-                    onClick={(e) => { e.preventDefault(); togglePlatformsMenu(e) }}
-                    onTouchStart={(e) => { e.preventDefault(); togglePlatformsMenu(e) }}
-                    style={{ 
-                      marginLeft: '5px', 
-                      fontSize: '0.7rem',
-                      display: 'inline-block',
-                      padding: '2px 5px'
-                    }}
+                    onClick={(e) => !isMobile && togglePlatformsMenu(e)} 
+                    className={`dropdown-link ${isPlatformsActive()}`}
                   >
-                    {platformsMenuOpen ? '▲' : '▼'}
+                    Platforms
                   </a>
+                  {isMobile && (
+                    <a 
+                      href="#" 
+                      className="dropdown-toggle" 
+                      onClick={(e) => { e.preventDefault(); togglePlatformsMenu(e) }}
+                      onTouchStart={(e) => { e.preventDefault(); togglePlatformsMenu(e) }}
+                      style={{ 
+                        marginLeft: '5px', 
+                        fontSize: '0.7rem',
+                        display: 'inline-block',
+                        padding: '2px 5px'
+                      }}
+                    >
+                      {platformsMenuOpen ? '▲' : '▼'}
+                    </a>
+                  )}
                 </div>
                 <ul className={`dropdown-menu ${platformsMenuOpen ? 'active' : ''}`}>
                   <li className={isActive('/windows')}>
@@ -182,21 +216,28 @@ export default function TemplatePage({ children, title = 'EDR Telemetry Project'
                     }
                   }}
                 >
-                  <Link href="/scores" className={isActive('/scores')}>Scores</Link>
-                  <a 
-                    href="#" 
-                    className="dropdown-toggle" 
-                    onClick={(e) => { e.preventDefault(); toggleReportsMenu(e) }}
-                    onTouchStart={(e) => { e.preventDefault(); toggleReportsMenu(e) }}
-                    style={{ 
-                      marginLeft: '5px', 
-                      fontSize: '0.7rem',
-                      display: 'inline-block',
-                      padding: '2px 5px'
-                    }}
+                  <Link 
+                    href="/scores" 
+                    className={`dropdown-link ${isActive('/scores')}`}
                   >
-                    {reportsMenuOpen ? '▲' : '▼'}
-                  </a>
+                    Scores
+                  </Link>
+                  {isMobile && (
+                    <a 
+                      href="#" 
+                      className="dropdown-toggle" 
+                      onClick={(e) => { e.preventDefault(); toggleReportsMenu(e) }}
+                      onTouchStart={(e) => { e.preventDefault(); toggleReportsMenu(e) }}
+                      style={{ 
+                        marginLeft: '5px', 
+                        fontSize: '0.7rem',
+                        display: 'inline-block',
+                        padding: '2px 5px'
+                      }}
+                    >
+                      {reportsMenuOpen ? '▲' : '▼'}
+                    </a>
+                  )}
                 </div>
                 <ul className={`dropdown-menu ${reportsMenuOpen ? 'active' : ''}`}>
                   <li className={isActive('/statistics')}>
@@ -204,27 +245,27 @@ export default function TemplatePage({ children, title = 'EDR Telemetry Project'
                   </li>
                 </ul>
               </li>
-              <li className={isActive('/sponsorship')}>
+              <li className={isActive('/sponsorship')} style={{ whiteSpace: 'nowrap' }}>
                 <Link href="/sponsorship">Support Us</Link>
               </li>
               <li className={isActive('/premium-services')} style={{ 
                 fontWeight: 'bold',
                 background: 'linear-gradient(90deg, rgba(52, 152, 219, 0.2), transparent)',
                 borderRadius: '4px',
-                padding: '0 1px'
+                padding: '0 1px',
+                whiteSpace: 'nowrap'
               }}>
                 <Link href="/premium-services">Premium Services</Link>
               </li>
               <li className={isActive('/about')}>
                 <Link href="/about">About</Link>
               </li>
-              <li className={isActive('/blog')}>
-                <Link href="/blog">Blog</Link>
-              </li>
             </ul>
           </nav>
         </div>
       </header>
+
+      <Search isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
 
       <main>{children}</main>
 
@@ -250,6 +291,22 @@ export default function TemplatePage({ children, title = 'EDR Telemetry Project'
                 <li><Link href="/sponsorship">Support Us</Link></li>
                 <li><Link href="/premium-services">Premium Services</Link></li>
                 <li><Link href="/about">About</Link></li>
+              </ul>
+            </div>
+            
+            <div className="footer-section">
+              <h3>Documentation</h3>
+              <ul>
+                <li><Link href="/faq">FAQ</Link></li>
+                <li><Link href="/mitre-mappings">MITRE Mappings</Link></li>
+                <li>
+                  <span>Resources</span>
+                  <ul className="footer-submenu">
+                    <li><Link href="/blog">Blog Posts</Link></li>
+                    <li><Link href="/contribute">Contribution Guide</Link></li>
+                    <li><Link href="/roadmap">Project Roadmap</Link></li>
+                  </ul>
+                </li>
               </ul>
             </div>
             

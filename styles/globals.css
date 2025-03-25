@@ -2323,4 +2323,652 @@ nav a[href="/sponsorship"]::after {
   .contact-us-button {
     width: 100%;
   }
+}
+
+/* FAQ Page Styles */
+.faq-container {
+  max-width: var(--content-max-width);
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.faq-search {
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.faq-search-input {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  background-color: white;
+  transition: all 0.3s ease;
+}
+
+.faq-search-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(0, 116, 217, 0.1);
+}
+
+.faq-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.faq-panel {
+  background: white;
+  border-radius: 8px;
+  box-shadow: var(--box-shadow-sm);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.faq-panel:hover {
+  box-shadow: var(--box-shadow-md);
+}
+
+.faq-question {
+  width: 100%;
+  text-align: left;
+  padding: 1.5rem;
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--secondary-color);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.2s ease;
+}
+
+.faq-question:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.faq-icon {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.faq-icon::before,
+.faq-icon::after {
+  content: '';
+  position: absolute;
+  background-color: var(--primary-color);
+  border-radius: 1px;
+  transition: all 0.3s ease;
+}
+
+.faq-icon::before {
+  width: 2px;
+  height: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.faq-icon::after {
+  width: 20px;
+  height: 2px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.faq-panel.expanded .faq-icon::before {
+  transform: translateX(-50%) rotate(90deg);
+  opacity: 0;
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 1.5rem;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.faq-panel.expanded .faq-answer {
+  max-height: 1000px;
+  opacity: 1;
+  padding: 0 1.5rem 1.5rem;
+}
+
+.faq-answer p {
+  color: var(--text-light);
+  margin-bottom: 1rem;
+}
+
+.faq-answer ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.faq-answer ul li {
+  margin-bottom: 0.75rem;
+  padding-left: 1.5rem;
+  position: relative;
+  color: var(--text-light);
+}
+
+.faq-answer ul li::before {
+  content: "•";
+  color: var(--primary-color);
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
+.no-results {
+  text-align: center;
+  padding: 2rem;
+  background: var(--background-light);
+  border-radius: 8px;
+  color: var(--text-light);
+}
+
+@media (max-width: 768px) {
+  .faq-question {
+    padding: 1.25rem;
+    font-size: 1rem;
+  }
+  
+  .faq-panel.expanded .faq-answer {
+    padding: 0 1.25rem 1.25rem;
+  }
+  
+  .faq-search-input {
+    padding: 0.75rem 1rem;
+  }
+}
+
+/* Search Styles */
+.search-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 10vh;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+}
+
+.search-modal {
+  background: white;
+  width: 90%;
+  max-width: 700px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.search-header {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  background: white;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.search-input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  font-size: 1.1rem;
+  border: 2px solid var(--border-color);
+  border-radius: 6px;
+  background-color: var(--background-light);
+  transition: all 0.2s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  background-color: white;
+  box-shadow: 0 0 0 3px rgba(0, 116, 217, 0.1);
+}
+
+.search-close-btn {
+  margin-left: 1rem;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+  color: var(--text-light);
+  cursor: pointer;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-close-btn:hover {
+  background-color: var(--background-light);
+  color: var(--text-color);
+}
+
+.search-results {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+.search-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  color: var(--text-light);
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border-color);
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  margin-right: 0.5rem;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.results-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.result-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.result-item:hover,
+.result-item.selected {
+  background-color: var(--background-light);
+  border-color: var(--border-color);
+  transform: translateY(-1px);
+}
+
+.result-category {
+  font-size: 1.5rem;
+  margin-right: 1rem;
+  min-width: 2rem;
+  text-align: center;
+  opacity: 0.9;
+  transition: opacity 0.2s ease;
+}
+
+.result-item:hover .result-category {
+  opacity: 1;
+}
+
+.result-content {
+  flex: 1;
+}
+
+.result-content h4 {
+  margin: 0 0 0.25rem;
+  color: var(--secondary-color);
+  font-size: 1.1rem;
+}
+
+.result-content p {
+  margin: 0;
+  color: var(--text-light);
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.no-results {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-light);
+}
+
+.no-results-suggestion {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+.search-suggestions {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  text-align: center;
+  color: var(--text-light);
+  font-size: 0.9rem;
+}
+
+/* Search Trigger Styles */
+.search-trigger {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  margin-right: 1rem;
+  background-color: var(--background-light);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  color: var(--text-light);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.search-trigger:hover {
+  background-color: white;
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 116, 217, 0.1);
+}
+
+.search-shortcut {
+  margin-left: 0.5rem;
+  padding: 0.2rem 0.4rem;
+  background-color: var(--background-light);
+  border-radius: 4px;
+  font-size: 0.8rem;
+  color: var(--text-light);
+  border: 1px solid var(--border-color);
+}
+
+@media (max-width: 768px) {
+  .search-shortcut {
+    display: none;
+  }
+  
+  .search-trigger {
+    padding: 0.5rem;
+    margin-right: 0.5rem;
+  }
+  
+  .search-modal {
+    width: 95%;
+    margin: 1rem;
+  }
+  
+  .result-category {
+    font-size: 1.25rem;
+  }
+  
+  .result-content h4 {
+    font-size: 1rem;
+  }
+}
+
+/* Enhanced Desktop Menu Styles - Only affects desktop */
+@media (min-width: 769px) {
+  .header-container {
+    padding: 0 1.5rem;
+  }
+  
+  nav ul {
+    display: flex;
+    align-items: center;
+  }
+  
+  nav li {
+    margin: 0 0.4rem;
+    position: relative;
+  }
+  
+  nav a {
+    padding: 0.75rem 0.6rem;
+    font-weight: 500;
+    position: relative;
+    color: var(--secondary-color);
+    opacity: 0.85;
+    transition: all 0.2s ease;
+  }
+  
+  nav a:hover {
+    opacity: 1;
+    color: var(--primary-color);
+  }
+  
+  nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+    border-radius: 1.5px;
+  }
+  
+  nav a:hover::after,
+  nav li.active a::after {
+    width: 100%;
+  }
+  
+  nav li.active a {
+    opacity: 1;
+  }
+  
+  /* Add subtle separator between items */
+  nav li:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    right: -0.4rem;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 1.25rem;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.075), transparent);
+  }
+  
+  /* Dropdown specific styles */
+  nav ul li.dropdown > div {
+    position: relative;
+  }
+  
+  nav ul li.dropdown .dropdown-link {
+    padding-right: 1.5rem;
+  }
+  
+  nav ul li.dropdown .dropdown-link::after {
+    content: "▾";
+    font-size: 0.75rem;
+    position: absolute;
+    right: 0.6rem;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.3s ease;
+    background-color: transparent;
+    height: auto;
+    width: auto;
+    border-radius: 0;
+    opacity: 0.7;
+  }
+  
+  nav ul li.dropdown:hover .dropdown-link::after,
+  nav ul li.dropdown.active .dropdown-link::after {
+    width: auto;
+    transform: translateY(-50%) rotate(180deg);
+    opacity: 1;
+  }
+  
+  /* Add a custom underline for dropdown links that doesn't conflict with the dropdown arrow */
+  nav ul li.dropdown .dropdown-link::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+    border-radius: 1.5px;
+  }
+  
+  nav ul li.dropdown .dropdown-link:hover::before,
+  nav ul li.dropdown.active .dropdown-link::before {
+    width: calc(100% - 1.5rem); /* Stop before the dropdown arrow */
+  }
+  
+  /* Dropdown menu appearance */
+  nav ul li.dropdown .dropdown-menu {
+    top: calc(100% + 3px); /* Move it slightly lower to avoid overlap with the underline */
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    background-color: white;
+    padding: 0.5rem 0;
+    min-width: 200px;
+    transform: translateY(10px);
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+  
+  /* Improved dropdown animation */
+  nav ul li.dropdown:hover .dropdown-menu {
+    transform: translateY(0);
+  }
+  
+  nav ul li.dropdown .dropdown-menu li {
+    margin: 0;
+  }
+  
+  nav ul li.dropdown .dropdown-menu li::after {
+    display: none;
+  }
+  
+  nav ul li.dropdown .dropdown-menu a {
+    padding: 0.7rem 1.2rem;
+    opacity: 0.85;
+    font-weight: 400;
+    display: block;
+    width: 100%;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+  }
+  
+  nav ul li.dropdown .dropdown-menu a:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+    padding-left: 1.5rem;
+    color: var(--primary-color);
+    opacity: 1;
+    border-left: 3px solid var(--primary-color);
+  }
+  
+  nav ul li.dropdown .dropdown-menu a::after {
+    display: none;
+  }
+  
+  /* Special treatment for Premium Services link */
+  nav a[href="/premium-services"] {
+    background: linear-gradient(90deg, rgba(52, 152, 219, 0.1), rgba(52, 152, 219, 0.05));
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    margin: 0 0.25rem;
+    font-weight: 600;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+  
+  nav a[href="/premium-services"]:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
+  }
+  
+  /* Style for Support Us link */
+  nav a[href="/sponsorship"] {
+    color: var(--accent-color);
+  }
+  
+  /* Adjust logo spacing */
+  .logo {
+    padding-left: 0;
+  }
+  
+  /* Active state for dropdown link */
+  nav ul li.dropdown.active .dropdown-link {
+    opacity: 1;
+    color: var(--primary-color);
+  }
+  
+  /* Active state for dropdown items */
+  nav ul li.dropdown .dropdown-menu li.active a {
+    background-color: rgba(0, 116, 217, 0.05);
+    color: var(--primary-color);
+    font-weight: 500;
+    border-left: 3px solid var(--primary-color);
+  }
+} 
+
+/* Mobile menu specific styles to override desktop customizations */
+@media (max-width: 768px) {
+  /* Reset any potentially conflicting desktop styles */
+  nav a::after {
+    display: none;
+  }
+  
+  nav li.dropdown .dropdown-link::after {
+    display: none;
+  }
+  
+  /* Ensure mobile dropdown toggles are visible */
+  nav li.dropdown .dropdown-toggle {
+    display: inline-block;
+  }
+  
+  /* Fix mobile menu item spacing */
+  nav li {
+    margin: 0;
+    width: 100%;
+  }
+  
+  /* Reset separators for mobile */
+  nav li:not(:last-child)::after {
+    display: none;
+  }
+  
+  /* Adjust padding for mobile menu items */
+  nav a {
+    padding: 1rem 0.5rem;
+    width: 100%;
+  }
+  
+  /* Ensure dropdown menus expand properly */
+  nav ul li.dropdown .dropdown-menu {
+    transform: none;
+    box-shadow: none;
+    border: none;
+  }
+  
+  /* Fix Premium Services styling for mobile */
+  nav a[href="/premium-services"] {
+    background: none;
+    box-shadow: none;
+    border-radius: 0;
+    margin: 0;
+    padding: 1rem 0.5rem;
+  }
 } 
