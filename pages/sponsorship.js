@@ -94,6 +94,11 @@ export default function Sponsorship() {
 
   // Handle Stripe script load
   const handleStripeLoad = () => {
+    if (!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
+      console.error('Stripe publishable key is not set');
+      setError('Payment system is not properly configured. Please try again later.');
+      return;
+    }
     console.log("Stripe script loaded");
     setLoading(false);
   };
@@ -191,14 +196,19 @@ export default function Sponsorship() {
       <Head>
         <title>Sponsorship - EDR Telemetry Project</title>
         <meta name="description" content="Support the EDR Telemetry Project and help us maintain independence in EDR research and analysis." />
+        <meta httpEquiv="Content-Security-Policy" content="font-src 'self' data: https:; img-src 'self' data: https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com; frame-src https://js.stripe.com https://hooks.stripe.com; connect-src 'self' https://api.stripe.com https://js.stripe.com;" />
       </Head>
 
       {/* Load Stripe script using Next.js Script component */}
       <Script
         id="stripe-buy-button"
         src="https://js.stripe.com/v3/buy-button.js"
-        strategy="lazyOnload"
+        strategy="afterInteractive"
         onLoad={handleStripeLoad}
+        onError={(e) => {
+          console.error('Error loading Stripe script:', e);
+          setError('Failed to load payment system. Please try again later.');
+        }}
       />
 
       <div className="hero-section">
