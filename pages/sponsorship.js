@@ -8,8 +8,15 @@ import { loadStripe } from '@stripe/stripe-js'
 // Initialize Stripe with null check
 const getStripe = () => {
   const key = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+  console.log('Stripe key status:', {
+    keyExists: !!key,
+    keyLength: key ? key.length : 0,
+    keyPrefix: key ? key.substring(0, 7) : 'none'
+  });
+  
   if (!key) {
-    throw new Error('Stripe publishable key is not set in environment variables');
+    console.error('Stripe publishable key is not set in environment variables');
+    return null;
   }
   return loadStripe(key);
 };
@@ -143,17 +150,15 @@ export default function Sponsorship() {
     setError(null);
 
     try {
-      if (!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
-        throw new Error('Please configure your Stripe publishable key');
+      console.log('Attempting to initialize Stripe...');
+      const stripe = await getStripe();
+      if (!stripe) {
+        throw new Error('Stripe is not properly configured. Please check your environment variables.');
       }
+      console.log('Stripe initialized successfully');
 
       // Track premium subscription initiation
       trackSubscriptionEvent('subscription_initiated', 'premium', parseInt(selectedPrice));
-
-      const stripe = await getStripe();
-      if (!stripe) {
-        throw new Error('Stripe failed to initialize');
-      }
 
       const priceIds = {
         '15': 'price_1R6Q4JJOUX0qB6cCqx1J6uuy',
