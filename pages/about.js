@@ -49,6 +49,29 @@ export default function About() {
           </div>
         </div>
 
+        {/* Community-Driven Approach Section */}
+        <div className="community-section">
+          <h2>A Community-Driven Project</h2>
+          <p>The EDR Telemetry Project is guided by a dedicated community of security professionals, researchers, and enthusiasts. While Kostas maintains the project, critical decisions and direction are shaped by:</p>
+          
+          <div className="community-points">
+            <div className="community-point">
+              <h3>Public Feedback</h3>
+              <p>Input from users, researchers, and industry professionals helps ensure the project remains relevant and accurate. Every contribution matters.</p>
+            </div>
+            
+            <div className="community-point">
+              <h3>Discord Community</h3>
+              <p>A trusted Discord community of contributors and supporters collaborates, discusses findings, and helps validate data. This active community plays a crucial role in maintaining quality and expanding coverage.</p>
+            </div>
+            
+            <div className="community-point">
+              <h3>Join Us</h3>
+              <p>Our community welcomes anyone interested in EDR telemetry. You can join our Discord by <Link href="/contribute">contributing to the project</Link> or <Link href="/sponsorship">subscribing via the Support Us page</Link>. We value diverse perspectives and expertise levels.</p>
+            </div>
+          </div>
+        </div>
+
         {/* Author Section */}
         <div className="author-section">
           <div className="author-image">
@@ -60,7 +83,8 @@ export default function About() {
             />
           </div>
           <div className="author-info">
-            <p><strong>Kostas</strong> is a security researcher who focuses on Threat Intelligence, malware, Incident Response, and Threat Hunting. Known for his contributions to various open-source security projects, he is an active member of the cybersecurity community. Opinions are his own.</p>
+            <h3>Project Maintainer</h3>
+            <p><strong>Kostas</strong> is a security researcher who focuses on Threat Intelligence, malware, Incident Response, and Threat Hunting. He serves as the main maintainer of the EDR Telemetry Project, coordinating community efforts and ensuring the project stays true to its mission of providing transparent, unbiased EDR telemetry comparisons.</p>
             {/* Social Media Links */}
             <div className="social-media">
               <strong>Connect with Kostas:</strong><br />
@@ -76,9 +100,10 @@ export default function About() {
 
         {/* Contact Section */}
         <div className="contact-us-section">
-          <p>If you have any questions, feedback, or are interested in contributing to the project, we'd love to hear from you!</p>
+          <p>If you have any questions, feedback, or are interested in contributing to the project or joining our Discord community, we'd love to hear from you!</p>
           <div className="contact-button-container">
             <Link href="/contact" className="contact-us-button action-button primary-button view-button">Contact Us</Link>
+            <Link href="/sponsorship" className="contact-us-button action-button secondary-button view-button">Join Our Community</Link>
           </div>
         </div>
       </div>
