@@ -11,7 +11,8 @@ const getStripe = () => {
   console.log('Stripe key status:', {
     keyExists: !!key,
     keyLength: key ? key.length : 0,
-    keyPrefix: key ? key.substring(0, 7) : 'none'
+    keyPrefix: key ? key.substring(0, 7) : 'none',
+    env: process.env.NODE_ENV
   });
   
   if (!key) {
@@ -202,18 +203,23 @@ export default function Sponsorship() {
             https://js.stripe.com 
             https://www.googletagmanager.com 
             https://vercel.live 
-            https://www.google-analytics.com;
+            https://www.google-analytics.com
+            https://*.vercel.live;
           style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
           font-src 'self' data: https://fonts.gstatic.com;
           img-src 'self' data: https:;
           frame-src 'self' 
             https://js.stripe.com 
             https://hooks.stripe.com 
-            https://www.google.com;
+            https://www.google.com
+            https://vercel.live
+            https://*.vercel.live;
           connect-src 'self' 
             https://api.stripe.com 
             https://js.stripe.com 
-            https://www.google-analytics.com;
+            https://www.google-analytics.com
+            https://vercel.live
+            https://*.vercel.live;
         " />
       </Head>
 
@@ -228,6 +234,13 @@ export default function Sponsorship() {
           setError('Failed to load payment system. Please try again later.');
         }}
       />
+
+      {/* Add debug info in development */}
+      {process.env.NODE_ENV === 'development' && (
+        <div style={{ display: 'none' }}>
+          Stripe Key Status: {process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY ? 'Present' : 'Missing'}
+        </div>
+      )}
 
       <div className="hero-section">
         <div className="hero-content">
