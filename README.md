@@ -1,57 +1,89 @@
 # EDR Telemetry Website
 
-Welcome to the **EDR Telemetry Website**, the official site for the [EDR Telemetry Project](https://github.com/tsale/EDR-Telemetry). This website provides a comprehensive comparison of Endpoint Detection and Response (EDR) solutions based on their telemetry capabilities.
-
-## Overview
-
-The EDR Telemetry Project aims to help organizations and security professionals make informed decisions when selecting EDR solutions by providing detailed comparisons of telemetry data collected by various EDR tools.
-
-## Features
-
-- **Platform Selection**: Compare EDR telemetry for different operating systems (Windows, Linux).
-- **Telemetry Tables**: Interactive tables displaying detailed telemetry capabilities of each EDR solution.
-- **Scoring System**: An objective scoring system to rank EDR solutions based on their telemetry features and importance.
-- **Comparison Mode**: Ability to compare selected EDRs side-by-side.
-- **About Section**: Learn more about the project and the author.
+A comprehensive Next.js implementation of the EDR Telemetry Website, featuring Vercel Speed Insights for performance monitoring.
 
 ## Getting Started
 
-To run the website locally:
+First, clone the repository:
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/tsale/edr-telemetry-website.git
+```bash
+git clone https://github.com/tsale/EDR-Telemetry-Website.git
+cd EDR-Telemetry-Website
+```
 
-2.	Navigate to the project directory:
-    ```bash
-    cd edr-telemetry-website
+Then, install the dependencies:
 
+```bash
+npm install
+```
 
-3.	Open index.html in your web browser.
+Run the development server:
 
-Note: An internet connection is required to fetch the latest telemetry data from the project’s GitHub repository.
+```bash
+npm run dev
+```
 
-Project Structure
+Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
 
-	•	index.html: Main page with platform selection.
-	•	windows.html: Telemetry data and comparison tools for Windows EDR solutions.
-	•	linux.html: Placeholder for upcoming Linux EDR telemetry data.
-	•	scores.html: Displays the EDR solutions’ scores based on telemetry capabilities.
-	•	about.html: Information about the EDR Telemetry Project and the author.
-	•	styles.css: Stylesheet for the website.
-	•	script.js: JavaScript file handling data fetching, interactivity, and scoring logic.
+## Project Structure
 
-Contributing
+```
+EDR-Telemetry-Website/
+├── components/     # Reusable React components
+├── hooks/          # Custom React hooks
+├── pages/          # Page components and routes
+│   ├── about.js
+│   ├── blog.js
+│   ├── contact.js
+│   ├── contribute.js
+│   ├── eligibility.js
+│   ├── index.js    # Homepage
+│   ├── linux.js
+│   ├── macos.js
+│   ├── mitre-mappings.js
+│   ├── premium-services.js
+│   ├── roadmap.js
+│   ├── scores.js
+│   ├── sponsorship.js
+│   ├── statistics.js
+│   ├── windows.js
+│   ├── _app.js     # Custom App component
+│   └── _document.js # Custom Document
+├── public/         # Static assets (images, etc.)
+├── styles/         # CSS files
+└── utils/          # Utility functions
+```
 
-Contributions are welcome! If you’d like to contribute to the EDR Telemetry Project or the website, please visit the GitHub repository for more information.
+## Features
+
+- **Speed Insights**: Integrated Vercel Speed Insights for performance monitoring
+- **Chart.js Integration**: Data visualization with Chart.js and react-chartjs-2
+- **Responsive Design**: Mobile-friendly interface
+- **React Components**: Modular, reusable components
+- **Next.js Routing**: File-based routing system
+- **Platform-specific Pages**: Dedicated pages for Windows, Linux, and macOS
+
+## Technologies Used
+
+- **Next.js**: React framework for production
+- **React**: UI library
+- **Chart.js**: Data visualization
+- **Vercel Speed Insights**: Performance monitoring
+
+## Deployment
+
+This project is configured for deployment on Vercel, with `vercel.json` providing custom configuration.
+
+## Contributing
+
+To contribute to this project:
+
+1. Create a feature branch
+2. Make your changes
+3. Submit a pull request
+
+Please ensure your code follows the existing style and structure.
 
 ## License
 
-This project is open-source and available under the MIT License.
-
-## Author
-
-Kostas is a security researcher who focuses on Threat Intelligence, malware, Incident Response, and Threat Hunting. Known for his contributions to various open-source security projects, he is an active member of the cybersecurity community. Opinions are his own.
-
-	•	Twitter: @Kostastsale
-	•	LinkedIn: /in/Kostastsale
+ISC License 

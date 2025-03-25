@@ -1,0 +1,56 @@
+{
+  "timeline": [
+    {
+      "quarter": "Q1 2023",
+      "title": "Windows Support Release",
+      "status": "done"
+    },
+    {
+      "quarter": "Q1 2024",
+      "title": "Scoring System Implementation",
+      "status": "done"
+    },
+    {
+      "quarter": "Q4 2024",
+      "title": "Linux Support",
+      "status": "done"
+    },
+    {
+      "quarter": "Q4 2024",
+      "title": "New EDR Additions - Windows",
+      "status": "done"
+    },
+    {
+      "quarter": "Q1 2025",
+      "title": "New EDR Additions - Windows/Linux",
+      "status": "current"
+    },
+    {
+      "quarter": "Q4 2025",
+      "title": "macOS Support",
+      "status": "planned"
+    }
+  ],
+  "inProgress": [
+    {
+      "title": "Pull Request Reviews",
+      "description": "Processing community contributions and EDR updates.",
+      "status": "Ongoing"
+    }
+  ],
+  "planned": [
+    {
+      "title": "New EDR Additions",
+      "description": "Integration of additional EDR solutions including:",
+      "items": ["MalwareBytes"],
+      "status": "Planned for Q1 2025"
+    }
+  ],
+  "backlog": [
+    {
+      "title": "macOS Support",
+      "description": "Expanding platform support to include macOS systems.",
+      "status": "Not Started"
+    }
+  ]
+}

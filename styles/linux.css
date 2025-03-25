@@ -1,0 +1,25 @@
+/* Linux page specific styles */
+
+/* Hero section with Linux color scheme */
+.hero-section {
+  background: linear-gradient(135deg, #14328f 0%, #5b96f9 100%);
+  color: white;
+  padding: 4rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Linux-specific customizations */
+.linux-accent {
+  color: #f8bf11; /* Linux/Tux yellow accent */
+}
+
+/* Override some colors for the Linux theme */
+.primary-button {
+  background-color: #3b5998;
+}
+
+.primary-button:hover {
+  background-color: #2d4373;
+} 

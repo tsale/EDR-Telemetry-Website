@@ -1,0 +1,118 @@
+/* Heading Links CSS */
+
+.heading-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+h1, h2, h3, h4 {
+    position: relative;
+    padding-left: 0;
+    margin-left: 0;  /* Remove the left margin */
+}
+
+.heading-link {
+    position: absolute;
+    left: -28px;  /* Position to the left of the heading wrapper */
+    right: auto; /* Ensure it's not on the right */
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0; /* Completely invisible by default */
+    text-decoration: none;
+    color: rgba(148, 163, 184, 0.6); /* Semi-transparent color */
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    border-radius: 4px;
+    z-index: 10; /* Ensure it appears above other elements */
+}
+
+.heading-link::before {
+    content: "🔗";
+    font-size: 14px;
+}
+
+.heading-wrapper:hover .heading-link {
+    opacity: 1; /* Show on hover */
+}
+
+.heading-link:hover {
+    background-color: #f1f5f9;
+    color: var(--primary-color);
+}
+
+/* Copy Notification */
+.copy-notification {
+    position: absolute;
+    opacity: 0;
+    visibility: hidden;
+    background-color: #1e293b;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: opacity 0.3s, visibility 0.3s;
+    z-index: 100;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.copy-notification::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px 6px 0;
+    border-style: solid;
+    border-color: #1e293b transparent transparent;
+}
+
+.copy-notification.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+    h1, h2, h3, h4 {
+        padding-left: 0;
+    }
+    
+    .heading-link {
+        width: 16px;
+        height: 16px;
+        left: -24px;
+    }
+    
+    .heading-link::before {
+        font-size: 12px;
+    }
+    
+    .copy-notification {
+        position: fixed;
+        top: auto;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #1e293b;
+        color: white;
+        font-size: 14px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+    }
+
+    .copy-notification::after {
+        display: none;
+    }
+
+    .copy-notification.show {
+        opacity: 1;
+        visibility: visible;
+    }
+} 

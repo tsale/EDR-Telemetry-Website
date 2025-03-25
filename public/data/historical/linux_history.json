@@ -1,0 +1,327 @@
+[
+  {
+    "date": "2023-Q1",
+    "features": [
+      {
+        "feature": "Process Creation",
+        "category": "Process Telemetry",
+        "adoption": 65.3,
+        "key_vendors": ["CrowdStrike", "SentinelOne", "Elastic"]
+      },
+      {
+        "feature": "Process Termination",
+        "category": "Process Telemetry",
+        "adoption": 60.5,
+        "key_vendors": ["CrowdStrike", "SentinelOne", "Elastic"]
+      },
+      {
+        "feature": "Process Access",
+        "category": "Process Telemetry",
+        "adoption": 45.8,
+        "key_vendors": ["CrowdStrike", "SentinelOne"]
+      },
+      {
+        "feature": "File Creation",
+        "category": "File System Telemetry",
+        "adoption": 58.7,
+        "key_vendors": ["CrowdStrike", "SentinelOne", "Elastic"]
+      },
+      {
+        "feature": "File Modification",
+        "category": "File System Telemetry",
+        "adoption": 52.1,
+        "key_vendors": ["CrowdStrike", "SentinelOne", "Elastic"]
+      },
+      {
+        "feature": "Network Connection",
+        "category": "Network Telemetry",
+        "adoption": 55.3,
+        "key_vendors": ["CrowdStrike", "SentinelOne", "Elastic"]
+      },
+      {
+        "feature": "DNS Query",
+        "category": "Network Telemetry",
+        "adoption": 30.8,
+        "key_vendors": ["CrowdStrike", "Elastic"]
+      },
+      {
+        "feature": "Module Loading",
+        "category": "Memory Telemetry",
+        "adoption": 38.2,
+        "key_vendors": ["CrowdStrike", "SentinelOne"]
+      },
+      {
+        "feature": "User Authentication",
+        "category": "User Activity",
+        "adoption": 32.5,
+        "key_vendors": ["Elastic"]
+      },
+      {
+        "feature": "Memory Scanning",
+        "category": "Memory Telemetry",
+        "adoption": 25.8,
+        "key_vendors": ["CrowdStrike", "SentinelOne"]
+      }
+    ]
+  },
+  {
+    "date": "2023-Q2",
+    "features": [
+      {
+        "feature": "Process Creation",
+        "category": "Process Telemetry",
+        "adoption": 69.7,
+        "key_vendors": ["CrowdStrike", "SentinelOne", "Elastic", "Carbon Black"]
+      },
+      {
+        "feature": "Process Termination",
+        "category": "Process Telemetry",
+        "adoption": 64.8,
+        "key_vendors": ["CrowdStrike", "SentinelOne", "Elastic", "Carbon Black"]
+      },
+      {
+        "feature": "Process Access",
+        "category": "Process Telemetry",
+        "adoption": 51.2,
+        "key_vendors": ["CrowdStrike", "SentinelOne", "Carbon Black"]
+      },
+      {
+        "feature": "File Creation",
+        "category": "File System Telemetry",
+        "adoption": 63.9,
+        "key_vendors": ["CrowdStrike", "SentinelOne", "Elastic", "Carbon Black"]
+      },
+      {
+        "feature": "File Modification",
+        "category": "File System Telemetry",
+        "adoption": 57.4,
+        "key_vendors": ["CrowdStrike", "SentinelOne", "Elastic", "Carbon Black"]
+      },
+      {
+        "feature": "Network Connection",
+        "category": "Network Telemetry",
+        "adoption": 60.8,
+        "key_vendors": ["CrowdStrike", "SentinelOne", "Elastic", "Carbon Black"]
+      },
+      {
+        "feature": "DNS Query",
+        "category": "Network Telemetry",
+        "adoption": 37.3,
+        "key_vendors": ["CrowdStrike", "Elastic", "Carbon Black"]
+      },
+      {
+        "feature": "Module Loading",
+        "category": "Memory Telemetry",
+        "adoption": 44.1,
+        "key_vendors": ["CrowdStrike", "SentinelOne", "Carbon Black"]
+      },
+      {
+        "feature": "User Authentication",
+        "category": "User Activity",
+        "adoption": 38.9,
+        "key_vendors": ["Elastic", "Carbon Black"]
+      },
+      {
+        "feature": "Memory Scanning",
+        "category": "Memory Telemetry",
+        "adoption": 31.2,
+        "key_vendors": ["CrowdStrike", "SentinelOne", "Carbon Black"]
+      }
+    ]
+  },
+  {
+    "date": "2023-Q3",
+    "features": [
+      {
+        "feature": "Process Creation",
+        "category": "Process Telemetry",
+        "adoption": 74.2,
+        "key_vendors": ["CrowdStrike", "SentinelOne", "Elastic", "Carbon Black", "Trend Micro"]
+      },
+      {
+        "feature": "Process Termination",
+        "category": "Process Telemetry",
+        "adoption": 69.3,
+        "key_vendors": ["CrowdStrike", "SentinelOne", "Elastic", "Carbon Black", "Trend Micro"]
+      },
+      {
+        "feature": "Process Access",
+        "category": "Process Telemetry",
+        "adoption": 57.7,
+        "key_vendors": ["CrowdStrike", "SentinelOne", "Carbon Black", "Trend Micro"]
+      },
+      {
+        "feature": "File Creation",
+        "category": "File System Telemetry",
+        "adoption": 69.5,
+        "key_vendors": ["CrowdStrike", "SentinelOne", "Elastic", "Carbon Black", "Trend Micro"]
+      },
+      {
+        "feature": "File Modification",
+        "category": "File System Telemetry",
+        "adoption": 63.8,
+        "key_vendors": ["CrowdStrike", "SentinelOne", "Elastic", "Carbon Black", "Trend Micro"]
+      },
+      {
+        "feature": "Network Connection",
+        "category": "Network Telemetry",
+        "adoption": 66.4,
+        "key_vendors": ["CrowdStrike", "SentinelOne", "Elastic", "Carbon Black", "Trend Micro"]
+      },
+      {
+        "feature": "DNS Query",
+        "category": "Network Telemetry",
+        "adoption": 44.9,
+        "key_vendors": ["CrowdStrike", "Elastic", "Carbon Black", "Trend Micro"]
+      },
+      {
+        "feature": "Module Loading",
+        "category": "Memory Telemetry",
+        "adoption": 51.6,
+        "key_vendors": ["CrowdStrike", "SentinelOne", "Carbon Black", "Trend Micro"]
+      },
+      {
+        "feature": "User Authentication",
+        "category": "User Activity",
+        "adoption": 45.7,
+        "key_vendors": ["Elastic", "Carbon Black", "Trend Micro"]
+      },
+      {
+        "feature": "Memory Scanning",
+        "category": "Memory Telemetry",
+        "adoption": 38.5,
+        "key_vendors": ["CrowdStrike", "SentinelOne", "Carbon Black", "Trend Micro"]
+      }
+    ]
+  },
+  {
+    "date": "2023-Q4",
+    "features": [
+      {
+        "feature": "Process Creation",
+        "category": "Process Telemetry",
+        "adoption": 78.9,
+        "key_vendors": ["CrowdStrike", "SentinelOne", "Elastic", "Carbon Black", "Trend Micro", "Sophos"]
+      },
+      {
+        "feature": "Process Termination",
+        "category": "Process Telemetry",
+        "adoption": 74.1,
+        "key_vendors": ["CrowdStrike", "SentinelOne", "Elastic", "Carbon Black", "Trend Micro", "Sophos"]
+      },
+      {
+        "feature": "Process Access",
+        "category": "Process Telemetry",
+        "adoption": 63.4,
+        "key_vendors": ["CrowdStrike", "SentinelOne", "Carbon Black", "Trend Micro", "Sophos"]
+      },
+      {
+        "feature": "File Creation",
+        "category": "File System Telemetry",
+        "adoption": 75.2,
+        "key_vendors": ["CrowdStrike", "SentinelOne", "Elastic", "Carbon Black", "Trend Micro", "Sophos"]
+      },
+      {
+        "feature": "File Modification",
+        "category": "File System Telemetry",
+        "adoption": 70.5,
+        "key_vendors": ["CrowdStrike", "SentinelOne", "Elastic", "Carbon Black", "Trend Micro", "Sophos"]
+      },
+      {
+        "feature": "Network Connection",
+        "category": "Network Telemetry",
+        "adoption": 72.8,
+        "key_vendors": ["CrowdStrike", "SentinelOne", "Elastic", "Carbon Black", "Trend Micro", "Sophos"]
+      },
+      {
+        "feature": "DNS Query",
+        "category": "Network Telemetry",
+        "adoption": 52.6,
+        "key_vendors": ["CrowdStrike", "Elastic", "Carbon Black", "Trend Micro", "Sophos"]
+      },
+      {
+        "feature": "Module Loading",
+        "category": "Memory Telemetry",
+        "adoption": 58.3,
+        "key_vendors": ["CrowdStrike", "SentinelOne", "Carbon Black", "Trend Micro", "Sophos"]
+      },
+      {
+        "feature": "User Authentication",
+        "category": "User Activity",
+        "adoption": 51.4,
+        "key_vendors": ["Elastic", "Carbon Black", "Trend Micro", "Sophos"]
+      },
+      {
+        "feature": "Memory Scanning",
+        "category": "Memory Telemetry",
+        "adoption": 45.9,
+        "key_vendors": ["CrowdStrike", "SentinelOne", "Carbon Black", "Trend Micro", "Sophos"]
+      }
+    ]
+  },
+  {
+    "date": "2024-Q1",
+    "features": [
+      {
+        "feature": "Process Creation",
+        "category": "Process Telemetry",
+        "adoption": 83.7,
+        "key_vendors": ["CrowdStrike", "SentinelOne", "Elastic", "Carbon Black", "Trend Micro", "Sophos", "VMware"]
+      },
+      {
+        "feature": "Process Termination",
+        "category": "Process Telemetry",
+        "adoption": 79.5,
+        "key_vendors": ["CrowdStrike", "SentinelOne", "Elastic", "Carbon Black", "Trend Micro", "Sophos", "VMware"]
+      },
+      {
+        "feature": "Process Access",
+        "category": "Process Telemetry",
+        "adoption": 69.1,
+        "key_vendors": ["CrowdStrike", "SentinelOne", "Carbon Black", "Trend Micro", "Sophos", "VMware"]
+      },
+      {
+        "feature": "File Creation",
+        "category": "File System Telemetry",
+        "adoption": 80.8,
+        "key_vendors": ["CrowdStrike", "SentinelOne", "Elastic", "Carbon Black", "Trend Micro", "Sophos", "VMware"]
+      },
+      {
+        "feature": "File Modification",
+        "category": "File System Telemetry",
+        "adoption": 76.3,
+        "key_vendors": ["CrowdStrike", "SentinelOne", "Elastic", "Carbon Black", "Trend Micro", "Sophos", "VMware"]
+      },
+      {
+        "feature": "Network Connection",
+        "category": "Network Telemetry",
+        "adoption": 78.6,
+        "key_vendors": ["CrowdStrike", "SentinelOne", "Elastic", "Carbon Black", "Trend Micro", "Sophos", "VMware"]
+      },
+      {
+        "feature": "DNS Query",
+        "category": "Network Telemetry",
+        "adoption": 59.7,
+        "key_vendors": ["CrowdStrike", "Elastic", "Carbon Black", "Trend Micro", "Sophos", "VMware"]
+      },
+      {
+        "feature": "Module Loading",
+        "category": "Memory Telemetry",
+        "adoption": 64.5,
+        "key_vendors": ["CrowdStrike", "SentinelOne", "Carbon Black", "Trend Micro", "Sophos", "VMware"]
+      },
+      {
+        "feature": "User Authentication",
+        "category": "User Activity",
+        "adoption": 57.8,
+        "key_vendors": ["Elastic", "Carbon Black", "Trend Micro", "Sophos", "VMware"]
+      },
+      {
+        "feature": "Memory Scanning",
+        "category": "Memory Telemetry",
+        "adoption": 53.2,
+        "key_vendors": ["CrowdStrike", "SentinelOne", "Carbon Black", "Trend Micro", "Sophos", "VMware"]
+      }
+    ]
+  }
+] 
