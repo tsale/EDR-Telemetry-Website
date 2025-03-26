@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Analytics } from "@vercel/analytics/react"
 import Search from './Search'
 
 export default function TemplatePage({ children, title = 'EDR Telemetry Project', description = 'EDR Telemetry Project - Exploring telemetry capabilities of EDR solutions' }) {
@@ -347,6 +348,7 @@ export default function TemplatePage({ children, title = 'EDR Telemetry Project'
       </footer>
 
       <SpeedInsights />
+      <Analytics />
     </div>
   )
 }
