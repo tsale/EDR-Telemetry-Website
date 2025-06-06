@@ -1,61 +1,67 @@
-/* Premium container and component-specific styles */
+/* Modern Premium Services Styling - Redesigned 2025 */
+
+:root {
+  --primary-color: #3a6bc5;
+  --primary-light: #5b96f9;
+  --primary-dark: #14328f;
+  --accent-color: #e63946;
+  --accent-light: #f48c95;
+  --text-dark: #2c3e50;
+  --text-light: #6c757d;
+  --background-light: #f8f9fa;
+  --background-dark: #2c3e50;
+  --success-color: #2ecc71;
+  --white: #ffffff;
+  --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  --hover-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+  --transition-fast: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  --border-radius-sm: 12px;
+  --border-radius-md: 16px;
+  --border-radius-lg: 24px;
+  --border-radius-xl: 32px;
+}
+
+/* Base container styling */
 .premium-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
 }
 
-/* Modern card styling with subtle hover effects */
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: auto auto;
-  gap: 2rem;
-  margin: 3rem 0;
-}
-
-.services-grid .service-card:nth-child(4) {
-  grid-column: 1 / -1;
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-}
-
-.services-grid .service-card:nth-child(4) .service-header {
-  width: 30%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-bottom: none;
-  border-right: 2px solid #3498db;
-}
-
-.services-grid .service-card:nth-child(4) .service-header h3 {
-  font-size: 1.8rem;
+/* Hero section */
+.hero-section {
+  background: linear-gradient(135deg, #14328f 0%, #5b96f9 100%);
+  color: white;
+  padding: 3rem 2rem;
+  margin-bottom: 2rem;
   text-align: center;
 }
 
-.services-grid .service-card:nth-child(4) .service-content {
-  width: 70%;
-  padding: 2rem;
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-.services-grid .service-card:nth-child(4) .service-footer {
-  padding: 1rem 2rem;
+.hero-content h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
 }
 
-.highlight-ribbon {
-  position: absolute;
-  top: 20px;
-  right: -35px;
-  background: #3498db;
-  color: white;
-  padding: 5px 40px;
-  transform: rotate(45deg);
-  font-size: 0.9rem;
-  font-weight: 600;
-  z-index: 10;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+.hero-content p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Modern service cards with glassmorphism */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 2.5rem;
+  margin: 4rem 0;
 }
 
 .service-card {
@@ -66,10 +72,10 @@
   transition: all 0.3s ease;
   position: relative;
   z-index: 1;
-  border: 1px solid rgba(0, 0, 0, 0.05);
   height: 100%;
   display: flex;
   flex-direction: column;
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .service-card:hover {
@@ -77,29 +83,45 @@
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
 }
 
-.service-header {
-  padding: 1.5rem;
-  border-bottom: 1px solid #f0f0f0;
-  position: relative;
-  background: #f8f9fa;
-}
-
-.service-header h3 {
-  margin: 0;
-  font-size: 1.4rem;
-  color: #2c3e50;
-  position: relative;
-  z-index: 2;
-}
-
-.service-header::before {
+.service-card::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   width: 5px;
   height: 100%;
-  background: linear-gradient(to bottom, #3498db, #2980b9);
+  background: var(--primary-color);
+}
+
+.highlight-ribbon {
+  position: absolute;
+  top: -12px;
+  right: 20px;
+  background: var(--accent-color);
+  color: white;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  z-index: 10;
+  border-radius: 30px;
+  box-shadow: 0 4px 10px rgba(247, 37, 133, 0.3);
+  letter-spacing: 0.5px;
+}
+
+.service-header {
+  padding: 1.5rem;
+  position: relative;
+  background: #f8f9fa;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.service-header h3 {
+  margin: 0;
+  font-size: 1.4rem;
+  color: var(--text-dark);
+  font-weight: 600;
+  position: relative;
+  z-index: 2;
 }
 
 .service-content {
@@ -110,7 +132,7 @@
 }
 
 .service-content p {
-  color: #34495e;
+  color: var(--text-dark);
   margin-bottom: 1.5rem;
   line-height: 1.6;
 }
@@ -125,12 +147,12 @@
 .service-content li {
   padding: 0.6rem 0 0.6rem 2rem;
   position: relative;
-  color: #34495e;
+  color: var(--text-dark);
 }
 
 .service-content li::before {
   content: "✓";
-  color: #2ecc71;
+  color: var(--success-color);
   position: absolute;
   left: 0;
   font-weight: bold;
@@ -143,34 +165,40 @@
   text-align: center;
 }
 
-/* Stylish section headers with accent line */
+/* Modern section headers */
 .section-header {
   position: relative;
-  margin-bottom: 2.5rem;
-  padding-bottom: 1rem;
+  margin-bottom: 3.5rem;
+  text-align: center;
 }
 
 .section-header h2 {
-  font-size: 2rem;
-  color: #2c3e50;
-  margin-bottom: 0.5rem;
+  font-size: 2.5rem;
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  position: relative;
+  display: inline-block;
+}
+
+.section-header h2::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+  border-radius: 2px;
 }
 
 .section-header p {
-  color: #7f8c8d;
-  margin: 0;
-  font-size: 1.1rem;
-}
-
-.section-header::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 80px;
-  height: 4px;
-  background: linear-gradient(to right, #3498db, #2ecc71);
-  border-radius: 2px;
+  color: var(--text-light);
+  margin: 1rem auto 0;
+  font-size: 1.2rem;
+  max-width: 700px;
 }
 
 /* Enterprise section with improved layout */
@@ -189,6 +217,13 @@
   align-items: center;
 }
 
+.enterprise-text p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--text-dark);
+  margin-bottom: 1.5rem;
+}
+
 .enterprise-text ul {
   padding-left: 1.5rem;
   margin: 1.5rem 0;
@@ -198,10 +233,15 @@
   margin-bottom: 1rem;
   position: relative;
   padding-left: 0.5rem;
+  color: var(--text-dark);
+}
+
+.enterprise-text li strong {
+  color: var(--primary-dark);
 }
 
 .enterprise-image {
-  background: linear-gradient(135deg, #3498db, #8e44ad);
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
   height: 100%;
   min-height: 300px;
   border-radius: 8px;
@@ -211,22 +251,38 @@
   color: white;
   font-size: 1.5rem;
   font-weight: bold;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 20px rgba(20, 50, 143, 0.2);
 }
 
-/* Calendar section styling */
+/* Calendar section styling - modern redesign */
 .calendar-section {
-  margin: 5rem 0;
+  margin: 6rem 0;
   text-align: center;
+  position: relative;
+}
+
+.calendar-section::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 200px;
+  height: 200px;
+  background: linear-gradient(135deg, rgba(67, 97, 238, 0.05), rgba(76, 201, 240, 0.05));
+  border-radius: 50%;
+  z-index: -1;
 }
 
 .calendly-inline-widget {
   min-width: 320px;
   height: 700px;
-  border-radius: 12px;
+  border-radius: var(--border-radius-lg);
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  margin-top: 2rem;
+  box-shadow: var(--card-shadow);
+  margin-top: 2.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
 }
 
 /* Call to action section */
@@ -240,6 +296,7 @@
   position: relative;
   overflow: hidden;
   z-index: 1;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .cta-section::before {
@@ -260,6 +317,8 @@
   margin-top: 0;
   margin-bottom: 1rem;
   position: relative;
+  font-weight: 700;
+  color: white; /* Ensure h2 is white within cta-section */
 }
 
 .cta-section p {
@@ -269,6 +328,7 @@
   margin-left: auto;
   margin-right: auto;
   position: relative;
+  line-height: 1.6;
 }
 
 .cta-buttons {
@@ -280,6 +340,7 @@
   z-index: 5;
 }
 
+/* Button styling */
 .action-button {
   display: inline-block;
   padding: 0.8rem 1.8rem;
@@ -319,9 +380,9 @@
 }
 
 /* Important fixes for Next.js Link styling */
-a.action-button, 
+a.action-button,
 .action-button a,
-a.primary-button, 
+a.primary-button,
 .primary-button a {
   text-decoration: none;
   color: inherit;
@@ -387,19 +448,34 @@ a.primary-button,
 
 /* Featured service card styling */
 .featured-service {
-  background: linear-gradient(to bottom right, rgba(255,255,255,0.95), rgba(255,255,255,0.9));
-  border: 2px solid #3498db;
-  box-shadow: 0 10px 30px rgba(52, 152, 219, 0.2);
+  background: white;
+  border: 2px solid var(--primary-color);
+  box-shadow: 0 10px 30px rgba(20, 50, 143, 0.15);
   position: relative;
   overflow: hidden;
   margin-bottom: 3rem;
 }
 
+.highlight-ribbon {
+  position: absolute;
+  top: -12px;
+  right: 20px;
+  background: var(--accent-color);
+  color: white;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  z-index: 10;
+  border-radius: 30px;
+  box-shadow: 0 4px 10px rgba(230, 57, 70, 0.3);
+  letter-spacing: 0.5px;
+}
+
 .featured-service .service-header {
-  background: rgba(52, 152, 219, 0.1);
+  background: rgba(20, 50, 143, 0.08);
 }
 
 .featured-service .service-footer {
-  background: rgba(52, 152, 219, 0.1);
-  border-top: 1px solid #3498db;
-} 
+  background: rgba(20, 50, 143, 0.08);
+  border-top: 1px solid rgba(20, 50, 143, 0.2);
+}
