@@ -1,7 +1,6 @@
 import TemplatePage from '../components/TemplatePage'
 import { useEffect } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 
 export default function About() {
   useEffect(() => {

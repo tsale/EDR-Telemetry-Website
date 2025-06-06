@@ -1200,6 +1200,9 @@ export default function Windows() {
             <Link href="/mitre-mappings" className="action-button primary-button">
               <span>Mitre ATT&CK Mappings</span>
             </Link>
+            <Link href="/telemetry-categories" className="action-button primary-button">
+              <span>Categories Breakdown</span>
+            </Link>
           </div>
           
           <div className="filter-group">

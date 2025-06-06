@@ -301,6 +301,7 @@ export default function TemplatePage({ children, title = 'EDR Telemetry Project'
               <h3>Documentation</h3>
               <ul>
                 <li><Link href="/faq">FAQ</Link></li>
+                <li><Link href="/telemetry-categories">Telemetry Categories</Link></li>
                 <li><Link href="/mitre-mappings">MITRE Mappings</Link></li>
                 <li>
                   <span>Resources</span>
