@@ -100,9 +100,6 @@ export default function PremiumServices() {
                   <li>Implementation planning</li>
                   <li>ROI analysis and reporting</li>
                 </ul>
-                <div className="service-footer">
-                  <a href="/contact" className="action-button primary-button">Get Started</a>
-                </div>
               </div>
             </div>
 
@@ -119,9 +116,6 @@ export default function PremiumServices() {
                   <li>Performance impact assessment</li>
                   <li>Implementation documentation</li>
                 </ul>
-                <div className="service-footer">
-                  <a href="/contact" className="action-button primary-button">Get Started</a>
-                </div>
               </div>
             </div>
 
@@ -138,13 +132,10 @@ export default function PremiumServices() {
                   <li>Detection testing and validation</li>
                   <li>Knowledge transfer and training</li>
                 </ul>
-                <div className="service-footer">
-                  <a href="/contact" className="action-button primary-button">Get Started</a>
-                </div>
               </div>
             </div>
           </div>
-          
+
           <section className="cta-section">
             <h2>Unlock the full potential of your EDR telemetry</h2>
             <p>Our expert services help you evaluate, optimize, and leverage EDR telemetry to maximize security visibility and response capabilities</p>
@@ -156,7 +147,7 @@ export default function PremiumServices() {
                 cursor: 'pointer',
                 color: 'white'
               }}>
-                Contact Us
+                Get Started
               </a>
             </div>
           </section>
