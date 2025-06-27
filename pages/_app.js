@@ -18,11 +18,27 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import Script from 'next/script'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
+import posthog from 'posthog-js'
+import { PostHogProvider } from 'posthog-js/react'
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter()
 
-  // Track page views when route changes
+  // Initialize PostHog
+  useEffect(() => {
+    posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY, {
+      api_host: "/ingest",
+      ui_host: "https://us.posthog.com",
+      capture_pageview: 'history_change',
+      capture_exceptions: true,
+      loaded: (posthog) => {
+        if (process.env.NODE_ENV === 'development') posthog.debug()
+      },
+      debug: process.env.NODE_ENV === 'development',
+    })
+  }, [])
+
+  // Track page views when route changes (Google Analytics)
   useEffect(() => {
     const handleRouteChange = (url) => {
       if (typeof window !== 'undefined' && window.gtag) {
@@ -46,7 +62,7 @@ function MyApp({ Component, pageProps }) {
     }
   }, [router.events])
 
-  // Track user engagement
+  // Track user engagement (Google Analytics)
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
@@ -86,62 +102,64 @@ function MyApp({ Component, pageProps }) {
   }, [])
 
   return (
-    <>
-      {/* Google Analytics */}
-      <Script
-        strategy="afterInteractive"
-        src="https://www.googletagmanager.com/gtag/js?id=G-WSE4W22ZYG"
-      />
-      <Script
-        id="google-analytics"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-WSE4W22ZYG', {
-              page_path: window.location.pathname,
-              user_properties: {
-                first_visit_date: new Date().toISOString(),
-                referrer: document.referrer || 'direct',
-                screen_resolution: typeof window !== 'undefined' ? window.screen.width + 'x' + window.screen.height : '',
-                language: typeof window !== 'undefined' ? navigator.language || navigator.userLanguage : ''
+    <PostHogProvider client={posthog}>
+      <>
+        {/* Google Analytics */}
+        <Script
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-WSE4W22ZYG"
+        />
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-WSE4W22ZYG', {
+                page_path: window.location.pathname,
+                user_properties: {
+                  first_visit_date: new Date().toISOString(),
+                  referrer: document.referrer || 'direct',
+                  screen_resolution: typeof window !== 'undefined' ? window.screen.width + 'x' + window.screen.height : '',
+                  language: typeof window !== 'undefined' ? navigator.language || navigator.userLanguage : ''
+                }
+              });
+
+              if (typeof window !== 'undefined') {
+                // Track outbound links
+                document.addEventListener('click', function(e) {
+                  const link = e.target.closest('a');
+                  if (link && link.hostname !== window.location.hostname) {
+                    gtag('event', 'outbound_link', {
+                      link_url: link.href,
+                      link_text: link.innerText,
+                      page_path: window.location.pathname
+                    });
+                  }
+                });
+
+                // Track file downloads
+                document.addEventListener('click', function(e) {
+                  const link = e.target.closest('a');
+                  if (link && link.href.match(/\.(pdf|doc|docx|xls|xlsx|zip|rar)$/i)) {
+                    gtag('event', 'file_download', {
+                      file_name: link.href.split('/').pop(),
+                      file_extension: link.href.split('.').pop().toLowerCase(),
+                      page_path: window.location.pathname
+                    });
+                  }
+                });
               }
-            });
-
-            if (typeof window !== 'undefined') {
-              // Track outbound links
-              document.addEventListener('click', function(e) {
-                const link = e.target.closest('a');
-                if (link && link.hostname !== window.location.hostname) {
-                  gtag('event', 'outbound_link', {
-                    link_url: link.href,
-                    link_text: link.innerText,
-                    page_path: window.location.pathname
-                  });
-                }
-              });
-
-              // Track file downloads
-              document.addEventListener('click', function(e) {
-                const link = e.target.closest('a');
-                if (link && link.href.match(/\\.(pdf|doc|docx|xls|xlsx|zip|rar)$/i)) {
-                  gtag('event', 'file_download', {
-                    file_name: link.href.split('/').pop(),
-                    file_extension: link.href.split('.').pop().toLowerCase(),
-                    page_path: window.location.pathname
-                  });
-                }
-              });
-            }
-          `
-        }}
-      />
-      <Component {...pageProps} />
-      <SpeedInsights />
-    </>
+            `
+          }}
+        />
+        <Component {...pageProps} />
+        <SpeedInsights />
+      </>
+    </PostHogProvider>
   )
 }
 
-export default MyApp 
+export default MyApp
