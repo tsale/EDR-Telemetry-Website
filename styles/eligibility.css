@@ -780,9 +780,10 @@
 }
 
 .exclusion-row.header {
-  background-color: var(--secondary-color);
-  color: white;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
+  color: #2c3e50;
   font-weight: 600;
+  border-bottom: 1px solid #cbd5e1;
 }
 
 .product-col, .primary-reason-col, .details-col {
@@ -943,5 +944,109 @@
   
   .category-badge-modern {
     font-size: 0.7rem;
+  }
+}
+
+/* Eligibility-specific table styles */
+.eligibility-table-container {
+  margin: 2rem 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(229, 231, 235, 0.6);
+  overflow-x: auto;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  width: 100%;
+}
+
+.eligibility-exclusion-row {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 2.5fr;
+  border-bottom: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+.eligibility-exclusion-row:last-child {
+  border-bottom: none;
+}
+
+.eligibility-exclusion-row:hover:not(.header) {
+  background-color: #f7fafc;
+}
+
+.eligibility-exclusion-row.header {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
+  color: #2c3e50;
+  font-weight: 600;
+  border-bottom: 1px solid #cbd5e1;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.eligibility-exclusion-row .product-col,
+.eligibility-exclusion-row .primary-reason-col,
+.eligibility-exclusion-row .details-col {
+  padding: 1rem;
+  border-right: 1px solid #e2e8f0;
+}
+
+.eligibility-exclusion-row .details-col {
+  border-right: none;
+}
+
+.eligibility-exclusion-row .product-col {
+  font-weight: 500;
+}
+
+.eligibility-exclusion-row .details-col ul {
+  padding-left: 1.25rem;
+  margin-bottom: 0;
+}
+
+.eligibility-exclusion-row .details-col li {
+  margin-bottom: 0.5rem;
+}
+
+.eligibility-exclusion-row .details-col li:last-child {
+  margin-bottom: 0;
+}
+
+/* Mobile responsive design for eligibility table */
+@media (max-width: 768px) {
+  .eligibility-exclusion-row {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .eligibility-exclusion-row.header {
+    display: none;
+  }
+
+  .eligibility-exclusion-row .product-col,
+  .eligibility-exclusion-row .primary-reason-col,
+  .eligibility-exclusion-row .details-col {
+    padding: 0.5rem 0;
+    border-right: none;
+  }
+
+  .eligibility-exclusion-row .product-col {
+    font-size: 1.2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
+    color: #2c3e50;
+    padding: 18px 20px;
+    border-radius: 12px 12px 0 0;
+  }
+
+  .eligibility-exclusion-row .primary-reason-col {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+
+  .eligibility-exclusion-row .primary-reason-col::before {
+    content: "Limitation: ";
+    font-weight: normal;
+    color: #718096;
   }
 }

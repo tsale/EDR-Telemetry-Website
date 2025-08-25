@@ -11,7 +11,7 @@ export default function Eligibility() {
     // Search functionality for the exclusion table
     if (typeof window !== 'undefined') {
       const searchInput = document.getElementById('exclusionSearch');
-      const exclusionRows = document.querySelectorAll('.exclusion-row:not(.header)');
+      const exclusionRows = document.querySelectorAll('.eligibility-exclusion-row:not(.header)');
       const exclusionFilter = document.querySelector('.exclusion-filter');
       
       if (searchInput) {
@@ -288,13 +288,13 @@ export default function Eligibility() {
                 </div>
               </div>
               
-          <div className="modern-table-container">
-              <div className="exclusion-row header">
+          <div className="eligibility-table-container">
+              <div className="eligibility-exclusion-row header">
                 <div className="product-col">Product</div>
                 <div className="primary-reason-col">Primary Limitation</div>
                 <div className="details-col">Additional Details</div>
               </div>
-              <div className="exclusion-row">
+              <div className="eligibility-exclusion-row">
                 <div className="product-col">Sandfly</div>
                 <div className="primary-reason-col">No Real-time Streaming</div>
                 <div className="details-col">
@@ -305,7 +305,7 @@ export default function Eligibility() {
                   </ul>
                 </div>
               </div>
-              <div className="exclusion-row">
+              <div className="eligibility-exclusion-row">
                 <div className="product-col">Velociraptor</div>
                 <div className="primary-reason-col">Manual Collection Required</div>
                 <div className="details-col">
@@ -316,7 +316,7 @@ export default function Eligibility() {
                   </ul>
                 </div>
               </div>
-              <div className="exclusion-row">
+              <div className="eligibility-exclusion-row">
                 <div className="product-col">OSquery (standalone)</div>
                 <div className="primary-reason-col">No Real-time Collection</div>
                 <div className="details-col">
@@ -327,7 +327,7 @@ export default function Eligibility() {
                   </ul>
                 </div>
               </div>
-              <div className="exclusion-row">
+              <div className="eligibility-exclusion-row">
                 <div className="product-col">Huntress EDR</div>
                 <div className="primary-reason-col">Limited EDR Functionality</div>
                 <div className="details-col">
@@ -338,7 +338,7 @@ export default function Eligibility() {
                   </ul>
                 </div>
               </div>
-              <div className="exclusion-row">
+              <div className="eligibility-exclusion-row">
                 <div className="product-col">Cisco EDR</div>
                 <div className="primary-reason-col">Limited EDR Functionality</div>
                 <div className="details-col">
@@ -349,7 +349,7 @@ export default function Eligibility() {
                   </ul>
                 </div>
               </div>
-              <div className="exclusion-row">
+              <div className="eligibility-exclusion-row">
                 <div className="product-col">Tanium</div>
                 <div className="primary-reason-col">Limited Real-Time Telemetry</div>
                 <div className="details-col">
@@ -360,7 +360,7 @@ export default function Eligibility() {
                   </ul>
                 </div>
               </div>
-              <div className="exclusion-row">
+              <div className="eligibility-exclusion-row">
                 <div className="product-col">Kaspersky</div>
                 <div className="primary-reason-col">Limited Telemetry Access</div>
                 <div className="details-col">
@@ -370,7 +370,7 @@ export default function Eligibility() {
                   </ul>
                 </div>
               </div>
-              <div className="exclusion-row">
+              <div className="eligibility-exclusion-row">
                 <div className="product-col">Aurora</div>
                 <div className="primary-reason-col">Not a Full EDR Solution</div>
                 <div className="details-col">
@@ -381,7 +381,7 @@ export default function Eligibility() {
                   </ul>
                 </div>
               </div>
-              <div className="exclusion-row">
+              <div className="eligibility-exclusion-row">
                 <div className="product-col">Wazuh</div>
                 <div className="primary-reason-col">No Native Telemetry Collection</div>
                 <div className="details-col">
@@ -392,7 +392,7 @@ export default function Eligibility() {
                   </ul>
                 </div>
               </div>
-              <div className="exclusion-row">
+              <div className="eligibility-exclusion-row">
                 <div className="product-col">BitDefender EDR</div>
                 <div className="primary-reason-col">Limited EDR Functionality</div>
                 <div className="details-col">
