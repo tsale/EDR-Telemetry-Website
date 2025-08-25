@@ -4,6 +4,7 @@ import '../styles/linux.css'
 import '../styles/macos.css'
 import '../styles/about.css'
 import '../styles/contact.css'
+import '../styles/eligibility.css'
 import '../styles/roadmap.css'
 import '../styles/heading-links.css'
 import '../styles/styles.css'
@@ -18,25 +19,9 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import Script from 'next/script'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
-import posthog from 'posthog-js'
-import { PostHogProvider } from 'posthog-js/react'
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter()
-
-  // Initialize PostHog
-  useEffect(() => {
-    posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY, {
-      api_host: "/ingest",
-      ui_host: "https://us.posthog.com",
-      capture_pageview: 'history_change',
-      capture_exceptions: true,
-      loaded: (posthog) => {
-        if (process.env.NODE_ENV === 'development') posthog.debug()
-      },
-      debug: process.env.NODE_ENV === 'development',
-    })
-  }, [])
 
   // Track page views when route changes (Google Analytics)
   useEffect(() => {
@@ -102,7 +87,6 @@ function MyApp({ Component, pageProps }) {
   }, [])
 
   return (
-    <PostHogProvider client={posthog}>
       <>
         {/* Google Analytics */}
         <Script
@@ -158,7 +142,6 @@ function MyApp({ Component, pageProps }) {
         <Component {...pageProps} />
         <SpeedInsights />
       </>
-    </PostHogProvider>
   )
 }
 
