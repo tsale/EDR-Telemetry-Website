@@ -30,7 +30,7 @@ function createClient(req: NextApiRequest, res: NextApiResponse) {
           // Preserve existing cookies if any
           const existingCookies = res.getHeader('Set-Cookie')
           const allCookies = existingCookies 
-            ? (Array.isArray(existingCookies) ? [...existingCookies, ...cookies] : [existingCookies, ...cookies])
+            ? (Array.isArray(existingCookies) ? [...existingCookies.map(String), ...cookies] : [String(existingCookies), ...cookies])
             : cookies
             
           res.setHeader('Set-Cookie', allCookies)

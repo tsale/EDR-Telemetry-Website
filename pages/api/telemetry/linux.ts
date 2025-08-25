@@ -4,9 +4,16 @@ import { serialize } from 'cookie'
 import type { Database, LinuxTelemetryWithScores } from '../../../utils/supabase/types'
 
 function createClient(req: NextApiRequest, res: NextApiResponse) {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+  
+  if (!supabaseUrl || !serviceRoleKey) {
+    throw new Error('Missing required Supabase environment variables')
+  }
+
   return createServerClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    supabaseUrl,
+    serviceRoleKey,
     {
       cookies: {
         getAll() {
@@ -30,7 +37,7 @@ function createClient(req: NextApiRequest, res: NextApiResponse) {
           // Preserve existing cookies if any
           const existingCookies = res.getHeader('Set-Cookie')
           const allCookies = existingCookies 
-            ? (Array.isArray(existingCookies) ? [...existingCookies, ...cookies] : [existingCookies, ...cookies])
+            ? (Array.isArray(existingCookies) ? [...existingCookies.map(String), ...cookies] : [String(existingCookies), ...cookies])
             : cookies
             
           res.setHeader('Set-Cookie', allCookies)
@@ -44,9 +51,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const supabase = createClient(req, res)
-
   try {
+    const supabase = createClient(req, res)
     switch (req.method) {
       case 'GET':
         // Fetch Linux telemetry data with scores
