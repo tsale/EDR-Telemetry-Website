@@ -784,6 +784,19 @@ export default function Linux() {
     return <span className="status-icon unknown" title={`Unknown value: ${status}`}>-</span>;
   }, [partiallyExplanations]);
 
+  // Group data by category
+  const groupedData = useMemo(() => {
+    const groups = {};
+    telemetryData.forEach(item => {
+      const category = item['Telemetry Feature Category'];
+      if (!groups[category]) {
+        groups[category] = [];
+      }
+      groups[category].push(item);
+    });
+    return groups;
+  }, [telemetryData]);
+
   // Render telemetry table with sticky headers/columns and custom hover/comparison effects
   const renderTelemetryTable = useCallback(() => {
     // Filter and order EDRs for display
@@ -817,33 +830,41 @@ export default function Linux() {
               </tr>
             </thead>
             <tbody>
-              {telemetryData.map((item, index) => {
-                const category = item['Telemetry Feature Category'];
-                const subcategory = item['Sub-Category'];
-                const rowKey = `${category}-${subcategory}-${index}`;
-                return (
-                  <tr key={rowKey} className={hoverEnabled ? 'hover-highlight' : ''}>
-                    <td className="feature-column">{category}</td>
-                    <td className="subcategory-column">{subcategory}</td>
-                    {displayedEdrs.map(edr => {
-                      const status = item[edr];
-                      const statusKey = `${rowKey}-${edr}`;
-                      const isAuditd = edr.toLowerCase().includes('auditd');
-                      const isSysmon = edr.toLowerCase().includes('sysmon');
-                      return (
+              {Object.entries(groupedData).map(([category, items]) => (
+                items.map((item, itemIndex) => {
+                  const subcategory = item['Sub-Category'];
+                  const rowKey = `${category}-${subcategory}-${itemIndex}`;
+                  return (
+                    <tr key={rowKey} className={hoverEnabled ? 'hover-highlight' : ''}>
+                      {itemIndex === 0 && (
                         <td 
-                          key={statusKey} 
-                          data-status={status} 
-                          className={`${isAuditd ? 'auditd-column' : ''} ${isSysmon ? 'sysmon-column' : ''} ${status?.toLowerCase() === 'partially' ? 'has-tooltip' : ''}`} 
-                          title={status?.toLowerCase() === 'partially' && partiallyExplanations[edr] && partiallyExplanations[edr][category] && partiallyExplanations[edr][category][subcategory] ? partiallyExplanations[edr][category][subcategory] : ''}
+                          className="feature-column" 
+                          rowSpan={items.length}
                         >
-                          {getStatusIcon(status, category, subcategory, edr)}
+                          {category}
                         </td>
-                      );
-                    })}
-                  </tr>
-                );
-              })}
+                      )}
+                      <td className="subcategory-column">{subcategory}</td>
+                      {displayedEdrs.map(edr => {
+                        const status = item[edr];
+                        const statusKey = `${rowKey}-${edr}`;
+                        const isAuditd = edr.toLowerCase().includes('auditd');
+                        const isSysmon = edr.toLowerCase().includes('sysmon');
+                        return (
+                          <td 
+                            key={statusKey} 
+                            data-status={status} 
+                            className={`${isAuditd ? 'auditd-column' : ''} ${isSysmon ? 'sysmon-column' : ''} ${status?.toLowerCase() === 'partially' ? 'has-tooltip' : ''}`} 
+                            title={status?.toLowerCase() === 'partially' && partiallyExplanations[edr] && partiallyExplanations[edr][category] && partiallyExplanations[edr][category][subcategory] ? partiallyExplanations[edr][category][subcategory] : ''}
+                          >
+                            {getStatusIcon(status, category, subcategory, edr)}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  );
+                })
+              ))}
             </tbody>
           </table>
         </div>
@@ -896,38 +917,46 @@ export default function Linux() {
             </tr>
           </thead>
           <tbody>
-            {telemetryData.map((item, index) => {
-              const category = item['Telemetry Feature Category'];
-              const subcategory = item['Sub-Category'];
-              const rowKey = `${category}-${subcategory}-${index}`;
-              return (
-                <tr key={rowKey} className={hoverEnabled ? 'hover-highlight' : ''}>
-                  <td className="feature-column">{category}</td>
-                  <td className="subcategory-column">{subcategory}</td>
-                  {orderedEdrs.map(edr => {
-                    const status = item[edr];
-                    const statusKey = `${rowKey}-${edr}`;
-                    const isAuditd = edr.toLowerCase().includes('auditd');
-                    const isSysmon = edr.toLowerCase().includes('sysmon');
-                    return (
+            {Object.entries(groupedData).map(([category, items]) => (
+              items.map((item, itemIndex) => {
+                const subcategory = item['Sub-Category'];
+                const rowKey = `${category}-${subcategory}-${itemIndex}`;
+                return (
+                  <tr key={rowKey} className={hoverEnabled ? 'hover-highlight' : ''}>
+                    {itemIndex === 0 && (
                       <td 
-                        key={statusKey} 
-                        data-status={status} 
-                        className={`${isAuditd ? 'auditd-column' : ''} ${isSysmon ? 'sysmon-column' : ''} ${status?.toLowerCase() === 'partially' ? 'has-tooltip' : ''}`} 
-                        title={status?.toLowerCase() === 'partially' && partiallyExplanations[edr] && partiallyExplanations[edr][category] && partiallyExplanations[edr][category][subcategory] ? partiallyExplanations[edr][category][subcategory] : ''}
+                        className="feature-column" 
+                        rowSpan={items.length}
                       >
-                        {getStatusIcon(status, category, subcategory, edr)}
+                        {category}
                       </td>
-                    );
-                  })}
-                </tr>
-              );
-            })}
+                    )}
+                    <td className="subcategory-column">{subcategory}</td>
+                    {orderedEdrs.map(edr => {
+                      const status = item[edr];
+                      const statusKey = `${rowKey}-${edr}`;
+                      const isAuditd = edr.toLowerCase().includes('auditd');
+                      const isSysmon = edr.toLowerCase().includes('sysmon');
+                      return (
+                        <td 
+                          key={statusKey} 
+                          data-status={status} 
+                          className={`${isAuditd ? 'auditd-column' : ''} ${isSysmon ? 'sysmon-column' : ''} ${status?.toLowerCase() === 'partially' ? 'has-tooltip' : ''}`} 
+                          title={status?.toLowerCase() === 'partially' && partiallyExplanations[edr] && partiallyExplanations[edr][category] && partiallyExplanations[edr][category][subcategory] ? partiallyExplanations[edr][category][subcategory] : ''}
+                        >
+                          {getStatusIcon(status, category, subcategory, edr)}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                );
+              })
+            ))}
           </tbody>
         </table>
       </div>
     );
-  }, [telemetryData, isComparisonMode, selectedEDRs, edrOptions, hoverEnabled, partiallyExplanations, getStatusIcon, tableRef]);
+  }, [groupedData, isComparisonMode, selectedEDRs, edrOptions, hoverEnabled, partiallyExplanations, getStatusIcon, tableRef]);
 
   // Initial load: get hover state and telemetry data
   useEffect(() => {

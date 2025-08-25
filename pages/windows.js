@@ -1012,6 +1012,19 @@ export default function Windows() {
     return <span className="status-icon unknown" title={`Unknown value: ${status}`}>-</span>;
   }, [partiallyExplanations]);
 
+  // Group data by category
+  const groupedData = useMemo(() => {
+    const groups = {};
+    telemetryData.forEach(item => {
+      const category = item['Telemetry Feature Category'];
+      if (!groups[category]) {
+        groups[category] = [];
+      }
+      groups[category].push(item);
+    });
+    return groups;
+  }, [telemetryData]);
+
   // Function to display telemetry table
   const renderTelemetryTable = useCallback(() => {
     // Filter EDRs if any are selected
@@ -1046,43 +1059,49 @@ export default function Windows() {
             </tr>
           </thead>
           <tbody>
-            {telemetryData.map((item, index) => {
-              const category = item['Telemetry Feature Category'];
-              const subcategory = item['Sub-Category'];
-              
-              // Create a row key
-              const rowKey = `${category}-${subcategory}-${index}`;
-              
-              return (
-                <tr 
-                  key={rowKey} 
-                  className={hoverEnabled ? 'hover-highlight' : ''}
-                >
-                  <td className="feature-column">{category}</td>
-                  <td className="subcategory-column">{subcategory}</td>
-                  
-                  {displayedEdrs.map(edr => {
-                    const status = item[edr];
-                    const statusKey = `${rowKey}-${edr}`;
-                    
-                    return (
+            {Object.entries(groupedData).map(([category, items]) => (
+              items.map((item, itemIndex) => {
+                const subcategory = item['Sub-Category'];
+                const rowKey = `${category}-${subcategory}-${itemIndex}`;
+                
+                return (
+                  <tr 
+                    key={rowKey} 
+                    className={hoverEnabled ? 'hover-highlight' : ''}
+                  >
+                    {itemIndex === 0 && (
                       <td 
-                        key={statusKey} 
-                        className={`${edr.toLowerCase().includes('sysmon') ? 'sysmon-column' : ''}`}
-                        data-status={status}
+                        className="feature-column" 
+                        rowSpan={items.length}
                       >
-                        {getStatusIcon(status, category, subcategory, edr)}
+                        {category}
                       </td>
-                    );
-                  })}
-                </tr>
-              );
-            })}
+                    )}
+                    <td className="subcategory-column">{subcategory}</td>
+                    
+                    {displayedEdrs.map(edr => {
+                      const status = item[edr];
+                      const statusKey = `${rowKey}-${edr}`;
+                      
+                      return (
+                        <td 
+                          key={statusKey} 
+                          className={`${edr.toLowerCase().includes('sysmon') ? 'sysmon-column' : ''}`}
+                          data-status={status}
+                        >
+                          {getStatusIcon(status, category, subcategory, edr)}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                );
+              })
+            ))}
           </tbody>
         </table>
       </div>
     );
-  }, [telemetryData, isComparisonMode, selectedEDRs, edrOptions, hoverEnabled, getStatusIcon]);
+  }, [groupedData, isComparisonMode, selectedEDRs, edrOptions, hoverEnabled, getStatusIcon]);
 
   // Initialize component
   useEffect(() => {
