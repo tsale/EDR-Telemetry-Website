@@ -235,36 +235,6 @@ export default function Eligibility() {
 
       <div className="content-container">
         <div className="requirements-section">
-          <div className="definition-card eligibility" style={{display: 'none'}}>
-            <h3 id="core-requirements">Core Requirements</h3>
-            <p>For an EDR solution to be included in our comparison, it must meet these basic requirements:</p>
-            <ul>
-              <li>Provide real-time or near real-time event collection</li>
-              <li>Offer automated telemetry collection without manual intervention</li>
-              <li>Include out-of-the-box telemetry capabilities</li>
-              <li>Function as a dedicated endpoint detection and response solution</li>
-              <li>Collect direct telemetry events rather than inferred activities <a href="#telemetry-vs-inferred">(See detailed explanation below)</a></li>
-            </ul>
-          </div>
-
-          <div className="definition-card telemetry" style={{display: 'none'}}>
-            <h3 id="edr-telemetry-definition">EDR Telemetry Definition</h3>
-            <p>In this project, EDR Telemetry refers to data or events that are:</p>
-            <div className="includes">
-              <h4 id="included-telemetry">✓ Included</h4>
-              <li>Automatically collected and transmitted by a sensor in real-time or near real-time as events occur</li>
-            </div>
-            <div className="excludes">
-              <h4 id="excluded-telemetry">✗ Not Included</h4>
-              <ul>
-                <li>Live querying of artifacts</li>
-                <li>Access to artifacts on a system</li>
-                <li>Signals or detections based on correlation</li>
-                <li>Additional modules or integrations</li>
-              </ul>
-            </div>
-          </div>
-
           <div id="telemetry-vs-inferred" className="definition-card telemetry-vs-inferred" style={{display: 'none'}}>
             <h3 id="telemetry-vs-inferred-comparison">Telemetry Events vs. Inferred Activity</h3>
             <p>Each telemetry event must represent a distinct and independent system action, captured directly rather than inferred:</p>
