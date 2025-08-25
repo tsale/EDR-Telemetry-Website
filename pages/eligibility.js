@@ -288,172 +288,126 @@ export default function Eligibility() {
                 </div>
               </div>
               
-              <div className="modern-table-container">
-                <table className="modern-table">
-                  <thead className="modern-table-header">
-                    <tr>
-                      <th>Product</th>
-                      <th>Primary Limitation</th>
-                      <th>Additional Details</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr className="exclusion-row modern-table-row">
-                      <td className="product-col modern-table-cell">
-                        <span className="category-badge-modern">Sandfly</span>
-                      </td>
-                      <td className="primary-reason-col modern-table-cell">
-                        <span className="status-badge-modern excluded">No Real-time Streaming</span>
-                      </td>
-                      <td className="details-col modern-table-cell">
-                        <div style={{fontSize: '0.875rem', color: '#64748b'}}>
-                          <p style={{marginBottom: '0.5rem'}}>• Lacks continuous real-time telemetry streaming capabilities</p>
-                          <p style={{marginBottom: '0.5rem'}}>• Focuses on periodic scanning and threat hunting</p>
-                          <p>• Designed for point-in-time forensics rather than real-time detection</p>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className="exclusion-row modern-table-row">
-                      <td className="product-col modern-table-cell">
-                        <span className="category-badge-modern">Velociraptor</span>
-                      </td>
-                      <td className="primary-reason-col modern-table-cell">
-                        <span className="status-badge-modern excluded">Manual Collection Required</span>
-                      </td>
-                      <td className="details-col modern-table-cell">
-                        <div style={{fontSize: '0.875rem', color: '#64748b'}}>
-                          <p style={{marginBottom: '0.5rem'}}>• Relies on manual VQL queries for artifact collection</p>
-                          <p style={{marginBottom: '0.5rem'}}>• No continuous automated telemetry stream</p>
-                          <p>• Better suited for incident response than continuous monitoring</p>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className="exclusion-row modern-table-row">
-                      <td className="product-col modern-table-cell">
-                        <span className="category-badge-modern">OSquery (standalone)</span>
-                      </td>
-                      <td className="primary-reason-col modern-table-cell">
-                        <span className="status-badge-modern excluded">No Real-time Collection</span>
-                      </td>
-                      <td className="details-col modern-table-cell">
-                        <div style={{fontSize: '0.875rem', color: '#64748b'}}>
-                          <p style={{marginBottom: '0.5rem'}}>• Designed for point-in-time queries</p>
-                          <p style={{marginBottom: '0.5rem'}}>• Lacks native event streaming capability</p>
-                          <p>• Requires additional tooling for continuous monitoring</p>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className="exclusion-row modern-table-row">
-                      <td className="product-col modern-table-cell">
-                        <span className="category-badge-modern">Huntress EDR</span>
-                      </td>
-                      <td className="primary-reason-col modern-table-cell">
-                        <span className="status-badge-modern excluded">Limited EDR Functionality</span>
-                      </td>
-                      <td className="details-col modern-table-cell">
-                        <div style={{fontSize: '0.875rem', color: '#64748b'}}>
-                          <p style={{marginBottom: '0.5rem'}}>• Lacks direct access to raw telemetry data</p>
-                          <p style={{marginBottom: '0.5rem'}}>• Managed threat hunting platform rather than traditional EDR</p>
-                          <p>• Limited endpoint telemetry visibility for customers</p>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className="exclusion-row modern-table-row">
-                      <td className="product-col modern-table-cell">
-                        <span className="category-badge-modern">Cisco EDR</span>
-                      </td>
-                      <td className="primary-reason-col modern-table-cell">
-                        <span className="status-badge-modern excluded">Limited EDR Functionality</span>
-                      </td>
-                      <td className="details-col modern-table-cell">
-                        <div style={{fontSize: '0.875rem', color: '#64748b'}}>
-                          <p style={{marginBottom: '0.5rem'}}>• Lacks direct access to raw telemetry data</p>
-                          <p style={{marginBottom: '0.5rem'}}>• Requires additional modules and licensing</p>
-                          <p>• Limited endpoint telemetry visibility in base product</p>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className="exclusion-row modern-table-row">
-                      <td className="product-col modern-table-cell">
-                        <span className="category-badge-modern">Tanium</span>
-                      </td>
-                      <td className="primary-reason-col modern-table-cell">
-                        <span className="status-badge-modern excluded">Limited Real-Time Telemetry</span>
-                      </td>
-                      <td className="details-col modern-table-cell">
-                        <div style={{fontSize: '0.875rem', color: '#64748b'}}>
-                          <p style={{marginBottom: '0.5rem'}}>• Focuses on forensic visibility rather than real-time ingestion</p>
-                          <p style={{marginBottom: '0.5rem'}}>• Uses polling-based architecture vs continuous streaming</p>
-                          <p>• Lacks continuous real-time monitoring capabilities</p>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className="exclusion-row modern-table-row">
-                      <td className="product-col modern-table-cell">
-                        <span className="category-badge-modern">Kaspersky</span>
-                      </td>
-                      <td className="primary-reason-col modern-table-cell">
-                        <span className="status-badge-modern excluded">Limited Telemetry Access</span>
-                      </td>
-                      <td className="details-col modern-table-cell">
-                        <div style={{fontSize: '0.875rem', color: '#64748b'}}>
-                          <p style={{marginBottom: '0.5rem'}}>• Does not provide open access to detailed raw telemetry</p>
-                          <p>• Telemetry data is aggregated, limiting granular visibility</p>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className="exclusion-row modern-table-row">
-                      <td className="product-col modern-table-cell">
-                        <span className="category-badge-modern">Aurora</span>
-                      </td>
-                      <td className="primary-reason-col modern-table-cell">
-                        <span className="status-badge-modern excluded">Not a Full EDR Solution</span>
-                      </td>
-                      <td className="details-col modern-table-cell">
-                        <div style={{fontSize: '0.875rem', color: '#64748b'}}>
-                          <p style={{marginBottom: '0.5rem'}}>• Functions as threat detection engine vs complete EDR</p>
-                          <p style={{marginBottom: '0.5rem'}}>• Relies on log ingestion and rule-based detection</p>
-                          <p>• Does not stream telemetry to centralized location</p>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className="exclusion-row modern-table-row">
-                      <td className="product-col modern-table-cell">
-                        <span className="category-badge-modern">Wazuh</span>
-                      </td>
-                      <td className="primary-reason-col modern-table-cell">
-                        <span className="status-badge-modern excluded">No Native Telemetry Collection</span>
-                      </td>
-                      <td className="details-col modern-table-cell">
-                        <div style={{fontSize: '0.875rem', color: '#64748b'}}>
-                          <p style={{marginBottom: '0.5rem'}}>• Relies on external tools (Sysmon, OSQuery)</p>
-                          <p style={{marginBottom: '0.5rem'}}>• Functions primarily as a log aggregator</p>
-                          <p>• Lacks native real-time event streaming capabilities</p>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr className="exclusion-row modern-table-row">
-                      <td className="product-col modern-table-cell">
-                        <span className="category-badge-modern">BitDefender EDR</span>
-                      </td>
-                      <td className="primary-reason-col modern-table-cell">
-                        <span className="status-badge-modern excluded">Limited EDR Functionality</span>
-                      </td>
-                      <td className="details-col modern-table-cell">
-                        <div style={{fontSize: '0.875rem', color: '#64748b'}}>
-                          <p style={{marginBottom: '0.5rem'}}>• No ability to search logs unless an alert fires</p>
-                          <p style={{marginBottom: '0.5rem'}}>• No continuous event ingestion for full visibility</p>
-                          <p>• Functions more like an NGAV than a true EDR</p>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+          <div className="modern-table-container">
+              <div className="exclusion-row header">
+                <div className="product-col">Product</div>
+                <div className="primary-reason-col">Primary Limitation</div>
+                <div className="details-col">Additional Details</div>
               </div>
+              <div className="exclusion-row">
+                <div className="product-col">Sandfly</div>
+                <div className="primary-reason-col">No Real-time Streaming</div>
+                <div className="details-col">
+                  <ul>
+                    <li>Lacks continuous real-time telemetry streaming capabilities of traditional EDR solutions</li>
+                    <li>Focuses on periodic scanning and threat hunting rather than continuous monitoring</li>
+                    <li>Designed for point-in-time forensics and incident response rather than real-time detection</li>
+                  </ul>
+                </div>
+              </div>
+              <div className="exclusion-row">
+                <div className="product-col">Velociraptor</div>
+                <div className="primary-reason-col">Manual Collection Required</div>
+                <div className="details-col">
+                  <ul>
+                    <li>Relies on manual VQL queries for artifact collection</li>
+                    <li>No continuous automated telemetry stream</li>
+                    <li>Better suited for incident response than continuous monitoring</li>
+                  </ul>
+                </div>
+              </div>
+              <div className="exclusion-row">
+                <div className="product-col">OSquery (standalone)</div>
+                <div className="primary-reason-col">No Real-time Collection</div>
+                <div className="details-col">
+                  <ul>
+                    <li>Designed for point-in-time queries</li>
+                    <li>Lacks native event streaming capability</li>
+                    <li>Requires additional tooling for continuous monitoring</li>
+                  </ul>
+                </div>
+              </div>
+              <div className="exclusion-row">
+                <div className="product-col">Huntress EDR</div>
+                <div className="primary-reason-col">Limited EDR Functionality</div>
+                <div className="details-col">
+                  <ul>
+                    <li>Lacks direct access to raw telemetry data for customer analysis and investigation</li>
+                    <li>Managed threat hunting platform rather than traditional EDR</li>
+                    <li>Limited endpoint telemetry visibility for customers</li>
+                  </ul>
+                </div>
+              </div>
+              <div className="exclusion-row">
+                <div className="product-col">Cisco EDR</div>
+                <div className="primary-reason-col">Limited EDR Functionality</div>
+                <div className="details-col">
+                  <ul>
+                    <li>Lacks direct access to raw telemetry data for customer analysis and investigation</li>
+                    <li>Requires additional modules and licensing for basic EDR capabilities</li>
+                    <li>Limited endpoint telemetry visibility in base product</li>
+                  </ul>
+                </div>
+              </div>
+              <div className="exclusion-row">
+                <div className="product-col">Tanium</div>
+                <div className="primary-reason-col">Limited Real-Time Telemetry</div>
+                <div className="details-col">
+                  <ul>
+                    <li>Primarily focuses on forensic endpoint visibility rather than real-time telemetry ingestion</li>
+                    <li>Uses polling-based architecture instead of continuous event streaming, leading to potential telemetry gaps</li>
+                    <li>Lacks continuous real-time process creation, file modification, and script execution monitoring</li>
+                  </ul>
+                </div>
+              </div>
+              <div className="exclusion-row">
+                <div className="product-col">Kaspersky</div>
+                <div className="primary-reason-col">Limited Telemetry Access</div>
+                <div className="details-col">
+                  <ul>
+                    <li>Does not provide open access to detailed raw telemetry data</li>
+                    <li>Telemetry data is aggregated, limiting granular event-level visibility</li>
+                  </ul>
+                </div>
+              </div>
+              <div className="exclusion-row">
+                <div className="product-col">Aurora</div>
+                <div className="primary-reason-col">Not a Full EDR Solution</div>
+                <div className="details-col">
+                  <ul>
+                    <li>Functions as a threat detection engine rather than a complete EDR solution</li>
+                    <li>Relies on log ingestion and rule-based detection instead of real-time telemetry collection</li>
+                    <li>Does not stream telemetry data to a centralized location for real-time analysis and monitoring</li>
+                  </ul>
+                </div>
+              </div>
+              <div className="exclusion-row">
+                <div className="product-col">Wazuh</div>
+                <div className="primary-reason-col">No Native Telemetry Collection</div>
+                <div className="details-col">
+                  <ul>
+                    <li>Relies on external tools (Sysmon, OSQuery) for basic endpoint telemetry collection</li>
+                    <li>Functions primarily as a log aggregator rather than direct telemetry collector</li>
+                    <li>Lacks native real-time event streaming capabilities for endpoint activities</li>
+                  </ul>
+                </div>
+              </div>
+              <div className="exclusion-row">
+                <div className="product-col">BitDefender EDR</div>
+                <div className="primary-reason-col">Limited EDR Functionality</div>
+                <div className="details-col">
+                  <ul>
+                    <li>No ability to search logs unless an alert fires</li>
+                    <li>No continuous event ingestion for full system visibility</li>
+                    <li>Functions more like an NGAV than a true EDR</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    </TemplatePage>
+  </TemplatePage>
   )
 }
