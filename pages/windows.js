@@ -709,9 +709,9 @@ export default function Windows() {
     setIsLoading(true);
     
     try {
-      // Fetch both resources in parallel
+      // Fetch data from our API endpoint (which gets data from Supabase)
       const [telemetryResponse, explanationsResponse] = await Promise.all([
-        fetch('https://raw.githubusercontent.com/tsale/EDR-Telemetry/main/EDR_telem_windows.json'),
+        fetch('/api/telemetry/windows'),
         fetch('https://raw.githubusercontent.com/tsale/EDR-Telemetry/main/partially_value_explanations_windows.json')
       ]);
 
@@ -737,22 +737,10 @@ export default function Windows() {
       console.log('Available Keys:', Object.keys(telemetry[0]));
       console.log('Explanations Format:', explanations);
       
-      // Filter data to only show Windows-related entries
-      const windowsData = telemetry.filter(item => {
-        // Identify Windows-specific entries
-        // Typically, Windows entries either have "Windows" in the category name,
-        // or they're general entries that apply to both Windows and Linux
-        const category = String(item['Telemetry Feature Category'] || '').toLowerCase();
-        
-        // Include entries that are explicitly for Windows or don't specify a platform
-        // Exclude entries that are explicitly for Linux, MacOS, etc.
-        return !category.includes('linux') && 
-               !category.includes('MacOS') && 
-               !category.includes('mac os') &&
-               !category.includes('unix');
-      });
+      // Data is already filtered for Windows in the API, no need to filter again
+      const windowsData = telemetry;
 
-      console.log(`Filtered ${telemetry.length} entries to ${windowsData.length} Windows entries`);
+      console.log(`Loaded ${windowsData.length} Windows entries from database`);
       
       // Explicitly ensure Sysmon entries are sorted first
       const sortedData = sortDataWithSysmonFirst(windowsData);

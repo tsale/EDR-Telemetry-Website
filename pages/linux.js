@@ -602,7 +602,7 @@ export default function Linux() {
     setIsLoading(true);
     try {
       const [telemetryResponse, explanationsResponse] = await Promise.all([
-        fetch('https://raw.githubusercontent.com/tsale/EDR-Telemetry/main/EDR_telem_linux.json'),
+        fetch('/api/telemetry/linux'),
         fetch('https://raw.githubusercontent.com/tsale/EDR-Telemetry/main/partially_value_explanations_linux.json')
       ]);
       if (!telemetryResponse.ok || !explanationsResponse.ok) throw new Error('Network response was not ok');

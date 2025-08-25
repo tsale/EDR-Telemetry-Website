@@ -1,0 +1,119 @@
+import type { NextApiRequest, NextApiResponse } from 'next'
+import { createServerClient } from '@supabase/ssr'
+import { serialize } from 'cookie'
+import type { Database, WindowsTelemetryWithScores } from '../../../utils/supabase/types'
+
+function createClient(req: NextApiRequest, res: NextApiResponse) {
+  return createServerClient<Database>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return Object.keys(req.cookies).map((name) => ({ 
+            name, 
+            value: req.cookies[name] || '' 
+          }))
+        },
+        setAll(cookiesToSet) {
+          const cookies = cookiesToSet.map(({ name, value, options }) => {
+            return serialize(name, value, {
+              path: '/',
+              httpOnly: options?.httpOnly,
+              secure: options?.secure,
+              sameSite: options?.sameSite,
+              maxAge: options?.maxAge,
+              ...options
+            })
+          })
+          
+          // Preserve existing cookies if any
+          const existingCookies = res.getHeader('Set-Cookie')
+          const allCookies = existingCookies 
+            ? (Array.isArray(existingCookies) ? [...existingCookies, ...cookies] : [existingCookies, ...cookies])
+            : cookies
+            
+          res.setHeader('Set-Cookie', allCookies)
+        }
+      }
+    }
+  )
+}
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  const supabase = createClient(req, res)
+
+  try {
+    switch (req.method) {
+      case 'GET':
+        // Fetch Windows telemetry data with scores
+        const { data: telemetryData, error: telemetryError } = await supabase
+          .from('windows_telemetry')
+          .select(`
+            *,
+            windows_table_results (
+              id,
+              edr_name,
+              status,
+              explanation,
+              created_at,
+              updated_at
+            )
+          `)
+          .order('created_at', { ascending: true })
+
+        if (telemetryError) {
+          console.error('Database error:', telemetryError)
+          return res.status(500).json({ error: 'Failed to fetch telemetry data' })
+        }
+
+        // Transform data to match the expected format for the frontend
+        const transformedData = (telemetryData as WindowsTelemetryWithScores[]).map(item => {
+          const result: any = {
+            'Telemetry Feature Category': item.category,
+            'Sub-Category': item.subcategory
+          }
+          
+          // Add each EDR's score as a property
+          item.windows_table_results.forEach(score => {
+            result[score.edr_name] = score.status
+          })
+          
+          return result
+        })
+
+        return res.status(200).json(transformedData)
+
+      case 'POST':
+        // Add new telemetry category (for future use)
+        const { category, subcategory } = req.body
+        
+        if (!category || !subcategory) {
+          return res.status(400).json({ error: 'Category and subcategory are required' })
+        }
+
+        const { data: newTelemetry, error: insertError } = await supabase
+          .from('windows_telemetry')
+          .insert({ category, subcategory })
+          .select()
+          .single()
+
+        if (insertError) {
+          console.error('Insert error:', insertError)
+          return res.status(500).json({ error: 'Failed to create telemetry category' })
+        }
+
+        return res.status(201).json(newTelemetry)
+
+      default:
+        res.setHeader('Allow', ['GET', 'POST'])
+        return res.status(405).json({ error: `Method ${req.method} Not Allowed` })
+    }
+  } catch (error) {
+    console.error('API Error:', error)
+    return res.status(500).json({ error: 'Internal server error' })
+  }
+}
