@@ -11,7 +11,7 @@ export default function Eligibility() {
     // Search functionality for the exclusion table
     if (typeof window !== 'undefined') {
       const searchInput = document.getElementById('exclusionSearch');
-      const exclusionRows = document.querySelectorAll('.exclusion-row:not(.header)');
+      const exclusionRows = document.querySelectorAll('.eligibility-exclusion-row:not(.header)');
       const exclusionFilter = document.querySelector('.exclusion-filter');
       
       if (searchInput) {
@@ -141,45 +141,101 @@ export default function Eligibility() {
 
   return (
     <TemplatePage title="EDR Eligibility Criteria - EDR Telemetry Project">
-      <div className="hero-section">
-        <div className="hero-content">
-          <h1>EDR Eligibility Criteria</h1>
-          <p>Understanding which solutions qualify for comparison in the EDR Telemetry Project</p>
+      <div className="hero-eligibility-modern">
+        <div className="hero-eligibility-content">
+          <div className="eligibility-badge-modern">
+            <span className="shield-icon">🛡️</span>
+            EDR Evaluation Guidelines
+          </div>
+          <h1 className="eligibility-heading-modern">
+            Eligibility Criteria &{' '}
+            <span className="eligibility-heading-gradient">
+              Excluded Products
+            </span>
+          </h1>
+          <p className="eligibility-description-modern">
+            Comprehensive guidelines for EDR solution implementation, including eligibility requirements, 
+            exclusion criteria, and conditional approval processes for enterprise environments.
+          </p>
+          <div className="eligibility-buttons-modern">
+            <a href="#core-requirements" className="eligibility-button-primary-modern">
+              <span style={{marginRight: '0.5rem'}}>👁️</span>
+              View Requirements
+            </a>
+            <a href="#ineligible-solutions" className="eligibility-button-secondary-modern">
+              <span style={{marginRight: '0.5rem'}}>📋</span>
+              View Exclusions
+            </a>
+          </div>
         </div>
       </div>
+      {/* Modern Definition Cards */}
+      <div className="definitions-section-modern">
+        <div className="definitions-header-modern">
+          <h2 className="definitions-title-modern">Key Definitions</h2>
+          <p className="definitions-subtitle-modern">
+            Understanding the fundamental concepts of EDR eligibility and implementation
+          </p>
+        </div>
+        
+        <div className="definitions-grid-modern">
+          <div className="definition-card-modern blue">
+            <div className="definition-card-header-modern">
+              <div className="definition-card-icon-modern">
+                <span>🛡️</span>
+              </div>
+              <h3 id="core-requirements" className="definition-card-title-modern">Core Requirements</h3>
+            </div>
+            <div className="definition-card-description-modern">
+              For an EDR solution to be included in our comparison, it must provide real-time event collection, 
+              automated telemetry without manual intervention, and out-of-the-box capabilities as a dedicated EDR solution.
+            </div>
+          </div>
+
+          <div className="definition-card-modern green">
+            <div className="definition-card-header-modern">
+              <div className="definition-card-icon-modern">
+                <span>✓</span>
+              </div>
+              <h3 className="definition-card-title-modern">EDR Telemetry Definition</h3>
+            </div>
+            <div className="definition-card-description-modern">
+              Data or events automatically collected and transmitted by a sensor in real-time as events occur, 
+              excluding live querying, artifact access, or correlation-based signals.
+            </div>
+          </div>
+
+          <div className="definition-card-modern red">
+            <div className="definition-card-header-modern">
+              <div className="definition-card-icon-modern">
+                <span>✗</span>
+              </div>
+              <h3 className="definition-card-title-modern">Exclusion Factors</h3>
+            </div>
+            <div className="definition-card-description-modern">
+              Solutions that lack continuous real-time telemetry streaming, require manual collection, 
+              or don't provide direct access to raw telemetry data for customer analysis.
+            </div>
+          </div>
+
+          <div className="definition-card-modern yellow">
+            <div className="definition-card-header-modern">
+              <div className="definition-card-icon-modern">
+                <span>⚠️</span>
+              </div>
+              <h3 className="definition-card-title-modern">Direct vs Inferred</h3>
+            </div>
+            <div className="definition-card-description-modern">
+              Each telemetry event must represent a distinct system action captured directly rather than inferred. 
+              For example, explicit service creation recording vs. assuming service creation from process events.
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="content-container">
         <div className="requirements-section">
-          <div className="definition-card eligibility">
-            <h3 id="core-requirements">Core Requirements</h3>
-            <p>For an EDR solution to be included in our comparison, it must meet these basic requirements:</p>
-            <ul>
-              <li>Provide real-time or near real-time event collection</li>
-              <li>Offer automated telemetry collection without manual intervention</li>
-              <li>Include out-of-the-box telemetry capabilities</li>
-              <li>Function as a dedicated endpoint detection and response solution</li>
-              <li>Collect direct telemetry events rather than inferred activities <a href="#telemetry-vs-inferred">(See detailed explanation below)</a></li>
-            </ul>
-          </div>
-
-          <div className="definition-card telemetry">
-            <h3 id="edr-telemetry-definition">EDR Telemetry Definition</h3>
-            <p>In this project, EDR Telemetry refers to data or events that are:</p>
-            <div className="includes">
-              <h4 id="included-telemetry">✓ Included</h4>
-              <li>Automatically collected and transmitted by a sensor in real-time or near real-time as events occur</li>
-            </div>
-            <div className="excludes">
-              <h4 id="excluded-telemetry">✗ Not Included</h4>
-              <ul>
-                <li>Live querying of artifacts</li>
-                <li>Access to artifacts on a system</li>
-                <li>Signals or detections based on correlation</li>
-                <li>Additional modules or integrations</li>
-              </ul>
-            </div>
-          </div>
-
-          <div id="telemetry-vs-inferred" className="definition-card telemetry-vs-inferred">
+          <div id="telemetry-vs-inferred" className="definition-card telemetry-vs-inferred" style={{display: 'none'}}>
             <h3 id="telemetry-vs-inferred-comparison">Telemetry Events vs. Inferred Activity</h3>
             <p>Each telemetry event must represent a distinct and independent system action, captured directly rather than inferred:</p>
             <div className="includes">
@@ -188,35 +244,57 @@ export default function Eligibility() {
             </div>
             <div className="excludes">
               <h4 id="inferred-activity">✗ Inferred Activity</h4>
-              <p>Assuming service creation by detecting new registry keys under <code style={{ color: 'red' }}>HKLM\SYSTEM\CurrentControlSet\services</code></p>
+              <p>Assuming service creation by detecting new process creation events with command line: <code style={{ color: 'red' }}>sc create ServiceName binPath= "C:\Example\Path\To\YourApp.exe"</code></p>
             </div>
           </div>
 
-          <div className="definition-card excluded-edrs">
-            <h3 id="ineligible-solutions">Solutions Not Currently Meeting Criteria</h3>
-            <div className="disclaimer-callout">
-              <div className="disclaimer-icon">ℹ️</div>
-              <div className="disclaimer-content">
-                <h4>Important Note</h4>
-                <p>The exclusion of a product from this comparison does not reflect on its overall quality or effectiveness. Each solution listed below may excel in its intended use case and could be the ideal choice depending on your specific environment, security requirements, and operational needs.</p>
-                <p>Our eligibility criteria are specifically designed for comparing traditional EDR telemetry capabilities and should not be the sole factor in evaluating security solutions for your organization.</p>
+          {/* Enhanced Requirements Section */}
+          <div className="requirements-section-modern">
+            <div className="requirements-card-modern">
+              <div className="requirements-card-header-modern">
+                <h2 id="ineligible-solutions" className="requirements-card-title-modern">Eligibility Requirements</h2>
+                <p className="requirements-card-subtitle-modern">
+                  Search and filter through EDR solution eligibility criteria and exclusions
+                </p>
               </div>
-            </div>
-            <p>The following solutions are not included in our comparison due to specific limitations in meeting our eligibility criteria:</p>
-            
-            <div className="exclusion-filter">
-              <div className="exclusion-search">
-                <input type="text" id="exclusionSearch" placeholder="Search for products or limitations..." aria-label="Search exclusion table" />
+              <div className="search-controls-modern">
+                <div className="search-input-modern">
+                  <span className="search-icon">🔍</span>
+                  <input type="text" id="exclusionSearch" placeholder="Search criteria, categories, or details..." aria-label="Search exclusion table" />
+                </div>
+                <div className="filter-select-modern">
+                  <select id="statusFilter">
+                    <option value="all">All Statuses</option>
+                    <option value="excluded">Excluded</option>
+                    <option value="conditional">Conditional</option>
+                  </select>
+                </div>
+                <div className="filter-select-modern">
+                  <select id="categoryFilter">
+                    <option value="all">All Categories</option>
+                    <option value="infrastructure">Infrastructure</option>
+                    <option value="telemetry">Telemetry</option>
+                    <option value="functionality">Functionality</option>
+                  </select>
+                </div>
               </div>
-            </div>
-            
-            <div className="exclusion-table">
-              <div className="exclusion-row header">
+              
+              <div className="disclaimer-callout" style={{margin: '2rem', padding: '1.5rem', background: 'rgba(59, 130, 246, 0.05)', border: '1px solid rgba(59, 130, 246, 0.2)', borderRadius: '0.75rem'}}>
+                <div className="disclaimer-icon" style={{fontSize: '1.5rem', marginBottom: '1rem'}}>ℹ️</div>
+                <div className="disclaimer-content">
+                  <h4 style={{color: '#1e40af', marginBottom: '0.5rem', fontWeight: '600'}}>Important Note</h4>
+                  <p style={{marginBottom: '1rem', color: '#64748b', fontSize: '0.875rem', lineHeight: '1.5'}}>The exclusion of a product from this comparison does not reflect on its overall quality or effectiveness. Each solution listed below may excel in its intended use case and could be the ideal choice depending on your specific environment, security requirements, and operational needs.</p>
+                  <p style={{color: '#64748b', fontSize: '0.875rem', lineHeight: '1.5'}}>Our eligibility criteria are specifically designed for comparing traditional EDR telemetry capabilities and should not be the sole factor in evaluating security solutions for your organization.</p>
+                </div>
+              </div>
+              
+          <div className="eligibility-table-container">
+              <div className="eligibility-exclusion-row header">
                 <div className="product-col">Product</div>
                 <div className="primary-reason-col">Primary Limitation</div>
                 <div className="details-col">Additional Details</div>
               </div>
-              <div className="exclusion-row">
+              <div className="eligibility-exclusion-row">
                 <div className="product-col">Sandfly</div>
                 <div className="primary-reason-col">No Real-time Streaming</div>
                 <div className="details-col">
@@ -227,7 +305,7 @@ export default function Eligibility() {
                   </ul>
                 </div>
               </div>
-              <div className="exclusion-row">
+              <div className="eligibility-exclusion-row">
                 <div className="product-col">Velociraptor</div>
                 <div className="primary-reason-col">Manual Collection Required</div>
                 <div className="details-col">
@@ -238,7 +316,7 @@ export default function Eligibility() {
                   </ul>
                 </div>
               </div>
-              <div className="exclusion-row">
+              <div className="eligibility-exclusion-row">
                 <div className="product-col">OSquery (standalone)</div>
                 <div className="primary-reason-col">No Real-time Collection</div>
                 <div className="details-col">
@@ -249,7 +327,7 @@ export default function Eligibility() {
                   </ul>
                 </div>
               </div>
-              <div className="exclusion-row">
+              <div className="eligibility-exclusion-row">
                 <div className="product-col">Huntress EDR</div>
                 <div className="primary-reason-col">Limited EDR Functionality</div>
                 <div className="details-col">
@@ -260,7 +338,7 @@ export default function Eligibility() {
                   </ul>
                 </div>
               </div>
-              <div className="exclusion-row">
+              <div className="eligibility-exclusion-row">
                 <div className="product-col">Cisco EDR</div>
                 <div className="primary-reason-col">Limited EDR Functionality</div>
                 <div className="details-col">
@@ -271,7 +349,7 @@ export default function Eligibility() {
                   </ul>
                 </div>
               </div>
-              <div className="exclusion-row">
+              <div className="eligibility-exclusion-row">
                 <div className="product-col">Tanium</div>
                 <div className="primary-reason-col">Limited Real-Time Telemetry</div>
                 <div className="details-col">
@@ -282,7 +360,7 @@ export default function Eligibility() {
                   </ul>
                 </div>
               </div>
-              <div className="exclusion-row">
+              <div className="eligibility-exclusion-row">
                 <div className="product-col">Kaspersky</div>
                 <div className="primary-reason-col">Limited Telemetry Access</div>
                 <div className="details-col">
@@ -292,7 +370,7 @@ export default function Eligibility() {
                   </ul>
                 </div>
               </div>
-              <div className="exclusion-row">
+              <div className="eligibility-exclusion-row">
                 <div className="product-col">Aurora</div>
                 <div className="primary-reason-col">Not a Full EDR Solution</div>
                 <div className="details-col">
@@ -303,7 +381,7 @@ export default function Eligibility() {
                   </ul>
                 </div>
               </div>
-              <div className="exclusion-row">
+              <div className="eligibility-exclusion-row">
                 <div className="product-col">Wazuh</div>
                 <div className="primary-reason-col">No Native Telemetry Collection</div>
                 <div className="details-col">
@@ -314,7 +392,7 @@ export default function Eligibility() {
                   </ul>
                 </div>
               </div>
-              <div className="exclusion-row">
+              <div className="eligibility-exclusion-row">
                 <div className="product-col">BitDefender EDR</div>
                 <div className="primary-reason-col">Limited EDR Functionality</div>
                 <div className="details-col">
@@ -329,6 +407,7 @@ export default function Eligibility() {
           </div>
         </div>
       </div>
-    </TemplatePage>
+    </div>
+  </TemplatePage>
   )
-} 
+}

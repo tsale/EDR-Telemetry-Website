@@ -12,6 +12,7 @@
 
 # Production
 /build
+CLAUDE.md
 
 # Environment files
 .env
