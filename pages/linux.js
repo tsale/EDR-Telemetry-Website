@@ -348,6 +348,58 @@ export default function Linux() {
       font-size: 0.8rem;
       color: #7f8c8d;
     }
+    
+    /* Optional telemetry message and badge styling */
+    .optional-message {
+      background-color: #f0f7ff;
+      border: 1px solid #e3f2fd;
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
+      margin: 0.5rem 0 1rem 0;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: #6c757d;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    
+    .optional-message a {
+      color: #1976d2;
+      text-decoration: underline;
+      font-weight: 500;
+    }
+    
+    .optional-message a:hover {
+      color: #1565c0;
+      text-decoration: none;
+    }
+    
+    .optional-badge {
+      display: inline-block;
+      background-color: #2196f3;
+      color: #ffffff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      vertical-align: middle;
+      margin-right: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      line-height: 1;
+    }
+    
+    .optional-badge:hover {
+      background-color: #1976d2;
+    }
+    
+    .optional-badge:focus {
+      outline: 2px solid #1976d2;
+      outline-offset: 2px;
+    }
+    
     /* Filter controls styling */
     .filter-controls {
       background-color: #fff;
@@ -482,6 +534,20 @@ export default function Linux() {
         padding: 0.5rem 0.8rem;
         font-size: 0.9rem;
       }
+      
+      .optional-message {
+        padding: 0.6rem 0.8rem;
+        font-size: 0.85rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.3rem;
+      }
+      
+      .optional-badge {
+        font-size: 0.7rem;
+        padding: 0.15rem 0.4rem;
+        margin-right: 0.3rem;
+      }
     }
     
     @media (max-width: 480px) {
@@ -515,6 +581,19 @@ export default function Linux() {
       }
       .legend-description {
         font-size: 0.7rem;
+      }
+      
+      .optional-message {
+        padding: 0.5rem 0.6rem;
+        font-size: 0.8rem;
+        margin: 0.3rem 0 0.8rem 0;
+      }
+      
+      .optional-badge {
+        font-size: 0.65rem;
+        padding: 0.1rem 0.3rem;
+        margin-right: 0.25rem;
+        letter-spacing: 0.3px;
       }
     }
     
