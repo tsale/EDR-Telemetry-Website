@@ -254,28 +254,13 @@ export default function Eligibility() {
               <div className="requirements-card-header-modern">
                 <h2 id="ineligible-solutions" className="requirements-card-title-modern">Eligibility Requirements</h2>
                 <p className="requirements-card-subtitle-modern">
-                  Search and filter through EDR solution eligibility criteria and exclusions
+                  Search through EDR solution exclusions
                 </p>
               </div>
               <div className="search-controls-modern">
                 <div className="search-input-modern">
                   <span className="search-icon">🔍</span>
                   <input type="text" id="exclusionSearch" placeholder="Search criteria, categories, or details..." aria-label="Search exclusion table" />
-                </div>
-                <div className="filter-select-modern">
-                  <select id="statusFilter">
-                    <option value="all">All Statuses</option>
-                    <option value="excluded">Excluded</option>
-                    <option value="conditional">Conditional</option>
-                  </select>
-                </div>
-                <div className="filter-select-modern">
-                  <select id="categoryFilter">
-                    <option value="all">All Categories</option>
-                    <option value="infrastructure">Infrastructure</option>
-                    <option value="telemetry">Telemetry</option>
-                    <option value="functionality">Functionality</option>
-                  </select>
                 </div>
               </div>
               
