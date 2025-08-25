@@ -11,6 +11,37 @@
   --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
+/* Optional telemetry info section */
+.optional-info {
+  background: var(--light-gray);
+  border-left: 4px solid var(--primary-orange);
+  padding: 1.5rem;
+  border-radius: 0 8px 8px 0;
+  margin: 1.5rem 0;
+}
+
+.optional-info div {
+  margin-bottom: 1rem;
+}
+
+.optional-info div:last-child {
+  margin-bottom: 0;
+}
+
+.optional-visual .optional-badge {
+  display: inline-block;
+  background: #ff6b35;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 3px;
+  margin: 0 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  vertical-align: middle;
+}
+
 /* Main content layout */
 .scores-container {
   max-width: 1200px;

@@ -166,21 +166,21 @@ export default function Scores() {
     }
   }, [currentPlatform, windowsTelemetryData, linuxTelemetryData]);
 
-  // Function to load all telemetry data
+  // Function to load all telemetry data from Supabase API
   const loadAllTelemetryData = async () => {
     setIsLoading(true);
     
     try {
-      // Load Windows data
-      const windowsResponse = await fetch('https://raw.githubusercontent.com/tsale/EDR-Telemetry/main/EDR_telem_windows.json');
+      // Load Windows data from Supabase API
+      const windowsResponse = await fetch('/api/telemetry/windows');
       if (!windowsResponse.ok) 
         throw new Error(`Failed to fetch Windows telemetry data: ${windowsResponse.status}`);
       
       const windowsData = await windowsResponse.json();
       setWindowsTelemetryData(windowsData);
       
-      // Load Linux data
-      const linuxResponse = await fetch('https://raw.githubusercontent.com/tsale/EDR-Telemetry/main/EDR_telem_linux.json');
+      // Load Linux data from Supabase API
+      const linuxResponse = await fetch('/api/telemetry/linux');
       if (!linuxResponse.ok) 
         throw new Error(`Failed to fetch Linux telemetry data: ${linuxResponse.status}`);
       
@@ -200,14 +200,17 @@ export default function Scores() {
     const categories = platform.toLowerCase() === 'linux' ? 
         LINUX_CATEGORIES_VALUED : WINDOWS_CATEGORIES_VALUED;
 
+    // Filter out optional telemetry from scoring calculation
+    const scoringData = data.filter(entry => !entry.optional);
+
     const edrHeaders = Object.keys(data[0] || {}).filter(
-        key => key !== 'Telemetry Feature Category' && key !== 'Sub-Category'
+        key => key !== 'Telemetry Feature Category' && key !== 'Sub-Category' && key !== 'optional'
     );
 
     // Initialize scores object for each EDR
     let scoresArray = edrHeaders.map(edr => ({ edr: edr, score: 0 }));
 
-    data.forEach(entry => {
+    scoringData.forEach(entry => {
         const subCategory = entry['Sub-Category'];
         const featureWeight = categories[subCategory] || 0;
 
@@ -470,19 +473,37 @@ export default function Scores() {
               </div>
             </div>
             
+            <div className="methodology-section">
+              <h3 id="optional-telemetry">Optional Telemetry & Fair Scoring</h3>
+              <p>To maintain fair and consistent scoring across all EDR vendors, new Sub-Categories are initially marked as "optional" and <strong>do not count against the final scoring</strong> until they reach sufficient adoption across the vendor ecosystem.</p>
+              
+              <div className="optional-info">
+                <div className="optional-rule">
+                  <strong>75% Coverage Rule:</strong> New Sub-Categories only contribute to vendor scores once they achieve at least 75% implementation coverage across all currently supported EDR vendors.
+                </div>
+                <div className="optional-benefit">
+                  <strong>Why This Matters:</strong> This approach prevents unfair advantages for vendors who propose new telemetry additions, ensuring that scores reflect mature, widely-adopted telemetry capabilities rather than cutting-edge features that may not be universally supported.
+                </div>
+                <div className="optional-visual">
+                  <strong>Visual Indicator:</strong> Optional telemetry features are marked with a <span className="optional-badge">New</span> badge in the telemetry tables and will be promoted to scored telemetry once the coverage threshold is met.
+                </div>
+              </div>
+            </div>
+            
             <h3 id="final-score-calculation">Final Score Calculation</h3>
             <div className="formula-container">
               <div className="formula">
-                Total Score = Σ (Status Value × Feature Weight)
+                Total Score = Σ (Status Value × Feature Weight) <small>for non-optional features</small>
               </div>
               <div className="formula-explanation">
-                The final score represents the weighted sum of all features, providing a comprehensive evaluation of each EDR solution's telemetry capabilities.
+                The final score represents the weighted sum of all non-optional features, providing a comprehensive evaluation of each EDR solution's telemetry capabilities.
               </div>
             </div>
             
             <p>To calculate the score:</p>
             <ol>
-              <li>For each telemetry feature (sub-category), we determine the implementation status (Yes, Partially, Via EventLogs, etc.)</li>
+              <li>Optional telemetry features are excluded from the scoring calculation</li>
+              <li>For each remaining telemetry feature (sub-category), we determine the implementation status (Yes, Partially, Via EventLogs, etc.)</li>
               <li>The status is converted to a numerical value according to the status table</li>
               <li>This value is multiplied by the weight assigned to that feature category</li>
               <li>All weighted values are summed to produce the final score</li>

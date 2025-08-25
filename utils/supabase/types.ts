@@ -14,6 +14,7 @@ export type Database = {
           id: string
           category: string
           subcategory: string
+          optional: boolean
           created_at: string
           updated_at: string
         }
@@ -21,6 +22,7 @@ export type Database = {
           id?: string
           category: string
           subcategory: string
+          optional?: boolean
           created_at?: string
           updated_at?: string
         }
@@ -28,6 +30,7 @@ export type Database = {
           id?: string
           category?: string
           subcategory?: string
+          optional?: boolean
           created_at?: string
           updated_at?: string
         }
@@ -38,6 +41,7 @@ export type Database = {
           id: string
           category: string
           subcategory: string
+          optional: boolean
           created_at: string
           updated_at: string
         }
@@ -45,6 +49,7 @@ export type Database = {
           id?: string
           category: string
           subcategory: string
+          optional?: boolean
           created_at?: string
           updated_at?: string
         }
@@ -52,6 +57,7 @@ export type Database = {
           id?: string
           category?: string
           subcategory?: string
+          optional?: boolean
           created_at?: string
           updated_at?: string
         }

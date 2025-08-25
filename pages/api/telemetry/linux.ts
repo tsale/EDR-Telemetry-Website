@@ -74,7 +74,8 @@ export default async function handler(
         const transformedData = (telemetryData as LinuxTelemetryWithScores[]).map(item => {
           const result: any = {
             'Telemetry Feature Category': item.category,
-            'Sub-Category': item.subcategory
+            'Sub-Category': item.subcategory,
+            'optional': item.optional
           }
           
           // Add each EDR's score as a property
@@ -89,7 +90,7 @@ export default async function handler(
 
       case 'POST':
         // Add new telemetry category (for future use)
-        const { category, subcategory } = req.body
+        const { category, subcategory, optional = true } = req.body
         
         if (!category || !subcategory) {
           return res.status(400).json({ error: 'Category and subcategory are required' })
@@ -97,7 +98,7 @@ export default async function handler(
 
         const { data: newTelemetry, error: insertError } = await supabase
           .from('linux_telemetry')
-          .insert({ category, subcategory })
+          .insert({ category, subcategory, optional })
           .select()
           .single()
 

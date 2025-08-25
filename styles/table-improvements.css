@@ -16,6 +16,48 @@
     transform: translateZ(0); /* Force hardware acceleration */
 }
 
+/* Optional telemetry badge */
+.optional-badge {
+    display: inline-block;
+    background: #ff6b35;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 3px;
+    margin-left: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    vertical-align: middle;
+}
+
+.subcategory-column .optional-badge {
+    white-space: nowrap;
+}
+
+/* Subtle optional telemetry message */
+.optional-message {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 4px;
+    padding: 8px 16px;
+    margin: 1rem auto;
+    max-width: 1200px;
+    font-size: 0.9rem;
+    color: #6c757d;
+    text-align: center;
+}
+
+.optional-message a {
+    color: #0066cc;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.optional-message a:hover {
+    text-decoration: underline;
+}
+
 /* Telemetry Table Styles */
 #telemetryTable {
     width: 100%;

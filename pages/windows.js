@@ -753,7 +753,8 @@ export default function Windows() {
       if (sortedData && sortedData.length > 0) {
         const edrNames = Object.keys(sortedData[0] || {}).filter(key => 
           key !== 'Telemetry Feature Category' && 
-          key !== 'Sub-Category'
+          key !== 'Sub-Category' &&
+          key !== 'optional'
         );
         
         // Sort EDR options - ensure Sysmon is first if present
@@ -1077,7 +1078,10 @@ export default function Windows() {
                         {category}
                       </td>
                     )}
-                    <td className="subcategory-column">{subcategory}</td>
+                    <td className="subcategory-column">
+                      {subcategory}
+                      {item.optional && <span className="optional-badge">New</span>}
+                    </td>
                     
                     {displayedEdrs.map(edr => {
                       const status = item[edr];
@@ -1265,6 +1269,11 @@ export default function Windows() {
               <span>Compare</span>
             </button>
           </div>
+        </div>
+        
+        {/* Subtle Optional Telemetry Message */}
+        <div className="optional-message">
+          <span className="optional-badge">New</span> telemetry doesn't affect scoring until 75% vendor adoption. <a href="/scores#optional-telemetry">Learn more</a>
         </div>
         
         {/* Content Area */}

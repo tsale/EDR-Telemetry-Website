@@ -616,7 +616,8 @@ export default function Linux() {
       if (sortedData && sortedData.length > 0) {
         const edrNames = Object.keys(sortedData[0] || {}).filter(key =>
           key !== 'Telemetry Feature Category' &&
-          key !== 'Sub-Category'
+          key !== 'Sub-Category' &&
+          key !== 'optional'
         );
         setEdrOptions(edrNames);
       }
@@ -931,7 +932,10 @@ export default function Linux() {
                         {category}
                       </td>
                     )}
-                    <td className="subcategory-column">{subcategory}</td>
+                    <td className="subcategory-column">
+                      {subcategory}
+                      {item.optional && <span className="optional-badge">New</span>}
+                    </td>
                     {orderedEdrs.map(edr => {
                       const status = item[edr];
                       const statusKey = `${rowKey}-${edr}`;
@@ -941,8 +945,8 @@ export default function Linux() {
                         <td 
                           key={statusKey} 
                           data-status={status} 
-                          className={`${isAuditd ? 'auditd-column' : ''} ${isSysmon ? 'sysmon-column' : ''} ${status?.toLowerCase() === 'partially' ? 'has-tooltip' : ''}`} 
-                          title={status?.toLowerCase() === 'partially' && partiallyExplanations[edr] && partiallyExplanations[edr][category] && partiallyExplanations[edr][category][subcategory] ? partiallyExplanations[edr][category][subcategory] : ''}
+                          className={`${isAuditd ? 'auditd-column' : ''} ${isSysmon ? 'sysmon-column' : ''} ${typeof status === 'string' && status.toLowerCase() === 'partially' ? 'has-tooltip' : ''}`} 
+                          title={typeof status === 'string' && status.toLowerCase() === 'partially' && partiallyExplanations[edr] && partiallyExplanations[edr][category] && partiallyExplanations[edr][category][subcategory] ? partiallyExplanations[edr][category][subcategory] : ''}
                         >
                           {getStatusIcon(status, category, subcategory, edr)}
                         </td>
@@ -1107,6 +1111,11 @@ export default function Linux() {
               <span>Compare</span>
             </button>
           </div>
+        </div>
+        
+        {/* Subtle Optional Telemetry Message */}
+        <div className="optional-message">
+          <span className="optional-badge">New</span> telemetry doesn't affect scoring until 75% vendor adoption. <a href="/scores#optional-telemetry">Learn more</a>
         </div>
         
         {/* Content Area */}
