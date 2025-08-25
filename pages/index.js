@@ -59,9 +59,9 @@ export default function Home() {
 
           {/* Main Heading with improved typography */}
           <h1 className="heading-modern">
-            Advanced EDR Telemetry for{' '}
+            EDR Telemetry of{' '}
             <span className="heading-gradient">
-              Modern Security
+              Modern EDR Solutions
             </span>
           </h1>
 

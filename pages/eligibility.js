@@ -150,7 +150,7 @@ export default function Eligibility() {
           <h1 className="eligibility-heading-modern">
             Eligibility Criteria &{' '}
             <span className="eligibility-heading-gradient">
-              Solution Requirements
+              Excluded Products
             </span>
           </h1>
           <p className="eligibility-description-modern">
