@@ -105,15 +105,15 @@ export default async function handler(
 
       // Check if telemetry category exists
       if (!processedCategories.has(categoryKey)) {
-        const { data: existingTelemetry } = await supabase
+        const { data: existingTelemetry, error: selectError } = await supabase
           .from(telemetryTable as any)
           .select('id')
           .eq('category', category)
           .eq('subcategory', subcategory)
           .single()
 
-        if (existingTelemetry) {
-          telemetryId = existingTelemetry.id
+        if (existingTelemetry && !selectError) {
+          telemetryId = existingTelemetry.id as string
         } else {
           const { data: newTelemetry, error } = await supabase
             .from(telemetryTable as any)
@@ -121,12 +121,12 @@ export default async function handler(
             .select('id')
             .single()
 
-          if (error) {
+          if (error || !newTelemetry) {
             console.error('Error inserting telemetry:', error)
             continue
           }
           
-          telemetryId = newTelemetry.id
+          telemetryId = newTelemetry.id as string
           inserted++
         }
         
