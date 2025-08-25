@@ -74,8 +74,6 @@ export default async function handler(
 
   try {
     const jsonUrl = platform === 'windows' ? WINDOWS_JSON_URL : LINUX_JSON_URL
-    const telemetryTable = platform === 'windows' ? 'windows_telemetry' : 'linux_telemetry'
-    const scoresTable = platform === 'windows' ? 'windows_table_results' : 'linux_table_results'
 
     // Fetch data from GitHub
     const response = await fetch(jsonUrl)
@@ -105,28 +103,61 @@ export default async function handler(
 
       // Check if telemetry category exists
       if (!processedCategories.has(categoryKey)) {
-        const { data: existingTelemetry, error: selectError } = await supabase
-          .from(telemetryTable as any)
-          .select('id')
-          .eq('category', category)
-          .eq('subcategory', subcategory)
-          .single()
+        let existingTelemetry: { id: string } | null = null
+        let selectError: any = null
+
+        // Type-safe query based on platform
+        if (platform === 'windows') {
+          const result = await supabase
+            .from('windows_telemetry')
+            .select('id')
+            .eq('category', category)
+            .eq('subcategory', subcategory)
+            .single()
+          existingTelemetry = result.data
+          selectError = result.error
+        } else {
+          const result = await supabase
+            .from('linux_telemetry')
+            .select('id')
+            .eq('category', category)
+            .eq('subcategory', subcategory)
+            .single()
+          existingTelemetry = result.data
+          selectError = result.error
+        }
 
         if (existingTelemetry && !selectError) {
-          telemetryId = existingTelemetry.id as string
+          telemetryId = existingTelemetry.id
         } else {
-          const { data: newTelemetry, error } = await supabase
-            .from(telemetryTable as any)
-            .insert({ category, subcategory })
-            .select('id')
-            .single()
+          let newTelemetry: { id: string } | null = null
+          let insertError: any = null
 
-          if (error || !newTelemetry) {
-            console.error('Error inserting telemetry:', error)
+          // Type-safe insert based on platform
+          if (platform === 'windows') {
+            const result = await supabase
+              .from('windows_telemetry')
+              .insert({ category, subcategory })
+              .select('id')
+              .single()
+            newTelemetry = result.data
+            insertError = result.error
+          } else {
+            const result = await supabase
+              .from('linux_telemetry')
+              .insert({ category, subcategory })
+              .select('id')
+              .single()
+            newTelemetry = result.data
+            insertError = result.error
+          }
+
+          if (insertError || !newTelemetry) {
+            console.error('Error inserting telemetry:', insertError)
             continue
           }
           
-          telemetryId = newTelemetry.id as string
+          telemetryId = newTelemetry.id
           inserted++
         }
         
@@ -138,19 +169,37 @@ export default async function handler(
       // Update scores
       for (const [edrName, status] of Object.entries(entry)) {
         if (edrName !== 'Telemetry Feature Category' && edrName !== 'Sub-Category' && status !== null) {
-          const { error } = await supabase
-            .from(scoresTable as any)
-            .upsert({
-              telemetry_id: telemetryId,
-              edr_name: edrName,
-              status: status,
-              explanation: null
-            }, {
-              onConflict: 'telemetry_id,edr_name'
-            })
+          let upsertError: any = null
 
-          if (error) {
-            console.error(`Error upserting score for ${edrName}:`, error)
+          // Type-safe upsert based on platform
+          if (platform === 'windows') {
+            const result = await supabase
+              .from('windows_table_results')
+              .upsert({
+                telemetry_id: telemetryId,
+                edr_name: edrName,
+                status: status,
+                explanation: null
+              }, {
+                onConflict: 'telemetry_id,edr_name'
+              })
+            upsertError = result.error
+          } else {
+            const result = await supabase
+              .from('linux_table_results')
+              .upsert({
+                telemetry_id: telemetryId,
+                edr_name: edrName,
+                status: status,
+                explanation: null
+              }, {
+                onConflict: 'telemetry_id,edr_name'
+              })
+            upsertError = result.error
+          }
+
+          if (upsertError) {
+            console.error(`Error upserting score for ${edrName}:`, upsertError)
           } else {
             updated++
           }
