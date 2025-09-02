@@ -21,7 +21,7 @@
     "@vercel/speed-insights": "^1.2.0",
     "chart.js": "^4.4.8",
     "dotenv": "^17.2.1",
-    "next": "^15.2.4",
+    "next": "^15.5.2",
     "posthog-js": "^1.255.1",
     "posthog-node": "^5.1.1",
     "react": "^18.3.1",
