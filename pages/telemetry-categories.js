@@ -127,8 +127,8 @@ export default function TelemetryCategories() {
       ),
       color: '#607d8b',
       purpose: 'This category focuses on the fingerprinting of files or memory regions using hashing algorithms to allow deduplication, integrity checks, and malware correlation.',
-      dataCollected: 'MD5, SHA1, SHA256, and IMPHASH values of files and memory regions.',
-      securityBenefits: 'Enables matching against known threat indicators and helps identify malware families through import table similarity.',
+      dataCollected: 'MD5, SHA1, SHA256, JA3/JA3s, and IMPHASH values of files, SSL/TLS connections, and memory regions.',
+      securityBenefits: 'Enables matching against known threat indicators and helps identify malware families through import table similarity and SSL/TLS fingerprinting.',
       detectionExamples: 'Identification of known malicious files, grouping of malware variants, and integrity verification of system files.'
     },
     {
