@@ -206,7 +206,10 @@ export default function Scores() {
     const scoringData = data.filter(entry => !entry.optional);
 
     const edrHeaders = Object.keys(data[0] || {}).filter(
-        key => key !== 'Telemetry Feature Category' && key !== 'Sub-Category' && key !== 'optional'
+        key => key !== 'Telemetry Feature Category' &&
+               key !== 'Sub-Category' &&
+               key !== 'optional' &&
+               key !== '__explanations'
     );
 
     // Initialize scores object for each EDR

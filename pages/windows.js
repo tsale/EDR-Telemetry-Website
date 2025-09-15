@@ -7,7 +7,6 @@ import Head from 'next/head'
 export default function Windows() {
   // State for telemetry data
   const [telemetryData, setTelemetryData] = useState([]);
-  const [partiallyExplanations, setPartiallyExplanations] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [hoverEnabled, setHoverEnabled] = useState(false);
@@ -788,21 +787,12 @@ export default function Windows() {
     
     try {
       // Fetch data from our API endpoint (which gets data from Supabase)
-      const [telemetryResponse, explanationsResponse] = await Promise.all([
-        fetch('/api/telemetry/windows'),
-        fetch('https://raw.githubusercontent.com/tsale/EDR-Telemetry/main/partially_value_explanations_windows.json')
-      ]);
+      const telemetryResponse = await fetch('/api/telemetry/windows');
 
       if (!telemetryResponse.ok) 
         throw new Error(`Failed to fetch telemetry data: ${telemetryResponse.status} ${telemetryResponse.statusText}`);
-      
-      if (!explanationsResponse.ok)
-        throw new Error(`Failed to fetch explanations data: ${explanationsResponse.status} ${explanationsResponse.statusText}`);
-      
-      const [telemetry, explanations] = await Promise.all([
-        telemetryResponse.json(),
-        explanationsResponse.json()
-      ]).catch(error => {
+
+      const telemetry = await telemetryResponse.json().catch(error => {
         throw new Error(`Error parsing JSON: ${error.message}`);
       });
 
@@ -813,7 +803,6 @@ export default function Windows() {
       // Debug the data structure
       console.log('Telemetry Data First Item:', telemetry[0]);
       console.log('Available Keys:', Object.keys(telemetry[0]));
-      console.log('Explanations Format:', explanations);
       
       // Data is already filtered for Windows in the API, no need to filter again
       const windowsData = telemetry;
@@ -825,14 +814,14 @@ export default function Windows() {
       console.log('Sorted data first few entries:', sortedData.slice(0, 3));
       
       setTelemetryData(sortedData);
-      setPartiallyExplanations(explanations);
       
       // Extract EDR options for filter
       if (sortedData && sortedData.length > 0) {
         const edrNames = Object.keys(sortedData[0] || {}).filter(key => 
           key !== 'Telemetry Feature Category' && 
           key !== 'Sub-Category' &&
-          key !== 'optional'
+          key !== 'optional' &&
+          key !== '__explanations'
         );
         
         // Sort EDR options - ensure Sysmon is first if present
@@ -963,17 +952,6 @@ export default function Windows() {
     console.log('Highlighted differences in comparison mode');
   }, [isComparisonMode]);
 
-  // Helper function to escape HTML special characters
-  const escapeHtml = useCallback((unsafe) => {
-    if (!unsafe || typeof unsafe !== 'string') return '';
-    return unsafe
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
-  }, []);
-
   // Function to compare selected EDRs
   const compareEDRs = useCallback(() => {
     if (selectedEDRs.length >= 2) {
@@ -1027,7 +1005,7 @@ export default function Windows() {
   };
 
   // Function to get status icon based on value
-  const getStatusIcon = useCallback((status, category, subcategory, edr) => {
+  const getStatusIcon = useCallback((status, explanation) => {
     // Handle undefined or null values
     if (status === undefined || status === null) {
       return <span className="status-icon unknown" title="Unknown">-</span>;
@@ -1035,53 +1013,26 @@ export default function Windows() {
 
     // Convert to lowercase string for comparison
     const statusLower = String(status).toLowerCase().trim();
+    const explanationText = typeof explanation === 'string' ? explanation : '';
     
-    // Get explanation for "Partially" status
-    let explanation = '';
-    if (statusLower === 'partially') {
-      // Try both possible formats of the partially_value_explanations_windows.json
-      
-      // Format 1: {edr: {category: {subcategory: explanation}}}
-      if (partiallyExplanations[edr] && 
-          partiallyExplanations[edr][category] && 
-          partiallyExplanations[edr][category][subcategory]) {
-        explanation = partiallyExplanations[edr][category][subcategory];
-      }
-      
-      // Format 2: Array of objects with nested structure
-      else if (Array.isArray(partiallyExplanations)) {
-        const match = partiallyExplanations.find(item => 
-          item['Telemetry Feature Category'] === category && 
-          item['Sub-Category'] === subcategory
-        );
-        
-        if (match && match[edr] && match[edr].Partially) {
-          explanation = match[edr].Partially;
-        }
-      }
-      
-      // Debug explanation 
-      if (explanation) {
-        console.log(`Found explanation for ${edr}, ${category}, ${subcategory}: ${explanation}`);
-      }
-    }
-    
-    // Match with case insensitive comparison
     if (statusLower === 'yes') {
       return <span className="status-icon yes" title="Implemented">✅</span>;
     } else if (statusLower === 'no') {
       return <span className="status-icon no" title="Not Implemented">❌</span>;
     } else if (statusLower === 'partially') {
+      const tooltipText = explanationText || 'Partially Implemented';
+      const hasExplanation = Boolean(explanationText);
+
       return (
-        <TooltipWrapper tooltip={explanation || "Partially Implemented"}>
-          <span className={`status-icon partially ${explanation ? 'has-explanation' : ''}`}>
+        <TooltipWrapper tooltip={tooltipText}>
+          <span className={`status-icon partially ${hasExplanation ? 'has-explanation' : ''}`}>
             ⚠️
           </span>
         </TooltipWrapper>
       );
     } else if (statusLower === 'pending' || statusLower === 'pending response') {
       return <span className="status-icon pending" title="Pending Response">❓</span>;
-    } else if (statusLower === 'Via EventLogs' || statusLower === 'via eventlogs') {
+    } else if (statusLower === 'via eventlogs') {
       return <span className="status-icon via-logs" title="Via EventLogs">🪵</span>;
     } else if (statusLower === 'via enablingtelemetry') {
       return <span className="status-icon via-enabling" title="Via Enabling Telemetry">🎚️</span>;
@@ -1089,7 +1040,7 @@ export default function Windows() {
     
     // Default case for any other value
     return <span className="status-icon unknown" title={`Unknown value: ${status}`}>-</span>;
-  }, [partiallyExplanations]);
+  }, []);
 
   // Group data by category
   const groupedData = useMemo(() => {
@@ -1164,14 +1115,19 @@ export default function Windows() {
                     {displayedEdrs.map(edr => {
                       const status = item[edr];
                       const statusKey = `${rowKey}-${edr}`;
-                      
+                      const explanationMap = item.__explanations || {};
+                      const explanation = explanationMap[edr] || '';
+                      const isPartial = typeof status === 'string' && status.toLowerCase() === 'partially';
+                      const cellTitle = isPartial ? (explanation || 'Partially Implemented') : '';
+
                       return (
                         <td 
                           key={statusKey} 
                           className={`${edr.toLowerCase().includes('sysmon') ? 'sysmon-column' : ''}`}
                           data-status={status}
+                          title={cellTitle}
                         >
-                          {getStatusIcon(status, category, subcategory, edr)}
+                          {getStatusIcon(status, explanation)}
                         </td>
                       );
                     })}

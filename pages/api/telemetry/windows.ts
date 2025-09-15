@@ -84,9 +84,15 @@ export default async function handler(
             'optional': item.optional
           }
           
-          // Add each EDR's score as a property
+          // Add each EDR's score as a property and capture explanations when present
           item.windows_table_results.forEach(score => {
             result[score.edr_name] = score.status
+
+            if (!result.__explanations) {
+              result.__explanations = {}
+            }
+
+            result.__explanations[score.edr_name] = score.explanation || ''
           })
           
           return result
