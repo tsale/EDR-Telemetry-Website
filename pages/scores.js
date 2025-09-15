@@ -68,7 +68,8 @@ const WINDOWS_CATEGORIES_VALUED = {
     "WmiEventConsumer": 1,
     "WmiEventFilter": 1,
     "BIT JOBS Activity": 1,
-    "Script-Block Activity": 1
+    "Script-Block Activity": 1,
+    "Win32 API Telemetry": 1
 };
 
 // Linux-specific categories with their weights
