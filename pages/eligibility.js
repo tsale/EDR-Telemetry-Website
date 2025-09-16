@@ -214,7 +214,7 @@ export default function Eligibility() {
             </div>
             <div className="definition-card-description-modern">
               Solutions that lack continuous real-time telemetry streaming, require manual collection, 
-              or don't provide direct access to raw telemetry data for customer analysis.
+              or don&apos;t provide direct access to raw telemetry data for customer analysis.
             </div>
           </div>
 
@@ -244,7 +244,7 @@ export default function Eligibility() {
             </div>
             <div className="excludes">
               <h4 id="inferred-activity">✗ Inferred Activity</h4>
-              <p>Assuming service creation by detecting new process creation events with command line: <code style={{ color: 'red' }}>sc create ServiceName binPath= "C:\Example\Path\To\YourApp.exe"</code></p>
+              <p>Assuming service creation by detecting new process creation events with command line: <code style={{ color: 'red' }}>sc create ServiceName binPath= &quot;C:\Example\Path\To\YourApp.exe&quot;</code></p>
             </div>
           </div>
 

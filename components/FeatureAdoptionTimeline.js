@@ -771,13 +771,13 @@ const FeatureAdoptionTimeline = ({ platform: initialPlatform = 'all', onPlatform
           a vendor has implemented. Features are counted as supported if they have any of the following values:
         </p>
         <ul>
-          <li><strong>"Yes"</strong> - Fully implemented feature</li>
-          <li><strong>"Partially"</strong> - Partially implemented feature</li>
-          <li><strong>"Via EventLogs"</strong> - Feature available through Windows Event Logs</li>
-          <li><strong>"Via EnablingTelemetry"</strong> - Feature that can be enabled as part of the EDR product</li>
+          <li><strong>&quot;Yes&quot;</strong> - Fully implemented feature</li>
+          <li><strong>&quot;Partially&quot;</strong> - Partially implemented feature</li>
+          <li><strong>&quot;Via EventLogs&quot;</strong> - Feature available through Windows Event Logs</li>
+          <li><strong>&quot;Via EnablingTelemetry&quot;</strong> - Feature that can be enabled as part of the EDR product</li>
         </ul>
         <p>
-          Features marked as <strong>"No"</strong> or <strong>"Pending"</strong> are counted as not supported.
+          Features marked as <strong>&quot;No&quot;</strong> or <strong>&quot;Pending&quot;</strong> are counted as not supported.
         </p>
         <p>
           For each vendor and category, we calculate: <code>(Number of Supported Features / Total Features) × 100%</code>

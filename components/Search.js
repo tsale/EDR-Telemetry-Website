@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/router'
-import Link from 'next/link'
 
 // Search result categories with their icons
 const CATEGORIES = {
@@ -560,7 +559,7 @@ export default function Search({ isOpen, onClose }) {
             </>
           ) : (
             <div className="no-results">
-              No results found for "{searchTerm}"
+              No results found for &ldquo;{searchTerm}&rdquo;
               <p className="no-results-suggestion">
                 Try searching for different terms or browse the suggested content below
               </p>

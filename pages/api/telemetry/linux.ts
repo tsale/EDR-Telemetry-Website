@@ -77,8 +77,14 @@ export default async function handler(
         }
 
         // Transform data to match the expected format for the frontend
+        type LinuxTelemetryResult = {
+          'Telemetry Feature Category': string | null
+          'Sub-Category': string | null
+          optional: boolean | null
+        } & Record<string, string | boolean | null>
+
         const transformedData = (telemetryData as LinuxTelemetryWithScores[]).map(item => {
-          const result: any = {
+          const result: LinuxTelemetryResult = {
             'Telemetry Feature Category': item.category,
             'Sub-Category': item.subcategory,
             'optional': item.optional

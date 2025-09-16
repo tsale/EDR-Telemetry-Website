@@ -1,5 +1,5 @@
 import TemplatePage from '../components/TemplatePage'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 
 export default function FAQ() {
@@ -136,7 +136,7 @@ export default function FAQ() {
 
         {/* Contact Section */}
         <div className="contact-us-section">
-          <p>Still have questions? We're here to help!</p>
+          <p>Still have questions? We&apos;re here to help!</p>
           <div className="contact-button-container">
             <Link href="/contact" className="contact-us-button action-button primary-button view-button">Contact Us</Link>
             <Link href="/sponsorship" className="contact-us-button action-button secondary-button view-button">Join Our Community</Link>

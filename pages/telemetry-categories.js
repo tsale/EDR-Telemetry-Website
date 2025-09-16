@@ -1,5 +1,5 @@
 import TemplatePage from '../components/TemplatePage'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import styles from '../styles/telemetry-categories.module.css'
 
 export default function TelemetryCategories() {

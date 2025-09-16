@@ -1,7 +1,6 @@
 import TemplatePage from '../components/TemplatePage'
 import { useState, useEffect } from 'react'
 import useHeadingLinks from '../hooks/useHeadingLinks'
-import Link from 'next/link'
 
 // Common scoring values for both Windows and Linux
 const FEATURES_DICT_VALUED = {
@@ -480,7 +479,7 @@ export default function Scores() {
             
             <div className="methodology-section">
               <h3 id="optional-telemetry">Optional Telemetry & Fair Scoring</h3>
-              <p>To maintain fair and consistent scoring across all EDR vendors, new Sub-Categories are initially marked as "optional" and <strong>do not count against the final scoring</strong> until they reach sufficient adoption across the vendor ecosystem.</p>
+              <p>To maintain fair and consistent scoring across all EDR vendors, new Sub-Categories are initially marked as &quot;optional&quot; and <strong>do not count against the final scoring</strong> until they reach sufficient adoption across the vendor ecosystem.</p>
               
               <div className="optional-info">
                 <div className="optional-rule">
@@ -501,7 +500,7 @@ export default function Scores() {
                 Total Score = Σ (Status Value × Feature Weight) <small>for non-optional features</small>
               </div>
               <div className="formula-explanation">
-                The final score represents the weighted sum of all non-optional features, providing a comprehensive evaluation of each EDR solution's telemetry capabilities.
+                The final score represents the weighted sum of all non-optional features, providing a comprehensive evaluation of each EDR solution&apos;s telemetry capabilities.
               </div>
             </div>
             

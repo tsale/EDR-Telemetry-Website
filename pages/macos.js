@@ -23,7 +23,7 @@ export default function MacOS() {
       <div className="content-section">
         <div className="coming-soon-container">
           <h2>Coming Soon</h2>
-          <p>We're currently working on gathering and analyzing MacOS telemetry data.</p>
+          <p>We&apos;re currently working on gathering and analyzing MacOS telemetry data.</p>
           <p>This page will be updated with comprehensive information about MacOS EDR capabilities.</p>
           
           <div className="feature-preview">

@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { createServerClient } from '@supabase/ssr'
 import { serialize } from 'cookie'
 import type { Database } from '../../../utils/supabase/types'
+import type { PostgrestError } from '@supabase/supabase-js'
 
 function createClient(req: NextApiRequest, res: NextApiResponse) {
   return createServerClient<Database>(
@@ -85,7 +86,7 @@ export default async function handler(
     
     console.log(`Syncing ${telemetryData.length} ${platform} entries`)
 
-    let processedCategories = new Map<string, string>()
+    const processedCategories = new Map<string, string>()
     let lastCategory = ''
     let updated = 0
     let inserted = 0
@@ -104,7 +105,7 @@ export default async function handler(
       // Check if telemetry category exists
       if (!processedCategories.has(categoryKey)) {
         let existingTelemetry: { id: string } | null = null
-        let selectError: any = null
+        let selectError: PostgrestError | null = null
 
         // Type-safe query based on platform
         if (platform === 'windows') {
@@ -131,7 +132,7 @@ export default async function handler(
           telemetryId = existingTelemetry.id
         } else {
           let newTelemetry: { id: string } | null = null
-          let insertError: any = null
+          let insertError: PostgrestError | null = null
 
           // Type-safe insert based on platform
           if (platform === 'windows') {
@@ -169,7 +170,7 @@ export default async function handler(
       // Update scores
       for (const [edrName, status] of Object.entries(entry)) {
         if (edrName !== 'Telemetry Feature Category' && edrName !== 'Sub-Category' && status !== null) {
-          let upsertError: any = null
+          let upsertError: PostgrestError | null = null
 
           // Type-safe upsert based on platform
           if (platform === 'windows') {

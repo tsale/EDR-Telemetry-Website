@@ -2,7 +2,6 @@ import TemplatePage from '../components/TemplatePage'
 import Link from 'next/link'
 import { useEffect } from 'react'
 import useHeadingLinks from '../hooks/useHeadingLinks'
-import Head from 'next/head'
 
 export default function PremiumServices() {
   // Use the heading links hook
@@ -53,7 +52,7 @@ export default function PremiumServices() {
                 <li>Strategic roadmap recommendations</li>
               </ul>
               <div className="service-footer">
-                <a href="/contact" className="action-button primary-button">Get Started</a>
+                <Link href="/contact" className="action-button primary-button">Get Started</Link>
               </div>
             </div>
           </div>
@@ -67,13 +66,13 @@ export default function PremiumServices() {
               <div className="enterprise-text">
                 <p>For organizations seeking in-depth EDR evaluation and telemetry optimization, we offer a structured assessment framework that includes:</p>
                 <ul>
-                  <li><strong>Telemetry Gap Analysis:</strong> Establish baseline understanding of your EDR's telemetry coverage and identify competitive gaps in detection capabilities</li>
+                  <li><strong>Telemetry Gap Analysis:</strong> Establish baseline understanding of your EDR&apos;s telemetry coverage and identify competitive gaps in detection capabilities</li>
                   <li><strong>Field-Level Data Quality Review:</strong> Analyze telemetry data fields for quality, completeness, and investigative value across core activity types</li>
-                  <li><strong>Investigation Experience Testing:</strong> Evaluate your EDR's telemetry during simulated intrusions to identify visibility gaps and friction points</li>
+                  <li><strong>Investigation Experience Testing:</strong> Evaluate your EDR&apos;s telemetry during simulated intrusions to identify visibility gaps and friction points</li>
                   <li><strong>API & Integration Assessment:</strong> Test telemetry accessibility via APIs and evaluate integration capabilities with SIEM/SOAR platforms</li>
                   <li><strong>Strategic Roadmap Development:</strong> Create prioritized recommendations for short, mid, and long-term telemetry improvements</li>
                 </ul>
-                <a href="/contact" className="action-button primary-button">Request Enterprise Assessment</a>
+                <Link href="/contact" className="action-button primary-button">Request Enterprise Assessment</Link>
               </div>
               <div className="enterprise-image">
                 <span>Telemetry Assessment</span>
@@ -83,7 +82,7 @@ export default function PremiumServices() {
 
           <div className="section-header">
             <h2>Expert Security Services</h2>
-            <p>Enhance your organization's security posture through advanced EDR telemetry analysis and optimization</p>
+            <p>Enhance your organization&apos;s security posture through advanced EDR telemetry analysis and optimization</p>
           </div>
 
           <div className="services-grid">
@@ -124,7 +123,7 @@ export default function PremiumServices() {
                 <h3>Advanced Detection Engineering</h3>
               </div>
               <div className="service-content">
-                <p>Build custom detection capabilities leveraging your EDR's telemetry collection features.</p>
+                <p>Build custom detection capabilities leveraging your EDR&apos;s telemetry collection features.</p>
                 <ul>
                   <li>Threat modeling for your environment</li>
                   <li>Custom detection rule development</li>
@@ -140,7 +139,7 @@ export default function PremiumServices() {
             <h2>Unlock the full potential of your EDR telemetry</h2>
             <p>Our expert services help you evaluate, optimize, and leverage EDR telemetry to maximize security visibility and response capabilities</p>
             <div className="cta-buttons">
-              <a href="/contact" className="action-button primary-button" style={{
+              <Link href="/contact" className="action-button primary-button" style={{
                 position: 'relative',
                 zIndex: 10,
                 pointerEvents: 'auto',
@@ -148,7 +147,7 @@ export default function PremiumServices() {
                 color: 'white'
               }}>
                 Get Started
-              </a>
+              </Link>
             </div>
           </section>
 

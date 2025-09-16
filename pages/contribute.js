@@ -67,7 +67,7 @@ export default function Contribute() {
                     <p>Create your own copy of the project:</p>
                     <ol className="step-list">
                       <li>Visit main repository</li>
-                      <li>Click "Fork" button</li>
+                      <li>Click &quot;Fork&quot; button</li>
                       <li>Select your account</li>
                     </ol>
                   </div>

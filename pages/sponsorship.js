@@ -352,7 +352,7 @@ export default function Sponsorship() {
             
             <div className="donation-testimonial">
               <blockquote>
-                "Your contributions enable us to maintain independence and focus on what matters most: accurate and unbiased EDR telemetry analysis."
+                &quot;Your contributions enable us to maintain independence and focus on what matters most: accurate and unbiased EDR telemetry analysis.&quot;
               </blockquote>
               <div className="donation-note">
                 <p>Every contribution makes a difference, no matter the size. Thank you for your support!</p>
@@ -496,7 +496,7 @@ export default function Sponsorship() {
                   </ul>
                 </div>
                 <div className="tier-footer">
-                  <a href="/contact" className="tier-button enterprise">Contact Us</a>
+                  <Link href="/contact" className="tier-button enterprise">Contact Us</Link>
                 </div>
               </div>
             </div>
@@ -504,7 +504,7 @@ export default function Sponsorship() {
             <div className="subscription-footer">
               <div className="subscription-note">
                 <p>All plans include our commitment to transparency and ongoing EDR telemetry research.</p>
-                <p>Have questions about our plans? <a href="/contact">Contact us</a> for more information.</p>
+                <p>Have questions about our plans? <Link href="/contact">Contact us</Link> for more information.</p>
               </div>
             </div>
           </div>

@@ -1307,7 +1307,7 @@ export default function Windows() {
         
         {/* Subtle Optional Telemetry Message */}
         <div className="optional-message">
-          <span className="optional-badge">New</span> telemetry doesn't affect scoring until 75% vendor adoption. <a href="/scores#optional-telemetry">Learn more</a>
+          <span className="optional-badge">New</span> telemetry doesn&apos;t affect scoring until 75% vendor adoption. <Link href="/scores#optional-telemetry">Learn more</Link>
         </div>
         
         {/* Content Area */}

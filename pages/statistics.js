@@ -1584,7 +1584,7 @@ export default function Statistics() {
           <div className={styles["empty-state-icon"]}>📊</div>
           <div className={styles["empty-state-message"]}>No statistics data available</div>
           <div className={styles["empty-state-description"]}>
-            We couldn't retrieve any EDR telemetry data. Please check your connection or try again later.
+            We couldn&apos;t retrieve any EDR telemetry data. Please check your connection or try again later.
           </div>
         </div>
       ) : (

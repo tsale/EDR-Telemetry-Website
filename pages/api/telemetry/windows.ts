@@ -77,20 +77,24 @@ export default async function handler(
         }
 
         // Transform data to match the expected format for the frontend
+        type WindowsTelemetryResult = {
+          'Telemetry Feature Category': string | null
+          'Sub-Category': string | null
+          optional: boolean | null
+          __explanations: Record<string, string>
+        } & Record<string, string | boolean | null | Record<string, string>>
+
         const transformedData = (telemetryData as WindowsTelemetryWithScores[]).map(item => {
-          const result: any = {
+          const result: WindowsTelemetryResult = {
             'Telemetry Feature Category': item.category,
             'Sub-Category': item.subcategory,
-            'optional': item.optional
+            'optional': item.optional,
+            __explanations: {}
           }
           
           // Add each EDR's score as a property and capture explanations when present
           item.windows_table_results.forEach(score => {
             result[score.edr_name] = score.status
-
-            if (!result.__explanations) {
-              result.__explanations = {}
-            }
 
             result.__explanations[score.edr_name] = score.explanation || ''
           })

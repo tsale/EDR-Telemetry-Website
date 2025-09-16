@@ -99,7 +99,7 @@ export default function About() {
 
         {/* Contact Section */}
         <div className="contact-us-section">
-          <p>If you have any questions, feedback, or are interested in contributing to the project or joining our Discord community, we'd love to hear from you!</p>
+          <p>If you have any questions, feedback, or are interested in contributing to the project or joining our Discord community, we&apos;d love to hear from you!</p>
           <div className="contact-button-container">
             <Link href="/contact" className="contact-us-button action-button primary-button view-button">Contact Us</Link>
             <Link href="/sponsorship" className="contact-us-button action-button secondary-button view-button">Join Our Community</Link>

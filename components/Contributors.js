@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 const OWNER = 'tsale'; // Replace with GitHub username
 const REPOSITORY = 'EDR-Telemetry'; // Replace with repository name
@@ -128,7 +129,7 @@ export default function Contributors() {
                     <div className="become-member">
                       <h4>Become an Enterprise Sponsor</h4>
                       <p>Partner with us and support the development of EDR Telemetry</p>
-                      <a href="/sponsorship#monthly" className="cta-button">Learn More</a>
+                      <Link href="/sponsorship#monthly" className="cta-button">Learn More</Link>
                     </div>
                   </div>
                 </section>
@@ -191,7 +192,7 @@ export default function Contributors() {
                     <div className="become-member">
                       <h4>Join Our Community</h4>
                       <p>Support the project and get access to exclusive content</p>
-                      <a href="/sponsorship#monthly" className="cta-button">Become a Subscriber</a>
+                      <Link href="/sponsorship#monthly" className="cta-button">Become a Subscriber</Link>
                     </div>
                   </div>
                 </section>
