@@ -61,7 +61,7 @@ export default function PremiumServices() {
                 <li>Executive and practitioner-ready reporting packages</li>
               </ul>
               <div className="service-footer">
-                <Link href="/contact" className="action-button primary-button">Get Started</Link>
+                <Link href="https://defendpoint.ca/#contact" className="action-button primary-button">Get Started</Link>
               </div>
             </div>
           </div>
@@ -80,7 +80,7 @@ export default function PremiumServices() {
                 <li>Optional integration with existing governance and risk programs</li>
               </ul>
               <div className="service-footer">
-                <Link href="/contact" className="action-button primary-button">Request Reporting Support</Link>
+                <Link href="https://defendpoint.ca/#contact" className="action-button primary-button">Request Reporting Support</Link>
               </div>
             </div>
           </div>
@@ -100,7 +100,7 @@ export default function PremiumServices() {
                   <li><strong>API &amp; Integration Assessment:</strong> Test telemetry accessibility via APIs and evaluate integration capabilities with SIEM/SOAR platforms</li>
                   <li><strong>Strategic Roadmap Development:</strong> Create prioritized recommendations for short, mid, and long-term telemetry improvements</li>
                 </ul>
-                <Link href="/contact" className="action-button primary-button">Request Enterprise Assessment</Link>
+                <Link href="https://defendpoint.ca/#contact" className="action-button primary-button">Request Enterprise Assessment</Link>
               </div>
               <div className="enterprise-image">
                 <span>Telemetry Assessment</span>
@@ -187,7 +187,7 @@ export default function PremiumServices() {
             <h2>Unlock the full potential of your EDR telemetry</h2>
             <p>Our expert services help you evaluate, optimize, and leverage EDR telemetry to maximize security visibility and response capabilities</p>
             <div className="cta-buttons">
-              <Link href="/contact" className="action-button primary-button" style={{
+              <Link href="https://defendpoint.ca/#contact" className="action-button primary-button" style={{
                 position: 'relative',
                 zIndex: 10,
                 pointerEvents: 'auto',
