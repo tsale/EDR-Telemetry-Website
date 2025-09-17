@@ -68,7 +68,8 @@ const WINDOWS_CATEGORIES_VALUED = {
     "WmiEventFilter": 1,
     "BIT JOBS Activity": 1,
     "Script-Block Activity": 1,
-    "Win32 API Telemetry": 1
+    "Win32 API Telemetry": 1,
+    "Volume Shadow Copy Deletion": 0.5,
 };
 
 // Linux-specific categories with their weights

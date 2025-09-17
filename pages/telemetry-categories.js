@@ -52,7 +52,7 @@ export default function TelemetryCategories() {
       ),
       color: '#00a3e0',
       purpose: 'This category focuses on the telemetry associated with the lifecycle and manipulation of processes on the system. It is foundational for establishing visibility into execution flow, child-parent relationships, and process-based techniques such as injection or tampering.',
-      dataCollected: 'Process creation events, process termination, process access, image/library loading, remote thread creation, process tampering activity, and process call stacks.',
+      dataCollected: 'Process creation events, process termination, process access, image/library loading, Win32 API Telemetry, remote thread creation, process tampering activity, and process call stacks.',
       securityBenefits: 'Provides the foundation for execution visibility. Used to map process trees, identify suspicious binaries, track execution lineage, and detect process injection techniques.',
       detectionExamples: 'Malicious process creation, suspicious parent-child relationships, process injection, code execution, and lateral movement techniques.'
     },
@@ -268,8 +268,8 @@ export default function TelemetryCategories() {
       detectionExamples: 'Fileless malware, obfuscated PowerShell attacks, credential theft scripts, and post-exploitation frameworks.'
     },
     {
-      id: 'group-policy-modification',
-      title: 'Group Policy Modification',
+      id: 'misc-system-changes',
+      title: 'Miscellaneous System Changes',
       description: 'Tracks changes to group policy objects or local policy settings',
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -278,9 +278,9 @@ export default function TelemetryCategories() {
       ),
       color: '#cddc39',
       purpose: 'This event offers supplementary visibility into critical system-level changes or access points.',
-      dataCollected: 'Changes made to group policy objects or local policy settings.',
+      dataCollected: 'Changes made to group policy objects or local policy settings, and Volume Shadow Copy Deletion events.',
       securityBenefits: 'Important for tracking unauthorized configuration changes or policy abuse.',
-      detectionExamples: 'Security policy weakening, privilege escalation through policy changes, and enterprise-wide malicious configuration deployment.'
+      detectionExamples: 'Security policy weakening or privilege escalation through policy changes, and deletion of volume shadow copies for reducing the ability to recover files from previous versions.'
     }
   ];
   
