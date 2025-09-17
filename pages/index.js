@@ -97,6 +97,8 @@ export default function Home() {
               </div>
             ))}
           </div>
+
+          <p className="hero-powered-by">Powered by Defendpoint Consulting</p>
         </div>
       </section>
 

@@ -12,10 +12,13 @@ export default function About() {
       <div className="hero-section">
         <div className="hero-content">
           <h1>About the EDR Telemetry Project</h1>
-          <p>A comprehensive comparison of EDR solutions based on their telemetry capabilities, helping organizations make informed security decisions.</p>
+          <p>EDR-Telemetry is an initiative by Defendpoint Consulting, designed to benchmark EDR products and show exactly what telemetry they capture. Our mission is to give organizations clarity on their visibility gaps and help them build stronger, evidence-based security strategies.</p>
         </div>
       </div>
       <div className="about-container">
+        <div className="about-card about-intro-card">
+          <p>As part of Defendpoint Consulting&apos;s expertise, the project turns hands-on testing into practical guidance for defenders. We focus on repeatable benchmarking, transparent reporting, and advisory support that connects telemetry results to real-world security programs.</p>
+        </div>
         <div className="about-grid">
           <div className="about-card">
             <h2 id="project-goals">Project Goals</h2>
@@ -51,7 +54,7 @@ export default function About() {
         {/* Community-Driven Approach Section */}
         <div className="community-section">
           <h2>A Community-Driven Project</h2>
-          <p>The EDR Telemetry Project is guided by a dedicated community of security professionals, researchers, and enthusiasts. While Kostas maintains the project, critical decisions and direction are shaped by:</p>
+          <p>The EDR Telemetry Project operates within Defendpoint Consulting and is guided by a dedicated community of security professionals, researchers, and enthusiasts. While Kostas maintains the project, critical decisions and direction are shaped by:</p>
           
           <div className="community-points">
             <div className="community-point">
@@ -83,7 +86,7 @@ export default function About() {
           </div>
           <div className="author-info">
             <h3>Project Maintainer</h3>
-            <p><strong>Kostas</strong> is a security researcher who focuses on Threat Intelligence, malware, Incident Response, and Threat Hunting. He serves as the main maintainer of the EDR Telemetry Project, coordinating community efforts and ensuring the project stays true to its mission of providing transparent, unbiased EDR telemetry comparisons.</p>
+            <p><strong>Kostas</strong> is a security researcher who focuses on Threat Intelligence, malware, Incident Response, and Threat Hunting. He leads Defendpoint Consulting&apos;s advisory research practice and serves as the main maintainer of the EDR Telemetry initiative, coordinating community efforts and ensuring the project stays true to its mission of providing transparent, evidence-based EDR telemetry comparisons.</p>
             {/* Social Media Links */}
             <div className="social-media">
               <strong>Connect with Kostas:</strong><br />
@@ -99,10 +102,18 @@ export default function About() {
 
         {/* Contact Section */}
         <div className="contact-us-section">
-          <p>If you have any questions, feedback, or are interested in contributing to the project or joining our Discord community, we&apos;d love to hear from you!</p>
+          <p>If you have any questions, feedback, or are interested in contributing to the project or joining our Discord community, we&apos;d love to hear from you. For consulting engagements, reach out to the Defendpoint Consulting team directly.</p>
           <div className="contact-button-container">
             <Link href="/contact" className="contact-us-button action-button primary-button view-button">Contact Us</Link>
             <Link href="/sponsorship" className="contact-us-button action-button secondary-button view-button">Join Our Community</Link>
+            <a
+              href="https://defendpoint.ca/#contact"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="contact-us-button action-button secondary-button view-button"
+            >
+              Defendpoint Consulting
+            </a>
           </div>
         </div>
       </div>

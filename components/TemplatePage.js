@@ -274,9 +274,6 @@ export default function TemplatePage({ children, title = 'EDR Telemetry Project'
               }}>
                 <Link href="/premium-services">Premium Services</Link>
               </li>
-              <li className={isActive('/about')}>
-                <Link href="/about">About</Link>
-              </li>
             </ul>
           </nav>
         </div>

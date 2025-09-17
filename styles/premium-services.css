@@ -29,6 +29,10 @@
   padding: 2rem;
 }
 
+.premium-container > .service-card {
+  margin-bottom: 2rem;
+}
+
 /* Hero section */
 .hero-section {
   background: linear-gradient(135deg, #14328f 0%, #5b96f9 100%);
