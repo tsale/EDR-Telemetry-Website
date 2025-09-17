@@ -122,14 +122,28 @@ export default function TemplatePage({ children, title = 'EDR Telemetry Project'
       <header>
         <div className="header-container" style={{ display: 'flex', alignItems: 'center', padding: '0' }}>
           <div className="logo" style={{ padding: '0', margin: '0', marginRight: '3rem' }}>
-            <Link href="/" style={{ display: 'block', margin: '0', padding: '0' }}>
-              <div style={{ display: 'flex', flexDirection: 'column', margin: '0', padding: '0' }}>
-                <div style={{ display: 'flex', justifyContent: 'center', width: '100%', margin: '0', padding: '0' }}>
-                  <img src="/images/edr_telemetry_logo.png" alt="EDR Telemetry Logo" className="logo-icon" />
+            <div className="brand-group">
+              <a
+                href="https://defendpoint.ca"
+                className="defendpoint-badge"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Defendpoint Consulting"
+              >
+                <img src="/images/defendpoint_logo.svg" alt="Defendpoint Consulting logo" className="defendpoint-icon" />
+                <div className="defendpoint-badge-text">
+                  <span>Defendpoint</span>
+                  <span>Consulting</span>
                 </div>
-                <span style={{ fontSize: '0.85rem', lineHeight: '1.2', textAlign: 'center' }}>EDR Telemetry</span>
-              </div>
-            </Link>
+              </a>
+              <Link href="/" className="edr-brand">
+                <img src="/images/edr_telemetry_logo.png" alt="EDR Telemetry Logo" className="logo-icon edr-logo" />
+                <span className="edr-brand-text">
+                  <span className="edr-brand-title">EDR</span>
+                  <span className="edr-brand-subtitle">Telemetry</span>
+                </span>
+              </Link>
+            </div>
           </div>
           
           <button 
@@ -343,6 +357,7 @@ export default function TemplatePage({ children, title = 'EDR Telemetry Project'
           </div>
           
           <div className="footer-bottom">
+            <p className="footer-note">EDR-Telemetry is a project by Defendpoint Consulting — Independent Cybersecurity Advisory &amp; Research.</p>
             <p>&copy; {new Date().getFullYear()} EDR Telemetry Project. All rights reserved.</p>
           </div>
         </div>

@@ -170,18 +170,102 @@ header {
   margin-right: auto;
 }
 
-.logo a {
+.brand-group {
   display: flex;
   align-items: center;
-  color: var(--primary-color);
-  font-weight: 600;
-  font-size: 1.25rem;
+  gap: 1.25rem;
 }
 
-.logo img {
-  height: 30px;
+.logo .defendpoint-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  text-decoration: none;
+  color: var(--text-light);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.logo .defendpoint-badge:hover,
+.logo .defendpoint-badge:focus {
+  background-color: rgba(255, 255, 255, 0.7);
+  border-color: rgba(148, 163, 184, 0.5);
+}
+
+.logo .defendpoint-icon {
+  height: 22px;
   width: auto;
-  margin-right: 0.75rem;
+}
+
+.logo .defendpoint-badge-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+  text-align: left;
+}
+
+.logo .defendpoint-badge-text span {
+  display: block;
+}
+
+.logo .edr-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+.logo .edr-logo {
+  height: 34px;
+  width: auto;
+}
+
+.logo .edr-brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.logo .edr-brand-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.logo .edr-brand-subtitle {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+@media (max-width: 768px) {
+  .brand-group {
+    gap: 0.75rem;
+  }
+
+  .logo .defendpoint-badge {
+    padding: 0.25rem 0.5rem;
+  }
+
+  .logo .defendpoint-badge-text {
+    display: none;
+  }
+
+  .logo .defendpoint-icon {
+    height: 20px;
+  }
+
+  .logo .edr-brand-title,
+  .logo .edr-brand-subtitle {
+    font-size: 0.9rem;
+  }
 }
 
 nav ul {
@@ -630,6 +714,11 @@ footer {
   color: rgba(255, 255, 255, 0.5);
 }
 
+.footer-note {
+  margin-bottom: 0.5rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
 /* Responsive styles */
 @media (max-width: 1024px) {
   .content-max-width {
@@ -707,17 +796,14 @@ footer {
   .content-container {
     margin: 2rem auto;
   }
-  
-  .logo span {
-    display: none;
-  }
 }
 
 /* Logo and social icons */
 .logo-icon {
-  font-size: 1.5rem;
-  margin-right: 0.5rem;
-  color: var(--primary-color);
+  display: block;
+  height: 34px;
+  width: auto;
+  margin: 0;
 }
 
 .social-icon {
@@ -1705,6 +1791,16 @@ footer {
   border-radius: 8px;
   padding: 2rem;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.about-intro-card {
+  margin-bottom: 2rem;
+}
+
+.about-intro-card p {
+  margin-bottom: 0;
+  color: var(--text-light);
+  line-height: 1.6;
 }
 
 .about-card h2 {
