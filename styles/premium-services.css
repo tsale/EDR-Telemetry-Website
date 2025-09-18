@@ -42,9 +42,25 @@
   text-align: center;
 }
 
+.premium-hero {
+  padding: 4rem 2rem;
+}
+
 .hero-content {
   max-width: 800px;
   margin: 0 auto;
+}
+
+.hero-eyebrow {
+  display: inline-block;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  padding: 0.35rem 0.9rem;
+  margin-bottom: 1.25rem;
+  font-weight: 600;
 }
 
 .hero-content h1 {
@@ -57,7 +73,19 @@
   font-size: 1.2rem;
   opacity: 0.9;
   max-width: 600px;
-  margin: 0 auto;
+  margin: 0.5rem auto 0;
+}
+
+.hero-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 2.5rem;
+}
+
+.hero-actions .action-button {
+  min-width: 190px;
 }
 
 /* Modern service cards with glassmorphism */
@@ -95,6 +123,10 @@
   width: 5px;
   height: 100%;
   background: var(--primary-color);
+}
+
+.service-card.consulting-redirect::before {
+  background: var(--accent-color);
 }
 
 .highlight-ribbon {
@@ -135,6 +167,12 @@
   flex-direction: column;
 }
 
+.consulting-redirect .service-content {
+  align-items: center;
+  text-align: center;
+  gap: 1.5rem;
+}
+
 .service-content p {
   color: var(--text-dark);
   margin-bottom: 1.5rem;
@@ -167,6 +205,16 @@
   background: #f8f9fa;
   border-top: 1px solid #f0f0f0;
   text-align: center;
+}
+
+.consulting-redirect .service-footer {
+  background: transparent;
+  border-top: none;
+  padding: 0;
+}
+
+.consulting-redirect .service-footer .action-button {
+  min-width: 220px;
 }
 
 /* Modern section headers */
@@ -398,6 +446,10 @@ a.primary-button,
   .premium-container {
     padding: 1.5rem;
   }
+
+  .hero-actions {
+    gap: 0.75rem;
+  }
   
   .enterprise-content {
     grid-template-columns: 1fr;
@@ -410,6 +462,23 @@ a.primary-button,
 }
 
 @media (max-width: 768px) {
+  .premium-hero {
+    padding: 3rem 1.5rem;
+  }
+
+  .hero-content h1 {
+    font-size: 2.1rem;
+  }
+
+  .hero-content p {
+    font-size: 1.05rem;
+  }
+
+  .hero-actions .action-button {
+    width: 100%;
+    max-width: 260px;
+  }
+
   .services-grid {
     grid-template-columns: 1fr;
   }
