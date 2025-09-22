@@ -377,17 +377,6 @@ export default function Eligibility() {
                   </ul>
                 </div>
               </div>
-              <div className="eligibility-exclusion-row">
-                <div className="product-col">BitDefender EDR</div>
-                <div className="primary-reason-col">Limited EDR Functionality</div>
-                <div className="details-col">
-                  <ul>
-                    <li>No ability to search logs unless an alert fires</li>
-                    <li>No continuous event ingestion for full system visibility</li>
-                    <li>Functions more like an NGAV than a true EDR</li>
-                  </ul>
-                </div>
-              </div>
             </div>
           </div>
         </div>
