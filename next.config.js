@@ -38,10 +38,17 @@ const nextConfig = {
                 https://www.google-analytics.com
                 https://*.vercel.live
                 https://assets.calendly.com
+                https://app.cal.com
+                https://cal.com
+                https://embed.cal.com
+                https://*.cal.com
                 https://formnx.com;
               style-src 'self' 'unsafe-inline' data: 
                 https://fonts.googleapis.com
-                https://assets.calendly.com;
+                https://assets.calendly.com
+                https://app.cal.com
+                https://cal.com
+                https://*.cal.com;
               font-src * data: blob: 'unsafe-inline';
               img-src 'self' data: https: blob:;
               frame-src 'self' 
@@ -53,6 +60,10 @@ const nextConfig = {
                 https://*.vercel.live
                 https://calendly.com
                 https://*.calendly.com
+                https://app.cal.com
+                https://cal.com
+                https://embed.cal.com
+                https://*.cal.com
                 https://fill.formnx.com;
               connect-src 'self' 
                 https://api.stripe.com 
@@ -60,6 +71,11 @@ const nextConfig = {
                 https://www.google-analytics.com
                 https://vercel.live
                 https://*.vercel.live
+                https://app.cal.com
+                https://cal.com
+                https://embed.cal.com
+                https://api.cal.com
+                https://*.cal.com
                 https://raw.githubusercontent.com;
               media-src 'self';
               object-src 'none';
