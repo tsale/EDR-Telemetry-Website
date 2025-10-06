@@ -142,7 +142,7 @@ function MyApp({ Component, pageProps }) {
         <Component {...pageProps} />
         <SpeedInsights />
       </>
-  )
-}
+   )
+ }
 
-export default MyApp
+ export default MyApp

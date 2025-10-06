@@ -42,7 +42,9 @@ const nextConfig = {
                 https://cal.com
                 https://embed.cal.com
                 https://*.cal.com
-                https://formnx.com;
+                https://formnx.com
+                https://cdnjs.buymeacoffee.com
+                https://www.buymeacoffee.com;
               style-src 'self' 'unsafe-inline' data: 
                 https://fonts.googleapis.com
                 https://assets.calendly.com
@@ -64,7 +66,9 @@ const nextConfig = {
                 https://cal.com
                 https://embed.cal.com
                 https://*.cal.com
-                https://fill.formnx.com;
+                https://fill.formnx.com
+                https://buymeacoffee.com
+                https://www.buymeacoffee.com;
               connect-src 'self' 
                 https://api.stripe.com 
                 https://js.stripe.com 
@@ -76,7 +80,9 @@ const nextConfig = {
                 https://embed.cal.com
                 https://api.cal.com
                 https://*.cal.com
-                https://raw.githubusercontent.com;
+                https://raw.githubusercontent.com
+                https://buymeacoffee.com
+                https://www.buymeacoffee.com;
               media-src 'self';
               object-src 'none';
               base-uri 'self';
