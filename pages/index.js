@@ -151,10 +151,10 @@ export default function Home() {
             </p>
           </div>
           <div className="features-list-modern" style={{maxWidth: '1100px', margin: '0 auto'}}>
-            <div className="feature-item-modern"><div className="feature-icon-modern blue">✓</div><span className="feature-text-modern">Compare depth and coverage using <a href="/scores">Scores</a> and <a href="/statistics">Statistics</a></span></div>
-            <div className="feature-item-modern"><div className="feature-icon-modern green">✓</div><span className="feature-text-modern">Explore specific signals in <a href="/telemetry-categories">Telemetry Categories</a></span></div>
-            <div className="feature-item-modern"><div className="feature-icon-modern purple">✓</div><span className="feature-text-modern">Check scope and inclusion rules in <a href="/eligibility">Eligibility</a></span></div>
-            <div className="feature-item-modern"><div className="feature-icon-modern blue">✓</div><span className="feature-text-modern">Read program direction in <a href="/about">About</a> and <a href="/blog">Blog</a></span></div>
+            <div className="feature-item-modern"><div className="feature-icon-modern blue">✓</div><span className="feature-text-modern">Compare depth and coverage using <Link href="/scores">Scores</Link> and <Link href="/statistics">Statistics</Link></span></div>
+            <div className="feature-item-modern"><div className="feature-icon-modern green">✓</div><span className="feature-text-modern">Explore specific signals in <Link href="/telemetry-categories">Telemetry Categories</Link></span></div>
+            <div className="feature-item-modern"><div className="feature-icon-modern purple">✓</div><span className="feature-text-modern">Check scope and inclusion rules in <Link href="/eligibility">Eligibility</Link></span></div>
+            <div className="feature-item-modern"><div className="feature-icon-modern blue">✓</div><span className="feature-text-modern">Read program direction in <Link href="/about">About</Link> and <Link href="/blog">Blog</Link></span></div>
           </div>
         </div>
 

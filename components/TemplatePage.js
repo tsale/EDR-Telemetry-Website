@@ -16,6 +16,7 @@ export default function TemplatePage({ children, title = 'EDR Telemetry Project'
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || ''
   const canonicalPath = router.asPath ? router.asPath.split('?')[0] : ''
   const canonicalUrl = siteUrl && canonicalPath ? `${siteUrl}${canonicalPath}` : ''
+  const defaultOgImage = siteUrl ? `${siteUrl}/images/edr_telemetry_logo.png` : ''
 
   // Detect mobile device on client side
   useEffect(() => {
@@ -128,6 +129,14 @@ export default function TemplatePage({ children, title = 'EDR Telemetry Project'
         {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
+        {defaultOgImage && (
+          <>
+            <meta property="og:image" content={defaultOgImage} />
+            <meta property="og:image:alt" content="EDR Telemetry Project logo" />
+            <meta property="og:image:type" content="image/png" />
+            <meta name="twitter:image" content={defaultOgImage} />
+          </>
+        )}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
