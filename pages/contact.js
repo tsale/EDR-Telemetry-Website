@@ -1,4 +1,5 @@
 import TemplatePage from '../components/TemplatePage'
+import Head from 'next/head'
 import { useEffect } from 'react'
 import Script from 'next/script'
 
@@ -35,7 +36,34 @@ export default function Contact() {
   // no Cal script initialization needed when using iframe embed
 
   return (
-    <TemplatePage title="Contact - EDR Telemetry Project">
+    <TemplatePage title="Contact the EDR Telemetry Project"
+      description="Contact the EDR Telemetry Project for questions, partnerships, or premium telemetry services.">
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'ContactPage',
+            name: 'Contact EDR Telemetry Project',
+            url: (process.env.NEXT_PUBLIC_SITE_URL ? `${process.env.NEXT_PUBLIC_SITE_URL}/contact` : '')
+          }) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Organization',
+            name: 'EDR Telemetry Project',
+            url: (process.env.NEXT_PUBLIC_SITE_URL || ''),
+            contactPoint: [{
+              '@type': 'ContactPoint',
+              contactType: 'customer support',
+              availableLanguage: ['English'],
+              url: (process.env.NEXT_PUBLIC_SITE_URL ? `${process.env.NEXT_PUBLIC_SITE_URL}/contact` : '')
+            }]
+          }) }}
+        />
+      </Head>
       <div className="hero-section">
         <div className="hero-content">
           <h1>Contact Us</h1>

@@ -1,4 +1,5 @@
 import TemplatePage from '../components/TemplatePage'
+import Head from 'next/head'
 import Link from 'next/link'
 import { useState, useEffect, useRef } from 'react'
 
@@ -32,7 +33,41 @@ export default function Home() {
     ]
 
   return (
-    <TemplatePage title="EDR Telemetry Project - Home">
+    <TemplatePage 
+      title="EDR Telemetry Project: Transparent Benchmarking & Telemetry Analysis for Businesses"
+      description="Explore transparent, vendor-neutral EDR telemetry benchmarks. Make confident security decisions with real-world data and practical analysis for your business."
+    >
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Organization',
+            name: 'EDR Telemetry Project',
+            url: (process.env.NEXT_PUBLIC_SITE_URL || 'https://example.com'),
+            logo: (process.env.NEXT_PUBLIC_SITE_URL ? `${process.env.NEXT_PUBLIC_SITE_URL}/images/edr_telemetry_logo.png` : 'https://example.com/images/edr_telemetry_logo.png'),
+            sameAs: [
+              'https://github.com/tsale/EDR-Telemetry',
+              'https://twitter.com/kostastsale',
+              'https://linkedin.com/in/kostastsale'
+            ],
+          }) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'WebSite',
+            name: 'EDR Telemetry Project',
+            url: (process.env.NEXT_PUBLIC_SITE_URL || 'https://example.com'),
+            potentialAction: {
+              '@type': 'SearchAction',
+              target: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://example.com'}/?q={search_term_string}`,
+              'query-input': 'required name=search_term_string'
+            }
+          }) }}
+        />
+      </Head>
       {/* Modern Hero Section */}
       <section 
         ref={heroRef}
@@ -103,6 +138,26 @@ export default function Home() {
       </section>
 
       <div className="content-container">
+        {/* Value Proposition / How to Use Data */}
+        <div className="section">
+          <div className="section-header-modern">
+            <div className="section-badge-modern">
+              <span>🧭</span>
+              How to Use EDR Telemetry Data
+            </div>
+            <h2 className="section-title-modern">Make Evidence-Based EDR Decisions</h2>
+            <p className="section-description-modern">
+              Use our vendor-neutral research to compare telemetry depth across platforms, validate deployment quality, and set clear improvement priorities.
+            </p>
+          </div>
+          <div className="features-list-modern" style={{maxWidth: '1100px', margin: '0 auto'}}>
+            <div className="feature-item-modern"><div className="feature-icon-modern blue">✓</div><span className="feature-text-modern">Compare depth and coverage using <a href="/scores">Scores</a> and <a href="/statistics">Statistics</a></span></div>
+            <div className="feature-item-modern"><div className="feature-icon-modern green">✓</div><span className="feature-text-modern">Explore specific signals in <a href="/telemetry-categories">Telemetry Categories</a></span></div>
+            <div className="feature-item-modern"><div className="feature-icon-modern purple">✓</div><span className="feature-text-modern">Check scope and inclusion rules in <a href="/eligibility">Eligibility</a></span></div>
+            <div className="feature-item-modern"><div className="feature-icon-modern blue">✓</div><span className="feature-text-modern">Read program direction in <a href="/about">About</a> and <a href="/blog">Blog</a></span></div>
+          </div>
+        </div>
+
         {/* Modern Platforms Section */}
         <div className="section platforms-section">
           {/* Section Header */}
@@ -267,6 +322,62 @@ export default function Home() {
               Learn More About Our Research
             </Link>
           </div>
+        </div>
+
+        {/* Audience and Benefits */}
+        <div className="section">
+          <div className="section-header-modern">
+            <div className="section-badge-modern"><span>🏢</span>Who Benefits</div>
+            <h2 className="section-title-modern">Built for Security and Business Teams</h2>
+          </div>
+          <div className="features-list-modern" style={{maxWidth: '1100px', margin: '0 auto'}}>
+            <div className="feature-item-modern"><div className="feature-icon-modern blue">✓</div><span className="feature-text-modern"><strong>Mid-sized businesses</strong>: validate telemetry readiness and reduce blind spots</span></div>
+            <div className="feature-item-modern"><div className="feature-icon-modern green">✓</div><span className="feature-text-modern"><strong>Large enterprises</strong>: benchmark across fleets and guide platform strategy</span></div>
+            <div className="feature-item-modern"><div className="feature-icon-modern purple">✓</div><span className="feature-text-modern"><strong>Security leaders</strong>: communicate coverage and risk with objective metrics</span></div>
+            <div className="feature-item-modern"><div className="feature-icon-modern blue">✓</div><span className="feature-text-modern"><strong>Detection engineers</strong>: map signals to ATT&amp;CK and reduce alert friction</span></div>
+          </div>
+        </div>
+
+        {/* FAQ Section */}
+        <div className="section">
+          <div className="section-header-modern">
+            <div className="section-badge-modern"><span>❓</span>Frequently Asked Questions</div>
+            <h2 className="section-title-modern">FAQs</h2>
+          </div>
+          <div style={{maxWidth: '1100px', margin: '0 auto'}}>
+            <h3>Is the research vendor-neutral?</h3>
+            <p>Yes. The EDR Telemetry Project is vendor-agnostic and focuses on transparent, evidence-based comparisons.</p>
+            <h3>Can we use this to guide procurement?</h3>
+            <p>Absolutely. Use the platform scores, category depth, and eligibility criteria to frame objective evaluations.</p>
+            <h3>Do you offer help applying the benchmarks?</h3>
+            <p>Yes. See <Link href="/premium-services">Premium Services</Link> for benchmarking and advisory support.</p>
+          </div>
+          <Head>
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: JSON.stringify({
+                '@context': 'https://schema.org',
+                '@type': 'FAQPage',
+                mainEntity: [
+                  {
+                    '@type': 'Question',
+                    name: 'Is the research vendor-neutral?',
+                    acceptedAnswer: { '@type': 'Answer', text: 'Yes. The EDR Telemetry Project is vendor-agnostic and focuses on transparent, evidence-based comparisons.' }
+                  },
+                  {
+                    '@type': 'Question',
+                    name: 'Can we use this to guide procurement?',
+                    acceptedAnswer: { '@type': 'Answer', text: 'Absolutely. Use the platform scores, category depth, and eligibility criteria to frame objective evaluations.' }
+                  },
+                  {
+                    '@type': 'Question',
+                    name: 'Do you offer help applying the benchmarks?',
+                    acceptedAnswer: { '@type': 'Answer', text: 'Yes. See Premium Services for benchmarking and advisory support.' }
+                  }
+                ]
+              }) }}
+            />
+          </Head>
         </div>
       </div>
     </TemplatePage>

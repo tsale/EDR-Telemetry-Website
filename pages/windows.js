@@ -1165,7 +1165,8 @@ export default function Windows() {
   }, [telemetryData, isLoading, hoverEnabled, isComparisonMode, addHoverEffect, highlightDifferences]);
 
   return (
-    <TemplatePage title="EDR Telemetry Project - Windows">
+    <TemplatePage title="Windows EDR Telemetry Analysis"
+      description="Vendor-neutral analysis of Windows EDR telemetry coverage, categories, and depth.">
       <Head>
         <style>{customStyles}</style>
       </Head>

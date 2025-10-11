@@ -8,7 +8,8 @@ export default function About() {
   }, []);
 
   return (
-    <TemplatePage title="About - EDR Telemetry Project">
+    <TemplatePage title="About the EDR Telemetry Project"
+      description="Learn the mission, methodology, and transparency principles behind the EDR Telemetry Project.">
       <div className="hero-section">
         <div className="hero-content">
           <h1>About the EDR Telemetry Project</h1>

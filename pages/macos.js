@@ -12,7 +12,8 @@ export default function MacOS() {
   }, [])
 
   return (
-    <TemplatePage title="EDR Telemetry Project - MacOS">
+    <TemplatePage title="MacOS EDR Telemetry Analysis"
+      description="Upcoming vendor-neutral analysis of macOS EDR telemetry coverage and depth.">
       <div className="hero-section">
         <div className="hero-content">
           <h1>MacOS EDR Telemetry</h1>

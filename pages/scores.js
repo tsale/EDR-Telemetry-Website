@@ -266,7 +266,8 @@ export default function Scores() {
   };
 
   return (
-    <TemplatePage title="EDR Telemetry Project - Scores">
+    <TemplatePage title="EDR Telemetry Scores: Vendor-Neutral Benchmarking"
+      description="Compare endpoint detection telemetry depth with transparent, weighted scoring for Windows and Linux.">
       <div className="scores-page">
         <div className="hero-section">
           <div className="hero-content">

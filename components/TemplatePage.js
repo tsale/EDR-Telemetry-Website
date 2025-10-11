@@ -13,6 +13,9 @@ export default function TemplatePage({ children, title = 'EDR Telemetry Project'
   const [searchOpen, setSearchOpen] = useState(false)
   const router = useRouter()
   const [isMobile, setIsMobile] = useState(false);
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || ''
+  const canonicalPath = router.asPath ? router.asPath.split('?')[0] : ''
+  const canonicalUrl = siteUrl && canonicalPath ? `${siteUrl}${canonicalPath}` : ''
 
   // Detect mobile device on client side
   useEffect(() => {
@@ -117,6 +120,17 @@ export default function TemplatePage({ children, title = 'EDR Telemetry Project'
         <meta name="description" content={description} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+        {canonicalUrl && (
+          <link rel="canonical" href={canonicalUrl} />
+        )}
+        {/* Open Graph / Twitter basic tags for better share previews */}
+        <meta property="og:type" content="website" />
+        {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
       </Head>
 
       <header>

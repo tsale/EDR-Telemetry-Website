@@ -11,7 +11,8 @@ export default function Blog() {
   }, [])
 
   return (
-    <TemplatePage title="Blog - EDR Telemetry Project">
+    <TemplatePage title="EDR Telemetry Blog: Research & Insights"
+      description="Research updates, methodology insights, and EDR telemetry analysis for security teams.">
       <div className="hero-section">
         <div className="hero-content">
           <h1>EDR Telemetry Blog</h1>

@@ -1059,7 +1059,8 @@ export default function Linux() {
   }, [telemetryData, isLoading, hoverEnabled, isComparisonMode, addHoverEffect, highlightDifferences]);
 
   return (
-    <TemplatePage title="EDR Telemetry Project - Linux">
+    <TemplatePage title="Linux EDR Telemetry Analysis"
+      description="Vendor-neutral analysis of Linux EDR telemetry coverage, categories, and depth.">
       <Head>
         <style>{customStyles}</style>
       </Head>

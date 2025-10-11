@@ -140,7 +140,8 @@ export default function Eligibility() {
   }, [])
 
   return (
-    <TemplatePage title="EDR Eligibility Criteria - EDR Telemetry Project">
+    <TemplatePage title="EDR Eligibility & Scope Criteria"
+      description="Understand inclusion rules, exclusions, and definitions used in EDR telemetry benchmarking.">
       <div className="hero-eligibility-modern">
         <div className="hero-eligibility-content">
           <div className="eligibility-badge-modern">

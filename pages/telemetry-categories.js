@@ -531,8 +531,8 @@ export default function TelemetryCategories() {
   }
   
   return (
-    <TemplatePage title="EDR Telemetry Categories - EDR Telemetry Project"
-      description="Understanding the different types of endpoint data collected for threat detection">
+    <TemplatePage title="EDR Telemetry Categories: Endpoint Signals and Coverage"
+      description="Explore endpoint detection telemetry categories across Windows, Linux, and macOS for vendor-neutral EDR comparison.">
       
       <div className={styles.container}>
         {/* Header */}

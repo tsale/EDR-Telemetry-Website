@@ -1,6 +1,7 @@
 import TemplatePage from '../components/TemplatePage'
 import Link from 'next/link'
 import Script from 'next/script'
+import Head from 'next/head'
 import useHeadingLinks from '../hooks/useHeadingLinks'
 
 export default function PremiumServices() {
@@ -11,6 +12,24 @@ export default function PremiumServices() {
       title="Defendpoint Consulting Telemetry Services - EDR Telemetry Project"
       description="Benchmark your EDR visibility with Defendpoint Consulting. Access expert telemetry benchmarking, premium reporting, and advisory services backed by the EDR-Telemetry research program."
     >
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'ProfessionalService',
+            name: 'Defendpoint Consulting - EDR Telemetry Services',
+            url: (process.env.NEXT_PUBLIC_SITE_URL ? `${process.env.NEXT_PUBLIC_SITE_URL}/premium-services` : ''),
+            provider: {
+              '@type': 'Organization',
+              name: 'Defendpoint Consulting',
+              url: 'https://defendpoint.ca'
+            },
+            areaServed: 'Global',
+            serviceType: 'EDR Telemetry Benchmarking and Advisory'
+          }) }}
+        />
+      </Head>
       <section className="hero-section premium-hero">
         <div className="hero-content">
           <p className="hero-eyebrow">Premium Services</p>
