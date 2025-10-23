@@ -3,6 +3,49 @@ import Link from 'next/link';
 
 const OWNER = 'tsale'; // Replace with GitHub username
 const REPOSITORY = 'EDR-Telemetry'; // Replace with repository name
+const GITHUB_HOSTS = new Set(['github.com', 'gist.github.com']);
+const AVATAR_HOSTS = new Set([
+  'avatars.githubusercontent.com',
+  'secure.gravatar.com',
+  'gravatar.com',
+  'github.com',
+]);
+
+const buildGithubProfileUrl = (login) => {
+  if (!login) return null;
+  return `https://github.com/${encodeURIComponent(login)}`;
+};
+
+const sanitizeGithubUrl = (url, login) => {
+  if (typeof url !== 'string') {
+    return buildGithubProfileUrl(login);
+  }
+
+  try {
+    const candidate = new URL(url);
+    if (candidate.protocol !== 'https:') {
+      return buildGithubProfileUrl(login);
+    }
+    if (!GITHUB_HOSTS.has(candidate.hostname)) {
+      return buildGithubProfileUrl(login);
+    }
+    return candidate.toString();
+  } catch {
+    return buildGithubProfileUrl(login);
+  }
+};
+
+const sanitizeAvatarUrl = (url) => {
+  if (typeof url !== 'string') return null;
+  try {
+    const candidate = new URL(url);
+    if (candidate.protocol !== 'https:') return null;
+    if (!AVATAR_HOSTS.has(candidate.hostname)) return null;
+    return candidate.toString();
+  } catch {
+    return null;
+  }
+};
 
 export default function Contributors() {
   const [contributors, setContributors] = useState([]);
@@ -21,7 +64,21 @@ export default function Contributors() {
           throw new Error(`Failed to fetch contributors: ${response.status}`);
         }
         const data = await response.json();
-        setContributors(data);
+        const safeContributors = Array.isArray(data)
+          ? data
+              .map(item => {
+                const login = typeof item?.login === 'string' ? item.login : '';
+                return {
+                  ...item,
+                  login,
+                  html_url: sanitizeGithubUrl(item?.html_url, login),
+                  avatar_url: sanitizeAvatarUrl(item?.avatar_url) || '/images/edr_telemetry_logo.png',
+                };
+              })
+              .filter(item => Boolean(item.html_url && item.login))
+          : [];
+
+        setContributors(safeContributors);
         setLoading(prev => ({ ...prev, contributors: false }));
       } catch (error) {
         console.error('Error fetching contributors:', error);

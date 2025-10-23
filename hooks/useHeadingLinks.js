@@ -8,6 +8,15 @@ export default function useHeadingLinks() {
   useEffect(() => {
     if (typeof window === 'undefined') return; // Skip on server-side
     
+    const buildSafeUrl = (headingId) => {
+      const { origin, pathname, search } = window.location;
+      const safeSearch = search
+        ? `?${new URLSearchParams(search.slice(1)).toString()}`
+        : '';
+      const safeHash = headingId ? `#${encodeURIComponent(headingId)}` : '';
+      return `${origin}${pathname}${safeSearch}${safeHash}`;
+    };
+    
     // Get all heading elements
     const headings = document.querySelectorAll('h1[id], h2[id], h3[id], h4[id]');
     
@@ -52,9 +61,7 @@ export default function useHeadingLinks() {
         e.stopPropagation();
         
         // Get the current URL and append the heading ID
-        const url = new URL(window.location.href);
-        url.hash = heading.id;
-        const textToCopy = url.toString();
+        const textToCopy = buildSafeUrl(heading.id);
         
         // Copy to clipboard
         if (navigator.clipboard && window.isSecureContext) {
