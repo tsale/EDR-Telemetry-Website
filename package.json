@@ -16,7 +16,7 @@
   "dependencies": {
     "@stripe/stripe-js": "^6.1.0",
     "@supabase/ssr": "^0.7.0",
-    "@supabase/supabase-js": "^2.56.0",
+    "@supabase/supabase-js": "^2.58.0",
     "@vercel/analytics": "^1.5.0",
     "@vercel/speed-insights": "^1.2.0",
     "chart.js": "^4.4.8",
