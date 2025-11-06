@@ -1117,15 +1117,12 @@ export default function Windows() {
                       const statusKey = `${rowKey}-${edr}`;
                       const explanationMap = item.__explanations || {};
                       const explanation = explanationMap[edr] || '';
-                      const isPartial = typeof status === 'string' && status.toLowerCase() === 'partially';
-                      const cellTitle = isPartial ? (explanation || 'Partially Implemented') : '';
 
                       return (
                         <td 
                           key={statusKey} 
                           className={`${edr.toLowerCase().includes('sysmon') ? 'sysmon-column' : ''}`}
                           data-status={status}
-                          title={cellTitle}
                         >
                           {getStatusIcon(status, explanation)}
                         </td>

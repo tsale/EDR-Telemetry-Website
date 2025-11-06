@@ -7,7 +7,6 @@ import Head from 'next/head'
 export default function Linux() {
   // State for telemetry data and UI
   const [telemetryData, setTelemetryData] = useState([]);
-  const [partiallyExplanations, setPartiallyExplanations] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [hoverEnabled, setHoverEnabled] = useState(false);
@@ -228,6 +227,26 @@ export default function Linux() {
       border-width: 5px;
       border-style: solid;
       border-color: rgba(33, 33, 33, 0.9) transparent transparent transparent;
+    }
+    /* Info indicator for partially implemented status */
+    .has-explanation {
+      position: relative;
+    }
+    
+    .has-explanation .status-icon::after {
+      content: "i";
+      position: absolute;
+      bottom: -2px;
+      right: -2px;
+      width: 14px;
+      height: 14px;
+      background: #2196f3;
+      color: white;
+      border-radius: 50%;
+      font-size: 10px;
+      line-height: 14px;
+      font-weight: bold;
+      font-style: italic;
     }
     /* Status icon colors */
     .status-icon.yes {
@@ -680,23 +699,21 @@ export default function Linux() {
   const loadTelemetry = async () => {
     setIsLoading(true);
     try {
-      const [telemetryResponse, explanationsResponse] = await Promise.all([
-        fetch('/api/telemetry/linux'),
-        fetch('https://raw.githubusercontent.com/tsale/EDR-Telemetry/main/partially_value_explanations_linux.json')
-      ]);
-      if (!telemetryResponse.ok || !explanationsResponse.ok) throw new Error('Network response was not ok');
-      const [telemetry, explanations] = await Promise.all([
-        telemetryResponse.json(),
-        explanationsResponse.json()
-      ]);
+      const telemetryResponse = await fetch('/api/telemetry/linux');
+      
+      if (!telemetryResponse.ok) throw new Error('Network response was not ok');
+      
+      const telemetry = await telemetryResponse.json();
+      
       const sortedData = sortDataWithSysmonFirst(telemetry);
       setTelemetryData(sortedData);
-      setPartiallyExplanations(explanations);
+      
       if (sortedData && sortedData.length > 0) {
         const edrNames = Object.keys(sortedData[0] || {}).filter(key =>
           key !== 'Telemetry Feature Category' &&
           key !== 'Sub-Category' &&
-          key !== 'optional'
+          key !== 'optional' &&
+          key !== '__explanations'
         );
         setEdrOptions(edrNames);
       }
@@ -829,29 +846,21 @@ export default function Linux() {
   };
 
   // Get status icon with tooltip for "partially" status
-  const getStatusIcon = useCallback((status, category, subcategory, edr) => {
+  const getStatusIcon = useCallback((status, explanation) => {
     if (status === undefined || status === null) {
       return <span className="status-icon unknown" title="Unknown">-</span>;
     }
     const statusLower = String(status).toLowerCase().trim();
-    let explanation = '';
-    if (statusLower === 'partially') {
-      if (
-        partiallyExplanations[edr] &&
-        partiallyExplanations[edr][category] &&
-        partiallyExplanations[edr][category][subcategory]
-      ) {
-        explanation = partiallyExplanations[edr][category][subcategory];
-      }
-    }
+    const explanationText = typeof explanation === 'string' ? explanation : '';
+    
     if (statusLower === 'yes') {
       return <span className="status-icon yes" title="Implemented">✅</span>;
     } else if (statusLower === 'no') {
       return <span className="status-icon no" title="Not Implemented">❌</span>;
     } else if (statusLower === 'partially') {
       return (
-        <TooltipWrapper tooltip={explanation || "Partially Implemented"}>
-          <span className={`status-icon partially ${explanation ? 'has-explanation' : ''}`}>
+        <TooltipWrapper tooltip={explanationText || "Partially Implemented"}>
+          <span className={`status-icon partially ${explanationText ? 'has-explanation' : ''}`}>
             ⚠️
           </span>
         </TooltipWrapper>
@@ -862,7 +871,7 @@ export default function Linux() {
       return <span className="status-icon via-enabling" title="Via Enabling Telemetry">🎚️</span>;
     }
     return <span className="status-icon unknown" title={`Unknown value: ${status}`}>-</span>;
-  }, [partiallyExplanations]);
+  }, []);
 
   // Group data by category
   const groupedData = useMemo(() => {
@@ -930,14 +939,16 @@ export default function Linux() {
                         const statusKey = `${rowKey}-${edr}`;
                         const isAuditd = edr.toLowerCase().includes('auditd');
                         const isSysmon = edr.toLowerCase().includes('sysmon');
+                        const explanationMap = item.__explanations || {};
+                        const explanation = explanationMap[edr] || '';
+                        
                         return (
                           <td 
                             key={statusKey} 
                             data-status={status} 
-                            className={`${isAuditd ? 'auditd-column' : ''} ${isSysmon ? 'sysmon-column' : ''} ${status?.toLowerCase() === 'partially' ? 'has-tooltip' : ''}`} 
-                            title={status?.toLowerCase() === 'partially' && partiallyExplanations[edr] && partiallyExplanations[edr][category] && partiallyExplanations[edr][category][subcategory] ? partiallyExplanations[edr][category][subcategory] : ''}
+                            className={`${isAuditd ? 'auditd-column' : ''} ${isSysmon ? 'sysmon-column' : ''}`}
                           >
-                            {getStatusIcon(status, category, subcategory, edr)}
+                            {getStatusIcon(status, explanation)}
                           </td>
                         );
                       })}
@@ -1020,14 +1031,16 @@ export default function Linux() {
                       const statusKey = `${rowKey}-${edr}`;
                       const isAuditd = edr.toLowerCase().includes('auditd');
                       const isSysmon = edr.toLowerCase().includes('sysmon');
+                      const explanationMap = item.__explanations || {};
+                      const explanation = explanationMap[edr] || '';
+                      
                       return (
                         <td 
                           key={statusKey} 
                           data-status={status} 
-                          className={`${isAuditd ? 'auditd-column' : ''} ${isSysmon ? 'sysmon-column' : ''} ${typeof status === 'string' && status.toLowerCase() === 'partially' ? 'has-tooltip' : ''}`} 
-                          title={typeof status === 'string' && status.toLowerCase() === 'partially' && partiallyExplanations[edr] && partiallyExplanations[edr][category] && partiallyExplanations[edr][category][subcategory] ? partiallyExplanations[edr][category][subcategory] : ''}
+                          className={`${isAuditd ? 'auditd-column' : ''} ${isSysmon ? 'sysmon-column' : ''}`}
                         >
-                          {getStatusIcon(status, category, subcategory, edr)}
+                          {getStatusIcon(status, explanation)}
                         </td>
                       );
                     })}
@@ -1039,7 +1052,7 @@ export default function Linux() {
         </table>
       </div>
     );
-  }, [groupedData, isComparisonMode, selectedEDRs, edrOptions, hoverEnabled, partiallyExplanations, getStatusIcon, tableRef]);
+  }, [groupedData, isComparisonMode, selectedEDRs, edrOptions, hoverEnabled, getStatusIcon, tableRef]);
 
   // Initial load: get hover state and telemetry data
   useEffect(() => {

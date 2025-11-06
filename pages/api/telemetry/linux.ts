@@ -81,18 +81,22 @@ export default async function handler(
           'Telemetry Feature Category': string | null
           'Sub-Category': string | null
           optional: boolean | null
-        } & Record<string, string | boolean | null>
+          __explanations: Record<string, string>
+        } & Record<string, string | boolean | null | Record<string, string>>
 
         const transformedData = (telemetryData as LinuxTelemetryWithScores[]).map(item => {
           const result: LinuxTelemetryResult = {
             'Telemetry Feature Category': item.category,
             'Sub-Category': item.subcategory,
-            'optional': item.optional
+            'optional': item.optional,
+            __explanations: {}
           }
           
-          // Add each EDR's score as a property
+          // Add each EDR's score as a property and capture explanations when present
           item.linux_table_results.forEach(score => {
             result[score.edr_name] = score.status
+
+            result.__explanations[score.edr_name] = score.explanation || ''
           })
           
           return result
