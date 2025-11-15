@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react"
 import Search from './Search'
+import AnnouncementBanner from './AnnouncementBanner'
 
 export default function TemplatePage({ children, title = 'EDR Telemetry Project', description = 'EDR Telemetry Project - Exploring telemetry capabilities of EDR solutions' }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -141,6 +142,8 @@ export default function TemplatePage({ children, title = 'EDR Telemetry Project'
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
       </Head>
+
+      <AnnouncementBanner />
 
       <header>
         <div className="header-container" style={{ display: 'flex', alignItems: 'center', padding: '0' }}>

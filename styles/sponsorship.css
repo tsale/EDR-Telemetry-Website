@@ -1,16 +1,480 @@
-/* Sponsorship Page Styles */
+/* Sponsorship Page Styles - Modern & Professional */
 
-.sponsor-card {
-  background-color: #fff;
-  border-radius: 8px;
-  padding: 1rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.hero-content p {
+  font-size: 1.25rem;
+  opacity: 0.95;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Content Section */
+.content-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+}
+
+.sponsor-content {
+  width: 100%;
+}
+
+/* Value Section */
+.value-section {
+  margin-bottom: 4rem;
+}
+
+.value-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.value-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #e2e8f0;
+}
+
+.value-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.value-icon {
+  margin-bottom: 1rem;
+  color: #667eea;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.value-card h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: #1a202c;
+}
+
+.value-card p {
+  color: #4a5568;
+  line-height: 1.6;
+}
+
+/* Subscription Section */
+.subscription-section {
+  margin-bottom: 4rem;
+}
+
+.subscription-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.subscription-header h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: #1a202c;
+}
+
+.subscription-header p {
+  font-size: 1.125rem;
+  color: #4a5568;
+}
+
+/* Sponsorship Tiers */
+.sponsorship-tiers {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Tier Cards */
+.tier-card {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  position: relative;
+  transition: all 0.3s ease;
+  border: 2px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.tier-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+}
+
+.tier-card.featured {
+  border-color: #667eea;
+  box-shadow: 0 8px 16px rgba(102, 126, 234, 0.2);
+}
+
+.featured-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+}
+
+.tier-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.tier-icon {
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tier-card.bronze .tier-icon {
+  color: #8b5cf6;
+}
+
+.tier-card.silver .tier-icon {
+  color: #667eea;
+}
+
+.tier-card.gold .tier-icon {
+  color: #d97706;
+}
+
+.tier-name {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1a202c;
   margin-bottom: 1rem;
 }
 
+.tier-price {
+  margin: 1.5rem 0;
+}
+
+.price-display {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.price-amount {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #1a202c;
+}
+
+.price-period {
+  font-size: 1rem;
+  color: #718096;
+  font-weight: 500;
+}
+
+/* Slider */
+.slider-container {
+  width: 100%;
+  padding: 1rem 0;
+}
+
+.price-slider {
+  width: 100%;
+  height: 6px;
+  appearance: none;
+  -webkit-appearance: none;
+  background: linear-gradient(to right, #e2e8f0, #667eea);
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+}
+
+.price-slider::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #667eea;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 3px solid white;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+  transition: transform 0.2s ease;
+}
+
+.price-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.price-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #667eea;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 3px solid white;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.4);
+}
+
+.price-markers {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.75rem;
+}
+
+.price-marker {
+  font-size: 0.875rem;
+  color: #718096;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.price-marker:hover {
+  color: #667eea;
+  background: rgba(102, 126, 234, 0.1);
+}
+
+.price-marker.active {
+  color: #667eea;
+  font-weight: 600;
+  background: rgba(102, 126, 234, 0.15);
+}
+
+/* Tier Content */
+.tier-content {
+  flex-grow: 1;
+  margin-bottom: 2rem;
+}
+
+.tier-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tier-features li {
+  padding: 0.75rem 0;
+  color: #2d3748;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-bottom: 1px solid #f7fafc;
+  display: flex;
+  align-items: center;
+}
+
+.tier-features li:last-child {
+  border-bottom: none;
+}
+
+.tier-features li::before {
+  content: "✓";
+  color: #48bb78;
+  font-weight: bold;
+  margin-right: 0.75rem;
+  font-size: 1.25rem;
+}
+
+.tier-card.featured .tier-features li::before {
+  color: #667eea;
+}
+
+/* Tier Footer */
+.tier-footer {
+  margin-top: auto;
+}
+
+.tier-button {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.tier-button.bronze {
+  background: #8b5cf6;
+  color: white;
+}
+
+.tier-button.bronze:hover {
+  background: #7c3aed;
+  transform: translateY(-2px);
+}
+
+.tier-button.silver {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+}
+
+.tier-button.silver:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.tier-button.gold {
+  background: #2d3748;
+  color: white;
+}
+
+.tier-button.gold:hover {
+  background: #1a202c;
+  transform: translateY(-2px);
+}
+
+.error-message {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: #fed7d7;
+  color: #c53030;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+/* One-Time Support Section */
+.one-time-support {
+  background: #f7fafc;
+  padding: 3rem 2rem;
+  border-radius: 16px;
+  text-align: center;
+}
+
+.one-time-header h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #1a202c;
+}
+
+.one-time-header p {
+  font-size: 1.125rem;
+  color: #4a5568;
+  margin-bottom: 2rem;
+}
+
+.donation-container {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.donation-loading {
+  padding: 2rem;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto 1rem;
+  border: 4px solid #e2e8f0;
+  border-top-color: #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.donation-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Community Section */
+.community-section {
+  background: white;
+  padding: 4rem 2rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.community-section .container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-group {
+  margin-bottom: 3rem;
+}
+
+.section-group h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: #1a202c;
+  text-align: center;
+}
+
+.section-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.loading-spinner {
+  text-align: center;
+  padding: 3rem;
+  color: #718096;
+}
+
+.loading-spinner .spinner {
+  margin-bottom: 1rem;
+}
+
+/* Sponsor and Donor Cards */
+.sponsor-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  border: 1px solid #e2e8f0;
+}
+
 .sponsor-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-4px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
@@ -25,7 +489,8 @@
   width: 80px;
   height: 80px;
   object-fit: contain;
-  margin-right: 1rem;
+  margin-right: 1.5rem;
+  border-radius: 8px;
 }
 
 .sponsor-name-logo {
@@ -34,12 +499,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #007bff;
+  background: linear-gradient(135deg, #667eea, #764ba2);
   color: white;
   font-size: 2rem;
   font-weight: bold;
-  border-radius: 50%;
-  margin-right: 1rem;
+  border-radius: 8px;
+  margin-right: 1.5rem;
 }
 
 .sponsor-details {
@@ -49,50 +514,56 @@
 .sponsor-details h4 {
   margin: 0 0 0.5rem 0;
   font-size: 1.25rem;
+  font-weight: 600;
+  color: #1a202c;
 }
 
 .sponsor-tier {
   display: inline-block;
-  padding: 0.25rem 0.5rem;
-  background-color: #e9f5ff;
-  color: #007bff;
-  border-radius: 4px;
+  padding: 0.25rem 0.75rem;
+  background: rgba(102, 126, 234, 0.1);
+  color: #667eea;
+  border-radius: 6px;
   font-size: 0.875rem;
+  font-weight: 500;
 }
 
 .donor-card {
   display: flex;
   justify-content: space-between;
-  padding: 0.75rem 1rem;
-  background-color: #f8f9fa;
-  border-radius: 4px;
-  margin-bottom: 0.5rem;
-  transition: background-color 0.3s ease;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
 }
 
 .donor-card:hover {
-  background-color: #e9ecef;
+  background: #f7fafc;
+  border-color: #cbd5e0;
 }
 
 .donor-name {
   font-weight: 500;
+  color: #2d3748;
 }
 
 .donor-amount {
-  color: #28a745;
-  font-weight: bold;
+  color: #48bb78;
+  font-weight: 600;
 }
 
 .no-sponsors,
 .no-donors {
   text-align: center;
-  padding: 2rem;
-  color: #6c757d;
+  padding: 3rem;
+  color: #718096;
 }
 
 .no-sponsors a,
 .no-donors a {
-  color: #007bff;
+  color: #667eea;
   text-decoration: none;
   font-weight: 500;
 }
@@ -102,1925 +573,45 @@
   text-decoration: underline;
 }
 
-@media (min-width: 768px) {
-  #sponsorsSection .section-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1rem;
-  }
-}
-
-.tier-button-link {
-  display: inline-block;
-  width: 100%;
-  padding: 10px;
-  background-color: #007bff;
-  color: white;
-  text-decoration: none;
-  border-radius: 5px;
-  text-align: center;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-}
-
-.tier-button-link:hover {
-  background-color: #0056b3;
-}
-
-.content-section {
-  max-width: 90vw;
-  margin: 0 auto;
-  padding: 0 2rem 3rem;
-}
-
-.sponsor-content {
-  max-width: 90vw;
-  margin: 0 auto;
-}
-
-.sponsorship-quick-nav {
-  display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-  margin: 2rem 0;
-}
-
-.quick-nav-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1rem;
-  border-radius: 8px;
-  border: 1px solid #e0e0e0;
-  text-decoration: none;
-  color: inherit;
-  transition: all 0.3s ease;
-  position: relative;
-  width: 200px;
-}
-
-.quick-nav-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-}
-
-.quick-nav-item.highlight {
-  border-color: #007bff;
-  background-color: rgba(0, 123, 255, 0.05);
-}
-
-.quick-nav-item .icon {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-}
-
-.quick-nav-item .badge {
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  background-color: #ff5722;
-  color: white;
-  padding: 0.25rem 0.5rem;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  font-weight: bold;
-}
-
-.benefits-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-  margin: 2rem 0;
-}
-
-.benefit-item {
-  padding: 1.5rem;
-  border-radius: 8px;
-  background-color: #f8f9fa;
-  transition: transform 0.3s ease;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-}
-
-.benefit-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 15px rgba(0,0,0,0.1);
-}
-
-.benefit-item h4 {
-  margin-top: 0;
-  color: #343a40;
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
-}
-
-.one-time-support,
-.subscription-section {
-  margin: 3rem 0;
-  padding: 2rem;
-  border-radius: 10px;
-  background-color: #f8f9fa;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-}
-
-.one-time-support h3,
-.subscription-section h3 {
-  text-align: center;
-  margin-bottom: 1.5rem;
-  color: #343a40;
-}
-
-.donation-box {
-  max-width: 500px;
-  margin: 0 auto;
-  padding: 1.5rem;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-}
-
-.sponsorship-tiers {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(280px, 1fr));
-  gap: 2rem;
-  margin: 2rem auto;
-  max-width: 1200px;
-  padding: 0 1rem;
-  justify-content: center;
-  align-items: start;
-}
-
-/* Tier Card Styles */
-.tier-card {
-  background: white;
-  border-radius: 12px;
-  padding: 1.5rem;
-  position: relative;
-  transition: all 0.3s ease;
-  border: 1px solid #e2e8f0;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 350px;
-  margin: 0 auto;
-  min-height: 520px;
-}
-
-.tier-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
-}
-
-.tier-card.premium {
-  border: 1px solid #4299e1;
-}
-
-.popular-badge {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: linear-gradient(135deg, #4299e1, #3182ce);
-  color: white;
-  padding: 0.4rem 1rem;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  z-index: 2;
-  box-shadow: 0 2px 4px rgba(66, 153, 225, 0.2);
-}
-
-.tier-header {
-  text-align: center;
-  margin-bottom: 1rem;
-}
-
-.tier-icon {
-  font-size: 1.75rem;
-  margin-bottom: 0.5rem;
-}
-
-.tier-name {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #1a202c;
-  margin: 0.5rem 0;
-  letter-spacing: -0.02em;
-}
-
-.tier-price {
-  margin: 1rem 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.price-display {
-  margin: 1rem 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.price-amount {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #1a202c;
-  line-height: 1.2;
-  letter-spacing: -0.03em;
-  background: linear-gradient(135deg, #2d3748, #1a202c);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.price-period {
-  color: #4a5568;
-  font-size: 1.1rem;
-  margin-top: 0.25rem;
-  font-weight: 500;
-}
-
-.tier-content {
-  flex-grow: 1;
-  margin-bottom: 1rem;
-}
-
-.tier-features {
-  list-style: none;
-  padding: 0;
-  margin: 1.75rem 0;
-}
-
-.tier-features li {
-  margin-bottom: 1rem;
-  line-height: 1.5;
-  font-size: 1.05rem;
-  color: #2d3748;
-  padding-left: 1.5rem;
-  position: relative;
-  font-weight: 450;
-}
-
-.tier-features li::before {
-  content: "•";
-  position: absolute;
-  left: 0.5rem;
-  color: #4299e1;
-  font-weight: bold;
-}
-
-.tier-card.premium .tier-features li::before {
-  color: #4299e1;
-}
-
-.tier-card.enterprise .tier-features li::before {
-  color: #805ad5;
-}
-
-.tier-card.coffee .tier-features li::before {
-  color: #805ad5;
-}
-
-.tier-footer {
-  margin-top: auto;
-  padding-top: 1rem;
-  width: 100%;
-}
-
-.tier-footer a {
-  text-decoration: none;
-  display: block;
-  width: 100%;
-}
-
-.tier-button {
-  display: block;
-  width: 100%;
-  padding: 0.875rem 1.5rem;
-  font-size: 1.05rem;
-  font-weight: 600;
-  text-align: center;
-  border-radius: 8px;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  border: none;
-  cursor: pointer;
-  line-height: 1.5;
-  letter-spacing: 0.01em;
-}
-
-.tier-button.coffee {
-  background: #805ad5;
-  color: white;
-}
-
-.tier-button.coffee:hover {
-  background: #6b46c1;
-}
-
-.tier-button.premium {
-  background: #4299e1;
-  color: white;
-}
-
-.tier-button.premium:hover {
-  background: #3182ce;
-}
-
-.tier-button.enterprise {
-  background: #2d3748;
-  color: white;
-}
-
-.tier-button.enterprise:hover {
-  background: #1a202c;
-}
-
-.slider-container {
-  width: 100%;
-  max-width: 280px;
-  margin: 1rem auto;
-  padding: 0 0.5rem;
-}
-
-.price-slider {
-  width: 100%;
-  height: 4px;
-  -webkit-appearance: none;
-  background: linear-gradient(to right, #e2e8f0 0%, #4299e1 50%, #e2e8f0 100%);
-  border-radius: 4px;
-  outline: none;
-  margin: 1.25rem 0;
-  cursor: pointer;
-}
-
-.price-markers {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 0.5rem;
-  padding: 0 0.25rem;
-}
-
-.price-marker {
-  font-size: 0.875rem;
-  color: #718096;
-  cursor: pointer;
-  position: relative;
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  transition: all 0.2s ease;
-}
-
-.price-marker:hover {
-  color: #4299e1;
-  background-color: rgba(66, 153, 225, 0.1);
-}
-
-.price-marker.active {
-  color: #4299e1;
-  font-weight: 600;
-  background-color: rgba(66, 153, 225, 0.15);
-}
-
-.price-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 16px;
-  height: 16px;
-  background: #4299e1;
-  border-radius: 50%;
-  cursor: pointer;
-  border: 2px solid white;
-  box-shadow: 0 2px 4px rgba(66, 153, 225, 0.3);
-  transition: all 0.2s ease;
-}
-
-.price-slider::-webkit-slider-thumb:hover {
-  transform: scale(1.15);
-  box-shadow: 0 3px 6px rgba(66, 153, 225, 0.4);
-}
-
-.price-slider::-moz-range-thumb {
-  width: 16px;
-  height: 16px;
-  background: #4299e1;
-  border-radius: 50%;
-  cursor: pointer;
-  border: 2px solid white;
-  box-shadow: 0 2px 4px rgba(66, 153, 225, 0.3);
-  transition: all 0.2s ease;
-}
-
-.price-slider::-moz-range-thumb:hover {
-  transform: scale(1.15);
-  box-shadow: 0 3px 6px rgba(66, 153, 225, 0.4);
-}
-
-.price-slider::-webkit-slider-runnable-track {
-  height: 4px;
-  border-radius: 4px;
-  background: transparent;
-}
-
-.price-slider::-moz-range-track {
-  height: 4px;
-  border-radius: 4px;
-  background: transparent;
-}
-
-/* Community section */
-.community-section {
-  padding: 4rem 0;
-  background-color: #f8f9faaa;
-}
-
-.community-section .container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-}
-
-.section-group {
-  margin-bottom: 4rem;
-  position: relative;
-}
-
-.section-group:last-child {
-  margin-bottom: 0;
-}
-
-.section-group h2 {
-  text-align: center;
-  margin-bottom: 2.5rem;
-  color: #0A192F;
-  font-size: 2rem;
-  font-weight: 700;
-  position: relative;
-  padding-bottom: 1rem;
-}
-
-.section-group h2::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 3px;
-  background-color: #007bff;
-  border-radius: 3px;
-}
-
-.section-content {
-  margin-top: 1rem;
-  display: flex;
-  justify-content: center;
-}
-
-/* One-Time Supporters Section */
-.community-section .donors-grid {
-  justify-content: center;
-  flex-wrap: wrap;
-  display: flex;
-  gap: 1.5rem;
-  padding: 0 1rem;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.support-note {
-  text-align: center;
-  font-style: italic;
-  margin-top: 1rem;
-  color: #6c757d;
-}
-
-@media (max-width: 1200px) {
-  .sponsorship-tiers {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    max-width: 900px;
-    gap: 1.5rem;
-  }
-}
-
-@media (max-width: 992px) and (min-width: 769px) {
-  .sponsorship-tiers {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    max-width: 600px;
-    gap: 2rem;
-  }
-
-  .tier-card {
-    max-width: 100%;
-  }
-
-  .tier-card.premium {
-    order: -1;
-  }
-}
-
+/* Responsive Design */
 @media (max-width: 768px) {
-  /* Overall page container */
-  .content-section {
-    max-width: 100% !important;
-    margin: 0 !important;
-    padding: 0.75rem !important;
-    box-sizing: border-box !important;
-  }
-
-  .sponsor-content {
-    max-width: 100% !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    overflow: hidden !important;
-  }
-
-  /* One-time support section overall layout */
-  .one-time-support {
-    margin: 1.5rem 0 !important;
-    padding: 1.5rem 0.75rem 2rem !important;
-    border-radius: 10px !important;
-    background-color: #f8f9fa !important;
-    overflow: hidden !important;
-    box-sizing: border-box !important;
-  }
-
-  /* Donation container to ensure stacking */
-  .donation-container {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 1.5rem !important;
-    width: 100% !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    box-sizing: border-box !important;
-  }
-
-  /* Ensure each container takes full width */
-  .donation-left, 
-  .donation-right {
-    width: 100% !important;
-    max-width: 100% !important;
-    flex: unset !important;
-    float: none !important;
-    display: block !important;
-    margin: 0 !important;
-  }
-
-  /* Remove any other duplicated container styles */
-
-  /* Basic layout adjustments */
-  .content-section {
-    max-width: 100%;
-    margin: 0;
-    padding: 0.75rem;
-  }
-
-  .sponsor-content {
-    max-width: 100%;
-    margin: 0;
-    padding: 0;
-  }
-
-  /* One-time support section overall styling */
-  .one-time-support {
-    margin: 1.5rem 0;
-    padding: 1.5rem 1rem;
-    border-radius: 10px;
-    background-color: #f8f9fa;
-  }
-
-  .subscription-section {
-    margin: 1.5rem 0;
-    padding: 1.5rem 1rem;
-    border-radius: 10px;
-  }
-
-  /* Fine-tune the donation container layout on mobile */
-  .donation-container {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding: 0 0.5rem;
-    margin: 0 0 1.5rem;
-  }
-
-  /* Benefits card fine-tuning */
-  .donation-benefits {
-    margin-bottom: 1.5rem;
-    width: 100%;
-    box-sizing: border-box;
-    background-color: white;
-    border-radius: 10px;
-    padding: 1.25rem 1.5rem;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    height: auto;
-  }
-
-  .donation-benefits h4 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-  }
-
-  /* Donation card fine-tuning */
-  .donation-card {
-    width: 100%;
-    margin: 0;
-    box-sizing: border-box;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    overflow: hidden;
-  }
-
-  /* Payment amount styles to match screenshot */
-  .donation-card-content .payment-amount-display {
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-  }
-
-  /* Payment methods display */
-  .payment-methods-display {
-    margin-top: 1rem;
-    text-align: center;
-  }
-
-  .payment-methods-text {
-    font-size: 0.85rem;
-    color: #718096;
-    margin-bottom: 0.5rem;
-  }
-
-  /* Security indicator in footer */
-  .donation-security {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.85rem;
-  }
-
-  .security-icon {
-    margin-right: 0.5rem;
-  }
-
-  /* Fine-tuned card styles for mobile */
-  .donation-card {
-    background-color: white;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    border: 1px solid #edf2f7;
-    margin: 0;
-    width: 100%;
-  }
-
-  .donation-card-header {
-    background-color: #f7fafc;
-    padding: 1rem 1.25rem;
-    border-bottom: 1px solid #edf2f7;
-    text-align: center;
-  }
-
-  .donation-card-content {
-    background-color: white;
-    padding: 1.25rem 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 250px;
-  }
-
-  /* Placeholder payment form styling to match screenshot */
-  .donation-card-content .edr-payment-form {
-    width: 100%;
-    text-align: center;
-  }
-
-  .edr-payment-amount {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #1a202c;
-    text-align: center;
-    margin-bottom: 1.5rem;
-  }
-
-  .edr-payment-button {
-    background-color: #38b2ac;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    padding: 0.75rem 2rem;
-    font-weight: 600;
-    font-size: 1rem;
-    cursor: pointer;
-    width: 100%;
-    max-width: 90%;
-    margin: 1rem auto 0;
-    display: block;
-  }
-
-  .payment-methods {
-    display: flex;
-    justify-content: center;
-    gap: 0.5rem;
-    margin-top: 1rem;
-  }
-
-  .payment-method-icon {
-    width: 36px;
-    height: 24px;
-    object-fit: contain;
-  }
-
-  /* One-time contribution section fixes */
-  .one-time-support {
-    background-color: #f8f9fa;
-    padding: 1.5rem 1rem 2rem;
-    margin: 0.5rem 0 1.5rem;
-    border-radius: 8px;
-  }
-
-  .one-time-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    margin-bottom: 1.25rem;
-  }
-
-  .header-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 64px;
-    height: 64px;
-    font-size: 2rem;
-    background-color: white;
-    border-radius: 50%;
-    margin-bottom: 1rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-
-  .one-time-support h3 {
-    font-size: 1.75rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    color: #1a202c;
-  }
-
-  .donation-intro {
-    text-align: center;
-    padding: 0 0.5rem;
-    margin-bottom: 2rem;
-  }
-
-  .donation-intro p {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: #4a5568;
-    margin: 0;
-  }
-
-  /* Donation container mobile fixes */
-  .donation-container {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-    padding: 0;
-    width: 100%;
-    margin: 0;
-  }
-
-  .donation-left, 
-  .donation-right {
-    width: 100%;
-  }
-
-  /* Left side (benefits) */
-  .donation-benefits {
-    background-color: white;
-    border-radius: 8px;
-    padding: 1.25rem;
-    margin: 0;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(0, 0, 0, 0.05);
-  }
-
-  .donation-benefits-list {
-    margin: 0;
-    padding: 0;
-  }
-
-  .donation-benefits-list li {
-    display: flex;
-    align-items: flex-start;
-    padding-bottom: 0.75rem;
-    margin-bottom: 0.75rem;
-    border-bottom: 1px solid #edf2f7;
-    font-size: 0.9rem;
-  }
-
-  .donation-benefits-list li:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
-    padding-bottom: 0;
-  }
-
-  .benefit-icon {
-    font-size: 1.1rem;
-    margin-right: 0.75rem;
-    color: #4299e1;
-  }
-
-  /* Right side (payment card) */
-  .donation-card {
-    background-color: white;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    margin: 0;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .donation-card-header {
-    background-color: #f7fafc;
-    padding: 1rem;
-    border-bottom: 1px solid #edf2f7;
-  }
-
-  .donation-card-header h4 {
-    margin: 0;
-    font-size: 1.1rem;
-    color: #2d3748;
-    font-weight: 600;
-  }
-
-  .donation-card-content {
-    padding: 1.25rem 1rem;
-    min-height: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  /* Stripe button fixes */
-  .donation-card-content .stripe-container {
-    width: 100% !important;
-    max-width: 100% !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-  }
-
-  /* Security footer */
-  .donation-card-footer {
-    background-color: #f7fafc;
-    padding: 0.75rem 1rem;
-    border-top: 1px solid #edf2f7;
-    font-size: 0.85rem;
-    color: #718096;
-  }
-
-  .donation-testimonial {
-    padding: 1rem 0.5rem 0;
-    margin-top: 1rem;
-  }
-
-  .donation-testimonial blockquote {
-    font-size: 0.95rem;
-    font-style: italic;
-    color: #4a5568;
-    text-align: center;
-    margin: 0 0 1rem;
-    padding: 0;
-  }
-
-  .donation-note {
-    text-align: center;
-    font-size: 0.85rem;
-    color: #718096;
-  }
-
-  .donation-note p {
-    margin: 0;
-  }
-
-  /* Mobile pricing table fixes for the Monthly Plans section */
-  .subscription-section .sponsorship-tiers {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 1.5rem !important;
-    width: 100% !important;
-  }
-  
-  /* Force specific order for the cards */
-  .subscription-section .sponsorship-tiers .tier-card.coffee {
-    order: 1 !important;
-  }
-  
-  .subscription-section .sponsorship-tiers .tier-card.premium {
-    order: 2 !important;
-  }
-  
-  .subscription-section .sponsorship-tiers .tier-card.enterprise {
-    order: 3 !important;
-  }
-
-  .tier-card {
-    width: 100%;
-    max-width: 100%;
-    margin: 0 auto;
-    min-height: auto;
-    padding: 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  }
-
-  .tier-card:hover {
-    transform: none;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-
-  .tier-price {
-    margin: 0.75rem 0;
-  }
-
-  .price-amount {
-    font-size: 2rem;
-  }
-
-  .price-period {
-    font-size: 1rem;
-  }
-
-  /* Basic layout adjustments */
-  .content-section {
-    max-width: 100%;
-    margin: 0;
-    padding: 0.75rem;
-  }
-
-  .sponsor-content {
-    max-width: 100%;
-    margin: 0;
-    padding: 0;
-  }
-
-  .tier-card.premium {
-    border: 2px solid #4299e1;
-    position: relative;
-    box-shadow: 0 8px 20px rgba(66, 153, 225, 0.15);
-  }
-  
-  .tier-card.coffee {
-    border-color: #805ad5;
-    border-width: 1px;
-  }
-  
-  .tier-card.enterprise {
-    border-color: #2d3748;
-    border-width: 1px;
-  }
-  
-  .tier-card.coffee .tier-features li::before {
-    color: #805ad5;
-  }
-  
-  .tier-card.enterprise .tier-features li::before {
-    color: #2d3748;
-  }
-  
-  .tier-card.coffee .tier-features {
-    margin: 1.5rem 0;
-  }
-  
-  .tier-card.enterprise .tier-features {
-    margin: 1.5rem 0;
-  }
-  
-  .tier-card.coffee .tier-features li {
-    position: relative;
-    padding-left: 1.75rem;
-    margin-bottom: 1rem;
-    font-size: 0.95rem;
-    line-height: 1.5;
-  }
-  
-  .tier-card.enterprise .tier-features li {
-    position: relative;
-    padding-left: 1.75rem;
-    margin-bottom: 1rem;
-    font-size: 0.95rem;
-    line-height: 1.5;
-  }
-  
-  .tier-card.coffee .tier-features li::before {
-    content: "•";
-    position: absolute;
-    left: 0.5rem;
-    color: #805ad5;
-    font-weight: bold;
-  }
-  
-  .tier-card.enterprise .tier-features li::before {
-    content: "•";
-    position: absolute;
-    left: 0.5rem;
-    color: #2d3748;
-    font-weight: bold;
-  }
-  
-  .tier-button.coffee {
-    background: #805ad5;
-    color: white;
-  }
-  
-  .tier-button.premium {
-    background: #4299e1;
-    color: white;
-  }
-  
-  .tier-button.enterprise {
-    background: #2d3748;
-    color: white;
-  }
-  
-  .subscription-section {
-    margin-top: 2.5rem;
-    border-radius: 16px;
-  }
-  
-  .tier-features {
-    margin: 1.5rem 0;
-  }
-  
-  .tier-features li {
-    position: relative;
-    padding-left: 1.75rem;
-    margin-bottom: 1rem;
-    font-size: 0.95rem;
-    line-height: 1.5;
-  }
-  
-  .tier-features li::before {
-    content: "•";
-    position: absolute;
-    left: 0.5rem;
-    color: #4299e1;
-    font-weight: bold;
-  }
-  
-  .tier-button {
-    padding: 0.85rem 1rem;
-    min-height: 48px;
-    font-size: 1rem;
-    margin-top: 1rem;
-  }
-  
-  .tier-card .error-message {
-    display: block;
-    font-size: 0.9rem;
-    color: #e53e3e;
-    background-color: #fed7d7;
-    border-radius: 8px;
-    padding: 0.75rem;
-    margin-top: 1rem;
-    text-align: center;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  
-  .price-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 24px;
-    height: 24px;
-    background: #4299e1;
-    border-radius: 50%;
-    cursor: pointer;
-    border: 2px solid white;
-    box-shadow: 0 3px 8px rgba(66, 153, 225, 0.5);
-    transition: all 0.3s ease;
-  }
-  
-  .price-slider::-moz-range-thumb {
-    width: 24px;
-    height: 24px;
-    background: #4299e1;
-    border-radius: 50%;
-    cursor: pointer;
-    border: 2px solid white;
-    box-shadow: 0 3px 8px rgba(66, 153, 225, 0.5);
-    transition: all 0.3s ease;
-  }
-  
-  .price-marker.active {
-    box-shadow: 0 2px 8px rgba(66, 153, 225, 0.3);
-  }
-
-  .error-message {
-    display: block;
-    font-size: 0.9rem;
-    color: #e53e3e;
-    background-color: #fed7d7;
-    border-radius: 4px;
-    padding: 0.75rem;
-    margin-top: 1rem;
-    text-align: center;
-  }
-
-  .donation-card {
-    width: 100%;
-    max-width: 350px;
-    margin: 0 auto;
-    border-radius: 10px;
-    overflow: hidden;
-  }
-
-  .donation-card-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 120px;
-    padding: 1.5rem 1rem;
-  }
-
-  .stripe-container {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    min-height: 200px !important;
-  }
-  
-  stripe-buy-button {
-    width: 100% !important;
-    max-width: 280px !important;
-    margin: 0 auto !important;
-  }
-
-  stripe-buy-button::part(buy-button-container) {
-    width: 100% !important;
-  }
-  
-  stripe-buy-button::part(button) {
-    background-color: #38b2ac !important;
-    border-radius: 6px !important;
-    padding: 12px !important;
-    font-size: 1rem !important;
-    font-weight: 600 !important;
-    min-height: 48px !important;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
-  }
-  
-  /* Loading spinner styling */
-  .donation-loading {
-    min-height: 200px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-  }
-
-  .hero-section {
-    padding: 2.5rem 1rem;
-  }
-
   .hero-content h1 {
     font-size: 2rem;
-    margin-bottom: 0.75rem;
   }
 
   .hero-content p {
     font-size: 1rem;
-    padding: 0 0.5rem;
   }
 
-  .sponsor-nav-tabs {
-    width: 100%;
-    gap: 0.5rem;
-    padding-bottom: 0.5rem;
-    overflow-x: auto;
-    justify-content: flex-start;
-    -webkit-overflow-scrolling: touch;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-  }
-  
-  .nav-tab {
-    padding: 0.75rem 1rem;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-  
-  .tab-icon {
-    margin-right: 0.5rem;
-    font-size: 1.1rem;
-  }
-  
-  .tab-text {
-    font-size: 0.9rem;
-  }
-  
-  .tab-badge {
-    font-size: 0.6rem;
-    padding: 0.1rem 0.3rem;
-    top: -5px;
-    right: -5px;
-  }
-
-  .benefits-grid {
-    display: grid;
+  .value-grid {
     grid-template-columns: 1fr;
-    gap: 1rem;
-    margin: 1.5rem 0;
-  }
-
-  .benefit-item {
-    padding: 1.25rem;
-  }
-
-  .why-sponsor h2 {
-    font-size: 1.75rem;
-    text-align: center;
-  }
-
-  .one-time-support,
-  .subscription-section {
-    margin: 1.5rem 0;
-    padding: 1.5rem 1rem;
-    border-radius: 10px;
-  }
-
-  .one-time-header {
-    margin-bottom: 1.5rem;
-  }
-
-  .header-icon {
-    width: 60px;
-    height: 60px;
-    font-size: 2rem;
-  }
-
-  .one-time-support h3,
-  .subscription-section h3 {
-    font-size: 1.75rem;
-  }
-
-  .donation-intro p {
-    font-size: 1rem;
-  }
-
-  .donation-container {
-    display: flex;
-    flex-direction: column;
     gap: 1.5rem;
-    padding: 0.5rem;
-    width: 100%;
-    box-sizing: border-box;
   }
 
-  .donation-left, 
-  .donation-right {
-    width: 100%;
-  }
-
-  .donation-benefits {
-    padding: 1.5rem;
-    margin-bottom: 0;
-    border-radius: 10px;
-  }
-
-  .donation-benefits-list li {
-    font-size: 0.95rem;
-    padding-bottom: 1rem;
-    margin-bottom: 1rem;
-    align-items: flex-start;
-  }
-
-  .benefit-icon {
-    font-size: 1.25rem;
-    margin-right: 0.75rem;
-    margin-top: 0.1rem;
-  }
-
-  .donation-card {
-    margin-bottom: 0;
-  }
-
-  .donation-card-header {
-    padding: 1rem 1.25rem;
-  }
-
-  .donation-card-header h4 {
-    font-size: 1.1rem;
-  }
-
-  .donation-card-content {
-    padding: 1.5rem 1rem;
-  }
-
-  .donation-card-footer {
-    padding: 0.75rem 1rem;
-  }
-
-  .donation-testimonial {
-    padding: 0 0.5rem;
-    margin-top: 1.5rem;
-  }
-
-  .donation-testimonial blockquote {
-    font-size: 1.1rem;
-    padding: 0 1rem;
-  }
-
-  .donation-note {
-    font-size: 0.9rem;
-  }
-
-  .community-section {
-    padding: 2.5rem 0;
-  }
-
-  .section-group h2 {
-    margin-bottom: 1.5rem;
-    font-size: 1.75rem;
-  }
-
-  .section-group h2::after {
-    width: 50px;
-    height: 2px;
-  }
-
-  .subscription-header {
-    margin-bottom: 1.5rem;
-    padding: 0 0.5rem;
-  }
-
-  .subscription-header .header-icon {
-    font-size: 2rem;
-  }
-
-  .subscription-header h3 {
-    font-size: 1.75rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .subscription-header p {
-    font-size: 1rem;
-    line-height: 1.5;
-  }
-
-  .subscription-footer {
-    margin-top: 2rem;
-  }
-
-  .subscription-note {
-    padding: 1.25rem;
-    border-radius: 8px;
-  }
-
-  .subscription-note p {
-    font-size: 0.95rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .tier-features li {
-    padding-bottom: 1rem;
-    margin-bottom: 1rem;
-    min-height: 44px;
-  }
-
-  .nav-tab {
-    min-height: 64px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .price-marker {
-    min-height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .content-section {
-    padding: 0.75rem;
-  }
-  
-  @media (max-width: 320px) {
-    .header-icon {
-      width: 50px;
-      height: 50px;
-      font-size: 1.75rem;
-    }
-    
-    .tier-icon {
-      font-size: 1.25rem;
-    }
-    
-    .benefit-icon {
-      font-size: 1rem;
-    }
-  }
-
-  /* Specific Stripe container fixes for mobile */
-  .donation-card-content .stripe-container {
-    width: 100% !important;
-    max-width: 100% !important;
-    display: flex !important;
-    justify-content: center !important;
-  }
-  
-  /* Payment form alignment */
-  .donation-loading {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 200px;
-    width: 100%;
-  }
-  
-  .spinner-small {
-    width: 28px;
-    height: 28px;
-    border: 3px solid rgba(0, 0, 0, 0.1);
-    border-radius: 50%;
-    border-top-color: #007bff;
-    animation: spin 1s ease-in-out infinite;
-    margin-bottom: 0.75rem;
-  }
-  
-  @keyframes spin {
-    to {
-      transform: rotate(360deg);
-    }
-  }
-
-  /* Fix price slider control */
-  .slider-container {
-    max-width: 100%;
-    padding: 0;
-    margin: 1.5rem 0 1rem;
-  }
-
-  .price-slider {
-    height: 8px; /* Thicker slider for better visibility */
-    border-radius: 4px;
-    margin: 1.5rem 0 1.5rem;
-    position: relative;
-    z-index: 2;
-    -webkit-appearance: none;
-    background: linear-gradient(to right, #e2e8f0 0%, #4299e1 50%, #e2e8f0 100%);
-    width: 100%;
-  }
-
-  /* Improve price markers display */
-  .price-markers {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    margin-top: 0.75rem;
-  }
-  
-  .price-marker {
-    font-size: 0.85rem;
-    padding: 0.5rem;
-    flex: 1;
-    text-align: center;
-    border-radius: 4px;
-    transition: background-color 0.2s;
-    min-height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .price-marker.active {
-    color: #4299e1;
-    font-weight: 600;
-    background-color: rgba(66, 153, 225, 0.15);
-    box-shadow: 0 2px 8px rgba(66, 153, 225, 0.3);
-  }
-
-  /* Button styling */
-  .tier-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    padding: 0.85rem 1rem;
-    min-height: 48px;
-    font-size: 1rem;
-    margin-top: 1rem;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    font-weight: 600;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: all 0.2s ease;
-  }
-  
-  .tier-button:active {
-    transform: translateY(2px);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-  }
-
-  .donation-loading p {
-    color: #718096;
-    font-size: 0.95rem;
-    margin: 0;
-  }
-}
-
-@media (max-width: 375px) {
-  .price-marker {
-    font-size: 0.8rem;
-    padding: 0.25rem;
-    min-width: 40px;
-  }
-
-  .tier-card {
-    padding: 1.25rem 1rem;
-  }
-
-  .tier-name {
-    font-size: 1.3rem;
-  }
-
-  .price-amount {
-    font-size: 1.75rem;
-  }
-
-  .tier-features li {
-    font-size: 0.9rem;
-  }
-
-  .tier-button {
-    font-size: 0.95rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .tier-card {
-    max-width: 100%;
-  }
-
-  .donation-card {
-    max-width: 100%;
-  }
-
-  .price-markers {
-    overflow-x: auto;
-    flex-wrap: nowrap;
-    padding-bottom: 10px;
-    margin-left: -5px;
-    margin-right: -5px;
-    padding-left: 5px;
-    padding-right: 5px;
-    -webkit-overflow-scrolling: touch;
-  }
-  
-  .price-marker {
-    min-width: 60px;
-    flex: 0 0 auto;
-    margin: 0 2px;
-  }
-}
-
-/* Stripe Button Global Styles */
-stripe-buy-button {
-  width: 100% !important;
-  display: block !important;
-  margin: 0 auto !important;
-  max-width: 100% !important;
-}
-
-/* Fix for Stripe button to ensure it's visible */
-stripe-buy-button::part(root) {
-  min-width: 100% !important;
-  width: 100% !important;
-  max-width: 100% !important;
-}
-
-stripe-buy-button::part(button) {
-  width: 100% !important;
-  min-width: 100% !important;
-  max-width: 100% !important;
-}
-
-/* Stripe container for responsive display */
-.stripe-container {
-  display: flex !important;
-  justify-content: center !important;
-  width: 100% !important;
-  max-width: 100% !important;
-  margin: 0 auto !important;
-  min-height: 120px !important;
-}
-
-/* Loading spinner for payment form */
-.donation-loading {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 120px;
-  width: 100%;
-  text-align: center;
-}
-
-.spinner {
-  width: 40px;
-  height: 40px;
-  border: 4px solid rgba(0, 0, 0, 0.1);
-  border-radius: 50%;
-  border-top-color: #007bff;
-  animation: spin 1s ease-in-out infinite;
-  margin-bottom: 1rem;
-}
-
-.spinner-small {
-  width: 24px;
-  height: 24px;
-  border: 3px solid rgba(0, 0, 0, 0.1);
-  border-radius: 50%;
-  border-top-color: #007bff;
-  animation: spin 1s ease-in-out infinite;
-  margin-bottom: 0.5rem;
-}
-
-.loading-text {
-  color: #718096;
-  font-size: 1rem;
-  margin-top: 0.5rem;
-}
-
-/* Error message styling */
-.error-message {
-  display: block;
-  font-size: 0.95rem;
-  color: #e53e3e;
-  background-color: #fed7d7;
-  border-radius: 8px;
-  padding: 0.75rem 1rem;
-  margin-top: 1rem;
-  text-align: center;
-  width: 100%;
-  box-sizing: border-box;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-/* Global Navigation Tab Styles */
-.sponsor-nav-tabs {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 2rem;
-  gap: 1rem;
-  border-bottom: 1px solid #eaeaea;
-  padding-bottom: 1rem;
-}
-
-.nav-tab {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  padding: 0.85rem 1.5rem;
-  text-decoration: none;
-  color: #555;
-  transition: all 0.2s ease;
-  border-radius: 8px 8px 0 0;
-}
-
-.nav-tab:hover {
-  color: #0A192F;
-}
-
-.nav-tab.active {
-  color: #007bff;
-  font-weight: 500;
-  border-bottom: 3px solid #007bff;
-}
-
-.tab-icon {
-  margin-right: 0.75rem;
-  font-size: 1.25rem;
-}
-
-.tab-text {
-  font-size: 1rem;
-}
-
-.tab-badge {
-  position: absolute;
-  top: -8px;
-  right: -8px;
-  background-color: #ff5a5f;
-  color: white;
-  font-size: 0.65rem;
-  padding: 0.15rem 0.4rem;
-  border-radius: 10px;
-  font-weight: 500;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-/* Mobile Navigation Tab Styles */
-@media (max-width: 768px) {
-  .sponsor-nav-tabs {
-    width: 100%;
-    gap: 0.5rem;
-    padding-bottom: 0.5rem;
-    overflow-x: auto;
-    justify-content: flex-start;
-    -webkit-overflow-scrolling: touch;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-  }
-  
-  .nav-tab {
-    padding: 0.75rem 1rem;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-  
-  .tab-icon {
-    margin-right: 0.5rem;
-    font-size: 1.1rem;
-  }
-  
-  .tab-text {
-    font-size: 0.9rem;
-  }
-  
-  .tab-badge {
-    font-size: 0.6rem;
-    padding: 0.1rem 0.3rem;
-    top: -5px;
-    right: -5px;
-  }
-}
-
-/* Desktop donation container styles */
-@media (min-width: 769px) {
-  .donation-container {
-    display: flex;
-    flex-direction: row;
+  .sponsorship-tiers {
+    grid-template-columns: 1fr;
     gap: 2rem;
-    margin: 2rem 0;
-    width: 100%;
   }
 
-  .donation-left {
-    flex: 1;
-    width: 60%;
+  .tier-card {
+    max-width: 100%;
   }
 
-  .donation-right {
-    flex: 1;
-    width: 40%;
+  .subscription-header h2 {
+    font-size: 1.75rem;
+  }
+
+  .one-time-header h3 {
+    font-size: 1.5rem;
+  }
+
+  .section-content {
+    grid-template-columns: 1fr;
   }
 }
 
-.donation-benefits {
-  background-color: #f8fafc;
-  border-radius: 12px;
-  padding: 2rem;
-  height: 100%;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-}
-
-.donation-benefits h4 {
-  font-size: 1.25rem;
-  margin-bottom: 1.5rem;
-  color: #2d3748;
-  font-weight: 600;
-}
-
-.donation-benefits-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.donation-benefits-list li {
-  display: flex;
-  align-items: center;
-  padding-bottom: 1.25rem;
-  margin-bottom: 1.25rem;
-  border-bottom: 1px solid #edf2f7;
-}
-
-.donation-benefits-list li:last-child {
-  border-bottom: none;
-  padding-bottom: 0;
-  margin-bottom: 0;
-}
-
-.benefit-icon {
-  margin-right: 1rem;
-  font-size: 1.5rem;
-  color: #4299e1;
-  flex-shrink: 0;
-}
-
-.benefit-content h5 {
-  font-size: 1.1rem;
-  margin: 0 0 0.5rem;
-  color: #2d3748;
-  font-weight: 600;
-}
-
-.benefit-content p {
-  margin: 0;
-  color: #4a5568;
-  line-height: 1.5;
-}
-
-.donation-card {
-  background-color: white;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-  border: 1px solid #e2e8f0;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1.5rem;
-}
-
-.donation-card-header {
-  background-color: #f7fafc;
-  padding: 1.25rem 1.5rem;
-  border-bottom: 1px solid #edf2f7;
-}
-
-.donation-card-header h4 {
-  margin: 0;
-  color: #2d3748;
-  font-size: 1.25rem;
-  font-weight: 600;
-}
-
-.donation-card-content {
-  padding: 2rem 1.5rem;
-  flex-grow: 1;
-}
-
-.donation-card-footer {
-  background-color: #f7fafc;
-  padding: 1rem 1.5rem;
-  border-top: 1px solid #edf2f7;
-  font-size: 0.95rem;
-  color: #718096;
-}
-
-.stripe-container {
-  min-height: 120px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.donation-loading {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 120px;
-  width: 100%;
-}
-
-.spinner {
-  width: 40px;
-  height: 40px;
-  border: 4px solid rgba(0, 0, 0, 0.1);
-  border-radius: 50%;
-  border-top-color: #007bff;
-  animation: spin 1s ease-in-out infinite;
-  margin-bottom: 1rem;
-}
-
-.loading-text {
-  color: #718096;
-  font-size: 1rem;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
+@media (min-width: 769px) and (max-width: 1024px) {
+  .sponsorship-tiers {
+    grid-template-columns: repeat(2, 1fr);
   }
-} 
+}

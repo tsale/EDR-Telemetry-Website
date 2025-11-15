@@ -2,10 +2,43 @@ import TemplatePage from '../components/TemplatePage'
 import Link from 'next/link'
 import Script from 'next/script'
 import Head from 'next/head'
+import { useEffect } from 'react'
 import useHeadingLinks from '../hooks/useHeadingLinks'
 
 export default function PremiumServices() {
   useHeadingLinks()
+
+  useEffect(() => {
+    // Initialize Cal.com after component mounts and script loads
+    const initCal = () => {
+      if (typeof window !== 'undefined' && window.Cal) {
+        try {
+          window.Cal("init", "edr-telemetry-discussion-call", {origin:"https://app.cal.com"});
+          
+          window.Cal.ns["edr-telemetry-discussion-call"]("inline", {
+            elementOrSelector:"#my-cal-inline-edr-telemetry-discussion-call",
+            config: {"layout":"month_view","theme":"auto"},
+            calLink: "kostas-hcq78e/edr-telemetry-discussion-call",
+          });
+          
+          window.Cal.ns["edr-telemetry-discussion-call"]("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
+        } catch (error) {
+          console.error('Cal.com initialization error:', error)
+        }
+      }
+    }
+
+    // Check repeatedly until Cal is loaded
+    const checkAndInit = () => {
+      if (window.Cal) {
+        initCal()
+      } else {
+        setTimeout(checkAndInit, 100)
+      }
+    }
+
+    checkAndInit()
+  }, [])
 
   return (
     <TemplatePage
@@ -173,17 +206,8 @@ export default function PremiumServices() {
             .
           </p>
         </section>
-        <Script id="cal-inline-embed-premium" strategy="afterInteractive">
-          {`(function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
-Cal("init", "edr-telemetry-discussion-call", {origin:"https://app.cal.com"});
-
-Cal.ns["edr-telemetry-discussion-call"]("inline", {
-  elementOrSelector:"#my-cal-inline-edr-telemetry-discussion-call",
-  config: {"layout":"month_view","theme":"auto"},
-  calLink: "kostas-hcq78e/edr-telemetry-discussion-call",
-});
-
-Cal.ns["edr-telemetry-discussion-call"]("ui", {"hideEventTypeDetails":false,"layout":"month_view"});`}
+        <Script id="cal-inline-embed-premium" strategy="lazyOnload">
+          {`(function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");`}
         </Script>
       </div>
     </TemplatePage>
