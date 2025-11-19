@@ -369,12 +369,12 @@ export default function Eligibility() {
               </div>
               <div className="eligibility-exclusion-row">
                 <div className="product-col">Wazuh</div>
-                <div className="primary-reason-col">No Native Telemetry Collection</div>
+                <div className="primary-reason-col">Different Product Category</div>
                 <div className="details-col">
                   <ul>
-                    <li>Relies on external tools (Sysmon, OSQuery) for basic endpoint telemetry collection</li>
-                    <li>Functions primarily as a log aggregator rather than direct telemetry collector</li>
-                    <li>Lacks native real-time event streaming capabilities for endpoint activities</li>
+                    <li>Designed as a Unified XDR and SIEM platform with broader security monitoring scope beyond traditional EDR</li>
+                    <li>While offering native telemetry capabilities, architecture differs from dedicated EDR sensor-based implementations</li>
+                    <li>Platform focuses on unified security operations rather than specialized endpoint-centric EDR telemetry depth</li>
                   </ul>
                 </div>
               </div>
