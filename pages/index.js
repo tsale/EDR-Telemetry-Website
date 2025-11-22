@@ -10,7 +10,7 @@ import {
 export default function Home() {
   const stats = [
     { value: "20+", label: "Solutions Analyzed", icon: Database },
-    { value: "3", label: "Platforms Covered", icon: Server },
+    { value: "2", label: "Platforms Covered", icon: Server },
     { value: "100%", label: "Open Source", icon: Globe },
     { value: "100%", label: "Vendor Agnostic", icon: Shield },
   ]
@@ -62,10 +62,6 @@ export default function Home() {
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
           <div className="text-center max-w-4xl mx-auto mb-16">
-            <div className="inline-flex items-center px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-300 text-sm font-medium mb-6 backdrop-blur-sm">
-              <span className="flex h-2 w-2 rounded-full bg-blue-400 mr-2 animate-pulse"></span>
-              EDR Telemetry Comparison Platform
-            </div>
             
             <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 !text-white leading-tight">
               EDR Telemetry of<br />
