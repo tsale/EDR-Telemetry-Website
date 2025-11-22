@@ -1,6 +1,7 @@
 import TemplatePage from '../components/TemplatePage'
 import { useState, useEffect } from 'react'
 import useHeadingLinks from '../hooks/useHeadingLinks'
+import { Trophy, TrendingUp, TrendingDown, BarChart3, Info, Github, Award, Medal, Crown } from 'lucide-react'
 
 // Common scoring values for both Windows and Linux
 const FEATURES_DICT_VALUED = {
@@ -268,101 +269,184 @@ export default function Scores() {
   return (
     <TemplatePage title="EDR Telemetry Scores: Vendor-Neutral Benchmarking"
       description="Compare endpoint detection telemetry depth with transparent, weighted scoring for Windows and Linux.">
-      <div className="scores-page">
-        <div className="hero-section">
-          <div className="hero-content">
-            <h1>EDR Telemetry Scores</h1>
-            <p>Compare the telemetry capabilities of different EDR solutions based on our scoring methodology.</p>
+      
+      {/* Hero Section */}
+      <section className="relative bg-slate-900 text-white py-20 overflow-hidden">
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute -top-[30%] -left-[10%] w-[70%] h-[70%] rounded-full bg-blue-900/20 blur-[100px]"></div>
+          <div className="absolute -bottom-[30%] -right-[10%] w-[70%] h-[70%] rounded-full bg-indigo-900/20 blur-[100px]"></div>
+        </div>
+        
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10 flex flex-col items-center">
+          <div className="inline-flex items-center px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-300 text-sm font-medium mb-6 backdrop-blur-sm">
+            <Trophy className="w-4 h-4 mr-2" />
+            Transparent Scoring Methodology
+          </div>
+          
+          <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight mb-6 !text-white heading-processed">
+            EDR Telemetry Scores
+          </h1>
+          
+          <div className="w-full flex justify-center">
+            <p className="mt-6 text-xl !text-slate-300 max-w-3xl leading-relaxed text-center">
+              Compare the telemetry capabilities of different EDR solutions based on our transparent, weighted scoring methodology.
+            </p>
           </div>
         </div>
+      </section>
 
-        <div className="scores-container">
+      <div className="bg-slate-50 min-h-screen py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Platform selector */}
-          <div className="platform-selector">
-            <button 
-              className={`platform-btn ${currentPlatform === 'windows' ? 'active' : ''}`}
-              onClick={() => setCurrentPlatform('windows')}
-            >
-              Windows
-            </button>
-            <button 
-              className={`platform-btn linux ${currentPlatform === 'linux' ? 'active' : ''}`}
-              onClick={() => setCurrentPlatform('linux')}
-            >
-              Linux
-            </button>
+          <div className="flex justify-center mb-8">
+            <div className="inline-flex rounded-xl bg-white shadow-lg p-1 border border-slate-200">
+              <button 
+                className={`px-6 py-3 rounded-lg font-semibold transition-all ${
+                  currentPlatform === 'windows' 
+                    ? '!bg-blue-600 !text-white shadow-md' 
+                    : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50'
+                }`}
+                onClick={() => setCurrentPlatform('windows')}
+              >
+                Windows
+              </button>
+              <button 
+                className={`px-6 py-3 rounded-lg font-semibold transition-all ${
+                  currentPlatform === 'linux' 
+                    ? '!bg-orange-500 !text-white shadow-md' 
+                    : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50'
+                }`}
+                onClick={() => setCurrentPlatform('linux')}
+              >
+                Linux
+              </button>
+            </div>
           </div>
           
           {/* Error message */}
           {error && (
-            <div className="error-container">
-              <h3>Unable to Load Data</h3>
-              <p>{error}</p>
+            <div className="bg-red-50 border border-red-200 rounded-xl p-6 text-center max-w-2xl mx-auto mb-8">
+              <div className="text-red-600 mb-2">
+                <Info className="w-8 h-8 mx-auto mb-2" />
+                <h3 className="text-lg font-bold">Unable to Load Data</h3>
+              </div>
+              <p className="text-red-700">{error}</p>
             </div>
           )}
           
           {/* Loading state */}
           {isLoading && (
-            <div className="loader-wrapper">
-              <div className="loader"></div>
+            <div className="flex justify-center items-center min-h-[400px]">
+              <div className="flex flex-col items-center">
+                <div className="w-12 h-12 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin"></div>
+                <p className="mt-4 text-slate-600 font-medium">Loading scores...</p>
+              </div>
             </div>
           )}
           
           {/* Scores content */}
           {!isLoading && !error && (
-            <div className="scores-content">
+            <div className="grid lg:grid-cols-3 gap-8">
               {/* Scores table */}
-              <div className="scores-table-wrapper">
-                <table className="scores-table">
-                  <thead>
-                    <tr>
-                      <th>Rank</th>
-                      <th>EDR Solution</th>
-                      <th>Score</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {scores.map((entry, index) => (
-                      <tr key={entry.edr} className={getRowClass(index)}>
-                        <td className="rank">
-                          {renderRank(index)}
-                        </td>
-                        <td>
-                          <div className="edr-cell">
-                            <span className="edr-name">{entry.edr}</span>
-                            <span className={`platform-tag ${currentPlatform}`}>
-                              {currentPlatform}
-                            </span>
-                          </div>
-                        </td>
-                        <td className="score">
-                          {entry.score.toFixed(2)}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+              <div className="lg:col-span-2">
+                <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200">
+                  <div className="overflow-x-auto">
+                    <table className="w-full">
+                      <thead className="bg-slate-50 border-b border-slate-200">
+                        <tr>
+                          <th className="px-6 py-4 text-left text-sm font-bold text-slate-700">Rank</th>
+                          <th className="px-6 py-4 text-left text-sm font-bold text-slate-700">EDR Solution</th>
+                          <th className="px-6 py-4 text-right text-sm font-bold text-slate-700">Score</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-100">
+                        {scores.map((entry, index) => (
+                          <tr 
+                            key={entry.edr} 
+                            className={`transition-all hover:bg-slate-50 ${
+                              index === 0 ? 'bg-amber-50/50' : 
+                              index === 1 ? 'bg-slate-100/50' : 
+                              index === 2 ? 'bg-orange-50/50' : ''
+                            }`}
+                          >
+                            <td className="px-6 py-4">
+                              <div className="flex items-center">
+                                {index === 0 && <Crown className="w-5 h-5 text-amber-500 mr-2" />}
+                                {index === 1 && <Medal className="w-5 h-5 text-slate-400 mr-2" />}
+                                {index === 2 && <Award className="w-5 h-5 text-orange-600 mr-2" />}
+                                <span className={`font-bold ${
+                                  index === 0 ? 'text-amber-600 text-xl' :
+                                  index === 1 ? 'text-slate-500 text-xl' :
+                                  index === 2 ? 'text-orange-600 text-xl' :
+                                  'text-slate-600'
+                                }`}>
+                                  {index + 1}
+                                </span>
+                              </div>
+                            </td>
+                            <td className="px-6 py-4">
+                              <div className="flex items-center gap-3">
+                                <span className="font-semibold text-slate-900">{entry.edr}</span>
+                                <span className={`px-2 py-1 text-xs font-bold rounded-md uppercase ${
+                                  currentPlatform === 'windows' 
+                                    ? 'bg-blue-100 text-blue-700' 
+                                    : 'bg-orange-100 text-orange-700'
+                                }`}>
+                                  {currentPlatform}
+                                </span>
+                              </div>
+                            </td>
+                            <td className="px-6 py-4 text-right">
+                              <span className="text-lg font-bold text-slate-900">
+                                {entry.score.toFixed(2)}
+                              </span>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
               
               {/* Statistics */}
-              <div className="stats-card">
-                <h3>Score Statistics</h3>
-                <div className="stat-item">
-                  <div className="stat-label">Average Score</div>
-                  <div className="stat-value">
-                    {stats.avgScore.toFixed(2)}
+              <div className="lg:col-span-1">
+                <div className="bg-white rounded-2xl shadow-xl p-6 border border-slate-200 sticky top-24">
+                  <div className="flex items-center gap-2 mb-6">
+                    <BarChart3 className="w-6 h-6 text-blue-600" />
+                    <h3 className="text-xl font-bold text-slate-900">Score Statistics</h3>
                   </div>
-                </div>
-                <div className="stat-item">
-                  <div className="stat-label">Highest Score</div>
-                  <div className="stat-value highest">
-                    {stats.maxScore.toFixed(2)}
-                  </div>
-                </div>
-                <div className="stat-item">
-                  <div className="stat-label">Lowest Score</div>
-                  <div className="stat-value lowest">
-                    {stats.minScore.toFixed(2)}
+                  
+                  <div className="space-y-6">
+                    <div className="p-4 bg-slate-50 rounded-xl">
+                      <div className="flex items-center gap-2 text-sm text-slate-600 mb-2">
+                        <BarChart3 className="w-4 h-4" />
+                        <span className="font-medium">Average Score</span>
+                      </div>
+                      <div className="text-3xl font-bold text-blue-600">
+                        {stats.avgScore.toFixed(2)}
+                      </div>
+                    </div>
+                    
+                    <div className="p-4 bg-emerald-50 rounded-xl">
+                      <div className="flex items-center gap-2 text-sm text-emerald-700 mb-2">
+                        <TrendingUp className="w-4 h-4" />
+                        <span className="font-medium">Highest Score</span>
+                      </div>
+                      <div className="text-3xl font-bold text-emerald-600">
+                        {stats.maxScore.toFixed(2)}
+                      </div>
+                    </div>
+                    
+                    <div className="p-4 bg-red-50 rounded-xl">
+                      <div className="flex items-center gap-2 text-sm text-red-700 mb-2">
+                        <TrendingDown className="w-4 h-4" />
+                        <span className="font-medium">Lowest Score</span>
+                      </div>
+                      <div className="text-3xl font-bold text-red-600">
+                        {stats.minScore.toFixed(2)}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -370,101 +454,103 @@ export default function Scores() {
           )}
           
           {/* Scoring methodology */}
-          <div className="methodology">
-            <h2 id="scoring-methodology">Understanding the Scores</h2>
-            <p>Our scoring system evaluates EDR solutions based on telemetry capabilities across various categories. Each telemetry feature is weighted based on its importance in endpoint detection and response.</p>
+          <div className="mt-12 bg-white rounded-2xl shadow-xl p-8 border border-slate-200">
+            <h2 id="scoring-methodology" className="text-3xl font-bold text-slate-900 mb-4">Understanding the Scores</h2>
+            <p className="text-lg text-slate-600 mb-8">Our scoring system evaluates EDR solutions based on telemetry capabilities across various categories. Each telemetry feature is weighted based on its importance in endpoint detection and response.</p>
             
-            <div className="methodology-sections">
-              <div className="methodology-section">
-                <h3 id="status-values">Status Values</h3>
-                <table className="status-table">
-                  <thead>
-                    <tr>
-                      <th>Status</th>
-                      <th>Value</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Yes</td>
-                      <td>1.0</td>
-                    </tr>
-                    <tr>
-                      <td>Via EnablingTelemetry</td>
-                      <td>1.0</td>
-                    </tr>
-                    <tr>
-                      <td>Partially</td>
-                      <td>0.5</td>
-                    </tr>
-                    <tr>
-                      <td>Via EventLogs</td>
-                      <td>0.5</td>
-                    </tr>
-                    <tr>
-                      <td>No</td>
-                      <td>0</td>
-                    </tr>
-                    <tr>
-                      <td>Pending Response</td>
-                      <td>0</td>
-                    </tr>
-                  </tbody>
-                </table>
+            <div className="grid md:grid-cols-2 gap-8 mb-8">
+              <div>
+                <h3 id="status-values" className="text-xl font-bold text-slate-900 mb-4">Status Values</h3>
+                <div className="bg-slate-50 rounded-xl overflow-hidden border border-slate-200">
+                  <table className="w-full">
+                    <thead className="bg-slate-100">
+                      <tr>
+                        <th className="px-4 py-3 text-left text-sm font-bold text-slate-700">Status</th>
+                        <th className="px-4 py-3 text-right text-sm font-bold text-slate-700">Value</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-200">
+                      <tr className="hover:bg-white transition-colors">
+                        <td className="px-4 py-3 text-slate-700">Yes</td>
+                        <td className="px-4 py-3 text-right font-bold text-emerald-600">1.0</td>
+                      </tr>
+                      <tr className="hover:bg-white transition-colors">
+                        <td className="px-4 py-3 text-slate-700">Via EnablingTelemetry</td>
+                        <td className="px-4 py-3 text-right font-bold text-emerald-600">1.0</td>
+                      </tr>
+                      <tr className="hover:bg-white transition-colors">
+                        <td className="px-4 py-3 text-slate-700">Partially</td>
+                        <td className="px-4 py-3 text-right font-bold text-amber-600">0.5</td>
+                      </tr>
+                      <tr className="hover:bg-white transition-colors">
+                        <td className="px-4 py-3 text-slate-700">Via EventLogs</td>
+                        <td className="px-4 py-3 text-right font-bold text-amber-600">0.5</td>
+                      </tr>
+                      <tr className="hover:bg-white transition-colors">
+                        <td className="px-4 py-3 text-slate-700">No</td>
+                        <td className="px-4 py-3 text-right font-bold text-red-600">0</td>
+                      </tr>
+                      <tr className="hover:bg-white transition-colors">
+                        <td className="px-4 py-3 text-slate-700">Pending Response</td>
+                        <td className="px-4 py-3 text-right font-bold text-red-600">0</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
               
-              <div className="methodology-section">
-                <h3 id="feature-weights">Feature Weights</h3>
-                <p>Each telemetry feature category is weighted based on its importance in the overall assessment. Some key examples include:</p>
+              <div>
+                <h3 id="feature-weights" className="text-xl font-bold text-slate-900 mb-4">Feature Weights</h3>
+                <p className="text-slate-600 mb-4">Each telemetry feature category is weighted based on its importance in the overall assessment. Some key examples include:</p>
                 
-                <div className="weight-cards">
-                  <div className="weight-card">
-                    <span className="category-name">Process Creation</span>
-                    <span className="weight-value">1.0</span>
+                <div className="grid grid-cols-2 gap-2 mb-4">
+                  <div className="flex justify-between items-center p-3 bg-slate-50 rounded-lg border border-slate-200">
+                    <span className="text-sm font-medium text-slate-700">Process Creation</span>
+                    <span className="text-sm font-bold text-blue-600">1.0</span>
                   </div>
-                  <div className="weight-card">
-                    <span className="category-name">Process Access</span>
-                    <span className="weight-value">1.0</span>
+                  <div className="flex justify-between items-center p-3 bg-slate-50 rounded-lg border border-slate-200">
+                    <span className="text-sm font-medium text-slate-700">Process Access</span>
+                    <span className="text-sm font-bold text-blue-600">1.0</span>
                   </div>
-                  <div className="weight-card">
-                    <span className="category-name">File Creation</span>
-                    <span className="weight-value">1.0</span>
+                  <div className="flex justify-between items-center p-3 bg-slate-50 rounded-lg border border-slate-200">
+                    <span className="text-sm font-medium text-slate-700">File Creation</span>
+                    <span className="text-sm font-bold text-blue-600">1.0</span>
                   </div>
-                  <div className="weight-card">
-                    <span className="category-name">File Modification</span>
-                    <span className="weight-value">1.0</span>
+                  <div className="flex justify-between items-center p-3 bg-slate-50 rounded-lg border border-slate-200">
+                    <span className="text-sm font-medium text-slate-700">File Modification</span>
+                    <span className="text-sm font-bold text-blue-600">1.0</span>
                   </div>
-                  <div className="weight-card">
-                    <span className="category-name">File Deletion</span>
-                    <span className="weight-value">1.0</span>
+                  <div className="flex justify-between items-center p-3 bg-slate-50 rounded-lg border border-slate-200">
+                    <span className="text-sm font-medium text-slate-700">File Deletion</span>
+                    <span className="text-sm font-bold text-blue-600">1.0</span>
                   </div>
-                  <div className="weight-card">
-                    <span className="category-name">DNS Query</span>
-                    <span className="weight-value">1.0</span>
+                  <div className="flex justify-between items-center p-3 bg-slate-50 rounded-lg border border-slate-200">
+                    <span className="text-sm font-medium text-slate-700">DNS Query</span>
+                    <span className="text-sm font-bold text-blue-600">1.0</span>
                   </div>
-                  <div className="weight-card">
-                    <span className="category-name">TCP Connection</span>
-                    <span className="weight-value">1.0</span>
+                  <div className="flex justify-between items-center p-3 bg-slate-50 rounded-lg border border-slate-200">
+                    <span className="text-sm font-medium text-slate-700">TCP Connection</span>
+                    <span className="text-sm font-bold text-blue-600">1.0</span>
                   </div>
-                  <div className="weight-card">
-                    <span className="category-name">Remote Thread</span>
-                    <span className="weight-value">1.0</span>
+                  <div className="flex justify-between items-center p-3 bg-slate-50 rounded-lg border border-slate-200">
+                    <span className="text-sm font-medium text-slate-700">Remote Thread</span>
+                    <span className="text-sm font-bold text-blue-600">1.0</span>
                   </div>
-                  <div className="weight-card">
-                    <span className="category-name">File Renaming</span>
-                    <span className="weight-value">0.7</span>
+                  <div className="flex justify-between items-center p-3 bg-slate-50 rounded-lg border border-slate-200">
+                    <span className="text-sm font-medium text-slate-700">File Renaming</span>
+                    <span className="text-sm font-bold text-amber-600">0.7</span>
                   </div>
-                  <div className="weight-card">
-                    <span className="category-name">Account Login</span>
-                    <span className="weight-value">0.7</span>
+                  <div className="flex justify-between items-center p-3 bg-slate-50 rounded-lg border border-slate-200">
+                    <span className="text-sm font-medium text-slate-700">Account Login</span>
+                    <span className="text-sm font-bold text-amber-600">0.7</span>
                   </div>
-                  <div className="weight-card">
-                    <span className="category-name">Process Termination</span>
-                    <span className="weight-value">0.5</span>
+                  <div className="flex justify-between items-center p-3 bg-slate-50 rounded-lg border border-slate-200">
+                    <span className="text-sm font-medium text-slate-700">Process Termination</span>
+                    <span className="text-sm font-bold text-orange-600">0.5</span>
                   </div>
-                  <div className="weight-card">
-                    <span className="category-name">Account Logoff</span>
-                    <span className="weight-value">0.4</span>
+                  <div className="flex justify-between items-center p-3 bg-slate-50 rounded-lg border border-slate-200">
+                    <span className="text-sm font-medium text-slate-700">Account Logoff</span>
+                    <span className="text-sm font-bold text-orange-600">0.4</span>
                   </div>
                 </div>
                 
@@ -472,50 +558,78 @@ export default function Scores() {
                   href="https://github.com/tsale/EDR-Telemetry/blob/529c238c3af4bfaa9fce77350af21a6d5758fa39/Tools/compare.py#L7-L102" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="github-link"
+                  className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium transition-colors"
                 >
+                  <Github className="w-4 h-4" />
                   View complete weight distribution on GitHub
                 </a>
               </div>
             </div>
             
-            <div className="methodology-section">
-              <h3 id="optional-telemetry">Optional Telemetry & Fair Scoring</h3>
-              <p>To maintain fair and consistent scoring across all EDR vendors, new Sub-Categories are initially marked as &quot;optional&quot; and <strong>do not count against the final scoring</strong> until they reach sufficient adoption across the vendor ecosystem.</p>
+            <div className="mt-8">
+              <h3 id="optional-telemetry" className="text-xl font-bold text-slate-900 mb-4">Optional Telemetry & Fair Scoring</h3>
+              <p className="text-slate-600 mb-6">To maintain fair and consistent scoring across all EDR vendors, new Sub-Categories are initially marked as &quot;optional&quot; and <strong>do not count against the final scoring</strong> until they reach sufficient adoption across the vendor ecosystem.</p>
               
-              <div className="optional-info">
-                <div className="optional-rule">
-                  <strong>75% Coverage Rule:</strong> New Sub-Categories only contribute to vendor scores once they achieve at least 75% implementation coverage across all currently supported EDR vendors.
+              <div className="bg-blue-50 border-l-4 border-blue-500 rounded-r-xl p-6 space-y-4">
+                <div>
+                  <div className="flex items-start gap-2">
+                    <Info className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <strong className="text-blue-900">75% Coverage Rule:</strong>
+                      <p className="text-blue-800 mt-1">New Sub-Categories only contribute to vendor scores once they achieve at least 75% implementation coverage across all currently supported EDR vendors.</p>
+                    </div>
+                  </div>
                 </div>
-                <div className="optional-benefit">
-                  <strong>Why This Matters:</strong> This approach prevents unfair advantages for vendors who propose new telemetry additions, ensuring that scores reflect mature, widely-adopted telemetry capabilities rather than cutting-edge features that may not be universally supported.
+                <div>
+                  <div className="flex items-start gap-2">
+                    <Info className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <strong className="text-blue-900">Why This Matters:</strong>
+                      <p className="text-blue-800 mt-1">This approach prevents unfair advantages for vendors who propose new telemetry additions, ensuring that scores reflect mature, widely-adopted telemetry capabilities rather than cutting-edge features that may not be universally supported.</p>
+                    </div>
+                  </div>
                 </div>
-                <div className="optional-visual">
-                  <strong>Visual Indicator:</strong> Optional telemetry features are marked with a <span className="optional-badge">New</span> badge in the telemetry tables and will be promoted to scored telemetry once the coverage threshold is met.
+                <div>
+                  <div className="flex items-start gap-2">
+                    <Info className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <strong className="text-blue-900">Visual Indicator:</strong>
+                      <p className="text-blue-800 mt-1">Optional telemetry features are marked with a <span className="inline-block bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded uppercase">New</span> badge in the telemetry tables and will be promoted to scored telemetry once the coverage threshold is met.</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
             
-            <h3 id="final-score-calculation">Final Score Calculation</h3>
-            <div className="formula-container">
-              <div className="formula">
-                Total Score = Σ (Status Value × Feature Weight) <small>for non-optional features</small>
+            <div className="mt-8">
+              <h3 id="final-score-calculation" className="text-xl font-bold text-slate-900 mb-4">Final Score Calculation</h3>
+              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-6 text-center">
+                <div className="text-2xl font-bold text-slate-900 mb-2">
+                  Total Score = Σ (Status Value × Feature Weight)
+                </div>
+                <div className="text-sm text-slate-600 italic">
+                  for non-optional features
+                </div>
+                <p className="text-slate-700 mt-4 max-w-2xl mx-auto">
+                  The final score represents the weighted sum of all non-optional features, providing a comprehensive evaluation of each EDR solution&apos;s telemetry capabilities.
+                </p>
               </div>
-              <div className="formula-explanation">
-                The final score represents the weighted sum of all non-optional features, providing a comprehensive evaluation of each EDR solution&apos;s telemetry capabilities.
+              
+              <div className="mt-6">
+                <p className="text-slate-700 font-semibold mb-3">To calculate the score:</p>
+                <ol className="space-y-2 text-slate-600 list-decimal list-inside">
+                  <li>Optional telemetry features are excluded from the scoring calculation</li>
+                  <li>For each remaining telemetry feature (sub-category), we determine the implementation status (Yes, Partially, Via EventLogs, etc.)</li>
+                  <li>The status is converted to a numerical value according to the status table</li>
+                  <li>This value is multiplied by the weight assigned to that feature category</li>
+                  <li>All weighted values are summed to produce the final score</li>
+                </ol>
               </div>
+              
+              <p className="text-slate-600 mt-6">
+                This methodology ensures that more critical telemetry capabilities have a greater impact on the overall score, providing a fair and accurate comparison between different EDR solutions.
+              </p>
             </div>
-            
-            <p>To calculate the score:</p>
-            <ol>
-              <li>Optional telemetry features are excluded from the scoring calculation</li>
-              <li>For each remaining telemetry feature (sub-category), we determine the implementation status (Yes, Partially, Via EventLogs, etc.)</li>
-              <li>The status is converted to a numerical value according to the status table</li>
-              <li>This value is multiplied by the weight assigned to that feature category</li>
-              <li>All weighted values are summed to produce the final score</li>
-            </ol>
-            
-            <p>This methodology ensures that more critical telemetry capabilities have a greater impact on the overall score, providing a fair and accurate comparison between different EDR solutions.</p>
           </div>
         </div>
       </div>

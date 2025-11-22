@@ -40,3 +40,6 @@ yarn-error.log*
 # Old website
 .old-website/
 .github/copilot-instructions.md
+
+# SQL Migrations
+supabase/migrations

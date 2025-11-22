@@ -4,7 +4,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Script from 'next/script'
 import { loadStripe } from '@stripe/stripe-js'
-import { Target, Microscope, Users, Coffee, Star, Trophy } from 'lucide-react'
+import { Target, Microscope, Users, Coffee, Star, Trophy, CheckCircle } from 'lucide-react'
 
 // Initialize Stripe with null check
 const getStripe = () => {
@@ -243,207 +243,284 @@ export default function Sponsorship() {
         </div>
       )}
 
-      <div className="hero-section">
-        <div className="hero-content">
-          <h1>Become a Sponsor</h1>
-          <p>Support independent EDR telemetry research and gain exclusive benefits for your organization</p>
+      {/* Hero Section */}
+      <section className="relative bg-gradient-to-br from-purple-900 via-indigo-900 to-slate-900 text-white pt-20 pb-24 overflow-hidden">
+        {/* Abstract Background */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute -top-[30%] -left-[10%] w-[70%] h-[70%] rounded-full bg-purple-800/20 blur-[100px]"></div>
+          <div className="absolute -bottom-[30%] -right-[10%] w-[70%] h-[70%] rounded-full bg-indigo-800/20 blur-[100px]"></div>
         </div>
-      </div>
-
-      <div className="content-section">
-        <div className="sponsor-content">
-          {/* Value proposition */}
-          <div className="value-section">
-            <div className="value-grid">
-              <div className="value-card">
-                <div className="value-icon">
-                  <Target size={48} strokeWidth={1.5} />
-                </div>
-                <h3>Brand Visibility</h3>
-                <p>Prominent logo placement and recognition across our platform</p>
-              </div>
-              <div className="value-card">
-                <div className="value-icon">
-                  <Microscope size={48} strokeWidth={1.5} />
-                </div>
-                <h3>Early Access</h3>
-                <p>Get early insights into new research and telemetry data</p>
-              </div>
-              <div className="value-card">
-                <div className="value-icon">
-                  <Users size={48} strokeWidth={1.5} />
-                </div>
-                <h3>Community Impact</h3>
-                <p>Help shape the future of EDR telemetry standards</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Subscription section */}
-          <div id="monthly" className="subscription-section">
-            <div className="subscription-header">
-              <h2>Sponsorship Tiers</h2>
-              <p>Choose the plan that best fits your organization</p>
+        
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
+          <div className="text-center max-w-4xl mx-auto">
+            <div className="inline-flex items-center px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300 text-sm font-medium mb-6 backdrop-blur-sm">
+              <span className="flex h-2 w-2 rounded-full bg-purple-400 mr-2 animate-pulse"></span>
+              Sponsorship Program
             </div>
             
-            <div className="sponsorship-tiers">
-              <div className="tier-card bronze">
-                <div className="tier-header">
-                  <div className="tier-icon">
-                    <Coffee size={48} strokeWidth={1.5} />
-                  </div>
-                  <h3 className="tier-name">Bronze</h3>
-                  <div className="tier-price">
-                    <span className="price-amount">$5</span>
-                    <span className="price-period">/month</span>
-                  </div>
-                </div>
-                <div className="tier-content">
-                  <ul className="tier-features">
-                    <li>Discord community access</li>
-                    <li>Name on supporters page</li>
-                    <li>Monthly newsletter</li>
-                    <li>Support independent research</li>
-                  </ul>
-                </div>
-                <div className="tier-footer">
-                  <a 
-                    href="https://buy.stripe.com/dR6bKJgm69ko2yIaEJ" 
-                    className="tier-button bronze"
-                    onClick={handleCoffeeSupporterClick}
-                  >
-                    Become a Bronze Sponsor
-                  </a>
-                </div>
-              </div>
+            <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight mb-6 !text-white leading-tight">
+              Become a <span className="text-purple-400">Sponsor</span>
+            </h1>
+            
+            <p className="mt-6 text-xl !text-slate-300 text-center leading-relaxed text-balance px-4">
+              Support independent EDR telemetry research and gain exclusive benefits for your organization
+            </p>
+          </div>
+        </div>
+      </section>
 
-              <div className="tier-card silver featured">
-                <div className="featured-badge">Most Popular</div>
-                <div className="tier-header">
-                  <div className="tier-icon">
-                    <Star size={48} strokeWidth={1.5} />
-                  </div>
-                  <h3 className="tier-name">Silver</h3>
-                  <div className="tier-price">
-                    <div className="price-display">
-                      <span className="price-amount">${selectedPrice}</span>
-                      <span className="price-period">/month</span>
-                    </div>
-                    <div className="slider-container">
-                      <input
-                        type="range"
-                        min="0"
-                        max="100"
-                        value={getSliderValue()}
-                        onChange={handleSliderChange}
-                        className="price-slider"
-                      />
-                      <div className="price-markers">
-                        {priceSteps.map((price) => (
-                          <div 
-                            key={price} 
-                            className={`price-marker ${selectedPrice === price ? 'active' : ''}`}
-                          >
-                            ${price}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="tier-content">
-                  <ul className="tier-features">
-                    <li>All Bronze benefits</li>
-                    <li>Featured logo on website</li>
-                    <li>Early access to research</li>
-                    <li>Priority Discord support</li>
-                  </ul>
-                </div>
-                <div className="tier-footer">
-                  <a 
-                    href="#" 
-                    className="tier-button silver"
-                    onClick={(e) => handlePremiumSubscribe(e)}
-                  >
-                    Become a Silver Sponsor
-                  </a>
-                  {error && (
-                    <div className="error-message">
-                      {error}
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              <div className="tier-card gold">
-                <div className="tier-header">
-                  <div className="tier-icon">
-                    <Trophy size={48} strokeWidth={1.5} />
-                  </div>
-                  <h3 className="tier-name">Gold</h3>
-                  <div className="tier-price">
-                    <span className="price-amount">Custom</span>
-                  </div>
-                </div>
-                <div className="tier-content">
-                  <ul className="tier-features">
-                    <li>All Silver benefits</li>
-                    <li>Custom research reports</li>
-                    <li>Dedicated support channel</li>
-                    <li>Co-branded opportunities</li>
-                  </ul>
-                </div>
-                <div className="tier-footer">
-                  <Link href="/contact" className="tier-button gold">Contact Us</Link>
-                </div>
-              </div>
-            </div>
+      {/* Value Proposition Section */}
+      <div className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-3xl font-bold text-slate-900 mb-4">Why Sponsor the EDR Telemetry Project?</h2>
+            <p className="text-lg text-slate-600">
+              Your sponsorship helps maintain our independence and accelerates research that benefits the entire security community.
+            </p>
           </div>
 
-          {/* One-time support section - Secondary */}
-          <div id="one-time" className="one-time-support">
-            <div className="one-time-header">
-              <h3>One-Time Support</h3>
-              <p>Prefer to make a one-time contribution? We appreciate your support!</p>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-slate-200 hover:border-purple-300">
+              <div className="w-12 h-12 bg-purple-600 rounded-xl flex items-center justify-center mb-6 text-white shadow-lg shadow-purple-600/20 group-hover:scale-110 transition-transform">
+                <Target className="w-6 h-6" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-900 mb-3">Brand Visibility</h3>
+              <p className="text-slate-600">Prominent logo placement and recognition across our platform</p>
             </div>
-            
-            <div className="donation-container">
-              {loading ? (
-                <div className="donation-loading">
-                  <div className="spinner"></div>
-                  <p>Loading payment options...</p>
-                </div>
-              ) : (
-                <div className="donation-content">
-                  <stripe-buy-button
-                    buy-button-id="buy_btn_1QJlViJOUX0qB6cCvUZ0hBUX"
-                    publishable-key="pk_live_51IRtXuJOUX0qB6cCpzTTp982wIxr0zmR5xv7U79jAGLFuO7J3DJipFUezg1M2q67MABnewnfRUwXadgUnOO1tjjd00uHUj8bS9"
-                  >
-                  </stripe-buy-button>
-                </div>
-              )}
+            <div className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-slate-200 hover:border-indigo-300">
+              <div className="w-12 h-12 bg-indigo-600 rounded-xl flex items-center justify-center mb-6 text-white shadow-lg shadow-indigo-600/20 group-hover:scale-110 transition-transform">
+                <Microscope className="w-6 h-6" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-900 mb-3">Early Access</h3>
+              <p className="text-slate-600">Get early insights into new research and telemetry data</p>
+            </div>
+            <div className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-slate-200 hover:border-blue-300">
+              <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center mb-6 text-white shadow-lg shadow-blue-600/20 group-hover:scale-110 transition-transform">
+                <Users className="w-6 h-6" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-900 mb-3">Community Impact</h3>
+              <p className="text-slate-600">Help shape the future of EDR telemetry standards</p>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="community-section">
-        <div className="container">    
-          <div className="section-group">
-            <h2>Our Sponsors</h2>
-            <div id="sponsorsSection" className="section-content">
-              <div className="loading-spinner">
-                <div className="spinner"></div>
-                <p>Loading sponsors...</p>
+      {/* Subscription section */}
+      <div id="monthly" className="py-24 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-3xl font-bold text-slate-900 mb-4">Sponsorship Tiers</h2>
+            <p className="text-lg text-slate-600">
+              Choose the plan that best fits your organization
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* Bronze Tier */}
+            <div className="group relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-slate-200 hover:border-orange-300">
+              <div className="absolute inset-0 bg-gradient-to-br from-orange-50 to-transparent opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity"></div>
+              <div className="relative">
+                <div className="w-12 h-12 bg-orange-600 rounded-xl flex items-center justify-center mb-6 text-white shadow-lg shadow-orange-600/20 group-hover:scale-110 transition-transform">
+                  <Coffee className="w-6 h-6" />
+                </div>
+                <h3 className="text-2xl font-bold text-slate-900 mb-2">Bronze</h3>
+                <div className="mb-6">
+                  <span className="text-4xl font-bold text-slate-900">$5</span>
+                  <span className="text-slate-600">/month</span>
+                </div>
+                <ul className="space-y-3 mb-8">
+                  <li className="flex items-start">
+                    <CheckCircle className="w-5 h-5 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
+                    <span className="text-slate-600">Discord community access</span>
+                  </li>
+                  <li className="flex items-start">
+                    <CheckCircle className="w-5 h-5 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
+                    <span className="text-slate-600">Name on supporters page</span>
+                  </li>
+                  <li className="flex items-start">
+                    <CheckCircle className="w-5 h-5 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
+                    <span className="text-slate-600">Monthly newsletter</span>
+                  </li>
+                  <li className="flex items-start">
+                    <CheckCircle className="w-5 h-5 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
+                    <span className="text-slate-600">Support independent research</span>
+                  </li>
+                </ul>
+                <a 
+                  href="https://buy.stripe.com/dR6bKJgm69ko2yIaEJ" 
+                  className="inline-flex items-center justify-center w-full px-6 py-3 border border-transparent text-base font-bold rounded-xl !text-white bg-orange-600 hover:bg-orange-700 transition-all shadow-md hover:shadow-lg"
+                  onClick={handleCoffeeSupporterClick}
+                >
+                  Become a Bronze Sponsor
+                </a>
+              </div>
+            </div>
+
+            {/* Silver Tier - Featured */}
+            <div className="group relative bg-white rounded-2xl p-8 shadow-2xl transition-all duration-300 border-2 border-blue-400 hover:border-blue-500 transform md:-translate-y-2">
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-blue-600 text-white text-sm font-bold rounded-full shadow-lg">
+                Most Popular
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-transparent opacity-50 rounded-2xl"></div>
+              <div className="relative">
+                <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center mb-6 text-white shadow-lg shadow-blue-600/20 group-hover:scale-110 transition-transform">
+                  <Star className="w-6 h-6" />
+                </div>
+                <h3 className="text-2xl font-bold text-slate-900 mb-2">Silver</h3>
+                <div className="mb-4">
+                  <span className="text-4xl font-bold text-slate-900">${selectedPrice}</span>
+                  <span className="text-slate-600">/month</span>
+                </div>
+                <div className="mb-6">
+                  <input
+                    type="range"
+                    min="0"
+                    max="100"
+                    value={getSliderValue()}
+                    onChange={handleSliderChange}
+                    className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
+                  />
+                  <div className="flex justify-between mt-2">
+                    {priceSteps.map((price) => (
+                      <span 
+                        key={price} 
+                        className={`text-sm font-medium ${selectedPrice === price ? 'text-blue-600' : 'text-slate-400'}`}
+                      >
+                        ${price}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <ul className="space-y-3 mb-8">
+                  <li className="flex items-start">
+                    <CheckCircle className="w-5 h-5 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
+                    <span className="text-slate-600">All Bronze benefits</span>
+                  </li>
+                  <li className="flex items-start">
+                    <CheckCircle className="w-5 h-5 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
+                    <span className="text-slate-600">Featured logo on website</span>
+                  </li>
+                  <li className="flex items-start">
+                    <CheckCircle className="w-5 h-5 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
+                    <span className="text-slate-600">Early access to research</span>
+                  </li>
+                  <li className="flex items-start">
+                    <CheckCircle className="w-5 h-5 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
+                    <span className="text-slate-600">Priority Discord support</span>
+                  </li>
+                </ul>
+                <a 
+                  href="#" 
+                  className="inline-flex items-center justify-center w-full px-6 py-3 border border-transparent text-base font-bold rounded-xl !text-white bg-blue-600 hover:bg-blue-700 transition-all shadow-md hover:shadow-lg"
+                  onClick={(e) => handlePremiumSubscribe(e)}
+                >
+                  Become a Silver Sponsor
+                </a>
+                {error && (
+                  <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+                    {error}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Gold Tier */}
+            <div className="group relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-slate-200 hover:border-amber-300">
+              <div className="absolute inset-0 bg-gradient-to-br from-amber-50 to-transparent opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity"></div>
+              <div className="relative">
+                <div className="w-12 h-12 bg-amber-600 rounded-xl flex items-center justify-center mb-6 text-white shadow-lg shadow-amber-600/20 group-hover:scale-110 transition-transform">
+                  <Trophy className="w-6 h-6" />
+                </div>
+                <h3 className="text-2xl font-bold text-slate-900 mb-2">Gold</h3>
+                <div className="mb-6">
+                  <span className="text-3xl font-bold text-slate-900">Enterprise Sponsor</span>
+                </div>
+                <ul className="space-y-3 mb-8">
+                  <li className="flex items-start">
+                    <CheckCircle className="w-5 h-5 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
+                    <span className="text-slate-600">All other benefits+</span>
+                  </li>
+                  <li className="flex items-start">
+                    <CheckCircle className="w-5 h-5 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
+                    <span className="text-slate-600">Custom research reports</span>
+                  </li>
+                  <li className="flex items-start">
+                    <CheckCircle className="w-5 h-5 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
+                    <span className="text-slate-600">Dedicated communication line</span>
+                  </li>
+                  <li className="flex items-start">
+                    <CheckCircle className="w-5 h-5 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
+                    <span className="text-slate-600">Co-branded opportunities</span>
+                  </li>
+                  <li className="flex items-start">
+                    <CheckCircle className="w-5 h-5 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
+                    <span className="text-slate-600">Joint articles</span>
+                  </li>
+                  <li className="flex items-start">
+                    <CheckCircle className="w-5 h-5 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" />
+                    <span className="text-slate-600">Logo placement on website</span>
+                  </li>
+                </ul>
+                <Link href="/contact" className="inline-flex items-center justify-center w-full px-6 py-3 border border-transparent text-base font-bold rounded-xl !text-white bg-amber-600 hover:bg-amber-700 transition-all shadow-md hover:shadow-lg">
+                  Contact Us
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* One-time support section */}
+      <div id="one-time" className="py-24 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h3 className="text-2xl font-bold text-slate-900 mb-3">One-Time Support</h3>
+            <p className="text-lg text-slate-600">
+              Prefer to make a one-time contribution? We appreciate your support!
+            </p>
+          </div>
+          
+          <div className="bg-slate-50 rounded-2xl p-8 border border-slate-200">
+            {loading ? (
+              <div className="flex flex-col items-center justify-center py-12">
+                <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mb-4"></div>
+                <p className="text-slate-600">Loading payment options...</p>
+              </div>
+            ) : (
+              <div className="flex justify-center">
+                <stripe-buy-button
+                  buy-button-id="buy_btn_1QJlViJOUX0qB6cCvUZ0hBUX"
+                  publishable-key="pk_live_51IRtXuJOUX0qB6cCpzTTp982wIxr0zmR5xv7U79jAGLFuO7J3DJipFUezg1M2q67MABnewnfRUwXadgUnOO1tjjd00uHUj8bS9"
+                >
+                </stripe-buy-button>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Community Section */}
+      <div className="py-24 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="space-y-16">
+            {/* Sponsors */}
+            <div>
+              <h2 className="text-3xl font-bold text-slate-900 mb-8 text-center">Our Sponsors</h2>
+              <div id="sponsorsSection" className="bg-white rounded-2xl p-8 border border-slate-200 shadow-lg">
+                <div className="flex flex-col items-center justify-center py-12">
+                  <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mb-4"></div>
+                  <p className="text-slate-600">Loading sponsors...</p>
+                </div>
               </div>
             </div>
     
-            <div className="section-group">
-              <h2>One-Time Supporters</h2>
-              <div id="donorsSection" className="section-content">
-                <div className="loading-spinner">
-                  <div className="spinner"></div>
-                  <p>Loading supporters...</p>
+            {/* One-Time Supporters */}
+            <div>
+              <h2 className="text-3xl font-bold text-slate-900 mb-8 text-center">One-Time Supporters</h2>
+              <div id="donorsSection" className="bg-white rounded-2xl p-8 border border-slate-200 shadow-lg">
+                <div className="flex flex-col items-center justify-center py-12">
+                  <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mb-4"></div>
+                  <p className="text-slate-600">Loading supporters...</p>
                 </div>
               </div>
             </div>

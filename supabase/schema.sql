@@ -99,3 +99,30 @@ CREATE OR REPLACE TRIGGER update_linux_table_results_updated_at
 -- CREATE POLICY "Allow public read access" ON linux_telemetry FOR SELECT USING (true);
 -- CREATE POLICY "Allow public read access" ON windows_table_results FOR SELECT USING (true);
 -- CREATE POLICY "Allow public read access" ON linux_table_results FOR SELECT USING (true);
+
+-- Newsletter Subscribers Table
+-- Stores email addresses of users who subscribe to blog updates
+CREATE TABLE IF NOT EXISTS newsletter_subscribers (
+    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+    email TEXT NOT NULL UNIQUE,
+    subscribed_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+    is_active BOOLEAN DEFAULT true NOT NULL,
+    unsubscribed_at TIMESTAMP WITH TIME ZONE,
+    confirmation_token TEXT,
+    confirmed_at TIMESTAMP WITH TIME ZONE,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+-- Create indexes for newsletter subscribers
+CREATE INDEX IF NOT EXISTS idx_newsletter_subscribers_email ON newsletter_subscribers(email);
+CREATE INDEX IF NOT EXISTS idx_newsletter_subscribers_is_active ON newsletter_subscribers(is_active);
+CREATE INDEX IF NOT EXISTS idx_newsletter_subscribers_token ON newsletter_subscribers(confirmation_token);
+
+-- Create trigger to automatically update updated_at column for newsletter subscribers
+CREATE OR REPLACE TRIGGER update_newsletter_subscribers_updated_at 
+    BEFORE UPDATE ON newsletter_subscribers 
+    FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+-- Enable Row Level Security for newsletter subscribers
+ALTER TABLE newsletter_subscribers ENABLE ROW LEVEL SECURITY;

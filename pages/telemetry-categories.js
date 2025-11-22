@@ -1,6 +1,7 @@
 import TemplatePage from '../components/TemplatePage'
 import { useState } from 'react'
 import styles from '../styles/telemetry-categories.module.css'
+import { Grid, List, Search, X, Database } from 'lucide-react'
 
 export default function TelemetryCategories() {
   const [viewMode, setViewMode] = useState('grid') // 'grid' or 'list'
@@ -534,101 +535,130 @@ export default function TelemetryCategories() {
     <TemplatePage title="EDR Telemetry Categories: Endpoint Signals and Coverage"
       description="Explore endpoint detection telemetry categories across Windows, Linux, and macOS for vendor-neutral EDR comparison.">
       
-      <div className={styles.container}>
-        {/* Header */}
-        <div className="hero-section">
-          <div className="hero-content">
-            <h1
+      {/* Hero Section */}
+      <section className="relative bg-slate-900 text-white pt-20 pb-24 overflow-hidden">
+        {/* Abstract Background */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute -top-[30%] -left-[10%] w-[70%] h-[70%] rounded-full bg-blue-900/20 blur-[100px]"></div>
+          <div className="absolute -bottom-[30%] -right-[10%] w-[70%] h-[70%] rounded-full bg-indigo-900/20 blur-[100px]"></div>
+        </div>
+        
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
+          <div className="text-center max-w-4xl mx-auto">
+            <div className="inline-flex items-center px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-300 text-sm font-medium mb-6 backdrop-blur-sm">
+              <span className="flex h-2 w-2 rounded-full bg-blue-400 mr-2 animate-pulse"></span>
+              Telemetry Categories
+            </div>
+            
+            <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight mb-6 !text-white leading-tight"
               id="telemetry-categories-heading"
               aria-label="EDR Telemetry Categories"
             >
-              EDR Telemetry Categories
+              EDR Telemetry <span className="text-blue-400">Categories</span>
             </h1>
-            <p>Understanding the different types of endpoint data collected for threat detection</p>
+            
+            <p className="mt-6 text-xl !text-slate-300 text-center leading-relaxed text-balance px-4">
+              Understanding the different types of endpoint data collected for threat detection
+            </p>
           </div>
         </div>
+      </section>
+
+      <div className={styles.container}>
         
         {/* Platform tabs */}
-        <div className={styles['tabs-container']}>
-          <div className={styles.tabs}>
-            <button
-              onClick={() => handleTabChange('windows')}
-              className={`${styles.tab} ${activeTab === 'windows' ? styles.active : ''}`}
-              aria-label="Show Windows telemetry categories"
-            >
-              Windows
-            </button>
-            <button
-              onClick={() => handleTabChange('linux')}
-              className={`${styles.tab} ${activeTab === 'linux' ? styles.active : ''}`}
-              aria-label="Show Linux telemetry categories"
-            >
-              Linux
-            </button>
+        <div className="-mt-8 mb-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-center">
+              <div className="inline-flex rounded-xl bg-white shadow-lg border border-slate-200 p-1">
+                <button
+                  onClick={() => handleTabChange('windows')}
+                  className={`px-6 py-3 rounded-lg text-sm font-bold transition-all ${
+                    activeTab === 'windows'
+                      ? '!bg-blue-600 !text-white shadow-md'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                  }`}
+                  aria-label="Show Windows telemetry categories"
+                >
+                  Windows
+                </button>
+                <button
+                  onClick={() => handleTabChange('linux')}
+                  className={`px-6 py-3 rounded-lg text-sm font-bold transition-all ${
+                    activeTab === 'linux'
+                      ? '!bg-orange-600 !text-white shadow-md'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                  }`}
+                  aria-label="Show Linux telemetry categories"
+                >
+                  Linux
+                </button>
+              </div>
+            </div>
           </div>
         </div>
         
         {/* View toggle */}
-        <div className={styles['view-controls']}>
-          <div className={styles['view-toggle']}>
-            <button
-              onClick={() => handleViewChange('grid')}
-              className={`${styles['view-button']} ${viewMode === 'grid' ? styles.active : ''}`}
-              aria-label="Switch to grid view"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
-                <rect x="3" y="3" width="7" height="7"></rect>
-                <rect x="14" y="3" width="7" height="7"></rect>
-                <rect x="14" y="14" width="7" height="7"></rect>
-                <rect x="3" y="14" width="7" height="7"></rect>
-              </svg>
-              Grid View
-            </button>
-            <button
-              onClick={() => handleViewChange('list')}
-              className={`${styles['view-button']} ${viewMode === 'list' ? styles.active : ''}`}
-              aria-label="Switch to list view"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
-                <line x1="8" y1="6" x2="21" y2="6"></line>
-                <line x1="8" y1="12" x2="21" y2="12"></line>
-                <line x1="8" y1="18" x2="21" y2="18"></line>
-                <line x1="3" y1="6" x2="3.01" y2="6"></line>
-                <line x1="3" y1="12" x2="3.01" y2="12"></line>
-                <line x1="3" y1="18" x2="3.01" y2="18"></line>
-              </svg>
-              List View
-            </button>
+        <div className="mb-6">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-end">
+              <div className="inline-flex rounded-lg bg-slate-100 p-1">
+                <button
+                  onClick={() => handleViewChange('grid')}
+                  className={`inline-flex items-center px-4 py-2 rounded-md text-sm font-medium transition-all ${
+                    viewMode === 'grid'
+                      ? 'bg-white text-slate-900 shadow-sm'
+                      : 'text-slate-600 hover:text-slate-900'
+                  }`}
+                  aria-label="Switch to grid view"
+                >
+                  <Grid className="w-4 h-4 mr-2" />
+                  Grid View
+                </button>
+                <button
+                  onClick={() => handleViewChange('list')}
+                  className={`inline-flex items-center px-4 py-2 rounded-md text-sm font-medium transition-all ${
+                    viewMode === 'list'
+                      ? 'bg-white text-slate-900 shadow-sm'
+                      : 'text-slate-600 hover:text-slate-900'
+                  }`}
+                  aria-label="Switch to list view"
+                >
+                  <List className="w-4 h-4 mr-2" />
+                  List View
+                </button>
+              </div>
+            </div>
           </div>
         </div>
         
-              {/* Search bar - moved below content for subtlety */}
-              <div className={styles['search-container-subtle']}>
-          <div className={styles['search-wrapper-subtle']}>
-            <svg className={styles['search-icon']} xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="11" cy="11" r="8"></circle>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-            <input
-              type="text"
-              className={styles['search-input-subtle']}
-              placeholder="Filter telemetry categories..."
-              value={searchQuery}
-              onChange={handleSearchChange}
-              aria-label="Filter telemetry categories"
-            />
-            {searchQuery && (
-              <button
-                className={styles['search-clear']}
-                onClick={() => setSearchQuery('')}
-                aria-label="Clear search"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                  <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-              </button>
-            )}
+        {/* Search bar */}
+        <div className="mb-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-md">
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <Search className="h-5 w-5 text-slate-400" />
+                </div>
+                <input
+                  type="text"
+                  className="block w-full pl-10 pr-10 py-3 border border-slate-300 rounded-xl leading-5 bg-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                  placeholder="Filter telemetry categories..."
+                  value={searchQuery}
+                  onChange={handleSearchChange}
+                  aria-label="Filter telemetry categories"
+                />
+                {searchQuery && (
+                  <button
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600"
+                    onClick={() => setSearchQuery('')}
+                    aria-label="Clear search"
+                  >
+                    <X className="h-5 w-5" />
+                  </button>
+                )}
+              </div>
+            </div>
           </div>
         </div>
         

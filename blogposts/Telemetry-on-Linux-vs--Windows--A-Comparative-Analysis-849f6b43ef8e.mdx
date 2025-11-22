@@ -1,0 +1,141 @@
+---
+title: "Telemetry on Linux vs. Windows: A Comparative Analysis"
+subtitle: "A look at how Windows and Linux manage telemetry to support incident response operations."
+date: "2024-09-03"
+---
+
+* * *
+
+### Telemetry on Linux vs. Windows: A Comparative Analysis
+
+### Introduction
+
+In today’s highly advanced IT environments, telemetry plays a vital role in monitoring, securing, and responding to incidents. Both the Linux and Windows platforms have their own mechanisms for telemetry, but they are designed to provide visibility into system activity. However, capturing and interpretation of telemetry in these two platforms is not a one-to-one process. Differences in architectures, logging systems, and tools mean that what works for Windows cannot be simply translated into Linux and vice versa.
+
+This article explores the basic differences in telemetry between Windows and Linux using examples like authentication logs and process execution logs. We will also examine how these differences affect monitoring effectiveness, incident response, and overall system management. By understanding these nuances, system administrators and security professionals can better fine-tune telemetry strategies in alignment with the unique features of each platform.
+
+> _Read for free:_ [https://medium.com/@kostas-ts/telemetry-on-linux-vs-windows-a-comparative-analysis-849f6b43ef8e?sk=e89e16fce74da4e8b67f7a35e7d386a9](https://medium.com/@kostas-ts/telemetry-on-linux-vs-windows-a-comparative-analysis-849f6b43ef8e?sk=e89e16fce74da4e8b67f7a35e7d386a9)
+
+### 1\. Operating System Architecture and Diversity
+
+#### 1.1 The Uniformity of Windows
+
+Windows offers a relatively uniform platform, which simplifies telemetry collection. Administrators can deploy standardized solutions across all Windows systems, whether they are working with Windows Server or Windows 10/11. The consistency in core architecture and system components extends to telemetry, where Windows Event Logs serve as a centralized logging system. These logs can be accessed via the Event Viewer, PowerShell, or APIs like Windows Management Instrumentation (WMI), ensuring a streamlined approach to telemetry.
+
+**Example:** In a Windows environment, authentication events such as user logons are uniformly recorded in the Security log under Event ID 4624 for successful logons and 4625 for failed attempts. Similarly, process execution is tracked using Event ID 4688, providing a consistent view of key activities across systems.
+
+#### 1.2 Diversity in Linux Distributions
+
+On the other hand, thousands of Linux distributions (distros) offer different default configurations, package managers, and logging mechanisms. This diversity complicates telemetry capture, as there is no single standard for log storage, content, or format.
+
+**Example:** Logs of authentication events in Linux typically reside under `/var/log/auth.log` on Debian-based systems like Ubuntu and under `/var/log/secure` on Red Hat-based systems like CentOS. However, the details and structure of these files can vary significantly depending on the system version, the logging daemon used (e.g., rsyslog vs. systemd-journald), or administrator-defined logging rules.
+
+Similarly, while Windows uses a single event log for process creation (Event ID 4688), Linux often relies on tools like Auditd for logging process execution. The configuration and output of Auditd can vary significantly between implementations, making it challenging to standardize telemetry collection across different Linux systems.
+
+#### 1.3 Translating Telemetry: Not One-To-One
+
+Given these differences, translating telemetry strategies from Windows to Linux (or vice versa) is not straightforward. For example:
+
+*   **Authentication Logs:** Windows provides consistent Event IDs for tracking logon attempts. In Linux, administrators must navigate different log files and potentially varied logging formats.
+*   **Process Execution Logs:** Due to the centralized Event Logs within Windows, it’s simple to trace process creation. For equal visibility on Linux, it might take deploying **_Auditd_** with custom rules. Interpretation may vary based on Auditd configuration.
+
+This is a clear example of why customized telemetry strategies are necessary. A one-size-fits-all approach is ineffective when managing both Linux and Windows systems.
+
+### 2\. Logging Mechanisms and Data Aggregation
+
+#### 2.1 Unified Logging in Windows
+
+One of Windows’ strengths is its unified logging mechanism. Most telemetry data on the Windows platform is archived under Windows Event Logs, covering system events, application logs, and security along with many others. This centralization makes it much easier to aggregate, analyze, and correlate data.
+
+**Example:** If an administrator needs to investigate a suspected security incident, she can query the Security log for authentication attempts, the System log for driver and hardware-related events, and the Application log for issues related to software running on the system. The data would all be in one place, in the same format and structure.
+
+#### 2.2 The Logging Anarchy of Linux
+
+On the other hand, Linux does not have a single, centralized logging mechanism. Instead, logs are normally spread over dozens of files in `/var/log/`, managed by different logging daemons like rsyslog, syslog-ng, or journalctl (which is systemd's own logging part). Each application or service may use its own log file format and retention policy, making it more difficult to aggregate logs for full-spectrum analysis.
+
+**Example:** System events would usually end up in `/var/log/syslog` or `/var/log/messages`, while the authentication-related logs could be located in `/var/log/auth.log` or `/var/log/secure`. Process execution might be monitored via Auditd, or it may not be logged at all if Auditd isn’t configured. Administrators often need to use tools like Logstash, Fluentd, or custom scripts to parse and manage these logs effectively.
+
+#### 2.3 Windows VS Linux Telemetry: Highlighting the Differences
+
+To better illustrate how these differ, take the example of collecting logs from a web server:
+
+*   **Windows:** All logs are available from an IIS (Internet Information Services) web server running on Windows; those include HTTP request logs, errors, and application-specific events. These can be viewed directly using the Event Viewer or found under a dedicated log directory: `C:\\inetpub\\logs\\LogFiles`. Aggregating these logs for analysis in a SIEM (Security Information and Event Management) tool is relatively straightforward.
+*   **Linux:** On a Linux server running Apache or Nginx, logs are typically stored in `/var/log/apache2/` or `/var/log/nginx/`. However, error logs, access logs, and application logs are all in separate files. To centralize those logs, administrators would need to use **_Logrotate_** to manage log file size and retention, then use tools like **_Filebeat_** or **_Fluentd_** to ship the logs to a central repository for analysis.
+
+This example use case shows that achieving comprehensive logging on Linux requires more manual effort and is more complex compared to Windows.
+
+### 3\. Balancing Act: Flexibility vs. Consistency
+
+#### 3.1 Customization in Linux
+
+One of Linux’s greatest strengths is its flexibility and customizability. Administrators can tweak almost every part of the system, starting with the kernel and going all the way to the user’s environment, thus allowing for specialized configuration. However, this flexibility can be a double-edged sword, particularly regarding telemetry, as different Linux configurations may apply across various setups.
+
+**Example:** An administrator may have selectively changed the default logging to a nonstandard location. As a result, security applications looking into logs or incident responders conducting an investigation might not be able to reproduce the steps to collect evidence or logs consistently, making it difficult to ensure comprehensive data collection across different Linux environments.
+
+#### 3.2 The Controlled Environment of Windows
+
+Windows, on the other hand, operates in a more controlled environment. While customization is, of course, possible — especially through tools like PowerShell, Group Policy, and the Windows Registry — the core telemetry mechanisms in the system stay pretty consistent across different installations. This predictability means a lot less work for telemetry collection, as administrators can rest assured that a uniform set of tools and practice methods can be leaned upon.
+
+For instance, a system administrator in a Windows environment can use Group Policy to ensure that all machines within a domain are configured consistently for Windows Event Logging. This means important logs, such as security and system event logs, are collected uniformly and sent to a central SIEM system like Splunk. Administrators do not need to worry about the idiosyncrasies of each system, as the same policies apply universally.
+
+While this surely makes life easier for the administrators, it equally limits how well this can be set up. For most organizations, this trade-off is acceptable since they want to ensure all the systems are running under some common standard of security and monitoring.
+
+#### 3.3 Practical Implications for Incident Response
+
+The difference in customization levels between Linux and Windows has significant consequences for incident response.
+
+*   **Linux Example:** Consider a Linux server where logging behavior has been altered for performance reasons. During incident analysis, an investigator might discover that key logs, such as those produced by Auditd, are not located where expected or are not enabled.
+*   **Windows Example:** In a Windows environment, incident responders can typically rely on a predictable set of logs and telemetry data. For example, when investigating unauthorized access, they can query the Windows Security Event Log for Event ID 4625 to find unsuccessful login attempts, with the information consistent across all systems.
+
+Linux’s adaptability offers both strengths and challenges. Incident response must be conducted with precision to avoid overlooking necessary data. On the other hand, the consistency of a Windows environment can greatly enhance response efficiency.
+
+### 4\. Expanding on Linux Telemetry with Auditd and Sysmon
+
+Before concluding the article, let’s delve deeper into how to configure `Auditd` and capture important telemetry data and compare this with the Windows Event Logs. We will also highlight the use of Sysmon for Linux and its advantages for incident response.
+
+#### 4.1 Configuring Auditd for Key Telemetry Data
+
+To set up `Auditd` for monitoring critical activities, you would typically edit the file `/etc/audit/rules.d/audit.rules` and add rules based on what you need to monitor. Below are some of the most useful `Auditd` rules that will generate logs you need to have when responding to an incident:
+
+Linux & Windows Important Log Events
+
+> Of course, there are other platform-specific logs that you should collect, such as PowerShell logs for Windows and Cron logs for Linux. I'm only sharing some basic logs for comparison purposes, which will provide you with a lot of useful information during an investigation.
+
+When `Auditd` is configured to log process executions (using `execve` system call), a typical log entry might look like this:
+
+type\=SYSCALL msg=audit(1725072449): arch=c000003e syscall=59 success=yes exit=0 a0=55a3891b4300 a1=55a3891742e8 a2=55a389128b70 a3=7fff8d5d34d0 items=2 ppid=1001 pid=2001 auid=1000 uid=0 gid=0 euid=0 suid=0 fsuid=0 egid=0 sgid=0 fsgid=0 tty=pts0 ses=1 comm="bash" exe="/bin/bash" key="process\_creation"  
+type\=EXECVE msg=audit(1725072455): argc=3 a0="ls" a1="-" a2="la"  
+type\=CWD msg=audit(1725072473): cwd="/home/user"  
+type\=PATH msg=audit(1725072499): item=1 name="/lib64/ld-linux-x86–64.so.2" inode=56789 dev=08:01 mode=0100755 ouid=0 ogid=0 rdev=00:00 nametype=NORMAL
+
+#### 4.2 Honorable Mention: Sysmon for Linux
+
+In addition to `Auditd`, Sysmon for Linux has quickly become a great alternative for gathering detailed telemetry. Originally designed for Windows, Sysmon offers extensive system monitoring data and has now been adapted for Linux environments. With the proper configuration, Sysmon for Linux can capture a wide range of telemetry, including:
+
+Sysmon For Linux Event IDs
+
+> _For those familiar with Windows, the equivalent Sysmon Event IDs can be found_ [_here_](https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon)_, which provides detailed descriptions and configuration options for Sysmon for Windows._
+
+The Sysmon configuration format remains the same for the Linux version. This is important because it represents a significant step towards unified configuration alignment. Of course, the contents of the config will differ, but the format and structure remain the same.
+
+You can take a look at some examples of the raw logs on Olaf’s [blog here](https://medium.com/@olafhartong/sysmon-for-linux-57de7ca48575) without having to try it yourself.
+
+### Conclusion
+
+Telemetry collected from Linux and Windows systems reflects their distinct architectures and design philosophies. Windows adopts a more centralized and consistent approach, simplifying telemetry collection in an enterprise setting. In contrast, Linux excels in flexibility and customization, which is its greatest strength, but it also introduces complexity in telemetry capture, especially in diverse environments.
+
+Windows is ideal for environments prioritizing standardization and simplicity, while Linux is better suited for those requiring flexibility and having the expertise to manage increased complexity. By understanding these differences, you can develop effective monitoring and incident response strategies that align with the strengths of each platform. You can also utilize additional tools mentioned in this article to overcome the limitations of each platform.
+
+I’m excited to share that my [EDR Telemetry](https://github.com/tsale/EDR-Telemetry) project will soon be expanded to Linux. The categories and subcategories of supported telemetry will be based on the capabilities of Sysmon for Linux and Auditd, providing a comprehensive breakdown of telemetry features from EDR products and endpoint agents. The categories will later be expanded as more EDR vendors are added to the Linux EDR telemetry comparison table.
+
+If you enjoyed this article and want to see more content like it, feel free to follow me on [Twitter](https://x.com/kostastsale) and [LinkedIn](https://www.linkedin.com/in/kostastsale/). Have a great day!
+
+### References
+
+*   [Installing and Configuring Auditd](https://kb.armor.com/kb/installing-and-configuring-auditd) — A guide to setting up and configuring `Auditd` on Linux systems.
+*   [Sysmon for Linux Configuration](https://github.com/microsoft/MSTIC-Sysmon/blob/main/linux/configs/collect-all.xml) — Example Sysmon for Linux configuration file.
+*   [Linux Auditd for Threat Detection](https://izyknows.medium.com/linux-auditd-for-threat-detection-d06c8b941505) — An article on using `Auditd` for detecting threats on Linux.
+*   [Auditd Examples](https://github.com/EricGershman/auditd-examples) — A repository containing various `Auditd` configuration examples.
+*   [Linux Auditd for Threat Hunting Part 2](https://izyknows.medium.com/linux-auditd-for-threat-hunting-part-2-c75500f591e8) — A continuation guide on using `Auditd` for threat hunting.
+*   [Linux Auditd for Threat Detection (Final)](https://izyknows.medium.com/linux-auditd-for-threat-detection-final-9d5173706b3f) — The final part in a series on configuring `Auditd` for effective threat detection.
+*   [Critical Windows Event IDs to Monitor](https://graylog.org/post/critical-windows-event-ids-to-monitor/) — A resource outlining important Windows Event IDs to monitor for security purposes.

@@ -6,60 +6,15 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react"
 import Search from './Search'
 import AnnouncementBanner from './AnnouncementBanner'
+import Header from './Header'
 
 export default function TemplatePage({ children, title = 'EDR Telemetry Project', description = 'EDR Telemetry Project - Exploring telemetry capabilities of EDR solutions' }) {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [platformsMenuOpen, setPlatformsMenuOpen] = useState(false)
-  const [reportsMenuOpen, setReportsMenuOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
   const router = useRouter()
-  const [isMobile, setIsMobile] = useState(false);
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || ''
   const canonicalPath = router.asPath ? router.asPath.split('?')[0] : ''
   const canonicalUrl = siteUrl && canonicalPath ? `${siteUrl}${canonicalPath}` : ''
   const defaultOgImage = siteUrl ? `${siteUrl}/images/edr_telemetry_logo.png` : ''
-
-  // Detect mobile device on client side
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    
-    return () => {
-      window.removeEventListener('resize', checkMobile);
-    };
-  }, []);
-
-  // Close mobile menu on route change
-  useEffect(() => {
-    setMobileMenuOpen(false)
-    setPlatformsMenuOpen(false)
-    setReportsMenuOpen(false)
-  }, [router.pathname])
-  
-  // Close menu when clicking outside (for mobile)
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      const navMenu = document.querySelector('nav');
-      const mobileToggle = document.querySelector('.mobile-menu-toggle');
-      
-      if (mobileMenuOpen && navMenu && !navMenu.contains(event.target) && 
-          mobileToggle && !mobileToggle.contains(event.target)) {
-        setMobileMenuOpen(false);
-      }
-    };
-    
-    if (mobileMenuOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-    
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [mobileMenuOpen]);
 
   // Add keyboard shortcut for search
   useEffect(() => {
@@ -74,46 +29,6 @@ export default function TemplatePage({ children, title = 'EDR Telemetry Project'
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [])
 
-  const toggleMobileMenu = () => {
-    setMobileMenuOpen(!mobileMenuOpen)
-  }
-
-  const togglePlatformsMenu = (e) => {
-    if (e) e.preventDefault()
-    
-    // On mobile, make sure both menus are open with one click
-    if (isMobile && !mobileMenuOpen) {
-      setMobileMenuOpen(true);
-    }
-    
-    setPlatformsMenuOpen(!platformsMenuOpen)
-  }
-  
-  const toggleReportsMenu = (e) => {
-    if (e) e.preventDefault()
-    
-    // On mobile, make sure both menus are open with one click
-    if (isMobile && !mobileMenuOpen) {
-      setMobileMenuOpen(true);
-    }
-    
-    setReportsMenuOpen(!reportsMenuOpen)
-  }
-  
-  // Check if the current path matches the link
-  const isActive = (path) => {
-    return router.pathname === path ? 'active' : ''
-  }
-
-  // Check if any platform page is active
-  const isPlatformsActive = () => {
-    return ['/windows', '/linux', '/macos'].includes(router.pathname) ? 'active' : ''
-  }
-
-  // Check if any reports page is active
-  const isReportsActive = () => {
-    return ['/scores', '/statistics'].includes(router.pathname) ? 'active' : ''
-  }
 
   return (
     <div className="page-container">
@@ -145,169 +60,11 @@ export default function TemplatePage({ children, title = 'EDR Telemetry Project'
 
       <AnnouncementBanner />
 
-      <header>
-        <div className="header-container" style={{ display: 'flex', alignItems: 'center', padding: '0' }}>
-          <div className="logo" style={{ padding: '0', margin: '0', marginRight: '3rem' }}>
-            <div className="brand-group">
-              <a
-                href="https://defendpoint.ca"
-                className="defendpoint-badge"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Defendpoint Consulting"
-              >
-                <img src="/images/defendpoint_logo.svg" alt="Defendpoint Consulting logo" className="defendpoint-icon" />
-                <div className="defendpoint-badge-text">
-                  <span>Defendpoint</span>
-                  <span>Consulting</span>
-                </div>
-              </a>
-              <Link href="/" className="edr-brand">
-                <img src="/images/edr_telemetry_logo.png" alt="EDR Telemetry Logo" className="logo-icon edr-logo" />
-                <span className="edr-brand-text">
-                  <span className="edr-brand-title">EDR</span>
-                  <span className="edr-brand-subtitle">Telemetry</span>
-                </span>
-              </Link>
-            </div>
-          </div>
-          
-          <button 
-            className="search-trigger"
-            onClick={() => setSearchOpen(true)}
-            aria-label="Open search"
-          >
-            <svg viewBox="0 0 24 24" width="20" height="20">
-              <path fill="none" stroke="currentColor" strokeWidth="2" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 0 0 1.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 0 0-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 0 0 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14z"/>
-            </svg>
-            <span className="search-shortcut">⌘K</span>
-          </button>
-          
-          <button 
-            className={`mobile-menu-toggle ${mobileMenuOpen ? 'active' : ''}`}
-            onClick={toggleMobileMenu}
-            aria-label="Toggle menu"
-          >
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-          
-          <nav style={{ flex: 1, display: 'flex', justifyContent: 'center' }} className={mobileMenuOpen ? 'active' : ''}>
-            <ul>
-              <li className={isActive('/')}>
-                <Link href="/">Home</Link>
-              </li>
-              <li className={`dropdown ${isPlatformsActive()}`}>
-                <div 
-                  style={{ display: 'flex', alignItems: 'center' }}
-                  onClick={(e) => {
-                    if (isMobile) {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      togglePlatformsMenu(e);
-                    }
-                  }}
-                >
-                  <a 
-                    href="#" 
-                    onClick={(e) => !isMobile && togglePlatformsMenu(e)} 
-                    className={`dropdown-link ${isPlatformsActive()}`}
-                  >
-                    Platforms
-                  </a>
-                  {isMobile && (
-                    <a 
-                      href="#" 
-                      className="dropdown-toggle" 
-                      onClick={(e) => { e.preventDefault(); togglePlatformsMenu(e) }}
-                      onTouchStart={(e) => { e.preventDefault(); togglePlatformsMenu(e) }}
-                      style={{ 
-                        marginLeft: '5px', 
-                        fontSize: '0.7rem',
-                        display: 'inline-block',
-                        padding: '2px 5px'
-                      }}
-                    >
-                      {platformsMenuOpen ? '▲' : '▼'}
-                    </a>
-                  )}
-                </div>
-                <ul className={`dropdown-menu ${platformsMenuOpen ? 'active' : ''}`}>
-                  <li className={isActive('/windows')}>
-                    <Link href="/windows">Windows</Link>
-                  </li>
-                  <li className={isActive('/linux')}>
-                    <Link href="/linux">Linux</Link>
-                  </li>
-                  <li className={isActive('/macOS')}>
-                    <Link href="/macos">MacOS</Link>
-                  </li>
-                </ul>
-              </li>
-              <li className={isActive('/eligibility')}>
-                <Link href="/eligibility">Eligibility</Link>
-              </li>
-              <li className={`dropdown ${isReportsActive()}`}>
-                <div 
-                  style={{ display: 'flex', alignItems: 'center' }}
-                  onClick={(e) => {
-                    if (isMobile) {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      toggleReportsMenu(e);
-                    }
-                  }}
-                >
-                  <Link 
-                    href="/scores" 
-                    className={`dropdown-link ${isActive('/scores')}`}
-                  >
-                    Scores
-                  </Link>
-                  {isMobile && (
-                    <a 
-                      href="#" 
-                      className="dropdown-toggle" 
-                      onClick={(e) => { e.preventDefault(); toggleReportsMenu(e) }}
-                      onTouchStart={(e) => { e.preventDefault(); toggleReportsMenu(e) }}
-                      style={{ 
-                        marginLeft: '5px', 
-                        fontSize: '0.7rem',
-                        display: 'inline-block',
-                        padding: '2px 5px'
-                      }}
-                    >
-                      {reportsMenuOpen ? '▲' : '▼'}
-                    </a>
-                  )}
-                </div>
-                <ul className={`dropdown-menu ${reportsMenuOpen ? 'active' : ''}`}>
-                  <li className={isActive('/statistics')}>
-                    <Link href="/statistics">Statistics</Link>
-                  </li>
-                </ul>
-              </li>
-              <li className={isActive('/sponsorship')} style={{ whiteSpace: 'nowrap' }}>
-                <Link href="/sponsorship">Support Us</Link>
-              </li>
-              <li className={isActive('/premium-services')} style={{ 
-                fontWeight: 'bold',
-                background: 'linear-gradient(90deg, rgba(52, 152, 219, 0.2), transparent)',
-                borderRadius: '4px',
-                padding: '0 1px',
-                whiteSpace: 'nowrap'
-              }}>
-                <Link href="/premium-services">Premium Services</Link>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </header>
+      <Header onSearchClick={() => setSearchOpen(true)} />
 
       <Search isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
 
-      <main>{children}</main>
+      <main className="pb-8">{children}</main>
 
       <footer>
         <div className="footer-container">

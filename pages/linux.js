@@ -3,6 +3,11 @@ import { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import useHeadingLinks from '../hooks/useHeadingLinks'
 import Link from 'next/link'
 import Head from 'next/head'
+import { 
+  Terminal, Search, Filter, ArrowRight, CheckCircle, XCircle, 
+  AlertTriangle, HelpCircle, FileText, Settings, Sliders,
+  BarChart3, Globe, Activity, Database
+} from 'lucide-react'
 
 export default function Linux() {
   // State for telemetry data and UI
@@ -19,183 +24,217 @@ export default function Linux() {
   // Ref for the table element (for hover and comparison effects)
   const tableRef = useRef(null);
 
-  // Custom CSS styles (copied from windows.js)
+  // Custom CSS styles (modernized)
   const customStyles = `
     /* Table container styling */
     .telemetry-table-container {
       overflow-x: auto;
-      margin: 1.5rem 0;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      margin: 0;
+      border-radius: 0.75rem;
       max-height: 70vh;
       overflow-y: auto;
       position: relative;
-      max-width: 90vw; /* Increased width from default */
-      margin-left: auto;
-      margin-right: auto;
+      width: 100%;
+      -webkit-overflow-scrolling: touch; /* Smooth horizontal scrolling on iOS */
+      overscroll-behavior: contain; /* Prevent parent scroll chaining */
     }
+    
     /* Base table styling */
     .telemetry-table {
       width: 100%;
       border-collapse: separate;
       border-spacing: 0;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       background: #fff;
-      border-radius: 8px;
-      overflow: visible;
+      /* Ensure the table can expand beyond the viewport so horizontal scroll appears */
+      min-width: 600px;
     }
+    
     /* Header styling */
     .telemetry-table thead {
       position: sticky;
       top: 0;
       z-index: 45;
     }
+    
     .telemetry-table th {
-      padding: 1rem 0.8rem;
+      padding: 1rem 1rem;
       text-align: left;
       font-weight: 600;
-      color: #2c3e50;
-      border-bottom: 2px solid #000000;
+      color: #334155;
+      border-bottom: 1px solid #e2e8f0;
       position: sticky;
       top: 0;
-      background-color: #e0e5eb;
+      background-color: #f8fafc;
       z-index: 45;
       white-space: nowrap;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
+    
     /* Feature column styling */
     .telemetry-table .feature-column {
       font-weight: 600;
-      min-width: 150px;
-      background-color: #d0d6e0;
+      min-width: var(--feature-col-width, 180px);
+      width: var(--feature-col-width, 180px);
+      background-color: #f1f5f9;
+      position: static;
+      left: auto;
+      z-index: auto;
+      border-right: 1px solid #e2e8f0;
+      color: #334155;
+    }
+    
+    /* Subcategory column styling */
+    .telemetry-table .subcategory-column {
+      min-width: var(--subcategory-col-width, 200px);
+      width: var(--subcategory-col-width, 200px);
+      background-color: #f1f5f9;
       position: sticky;
       left: 0;
       z-index: 40;
-      border-right: 1px solid #bbc0c7;
-      color: #2c3e50;
+      border-right: 1px solid #e2e8f0;
+      color: #475569;
     }
-    /* Subcategory column styling */
-    .telemetry-table .subcategory-column {
-      min-width: 180px;
-      background-color: #d0d6e0;
-      position: sticky;
-      left: 150px;
-      z-index: 40;
-      border-right: 1px solid #bbc0c7;
-      color: #2c3e50;
-    }
+    
     /* Corner header cells */
     .telemetry-table th.feature-column {
       position: sticky;
       top: 0;
-      left: 0;
-      z-index: 60;
-      background-color: #d0d6e0;
+      left: auto;
+      z-index: 45;
+      background-color: #f1f5f9;
+      color: #1e293b;
     }
+    
     .telemetry-table th.subcategory-column {
       position: sticky;
       top: 0;
-      left: 150px;
+      left: 0;
       z-index: 60;
-      background-color: #d0d6e0;
+      background-color: #f1f5f9;
+      color: #1e293b;
     }
+    
     /* Regular header cells */
     .telemetry-table th.edr-column {
-      background-color: #d0d6e0;
-      color: #2c3e50;
-      border-bottom: 2px solid #000000;
-      border-right: 2px solid rgb(154, 152, 152);
+      background-color: #f8fafc;
+      color: #334155;
+      border-bottom: 1px solid #e2e8f0;
+      border-right: 1px solid #e2e8f0;
       position: sticky;
       top: 0;
       z-index: 45;
     }
+    
     /* Auditd styling */
     .auditd-header {
-      background-color: #1565c0 !important;
+      background-color: #1e40af !important; /* blue-800 */
       color: white !important;
-      border-bottom: 3px solid #0d47a1 !important;
+      border-bottom: 2px solid #1e3a8a !important;
     }
+    
     .auditd-column {
-      background-color: #e3f2fd;
+      background-color: #eff6ff; /* blue-50 */
     }
+    
     /* Sysmon styling */
     .sysmon-header {
-      background-color: #1b5e20 !important;
+      background-color: #166534 !important; /* green-800 */
       color: white !important;
-      border-bottom: 3px solid #0d3f13 !important;
+      border-bottom: 2px solid #14532d !important;
     }
+    
     .sysmon-column {
-      background-color: #f5fff5;
+      background-color: #f0fdf4; /* green-50 */
     }
+    
     /* Cell styling */
     .telemetry-table td {
-      padding: 0.85rem 0.8rem;
-      border-bottom: 1px solid #e9ecef;
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid #f1f5f9;
       text-align: center;
       transition: background-color 0.2s;
+      white-space: nowrap;
     }
+    
+    /* When rows are alternating colors, keep first two columns consistent */
+    .telemetry-table tbody tr:nth-child(even) td.feature-column,
+    .telemetry-table tbody tr:nth-child(even) td.subcategory-column {
+      background-color: #f1f5f9;
+    }
+    
     /* Alternating row colors */
     .telemetry-table tbody tr:nth-child(even) {
-      background-color: #f9fafb;
+      background-color: #ffffff;
     }
-    .telemetry-table tbody tr:hover {
-      background-color: #f0f7ff;
+    .telemetry-table tbody tr:nth-child(odd) {
+      background-color: #fcfcfd;
     }
-    .telemetry-table tbody tr:hover td.feature-column,
-    .telemetry-table tbody tr:hover td.subcategory-column {
-      background-color: #c0c8d8;
-    }
+    
     /* Status icon styling */
     .status-icon {
       display: inline-flex;
       justify-content: center;
       align-items: center;
-      width: 32px;
-      height: 32px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
-      font-size: 1.25rem;
+      font-size: 1.1rem;
       transition: transform 0.2s ease;
       position: relative;
     }
+    
     .telemetry-table td:hover .status-icon {
       transform: scale(1.2);
     }
+    
     /* Hover highlighting effects */
     .telemetry-table td.highlight-row {
-      background-color: rgba(255, 255, 0, 0.1);
+      background-color: rgba(59, 130, 246, 0.05) !important;
     }
+    
     .telemetry-table td.highlight-column {
-      background-color: rgba(0, 200, 255, 0.1);
+      background-color: rgba(59, 130, 246, 0.05) !important;
     }
+    
     .telemetry-table td.highlight-cell {
-      background-color: rgba(255, 165, 0, 0.2);
-      font-weight: bold;
+      background-color: rgba(59, 130, 246, 0.1) !important;
+      font-weight: 600;
     }
+    
     /* Comparison mode styling */
     .telemetry-table.comparison-mode td.difference {
-      background-color: rgba(255, 0, 0, 0.08);
+      background-color: rgba(239, 68, 68, 0.05);
       position: relative;
     }
+    
     .telemetry-table.comparison-mode td.difference::after {
       content: "≠";
       position: absolute;
-      top: 4px;
-      right: 4px;
-      font-size: 10px;
-      color: #e53935;
+      top: 2px;
+      right: 2px;
+      font-size: 9px;
+      color: #ef4444;
       font-weight: bold;
     }
+    
     tr.has-differences {
-      box-shadow: inset 0 0 0 2px rgba(255, 0, 0, 0.2);
+      box-shadow: inset 2px 0 0 0 #ef4444;
     }
+    
     /* Custom tooltip styling */
     .custom-tooltip-wrapper {
       position: relative;
       display: inline-block;
     }
+    
     .custom-tooltip-wrapper:hover .custom-tooltip {
       visibility: visible;
       opacity: 1;
     }
+    
     .custom-tooltip {
       visibility: hidden;
       opacity: 0;
@@ -203,7 +242,7 @@ export default function Linux() {
       bottom: 125%;
       left: 50%;
       transform: translateX(-50%);
-      background-color: rgba(33, 33, 33, 0.9);
+      background-color: #1e293b;
       color: white;
       text-align: center;
       border-radius: 6px;
@@ -211,13 +250,14 @@ export default function Linux() {
       width: max-content;
       max-width: 250px;
       z-index: 100;
-      transition: opacity 0.3s;
-      font-size: 0.85rem;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      transition: opacity 0.2s;
+      font-size: 0.75rem;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
       pointer-events: none;
       white-space: normal;
       line-height: 1.4;
     }
+    
     .custom-tooltip::after {
       content: "";
       position: absolute;
@@ -226,8 +266,9 @@ export default function Linux() {
       margin-left: -5px;
       border-width: 5px;
       border-style: solid;
-      border-color: rgba(33, 33, 33, 0.9) transparent transparent transparent;
+      border-color: #1e293b transparent transparent transparent;
     }
+    
     /* Info indicator for partially implemented status */
     .has-explanation {
       position: relative;
@@ -238,438 +279,82 @@ export default function Linux() {
       position: absolute;
       bottom: -2px;
       right: -2px;
-      width: 14px;
-      height: 14px;
-      background: #2196f3;
+      width: 12px;
+      height: 12px;
+      background: #3b82f6;
       color: white;
       border-radius: 50%;
-      font-size: 10px;
-      line-height: 14px;
+      font-size: 9px;
+      line-height: 12px;
       font-weight: bold;
       font-style: italic;
+      border: 1px solid white;
     }
+    
     /* Status icon colors */
     .status-icon.yes {
-      background-color: rgba(46, 125, 50, 0.1);
+      background-color: rgba(34, 197, 94, 0.1);
+      color: #15803d;
     }
+    
     .status-icon.no {
-      background-color: rgba(211, 47, 47, 0.1);
+      background-color: rgba(239, 68, 68, 0.1);
+      color: #b91c1c;
     }
+    
     .status-icon.partially {
-      background-color: rgba(245, 124, 0, 0.1);
+      background-color: rgba(249, 115, 22, 0.1);
+      color: #c2410c;
     }
+    
     .status-icon.pending {
-      background-color: rgba(123, 31, 162, 0.1);
+      background-color: rgba(168, 85, 247, 0.1);
+      color: #7e22ce;
     }
+    
     .status-icon.via-enabling {
-      background-color: rgba(0, 137, 123, 0.1);
-    }
-    /* Toggle switch styling */
-    .toggle-switch {
-      display: flex;
-      align-items: center;
-      margin-bottom: 1rem;
-      position: relative;
-      height: 30px;
-    }
-    .toggle-switch input[type="checkbox"] {
-      height: 0;
-      width: 0;
-      visibility: hidden;
-      position: absolute;
-    }
-    .toggle-switch label {
-      cursor: pointer;
-      width: 50px;
-      height: 24px;
-      background: #ccc;
-      display: inline-block;
-      border-radius: 24px;
-      position: relative;
-      margin-right: 12px;
-      top: 0;
-      flex-shrink: 0;
-    }
-    .toggle-switch label:after {
-      content: '';
-      position: absolute;
-      top: 3px;
-      left: 3px;
-      width: 18px;
-      height: 18px;
-      background: #fff;
-      border-radius: 18px;
-      transition: 0.3s;
-    }
-    .toggle-switch input:checked + label {
-      background: #2196F3;
-    }
-    .toggle-switch input:checked + label:after {
-      left: calc(100% - 3px);
-      transform: translateX(-100%);
-    }
-    .toggle-switch span {
-      display: inline-block;
-      font-size: 0.95rem;
-      color: #2c3e50;
-      font-weight: 500;
-      line-height: 24px;
-      position: relative;
-      top: 0;
-    }
-    /* Legend styling */
-    .legend-container {
-      background-color: #fff;
-      border-radius: 8px;
-      padding: 1rem;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    }
-    .legend-title {
-      font-weight: 600;
-      color: #2c3e50;
-      margin-bottom: 0.8rem;
-      border-bottom: 1px solid #e9ecef;
-      padding-bottom: 0.5rem;
-    }
-    .legend-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-    }
-    .legend-item {
-      display: flex;
-      align-items: center;
-      padding: 0.5rem;
-      border-radius: 6px;
-      transition: background-color 0.2s;
-    }
-    .legend-item:hover {
-      background-color: #f8f9fa;
-    }
-    .legend-icon {
-      font-size: 1.25rem;
-      margin-right: 0.75rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 32px;
-    }
-    .legend-text {
-      display: flex;
-      flex-direction: column;
-    }
-    .legend-label {
-      font-weight: 600;
-      color: #2c3e50;
-    }
-    .legend-description {
-      font-size: 0.8rem;
-      color: #7f8c8d;
+      background-color: rgba(14, 165, 233, 0.1);
+      color: #0369a1;
     }
     
-    /* Optional telemetry message and badge styling */
-    .optional-message {
-      background-color: #f0f7ff;
-      border: 1px solid #e3f2fd;
-      border-radius: 6px;
-      padding: 0.75rem 1rem;
-      margin: 0.5rem 0 1rem 0;
-      font-size: 0.9rem;
-      line-height: 1.5;
-      color: #6c757d;
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0.5rem;
+    .status-icon.unknown {
+      background-color: #f1f5f9;
+      color: #64748b;
     }
     
-    .optional-message a {
-      color: #1976d2;
-      text-decoration: underline;
-      font-weight: 500;
-    }
-    
-    .optional-message a:hover {
-      color: #1565c0;
-      text-decoration: none;
-    }
-    
-    .optional-badge {
-      display: inline-block;
-      background-color: #2196f3;
-      color: #ffffff;
-      font-size: 0.75rem;
-      font-weight: 600;
-      padding: 0.2rem 0.5rem;
-      border-radius: 4px;
-      vertical-align: middle;
-      margin-right: 0.5rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      line-height: 1;
-    }
-    
-    .optional-badge:hover {
-      background-color: #1976d2;
-    }
-    
-    .optional-badge:focus {
-      outline: 2px solid #1976d2;
-      outline-offset: 2px;
-    }
-    
-    /* Filter controls styling */
-    .filter-controls {
-      background-color: #fff;
-      border-radius: 8px;
-      padding: 1.2rem;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    }
-    .filter-group {
-      margin-bottom: 1rem;
-    }
-    .filter-control {
-      margin-bottom: 0.8rem;
-    }
-    .filter-control label {
-      display: block;
-      margin-bottom: 0.4rem;
-      font-weight: 500;
-      color: #2c3e50;
-    }
-    .search-select {
-      position: relative;
-    }
-    .search-select input {
-      width: 100%;
-      padding: 0.6rem;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      font-size: 0.95rem;
-    }
-    .edr-dropdown {
-      position: absolute;
-      width: 100%;
-      max-height: 200px;
-      overflow-y: auto;
-      background: white;
-      border: 1px solid #ddd;
-      border-top: none;
-      border-radius: 0 0 4px 4px;
-      z-index: 100;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-    .edr-option {
-      padding: 0.5rem;
-      cursor: pointer;
-      transition: background-color 0.2s;
-    }
-    .edr-option:hover {
-      background-color: #f0f7ff;
-    }
-    .comparison-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 0.5rem;
-    }
-    .comparison-tag {
-      display: inline-flex;
-      align-items: center;
-      background-color: #e3f2fd;
-      padding: 0.4rem 0.8rem;
-      border-radius: 4px;
-      font-size: 0.9rem;
-    }
-    .remove-tag {
-      margin-left: 0.5rem;
-      cursor: pointer;
-      font-weight: bold;
-      color: #2196f3;
-    }
-    .compare-button {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: #2196f3;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      padding: 0.6rem 1.2rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background-color 0.2s;
-    }
-    .compare-button:hover:not(:disabled) {
-      background-color: #1976d2;
-    }
-    .compare-button:disabled {
-      background-color: #bbdefb;
-      cursor: not-allowed;
-    }
-    .compare-button .icon {
-      margin-right: 0.5rem;
-    }
+    /* Responsive adjustments */
     @media (max-width: 768px) {
-      .legend-grid {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      }
       .telemetry-table th,
       .telemetry-table td {
-        padding: 0.5rem 0.3rem;
-        font-size: 0.85rem;
+        padding: 0.5rem 0.5rem;
+        font-size: 0.8rem;
       }
+      
       .telemetry-table .feature-column,
       .telemetry-table .subcategory-column {
         min-width: 120px;
       }
-      .telemetry-table th.subcategory-column {
-        left: 120px;
-      }
+      
+      .telemetry-table .subcategory-column,
+      .telemetry-table th.subcategory-column { left: 0; }
+      
       .status-icon {
-        width: 22px;
-        height: 22px;
+        width: 24px;
+        height: 24px;
         font-size: 0.9rem;
-      }
-      .custom-tooltip {
-        max-width: 200px;
-      }
-      .telemetry-table-container {
-        max-width: 100vw;
-        margin-left: -0.5rem;
-        margin-right: -0.5rem;
-        border-radius: 0;
-      }
-      .filter-controls {
-        padding: 0.8rem;
-      }
-      .comparison-tag {
-        padding: 0.3rem 0.5rem;
-        font-size: 0.8rem;
-      }
-      .compare-button {
-        padding: 0.5rem 0.8rem;
-        font-size: 0.9rem;
-      }
-      
-      .optional-message {
-        padding: 0.6rem 0.8rem;
-        font-size: 0.85rem;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.3rem;
-      }
-      
-      .optional-badge {
-        font-size: 0.7rem;
-        padding: 0.15rem 0.4rem;
-        margin-right: 0.3rem;
       }
     }
     
     @media (max-width: 480px) {
-      .telemetry-table th,
-      .telemetry-table td {
-        padding: 0.4rem 0.2rem;
-        font-size: 0.75rem;
-      }
       .telemetry-table .feature-column,
       .telemetry-table .subcategory-column {
         min-width: 100px;
       }
-      .telemetry-table th.subcategory-column {
-        left: 100px;
-      }
-      .status-icon {
-        width: 18px;
-        height: 18px;
-        font-size: 0.8rem;
-      }
-      .legend-item {
-        padding: 0.3rem;
-      }
-      .legend-icon {
-        font-size: 1rem;
-        margin-right: 0.5rem;
-        min-width: 24px;
-      }
-      .legend-label {
-        font-size: 0.85rem;
-      }
-      .legend-description {
-        font-size: 0.7rem;
-      }
       
-      .optional-message {
-        padding: 0.5rem 0.6rem;
-        font-size: 0.8rem;
-        margin: 0.3rem 0 0.8rem 0;
-      }
-      
-      .optional-badge {
-        font-size: 0.65rem;
-        padding: 0.1rem 0.3rem;
-        margin-right: 0.25rem;
-        letter-spacing: 0.3px;
-      }
-    }
-    
-    @media (max-width: 360px) {
       .telemetry-table .feature-column,
-      .telemetry-table .subcategory-column {
-        min-width: 90px;
-      }
-      
-      .telemetry-table th.subcategory-column {
-        left: 90px;
-      }
-      
-      .telemetry-table th,
-      .telemetry-table td {
-        padding: 0.35rem 0.15rem;
-        font-size: 0.7rem;
-      }
-      
-      .status-icon {
-        width: 16px;
-        height: 16px;
-        font-size: 0.75rem;
-      }
-      
-      .toggle-switch label {
-        width: 40px;
-        height: 20px;
-      }
-      
-      .toggle-switch label:after {
-        width: 14px;
-        height: 14px;
-      }
-      
-      .toggle-switch span {
-        font-size: 0.8rem;
-      }
-    }
-    /* Touch-friendly enhancements */
-    @media (hover: none) {
-      .telemetry-table td:active .status-icon {
-        transform: scale(1.2);
-      }
-      
-      .compare-button:active:not(:disabled) {
-        background-color: #1976d2;
-      }
-      
-      .edr-option:active {
-        background-color: #f0f7ff;
-      }
-      
-      .custom-tooltip-wrapper:active .custom-tooltip {
-        visibility: visible;
-        opacity: 1;
-      }
+      .telemetry-table th.feature-column { display: none; }
+      .telemetry-table .subcategory-column,
+      .telemetry-table th.subcategory-column { left: 0; }
     }
   `;
 
@@ -677,7 +362,7 @@ export default function Linux() {
   useHeadingLinks();
 
   // Sort telemetry data (Sysmon, Auditd, then others)
-  const sortDataWithSysmonFirst = (data) => {
+  const sortDataWithSysmonFirst = useCallback((data) => {
     if (!Array.isArray(data) || !data.length) return data;
     const sysmonEntries = [];
     const auditdEntries = [];
@@ -693,10 +378,10 @@ export default function Linux() {
       }
     });
     return [...sysmonEntries, ...auditdEntries, ...otherEntries];
-  };
+  }, []);
 
   // Load telemetry data from Linux endpoints
-  const loadTelemetry = async () => {
+  const loadTelemetry = useCallback(async () => {
     setIsLoading(true);
     try {
       const telemetryResponse = await fetch('/api/telemetry/linux');
@@ -723,7 +408,7 @@ export default function Linux() {
       setError(error.message);
       setIsLoading(false);
     }
-  };
+  }, [sortDataWithSysmonFirst]);
 
   // Toggle hover highlighting and save state
   const toggleHover = useCallback(() => {
@@ -747,8 +432,9 @@ export default function Linux() {
   }, []);
 
   // Filter EDR options based on input text
-  const filteredEdrOptions = edrOptions.filter(edr =>
-    edr.toLowerCase().includes(filterText.toLowerCase())
+  const filteredEdrOptions = useMemo(() => 
+    edrOptions.filter(edr => edr.toLowerCase().includes(filterText.toLowerCase())),
+    [edrOptions, filterText]
   );
 
   // Add hover effect to table cells and headers
@@ -1024,7 +710,11 @@ export default function Linux() {
                     )}
                     <td className="subcategory-column">
                       {subcategory}
-                      {item.optional && <span className="optional-badge">New</span>}
+                      {item.optional && (
+                         <span className="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800 ml-2">
+                           New
+                         </span>
+                      )}
                     </td>
                     {orderedEdrs.map(edr => {
                       const status = item[edr];
@@ -1052,16 +742,16 @@ export default function Linux() {
         </table>
       </div>
     );
-  }, [groupedData, isComparisonMode, selectedEDRs, edrOptions, hoverEnabled, getStatusIcon, tableRef]);
+  }, [groupedData, isComparisonMode, selectedEDRs, edrOptions, hoverEnabled, getStatusIcon]);
 
-  // Initial load: get hover state and telemetry data
+  // Initialize
   useEffect(() => {
     const savedHoverState = localStorage.getItem('hoverEnabled') === 'true';
     setHoverEnabled(savedHoverState);
     loadTelemetry();
-  }, []);
+  }, [loadTelemetry]);
 
-  // Apply hover effects and comparison highlights after table render
+  // Apply hover effects
   useEffect(() => {
     if (telemetryData.length > 0 && !isLoading) {
       addHoverEffect();
@@ -1077,156 +767,216 @@ export default function Linux() {
       <Head>
         <style>{customStyles}</style>
       </Head>
-      <div className="hero-section">
-        <div className="hero-content">
-          <h1>Linux EDR Telemetry</h1>
-          <p>Explore detailed telemetry capabilities and comparisons for Linux-based EDR solutions.</p>
-        </div>
-      </div>
 
-      <div className="content-section">
-        {/* Legend Section */}
-        <div className="legend-container">
-          <div className="legend-title">Legend</div>
-          <div className="legend-grid">
-            <div className="legend-item">
-              <span className="legend-icon">✅</span>
-              <div className="legend-text">
-                <span className="legend-label">Yes</span>
-                <span className="legend-description">Implemented</span>
-              </div>
-            </div>
-            <div className="legend-item">
-              <span className="legend-icon">❌</span>
-              <div className="legend-text">
-                <span className="legend-label">No</span>
-                <span className="legend-description">Not Implemented</span>
-              </div>
-            </div>
-            <div className="legend-item">
-              <span className="legend-icon">⚠️</span>
-              <div className="legend-text">
-                <span className="legend-label">Partially</span>
-                <span className="legend-description">Partially Implemented (hover-over for explanation)</span>
-              </div>
-            </div>
-            <div className="legend-item">
-              <span className="legend-icon">❓</span>
-              <div className="legend-text">
-                <span className="legend-label">Pending</span>
-                <span className="legend-description">Pending Response</span>
-              </div>
-            </div>
-            <div className="legend-item">
-              <span className="legend-icon">🎚️</span>
-              <div className="legend-text">
-                <span className="legend-label">Via EnablingTelemetry</span>
-                <span className="legend-description">Additional telemetry collection capability that can be enabled as part of the EDR product but is not ON by default.</span>
-              </div>
-            </div>
-          </div>
+      {/* Hero Section - Modernized */}
+      <section className="relative bg-slate-900 text-white pt-20 pb-24 overflow-hidden">
+        {/* Abstract Background */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute -top-[30%] -left-[10%] w-[70%] h-[70%] rounded-full bg-green-900/20 blur-[100px]"></div>
+          <div className="absolute -bottom-[30%] -right-[10%] w-[70%] h-[70%] rounded-full bg-blue-900/20 blur-[100px]"></div>
         </div>
-
-        {/* Filter Controls */}
-        <div className="filter-controls">
-          <div className="filter-group">
-            <div className="toggle-switch">
-              <input 
-                type="checkbox" 
-                id="hoverToggle" 
-                checked={hoverEnabled}
-                onChange={toggleHover}
-              />
-              <label htmlFor="hoverToggle"></label>
-              <span>Enable Hover Highlight</span>
-            </div>
-            <Link href="/scores" className="action-button primary-button">
-              <span>Show Scores</span>
-            </Link>
-            <Link href="/mitre-mappings" className="action-button primary-button">
-              <span>Mitre ATT&CK Mappings</span>
-            </Link>
-            <Link href="/telemetry-categories" className="action-button primary-button">
-              <span>Categories Breakdown</span>
-            </Link>
+        
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10 text-center flex flex-col items-center justify-center min-h-[420px]">
+          <div className="inline-flex items-center justify-center p-3 bg-green-600/20 rounded-xl mb-8 backdrop-blur-sm ring-1 ring-green-500/50">
+            <Terminal className="w-10 h-10 text-green-400" />
           </div>
           
-          <div className="filter-group">
-            <div className="filter-control">
-              <label htmlFor="edrFilter">Filter by EDR:</label>
-              <div className="search-select">
-                <input 
-                  type="text" 
-                  id="edrFilter" 
-                  placeholder="Search EDR solutions..."
-                  value={filterText}
-                  onChange={(e) => setFilterText(e.target.value)}
-                  onClick={() => setEdrDropdownOpen(true)}
-                />
-                {edrDropdownOpen && (
-                  <div className="edr-dropdown">
-                    {filteredEdrOptions.map(edr => (
-                      <div 
-                        key={edr}
-                        className="edr-option" 
-                        onClick={() => addToComparison(edr)}
-                      >
-                        {edr}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
-            <div className="filter-control">
-              <label>Selected for Comparison:</label>
-              <div className="comparison-tags">
-                {selectedEDRs.map(edr => (
-                  <div key={edr} className="comparison-tag">
-                    {edr}
-                    <span 
-                      className="remove-tag" 
-                      onClick={() => removeFromComparison(edr)}
-                    >
-                      ×
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <button 
-              id="compareButton" 
-              className="compare-button"
-              disabled={selectedEDRs.length < 2}
-              onClick={compareEDRs}
-            >
-              <span className="icon">⟷</span>
-              <span>Compare</span>
-            </button>
+          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 !text-white leading-tight">
+            Linux EDR <span className="text-green-400">Telemetry</span>
+          </h1>
+          
+          <p className="mt-4 max-w-2xl mx-auto text-xl text-slate-300 leading-relaxed !text-center">
+            Explore detailed telemetry capabilities and comparisons for Linux-based EDR solutions.
+            Analyze coverage, gaps, and detection logic.
+          </p>
+
+          <div className="mt-10 flex flex-wrap justify-center gap-4">
+             <div className="flex items-center px-4 py-2 bg-slate-800/50 rounded-lg border border-slate-700 backdrop-blur-sm">
+               <Database className="w-5 h-5 text-green-400 mr-2" />
+               <span className="text-slate-300 font-medium">{isLoading ? "Loading..." : `${telemetryData.length} Signals`}</span>
+             </div>
+             <div className="flex items-center px-4 py-2 bg-slate-800/50 rounded-lg border border-slate-700 backdrop-blur-sm">
+               <Activity className="w-5 h-5 text-blue-400 mr-2" />
+               <span className="text-slate-300 font-medium">{isLoading ? "Loading..." : `${edrOptions.length} Vendors`}</span>
+             </div>
+          </div>
+        </div>
+      </section>
+
+      <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-12 -mt-12 relative z-20">
+        {/* Main Content Card */}
+        <div className="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
+          
+          {/* Toolbar / Controls */}
+          <div className="border-b border-slate-200 bg-slate-50 p-6">
+             <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+               
+               {/* Left Side: Filters */}
+               <div className="w-full lg:w-auto flex flex-col sm:flex-row gap-4">
+                 <div className="relative group min-w-[280px]">
+                    <input 
+                      type="text" 
+                      className="block w-full pl-10 pr-3 py-2.5 border border-slate-300 rounded-lg leading-5 bg-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 sm:text-sm transition-all shadow-sm"
+                      placeholder="Search or select EDRs..."
+                      value={filterText}
+                      onChange={(e) => setFilterText(e.target.value)}
+                      onClick={() => setEdrDropdownOpen(true)}
+                    />
+                    
+                    {edrDropdownOpen && (
+                      <>
+                        <div className="fixed inset-0 z-[100]" onClick={() => setEdrDropdownOpen(false)}></div>
+                        <div className="absolute mt-1 w-full bg-white shadow-xl max-h-96 rounded-lg py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm z-[110]">
+                          {filteredEdrOptions.map(edr => (
+                            <div 
+                              key={edr}
+                              className="cursor-pointer select-none relative py-3 pl-3 pr-9 hover:bg-green-50 text-slate-700 flex items-center"
+                              onClick={() => addToComparison(edr)}
+                            >
+                              <span className={`block truncate font-medium ${selectedEDRs.includes(edr) ? 'text-green-600' : ''}`}>
+                                {edr}
+                              </span>
+                              {selectedEDRs.includes(edr) && (
+                                <span className="absolute inset-y-0 right-0 flex items-center pr-4 text-green-600">
+                                  <CheckCircle className="w-4 h-4" />
+                                </span>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      </>
+                    )}
+                 </div>
+                 
+                 <div className="flex items-center space-x-2 bg-white px-3 py-2 border border-slate-300 rounded-lg shadow-sm">
+                   <label htmlFor="hoverToggle" className="flex items-center cursor-pointer select-none">
+                     <div className="relative">
+                       <input 
+                         type="checkbox" 
+                         id="hoverToggle" 
+                         className="sr-only"
+                         checked={hoverEnabled}
+                         onChange={toggleHover}
+                       />
+                       <div className={`block w-10 h-6 rounded-full transition-colors ${hoverEnabled ? 'bg-green-500' : 'bg-slate-300'}`}></div>
+                       <div className={`absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform ${hoverEnabled ? 'transform translate-x-4' : ''}`}></div>
+                     </div>
+                     <span className="ml-3 text-sm font-medium text-slate-700">Highlighting</span>
+                   </label>
+                 </div>
+               </div>
+
+               {/* Right Side: Actions */}
+               <div className="flex flex-wrap gap-2 w-full lg:w-auto justify-start lg:justify-end">
+                  <Link href="/scores" className="inline-flex items-center px-3 py-2 border border-slate-300 shadow-sm text-sm leading-4 font-medium rounded-lg text-slate-700 bg-white hover:bg-slate-50 transition-colors">
+                    <BarChart3 className="w-4 h-4 mr-2 text-slate-500" /> Scores
+                  </Link>
+                  <Link href="/mitre-mappings" className="inline-flex items-center px-3 py-2 border border-slate-300 shadow-sm text-sm leading-4 font-medium rounded-lg text-slate-700 bg-white hover:bg-slate-50 transition-colors">
+                    <Globe className="w-4 h-4 mr-2 text-slate-500" /> MITRE
+                  </Link>
+                  <Link href="/telemetry-categories" className="inline-flex items-center px-3 py-2 border border-slate-300 shadow-sm text-sm leading-4 font-medium rounded-lg text-slate-700 bg-white hover:bg-slate-50 transition-colors">
+                    <FileText className="w-4 h-4 mr-2 text-slate-500" /> Categories
+                  </Link>
+               </div>
+             </div>
+
+             {/* Selected EDRs Tags */}
+             {selectedEDRs.length > 0 && (
+               <div className="mt-4 flex flex-wrap gap-2">
+                 {selectedEDRs.map(edr => (
+                   <span key={edr} className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800 border border-green-200">
+                     {edr}
+                     <button
+                       type="button"
+                       className="flex-shrink-0 ml-1.5 h-4 w-4 rounded-full inline-flex items-center justify-center text-green-600 hover:bg-green-200 hover:text-green-500 focus:outline-none"
+                       onClick={() => removeFromComparison(edr)}
+                     >
+                       <span className="sr-only">Remove {edr}</span>
+                       <XCircle className="w-3 h-3" />
+                     </button>
+                   </span>
+                 ))}
+                 <button 
+                    onClick={() => {
+                      setSelectedEDRs([]);
+                      setIsComparisonMode(false);
+                    }}
+                    className="text-sm text-slate-500 hover:text-red-600 underline ml-2"
+                 >
+                   Clear all
+                 </button>
+               </div>
+             )}
+          </div>
+
+          {/* Telemetry Table Area */}
+          <div className="p-0">
+             {/* Legend Bar - Integrated above table */}
+             <div className="bg-white border-b border-slate-200 px-6 py-4 overflow-x-auto">
+               <div className="flex flex-wrap gap-6 min-w-max">
+                 <div className="flex items-center text-sm text-slate-600">
+                   <span className="w-6 h-6 rounded-full bg-green-100 text-green-700 flex items-center justify-center mr-2 text-xs">✅</span>
+                   <span className="font-medium">Implemented</span>
+                 </div>
+                 <div className="flex items-center text-sm text-slate-600">
+                   <span className="w-6 h-6 rounded-full bg-red-100 text-red-700 flex items-center justify-center mr-2 text-xs">❌</span>
+                   <span className="font-medium">Not Implemented</span>
+                 </div>
+                 <div className="flex items-center text-sm text-slate-600">
+                   <span className="w-6 h-6 rounded-full bg-orange-100 text-orange-700 flex items-center justify-center mr-2 text-xs">⚠️</span>
+                   <span className="font-medium">Partially</span>
+                 </div>
+                 <div className="flex items-center text-sm text-slate-600">
+                   <span className="w-6 h-6 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center mr-2 text-xs">❓</span>
+                   <span className="font-medium">Pending</span>
+                 </div>
+                 <div className="flex items-center text-sm text-slate-600">
+                   <span className="w-6 h-6 rounded-full bg-sky-100 text-sky-700 flex items-center justify-center mr-2 text-xs">🎚️</span>
+                   <span className="font-medium">Via Enabling</span>
+                 </div>
+               </div>
+             </div>
+             
+             {/* Optional Telemetry Notice */}
+             <div className="bg-blue-50/50 border-b border-blue-100 px-6 py-3 flex items-start sm:items-center gap-3">
+               <HelpCircle className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5 sm:mt-0" />
+               <p className="text-sm text-blue-800">
+                 <span className="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-semibold bg-blue-100 text-blue-800 mr-1.5">New</span>
+                 telemetry doesn&apos;t affect scoring until 75% vendor adoption. 
+                 <Link href="/scores#optional-telemetry" className="ml-1 font-semibold underline hover:text-blue-600">Learn more</Link>
+               </p>
+             </div>
+
+             {/* Table Content */}
+             <div className="relative min-h-[400px]">
+               {isLoading ? (
+                 <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/80 z-20 backdrop-blur-sm">
+                   <div className="w-12 h-12 border-4 border-green-200 border-t-green-600 rounded-full animate-spin mb-4"></div>
+                   <p className="text-slate-500 font-medium">Loading telemetry data...</p>
+                 </div>
+               ) : error ? (
+                 <div className="p-12 text-center">
+                   <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-red-100 text-red-600 mb-4">
+                     <AlertTriangle className="w-8 h-8" />
+                   </div>
+                   <h3 className="text-lg font-medium text-slate-900 mb-2">Unable to load data</h3>
+                   <p className="text-slate-500 mb-6 max-w-md mx-auto">{error}</p>
+                   <button 
+                     onClick={() => loadTelemetry()}
+                     className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                   >
+                     Retry
+                   </button>
+                 </div>
+               ) : (
+                 renderTelemetryTable()
+               )}
+             </div>
           </div>
         </div>
         
-        {/* Subtle Optional Telemetry Message */}
-        <div className="optional-message">
-          <span className="optional-badge">New</span> telemetry doesn&apos;t affect scoring until 75% vendor adoption. <Link href="/scores#optional-telemetry">Learn more</Link>
-        </div>
-        
-        {/* Content Area */}
-        <div id="content">
-          {isLoading ? (
-            <div className="loading-spinner">
-              <div className="spinner"></div>
-              <p>Loading telemetry data...</p>
-            </div>
-          ) : error ? (
-            <div className="error-message">
-              <h3>Error loading data</h3>
-              <p>{error}</p>
-              <button onClick={() => loadTelemetry()}>Retry</button>
-            </div>
-          ) : (
-            renderTelemetryTable()
-          )}
+        <div className="mt-8 text-center text-slate-400 text-sm">
+          Data is continually updated based on vendor changes and community contributions.
         </div>
       </div>
     </TemplatePage>
