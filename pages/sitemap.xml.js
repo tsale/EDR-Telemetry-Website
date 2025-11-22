@@ -15,7 +15,6 @@ export async function getServerSideProps({ res }) {
     '/roadmap',
     '/scores',
     '/sponsorship',
-    '/statistics',
     '/telemetry-categories',
     '/windows',
   ]

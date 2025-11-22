@@ -6,7 +6,6 @@ const CATEGORIES = {
   windows: '🪟',
   linux: '🐧',
   macos: '🍎',
-  statistics: '📊',
   scores: '🎯',
   blog: '📝',
   faq: '❓',
@@ -90,14 +89,6 @@ const SEARCHABLE_CONTENT = [
     url: '/scores',
     excerpt: 'Scoring and comparison of EDR telemetry capabilities',
     keywords: ['scores', 'comparison', 'ranking', 'evaluation']
-  },
-  {
-    id: 'statistics',
-    title: 'Statistics',
-    category: 'statistics',
-    url: '/statistics',
-    excerpt: 'Statistical analysis of EDR telemetry data',
-    keywords: ['statistics', 'analysis', 'data', 'metrics']
   },
   {
     id: 'mitre',
@@ -194,54 +185,6 @@ const SEARCHABLE_CONTENT = [
     url: '/faq#comparison',
     excerpt: 'Guidelines for comparing different EDR solutions based on their telemetry capabilities',
     keywords: ['compare edr', 'edr comparison', 'solution comparison', 'evaluation']
-  },
-  {
-    id: 'stats-overview',
-    title: 'EDR Statistics Overview',
-    category: 'statistics',
-    url: '/statistics#overview',
-    excerpt: 'Overview of EDR telemetry statistics across different platforms and vendors',
-    keywords: ['statistics', 'overview', 'metrics', 'data analysis', 'comparison']
-  },
-  {
-    id: 'stats-windows-chart',
-    title: 'Windows Telemetry Statistics',
-    category: 'statistics',
-    url: '/statistics#windows-chart',
-    excerpt: 'Detailed statistics and charts for Windows EDR telemetry capabilities',
-    keywords: ['windows statistics', 'windows chart', 'windows metrics', 'windows comparison']
-  },
-  {
-    id: 'stats-linux-chart',
-    title: 'Linux Telemetry Statistics',
-    category: 'statistics',
-    url: '/statistics#linux-chart',
-    excerpt: 'Detailed statistics and charts for Linux EDR telemetry capabilities',
-    keywords: ['linux statistics', 'linux chart', 'linux metrics', 'linux comparison']
-  },
-  {
-    id: 'stats-macos-chart',
-    title: 'macOS Telemetry Statistics',
-    category: 'statistics',
-    url: '/statistics#macos-chart',
-    excerpt: 'Detailed statistics and charts for macOS EDR telemetry capabilities',
-    keywords: ['macos statistics', 'macos chart', 'macos metrics', 'macos comparison']
-  },
-  {
-    id: 'stats-vendor-comparison',
-    title: 'Vendor Comparison Charts',
-    category: 'statistics',
-    url: '/statistics#vendor-comparison',
-    excerpt: 'Statistical comparison of EDR vendors and their telemetry capabilities',
-    keywords: ['vendor comparison', 'vendor statistics', 'vendor charts', 'solution comparison']
-  },
-  {
-    id: 'stats-telemetry-coverage',
-    title: 'Telemetry Coverage Analysis',
-    category: 'statistics',
-    url: '/statistics#coverage-analysis',
-    excerpt: 'Analysis of telemetry coverage across different EDR solutions and platforms',
-    keywords: ['coverage analysis', 'telemetry coverage', 'coverage statistics', 'coverage comparison']
   },
   {
     id: 'eligibility-overview',

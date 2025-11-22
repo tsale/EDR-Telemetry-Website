@@ -171,7 +171,7 @@ export default function Home() {
               <div className="ml-4">
                 <h3 className="text-lg font-semibold text-slate-900 mb-2">Compare Depth & Coverage</h3>
                 <p className="text-slate-600">
-                  Analyze capabilities using <Link href="/scores" className="text-blue-600 hover:underline font-medium">Scores</Link> and <Link href="/statistics" className="text-blue-600 hover:underline font-medium">Statistics</Link> to understand vendor performance.
+                  Analyze capabilities using <Link href="/scores" className="text-blue-600 hover:underline font-medium">Scores</Link> to understand vendor performance.
                 </p>
               </div>
             </div>
