@@ -29,9 +29,11 @@ export default function About() {
             About the EDR Telemetry Project
           </h1>
           
-          <p className="mt-6 text-xl !text-slate-300 max-w-4xl mx-auto leading-relaxed">
-            EDR-Telemetry is an initiative by Defendpoint Consulting, designed to benchmark EDR products and show exactly what telemetry they capture. Our mission is to give organizations clarity on their visibility gaps and help them build stronger, evidence-based security strategies.
-          </p>
+          <div className="w-full flex justify-center">
+            <p className="mt-6 text-xl !text-slate-300 max-w-3xl leading-relaxed text-center">
+              EDR-Telemetry is an initiative by Defendpoint Consulting, designed to benchmark EDR products and show exactly what telemetry they capture.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -40,7 +42,7 @@ export default function About() {
           {/* Intro Card */}
           <div className="bg-white rounded-2xl shadow-xl p-8 mb-12 border border-slate-200">
             <p className="text-lg text-slate-700 leading-relaxed">
-              As part of Defendpoint Consulting&apos;s expertise, the project turns hands-on testing into practical guidance for defenders. We focus on repeatable benchmarking, transparent reporting, and advisory support that connects telemetry results to real-world security programs.
+               Our mission is to give organizations clarity on their visibility gaps and help them build stronger, evidence-based security strategies. As part of Defendpoint Consulting&apos;s expertise, the project turns hands-on testing into practical guidance for defenders. We focus on repeatable benchmarking, transparent reporting, and advisory support that connects telemetry results to real-world security programs.
             </p>
           </div>
 
