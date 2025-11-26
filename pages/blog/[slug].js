@@ -40,6 +40,17 @@ export default function Post({ postData }) {
         <TemplatePage title={postData.title} description={postData.subtitle}>
             <Head>
                 <title>{postData.title}</title>
+                <meta name="description" content={postData.subtitle} />
+                {/* Open Graph */}
+                <meta property="og:title" content={postData.title} />
+                <meta property="og:description" content={postData.subtitle} />
+                <meta property="og:type" content="article" />
+                {postData.image && <meta property="og:image" content={`https://www.edr-telemetry.com${postData.image}`} />}
+                {/* Twitter Card */}
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content={postData.title} />
+                <meta name="twitter:description" content={postData.subtitle} />
+                {postData.image && <meta name="twitter:image" content={`https://www.edr-telemetry.com${postData.image}`} />}
             </Head>
 
             <div className="bg-white min-h-screen font-charter">

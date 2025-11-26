@@ -4,6 +4,14 @@ const nextConfig = {
   output: 'standalone',
   trailingSlash: false,
   poweredByHeader: false,
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'pbs.twimg.com'
+      }
+    ]
+  },
   skipTrailingSlashRedirect: true,
   async rewrites() {
     return [
