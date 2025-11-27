@@ -8,13 +8,14 @@ import Search from './Search'
 import AnnouncementBanner from './AnnouncementBanner'
 import Header from './Header'
 
-export default function TemplatePage({ children, title = 'EDR Telemetry Project', description = 'EDR Telemetry Project - Exploring telemetry capabilities of EDR solutions' }) {
+export default function TemplatePage({ children, title = 'EDR Telemetry Project', description = 'EDR Telemetry Project - Exploring telemetry capabilities of EDR solutions', ogImage = null }) {
   const [searchOpen, setSearchOpen] = useState(false)
   const router = useRouter()
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || ''
   const canonicalPath = router.asPath ? router.asPath.split('?')[0] : ''
   const canonicalUrl = siteUrl && canonicalPath ? `${siteUrl}${canonicalPath}` : ''
-  const defaultOgImage = siteUrl ? `${siteUrl}/images/edr_telemetry_logo.png` : ''
+  // Use provided ogImage or fall back to default logo
+  const resolvedOgImage = ogImage ? `${siteUrl}${ogImage}` : (siteUrl ? `${siteUrl}/images/edr_telemetry_logo.png` : '')
 
   // Add keyboard shortcut for search
   useEffect(() => {
@@ -45,12 +46,12 @@ export default function TemplatePage({ children, title = 'EDR Telemetry Project'
         {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
-        {defaultOgImage && (
+        {resolvedOgImage && (
           <>
-            <meta property="og:image" content={defaultOgImage} />
-            <meta property="og:image:alt" content="EDR Telemetry Project logo" />
+            <meta property="og:image" content={resolvedOgImage} />
+            <meta property="og:image:alt" content={title} />
             <meta property="og:image:type" content="image/png" />
-            <meta name="twitter:image" content={defaultOgImage} />
+            <meta name="twitter:image" content={resolvedOgImage} />
           </>
         )}
         <meta name="twitter:card" content="summary_large_image" />
