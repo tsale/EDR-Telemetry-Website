@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/router'
 import { Search, Menu, X, ChevronDown, Github } from 'lucide-react'
 
@@ -8,6 +8,11 @@ export default function Header({ onSearchClick }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [platformsOpen, setPlatformsOpen] = useState(false)
   const [aboutOpen, setAboutOpen] = useState(false)
+  // Desktop dropdown states (for touch devices)
+  const [desktopPlatformsOpen, setDesktopPlatformsOpen] = useState(false)
+  const [desktopAboutOpen, setDesktopAboutOpen] = useState(false)
+  const platformsRef = useRef(null)
+  const aboutRef = useRef(null)
   const router = useRouter()
 
   useEffect(() => {
@@ -18,11 +23,31 @@ export default function Header({ onSearchClick }) {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  // Close desktop dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (platformsRef.current && !platformsRef.current.contains(event.target)) {
+        setDesktopPlatformsOpen(false)
+      }
+      if (aboutRef.current && !aboutRef.current.contains(event.target)) {
+        setDesktopAboutOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    document.addEventListener('touchstart', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('touchstart', handleClickOutside)
+    }
+  }, [])
+
   // Close mobile menu when route changes
   useEffect(() => {
     setMobileMenuOpen(false)
     setPlatformsOpen(false)
     setAboutOpen(false)
+    setDesktopPlatformsOpen(false)
+    setDesktopAboutOpen(false)
   }, [router.pathname])
 
   const isActive = (path) => router.pathname === path
@@ -58,11 +83,17 @@ export default function Header({ onSearchClick }) {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-1">
-            <div className="relative group px-3 py-2">
-                <button className={`flex items-center gap-1 text-sm font-medium ${isPathActive('/windows') || isPathActive('/linux') || isPathActive('/macos') ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900'}`}>
-                    Platforms <ChevronDown className="w-4 h-4" />
+            <div className="relative group px-3 py-2" ref={platformsRef}>
+                <button 
+                  onClick={() => {
+                    setDesktopPlatformsOpen(!desktopPlatformsOpen)
+                    setDesktopAboutOpen(false)
+                  }}
+                  className={`flex items-center gap-1 text-sm font-medium ${isPathActive('/windows') || isPathActive('/linux') || isPathActive('/macos') ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900'}`}
+                >
+                    Platforms <ChevronDown className={`w-4 h-4 transition-transform ${desktopPlatformsOpen ? 'rotate-180' : ''}`} />
                 </button>
-                <div className="absolute top-full left-0 w-48 bg-white rounded-lg shadow-lg border border-slate-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-2 group-hover:translate-y-0">
+                <div className={`absolute top-full left-0 w-48 bg-white rounded-lg shadow-lg border border-slate-100 transition-all duration-200 transform ${desktopPlatformsOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0'}`}>
                     <div className="p-1">
                         <Link href="/windows" className="flex items-center gap-2 px-3 py-2 text-sm text-slate-700 hover:bg-slate-50 rounded-md">Windows</Link>
                         <Link href="/linux" className="flex items-center gap-2 px-3 py-2 text-sm text-slate-700 hover:bg-slate-50 rounded-md">Linux</Link>
@@ -79,11 +110,17 @@ export default function Header({ onSearchClick }) {
                 Blog
             </Link>
 
-            <div className="relative group px-3 py-2">
-                <button className={`flex items-center gap-1 text-sm font-medium ${isPathActive('/about') || isPathActive('/eligibility') ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900'}`}>
-                    About <ChevronDown className="w-4 h-4" />
+            <div className="relative group px-3 py-2" ref={aboutRef}>
+                <button 
+                  onClick={() => {
+                    setDesktopAboutOpen(!desktopAboutOpen)
+                    setDesktopPlatformsOpen(false)
+                  }}
+                  className={`flex items-center gap-1 text-sm font-medium ${isPathActive('/about') || isPathActive('/eligibility') ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900'}`}
+                >
+                    About <ChevronDown className={`w-4 h-4 transition-transform ${desktopAboutOpen ? 'rotate-180' : ''}`} />
                 </button>
-                <div className="absolute top-full left-0 w-48 bg-white rounded-lg shadow-lg border border-slate-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-2 group-hover:translate-y-0">
+                <div className={`absolute top-full left-0 w-48 bg-white rounded-lg shadow-lg border border-slate-100 transition-all duration-200 transform ${desktopAboutOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0'}`}>
                     <div className="p-1">
                         <Link href="/about" className="block px-3 py-2 text-sm text-slate-700 hover:bg-slate-50 rounded-md">Project Info</Link>
                         <Link href="/eligibility" className="block px-3 py-2 text-sm text-slate-700 hover:bg-slate-50 rounded-md">Eligibility</Link>
