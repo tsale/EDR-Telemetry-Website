@@ -138,6 +138,33 @@ export type Database = {
           }
         ]
       }
+      vendor_transparency: {
+        Row: {
+          id: string
+          edr_name: string
+          indicators: string[]
+          transparency_note: string
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          edr_name: string
+          indicators?: string[]
+          transparency_note?: string
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          edr_name?: string
+          indicators?: string[]
+          transparency_note?: string
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -164,6 +191,7 @@ export type WindowsTelemetryInsert = Database['public']['Tables']['windows_telem
 export type LinuxTelemetryInsert = Database['public']['Tables']['linux_telemetry']['Insert']
 export type WindowsScoreInsert = Database['public']['Tables']['windows_table_results']['Insert']
 export type LinuxScoreInsert = Database['public']['Tables']['linux_table_results']['Insert']
+export type VendorTransparency = Database['public']['Tables']['vendor_transparency']['Row']
 
 // Combined data types for easier frontend usage
 export interface WindowsTelemetryWithScores extends WindowsTelemetry {

@@ -8,6 +8,7 @@ import {
   AlertTriangle, HelpCircle, FileText, Settings, Sliders,
   BarChart3, Globe, Activity, Database
 } from 'lucide-react'
+import TransparencyIndicator from '../components/TransparencyIndicator'
 
 export default function Linux() {
   // State for telemetry data and UI
@@ -20,6 +21,7 @@ export default function Linux() {
   const [edrOptions, setEdrOptions] = useState([]);
   const [filterText, setFilterText] = useState('');
   const [isComparisonMode, setIsComparisonMode] = useState(false);
+  const [transparencyData, setTransparencyData] = useState({});
 
   // Ref for the table element (for hover and comparison effects)
   const tableRef = useRef(null);
@@ -384,9 +386,18 @@ export default function Linux() {
   const loadTelemetry = useCallback(async () => {
     setIsLoading(true);
     try {
-      const telemetryResponse = await fetch('/api/telemetry/linux');
+      // Fetch telemetry and transparency data in parallel
+      const [telemetryResponse, transparencyResponse] = await Promise.all([
+        fetch('/api/telemetry/linux'),
+        fetch('/api/telemetry/transparency')
+      ]);
       
       if (!telemetryResponse.ok) throw new Error('Network response was not ok');
+      
+      if (transparencyResponse.ok) {
+        const transparency = await transparencyResponse.json();
+        setTransparencyData(transparency);
+      }
       
       const telemetry = await telemetryResponse.json();
       
@@ -593,12 +604,22 @@ export default function Linux() {
                   const displayName = window.innerWidth <= 480 ? 
                     edr.replace(/\s*\(.+\)/, '').trim() : edr;
                   
+                  // Get transparency info for this vendor
+                  const vendorTransparency = transparencyData[edr] || {};
+                  
                   return (
                     <th 
                       key={edr} 
                       className={`edr-column ${isAuditd ? 'auditd-header' : ''} ${isSysmon ? 'sysmon-header' : ''}`}
                     >
-                      {displayName}
+                      <span className="inline-flex items-center">
+                        {displayName}
+                        <TransparencyIndicator 
+                          indicators={vendorTransparency.indicators || []}
+                          transparencyNote={vendorTransparency.transparency_note || ''}
+                          vendorName={edr}
+                        />
+                      </span>
                     </th>
                   );
                 })}
@@ -682,12 +703,22 @@ export default function Linux() {
                 const displayName = window.innerWidth <= 480 ? 
                   edr.replace(/\s*\(.+\)/, '').trim() : edr;
                 
+                // Get transparency info for this vendor
+                const vendorTransparency = transparencyData[edr] || {};
+                
                 return (
                   <th 
                     key={edr} 
                     className={`edr-column ${isAuditd ? 'auditd-header' : ''} ${isSysmon ? 'sysmon-header' : ''}`}
                   >
-                    {displayName}
+                    <span className="inline-flex items-center">
+                      {displayName}
+                      <TransparencyIndicator 
+                        indicators={vendorTransparency.indicators || []}
+                        transparencyNote={vendorTransparency.transparency_note || ''}
+                        vendorName={edr}
+                      />
+                    </span>
                   </th>
                 );
               })}
@@ -742,7 +773,7 @@ export default function Linux() {
         </table>
       </div>
     );
-  }, [groupedData, isComparisonMode, selectedEDRs, edrOptions, hoverEnabled, getStatusIcon]);
+  }, [groupedData, isComparisonMode, selectedEDRs, edrOptions, hoverEnabled, getStatusIcon, transparencyData]);
 
   // Initialize
   useEffect(() => {

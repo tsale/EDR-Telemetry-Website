@@ -2,6 +2,7 @@ import TemplatePage from '../components/TemplatePage'
 import { useState, useEffect } from 'react'
 import useHeadingLinks from '../hooks/useHeadingLinks'
 import { Trophy, TrendingUp, TrendingDown, BarChart3, Info, Github, Award, Medal, Crown } from 'lucide-react'
+import TransparencyIndicator from '../components/TransparencyIndicator'
 
 // Common scoring values for both Windows and Linux
 const FEATURES_DICT_VALUED = {
@@ -122,6 +123,7 @@ export default function Scores() {
     maxScore: 0,
     minScore: 0
   });
+  const [transparencyData, setTransparencyData] = useState({});
 
   // Add heading links
   useHeadingLinks();
@@ -174,21 +176,29 @@ export default function Scores() {
     setIsLoading(true);
     
     try {
-      // Load Windows data from Supabase API
-      const windowsResponse = await fetch('/api/telemetry/windows');
+      // Load Windows, Linux, and transparency data in parallel
+      const [windowsResponse, linuxResponse, transparencyResponse] = await Promise.all([
+        fetch('/api/telemetry/windows'),
+        fetch('/api/telemetry/linux'),
+        fetch('/api/telemetry/transparency')
+      ]);
+      
       if (!windowsResponse.ok) 
         throw new Error(`Failed to fetch Windows telemetry data: ${windowsResponse.status}`);
       
       const windowsData = await windowsResponse.json();
       setWindowsTelemetryData(windowsData);
       
-      // Load Linux data from Supabase API
-      const linuxResponse = await fetch('/api/telemetry/linux');
       if (!linuxResponse.ok) 
         throw new Error(`Failed to fetch Linux telemetry data: ${linuxResponse.status}`);
       
       const linuxData = await linuxResponse.json();
       setLinuxTelemetryData(linuxData);
+      
+      if (transparencyResponse.ok) {
+        const transparency = await transparencyResponse.json();
+        setTransparencyData(transparency);
+      }
       
       setIsLoading(false);
     } catch (error) {
@@ -299,7 +309,7 @@ export default function Scores() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Platform selector */}
           <div className="flex justify-center mb-8">
-            <div className="inline-flex rounded-xl bg-white shadow-lg p-1 border border-slate-200">
+            <div className="inline-flex gap-2 rounded-xl bg-slate-100 shadow-lg p-2 border border-slate-200">
               <button 
                 className={`px-6 py-3 rounded-lg font-semibold transition-all ${
                   currentPlatform === 'windows' 
@@ -386,13 +396,13 @@ export default function Scores() {
                             </td>
                             <td className="px-6 py-4">
                               <div className="flex items-center gap-3">
-                                <span className="font-semibold text-slate-900">{entry.edr}</span>
-                                <span className={`px-2 py-1 text-xs font-bold rounded-md uppercase ${
-                                  currentPlatform === 'windows' 
-                                    ? 'bg-blue-100 text-blue-700' 
-                                    : 'bg-orange-100 text-orange-700'
-                                }`}>
-                                  {currentPlatform}
+                                <span className="font-semibold text-slate-900 inline-flex items-center">
+                                  {entry.edr}
+                                  <TransparencyIndicator 
+                                    indicators={transparencyData[entry.edr]?.indicators || []}
+                                    transparencyNote={transparencyData[entry.edr]?.transparency_note || ''}
+                                    vendorName={entry.edr}
+                                  />
                                 </span>
                               </div>
                             </td>

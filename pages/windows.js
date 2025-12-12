@@ -8,6 +8,7 @@ import {
   AlertTriangle, HelpCircle, FileText, Settings, Sliders,
   BarChart3, Globe, Activity, Database
 } from 'lucide-react'
+import TransparencyIndicator from '../components/TransparencyIndicator'
 
 export default function Windows() {
   // State for telemetry data
@@ -20,6 +21,7 @@ export default function Windows() {
   const [edrOptions, setEdrOptions] = useState([]);
   const [filterText, setFilterText] = useState('');
   const [isComparisonMode, setIsComparisonMode] = useState(false);
+  const [transparencyData, setTransparencyData] = useState({});
   
   // Refs for DOM elements
   const tableRef = useRef(null);
@@ -379,10 +381,19 @@ export default function Windows() {
     
     try {
       // Fetch data from our API endpoint (which gets data from Supabase)
-      const telemetryResponse = await fetch('/api/telemetry/windows');
+      // Fetch telemetry and transparency data in parallel
+      const [telemetryResponse, transparencyResponse] = await Promise.all([
+        fetch('/api/telemetry/windows'),
+        fetch('/api/telemetry/transparency')
+      ]);
 
       if (!telemetryResponse.ok) 
         throw new Error(`Failed to fetch telemetry data: ${telemetryResponse.status} ${telemetryResponse.statusText}`);
+      
+      if (transparencyResponse.ok) {
+        const transparency = await transparencyResponse.json();
+        setTransparencyData(transparency);
+      }
 
       const telemetry = await telemetryResponse.json().catch(error => {
         throw new Error(`Error parsing JSON: ${error.message}`);
@@ -659,12 +670,22 @@ export default function Windows() {
                 const displayName = window.innerWidth <= 480 ? 
                   edr.replace(/\s*\(.+\)/, '').trim() : edr;
                 
+                // Get transparency info for this vendor
+                const vendorTransparency = transparencyData[edr] || {};
+                
                 return (
                   <th 
                     key={edr} 
                     className={`edr-column ${edr.toLowerCase().includes('sysmon') ? 'sysmon-header' : ''}`}
                   >
-                    {displayName}
+                    <span className="inline-flex items-center">
+                      {displayName}
+                      <TransparencyIndicator 
+                        indicators={vendorTransparency.indicators || []}
+                        transparencyNote={vendorTransparency.transparency_note || ''}
+                        vendorName={edr}
+                      />
+                    </span>
                   </th>
                 );
               })}
@@ -722,7 +743,7 @@ export default function Windows() {
         </table>
       </div>
     );
-  }, [groupedData, isComparisonMode, selectedEDRs, edrOptions, hoverEnabled, getStatusIcon]);
+  }, [groupedData, isComparisonMode, selectedEDRs, edrOptions, hoverEnabled, getStatusIcon, transparencyData]);
 
   // Initialize component
   useEffect(() => {

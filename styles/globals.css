@@ -2497,6 +2497,48 @@ nav a[href="/sponsorship"]::after {
   color: var(--text-light);
 }
 
+/* Transparency Indicators List (FAQ) */
+.transparency-indicators-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+
+.transparency-indicators-list .indicator-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: var(--background-light);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.transparency-indicators-list .indicator-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.transparency-indicators-list .indicator-item strong {
+  display: block;
+  color: var(--text-color);
+  margin-bottom: 0.25rem;
+}
+
+.transparency-indicators-list .indicator-item p {
+  color: var(--text-light);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
 @media (max-width: 768px) {
   .faq-question {
     padding: 1.25rem;

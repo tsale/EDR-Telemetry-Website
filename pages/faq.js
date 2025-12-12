@@ -1,6 +1,7 @@
 import TemplatePage from '../components/TemplatePage'
 import { useState } from 'react'
 import Link from 'next/link'
+import { Eye, Users, FileText, Lock, MessageCircle } from 'lucide-react'
 
 export default function FAQ() {
   const [searchTerm, setSearchTerm] = useState('')
@@ -63,6 +64,61 @@ export default function FAQ() {
         "🪵 - Collected via Windows Event Logs",
         "🎚️ - Available through additional telemetry settings"
       ]
+    },
+    {
+      id: 7,
+      anchor: "transparency-indicators",
+      question: "What do the transparency indicators mean?",
+      answer: "Transparency indicators show how we validated the telemetry data for each vendor. These icons appear next to vendor names in the telemetry tables and scores page:",
+      customContent: (
+        <div className="transparency-indicators-list">
+          <div className="indicator-item">
+            <span className="indicator-icon bg-emerald-100 text-emerald-600">
+              <Eye className="w-4 h-4" />
+            </span>
+            <div>
+              <strong>Direct Access</strong>
+              <p>Validation was performed with direct, independent access to the product. The vendor granted us access to their platform without an NDA and with full permission to publish our findings.</p>
+            </div>
+          </div>
+          <div className="indicator-item">
+            <span className="indicator-icon bg-blue-100 text-blue-600">
+              <Users className="w-4 h-4" />
+            </span>
+            <div>
+              <strong>Community Verified</strong>
+              <p>Validation was performed by a verified, independent community member with direct product access. These contributors have confirmed access to the EDR and submitted evidence of telemetry capabilities.</p>
+            </div>
+          </div>
+          <div className="indicator-item">
+            <span className="indicator-icon bg-amber-100 text-amber-600">
+              <FileText className="w-4 h-4" />
+            </span>
+            <div>
+              <strong>Evidence Only</strong>
+              <p>Validation was based on evidence provided by the vendor (such as documentation, screenshots, raw logs, or a combination of these), without direct access to the product for independent verification.</p>
+            </div>
+          </div>
+          <div className="indicator-item">
+            <span className="indicator-icon bg-purple-100 text-purple-600">
+              <Lock className="w-4 h-4" />
+            </span>
+            <div>
+              <strong>Conditional Access</strong>
+              <p>Validation was performed under an NDA or other terms that may limit what can be disclosed. While we had access to the product, certain restrictions apply to our findings.</p>
+            </div>
+          </div>
+          <div className="indicator-item">
+            <span className="indicator-icon bg-sky-100 text-sky-600">
+              <MessageCircle className="w-4 h-4" />
+            </span>
+            <div>
+              <strong>Engaged Vendor</strong>
+              <p>We have reached out to the vendor or are about to reach out and are awaiting a response regarding access to their platform for independent validation.</p>
+            </div>
+          </div>
+        </div>
+      )
     }
   ]
 
@@ -102,7 +158,8 @@ export default function FAQ() {
         <div className="faq-accordion">
           {filteredFAQs.map((faq) => (
             <div 
-              key={faq.id} 
+              key={faq.id}
+              id={faq.anchor || undefined}
               className={`faq-panel ${expandedPanel === faq.id ? 'expanded' : ''}`}
             >
               <button 
@@ -122,6 +179,7 @@ export default function FAQ() {
                     ))}
                   </ul>
                 )}
+                {faq.customContent}
                 {faq.additionalContent}
               </div>
             </div>
