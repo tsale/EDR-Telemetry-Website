@@ -6,7 +6,7 @@ import Head from 'next/head'
 import {
   Terminal, Search, Filter, ArrowRight, CheckCircle, XCircle,
   AlertTriangle, HelpCircle, FileText, Settings, Sliders,
-  BarChart3, Globe, Activity, Database
+  BarChart3, Globe, Activity, Database, Check, X
 } from 'lucide-react'
 import TransparencyIndicator from '../components/TransparencyIndicator'
 
@@ -324,39 +324,145 @@ export default function Linux() {
       color: #64748b;
     }
     
+    /* Base style for mobile header - hidden by default */
+    .mobile-category-header {
+      display: none;
+    }
+
     /* Responsive adjustments */
     @media (max-width: 768px) {
+      .telemetry-table-container {
+        border-radius: 0;
+        max-height: 80vh;
+      }
+
+      .telemetry-table {
+        min-width: auto;
+      }
+
       .telemetry-table th,
       .telemetry-table td {
-        padding: 0.5rem 0.5rem;
+        padding: 0.5rem 0.25rem;
+        font-size: 0.75rem;
+      }
+      
+      /* Hide feature column */
+      .telemetry-table .feature-column,
+      .telemetry-table th.feature-column {
+        display: none;
+      }
+      
+      /* Unstick top header */
+      .telemetry-table thead,
+      .telemetry-table th {
+        position: static;
+        white-space: normal;
+      }
+
+      /* Adjust Sub-category column to be narrower and sticky */
+      .telemetry-table .subcategory-column {
+        position: sticky;
+        left: 0;
+        z-index: 40;
+        background-color: #f8fafc;
+        width: 110px;
+        min-width: 110px;
+        max-width: 110px;
+        white-space: normal;
+        line-height: 1.2;
+        border-right: 2px solid #e2e8f0;
+        /* critical for long words */
+        word-break: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+      }
+      
+      /* Fix corner alignment */
+      .telemetry-table th.subcategory-column {
+        position: static;
+        background-color: #f1f5f9;
+        z-index: 41;
+      }
+
+      /* Show category as a distinct header row */
+      .mobile-category-header {
+        display: table-row;
+      }
+      
+      .mobile-category-header td {
+        background-color: #cbd5e1;
+        color: #0f172a;
+        font-weight: 800;
+        text-align: left;
+        padding: 0.5rem 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        border-top: 2px solid #94a3b8;
+        border-bottom: 1px solid #cbd5e1;
+        position: sticky; /* Keep it available */
+        left: 0; 
+      }
+      
+      .status-icon {
+        width: 20px;
+        height: 20px;
         font-size: 0.8rem;
       }
       
-      .telemetry-table .feature-column,
-      .telemetry-table .subcategory-column {
-        min-width: 120px;
+      /* EDR Columns */
+      .telemetry-table .edr-column,
+      .telemetry-table td[data-status] {
+        min-width: 100px;
+        max-width: 100px; /* Enforce width to force wrap */
+        white-space: normal;
+        vertical-align: top; /* Align top to accommodate varying text heights */
+        padding: 0.75rem 0.25rem;
+        /* Critical for preventing spillover */
+        word-wrap: break-word;
+        word-break: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+      }
+
+      /* Fix sticky header wrapping and stacking for mobile */
+      .telemetry-table th.edr-column .inline-flex {
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        white-space: normal;
+        text-align: center;
+        line-height: 1.2;
+        width: 100%;
       }
       
-      .telemetry-table .subcategory-column,
-      .telemetry-table th.subcategory-column { left: 0; }
-      
-      .status-icon {
-        width: 24px;
-        height: 24px;
-        font-size: 0.9rem;
+      /* Target the text (inferred inheritance) */
+      .telemetry-table th.edr-column {
+        word-break: break-word; /* Double down on the cell itself */
+        overflow-wrap: break-word;
+        font-size: 0.7rem; /* Smaller text for headers */
+        line-height: 1.1;
+      }
+
+      /* Adjust icon spacing when stacked */
+      .telemetry-table th.edr-column .inline-flex > :last-child {
+        margin-left: 0 !important;
+        margin-top: 0.5rem;
+        transform: scale(1.1); /* Bigger icons */
+        /* Ensure icon container doesn't overflow */
+        max-width: 100%;
+        display: flex;
+        justify-content: center;
       }
     }
     
     @media (max-width: 480px) {
-      .telemetry-table .feature-column,
       .telemetry-table .subcategory-column {
-        min-width: 100px;
+        width: 90px;
+        min-width: 90px;
+        max-width: 90px;
+        font-size: 0.7rem;
       }
-      
-      .telemetry-table .feature-column,
-      .telemetry-table th.feature-column { display: none; }
-      .telemetry-table .subcategory-column,
-      .telemetry-table th.subcategory-column { left: 0; }
     }
   `;
 
@@ -551,21 +657,21 @@ export default function Linux() {
     const explanationText = typeof explanation === 'string' ? explanation : '';
 
     if (statusLower === 'yes') {
-      return <span className="status-icon yes" title="Implemented">✅</span>;
+      return <span className="status-icon yes" title="Implemented"><Check className="w-5 h-5" /></span>;
     } else if (statusLower === 'no') {
-      return <span className="status-icon no" title="Not Implemented">❌</span>;
+      return <span className="status-icon no" title="Not Implemented"><X className="w-5 h-5" /></span>;
     } else if (statusLower === 'partially') {
       return (
         <TooltipWrapper tooltip={explanationText || "Partially Implemented"}>
           <span className={`status-icon partially ${explanationText ? 'has-explanation' : ''}`}>
-            ⚠️
+            <AlertTriangle className="w-4 h-4" />
           </span>
         </TooltipWrapper>
       );
     } else if (statusLower === 'pending' || statusLower === 'pending response') {
-      return <span className="status-icon pending" title="Pending Response">❓</span>;
+      return <span className="status-icon pending" title="Pending Response"><HelpCircle className="w-5 h-5" /></span>;
     } else if (statusLower === 'via enablingtelemetry') {
-      return <span className="status-icon via-enabling" title="Via Enabling Telemetry">🎚️</span>;
+      return <span className="status-icon via-enabling" title="Via Enabling Telemetry"><Sliders className="w-4 h-4" /></span>;
     }
     return <span className="status-icon unknown" title={`Unknown value: ${status}`}>-</span>;
   }, []);
@@ -627,8 +733,17 @@ export default function Linux() {
               </tr>
             </thead>
             <tbody>
-              {Object.entries(groupedData).map(([category, items]) => (
-                items.map((item, itemIndex) => {
+              {Object.entries(groupedData).map(([category, items]) => {
+                // Create mobile header row
+                const headerRow = (
+                  <tr key={`header-${category}`} className="mobile-category-header">
+                    <td colSpan={displayedEdrs.length + 1}>
+                      {category}
+                    </td>
+                  </tr>
+                );
+
+                const itemRows = items.map((item, itemIndex) => {
                   const subcategory = item['Sub-Category'];
                   const rowKey = `${category}-${subcategory}-${itemIndex}`;
                   return (
@@ -662,8 +777,10 @@ export default function Linux() {
                       })}
                     </tr>
                   );
-                })
-              ))}
+                });
+
+                return [headerRow, ...itemRows];
+              })}
             </tbody>
           </table>
         </div>
@@ -727,8 +844,17 @@ export default function Linux() {
             </tr>
           </thead>
           <tbody>
-            {Object.entries(groupedData).map(([category, items]) => (
-              items.map((item, itemIndex) => {
+            {Object.entries(groupedData).map(([category, items]) => {
+              // Create mobile header row
+              const headerRow = (
+                <tr key={`header-${category}`} className="mobile-category-header">
+                  <td colSpan={orderedEdrs.length + 1}>
+                    {category}
+                  </td>
+                </tr>
+              );
+
+              const itemRows = items.map((item, itemIndex) => {
                 const subcategory = item['Sub-Category'];
                 const rowKey = `${category}-${subcategory}-${itemIndex}`;
                 return (
@@ -769,8 +895,10 @@ export default function Linux() {
                     })}
                   </tr>
                 );
-              })
-            ))}
+              });
+
+              return [headerRow, ...itemRows];
+            })}
           </tbody>
         </table>
       </div>
@@ -948,23 +1076,23 @@ export default function Linux() {
             <div className="bg-white border-b border-slate-200 px-6 py-4 overflow-x-auto">
               <div className="flex flex-wrap gap-6 min-w-max">
                 <div className="flex items-center text-sm text-slate-600">
-                  <span className="w-6 h-6 rounded-full bg-green-100 text-green-700 flex items-center justify-center mr-2 text-xs">✅</span>
+                  <span className="w-6 h-6 rounded-full bg-green-100 text-green-700 flex items-center justify-center mr-2 text-xs"><Check className="w-3.5 h-3.5" /></span>
                   <span className="font-medium">Implemented</span>
                 </div>
                 <div className="flex items-center text-sm text-slate-600">
-                  <span className="w-6 h-6 rounded-full bg-red-100 text-red-700 flex items-center justify-center mr-2 text-xs">❌</span>
+                  <span className="w-6 h-6 rounded-full bg-red-100 text-red-700 flex items-center justify-center mr-2 text-xs"><X className="w-3.5 h-3.5" /></span>
                   <span className="font-medium">Not Implemented</span>
                 </div>
                 <div className="flex items-center text-sm text-slate-600">
-                  <span className="w-6 h-6 rounded-full bg-orange-100 text-orange-700 flex items-center justify-center mr-2 text-xs">⚠️</span>
+                  <span className="w-6 h-6 rounded-full bg-orange-100 text-orange-700 flex items-center justify-center mr-2 text-xs"><AlertTriangle className="w-3.5 h-3.5" /></span>
                   <span className="font-medium">Partially</span>
                 </div>
                 <div className="flex items-center text-sm text-slate-600">
-                  <span className="w-6 h-6 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center mr-2 text-xs">❓</span>
+                  <span className="w-6 h-6 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center mr-2 text-xs"><HelpCircle className="w-3.5 h-3.5" /></span>
                   <span className="font-medium">Pending</span>
                 </div>
                 <div className="flex items-center text-sm text-slate-600">
-                  <span className="w-6 h-6 rounded-full bg-sky-100 text-sky-700 flex items-center justify-center mr-2 text-xs">🎚️</span>
+                  <span className="w-6 h-6 rounded-full bg-sky-100 text-sky-700 flex items-center justify-center mr-2 text-xs"><Sliders className="w-3.5 h-3.5" /></span>
                   <span className="font-medium">Via Enabling</span>
                 </div>
               </div>
