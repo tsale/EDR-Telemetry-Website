@@ -3,8 +3,8 @@ import { useState, useEffect, useCallback, useMemo, useRef } from 'react'
 import useHeadingLinks from '../hooks/useHeadingLinks'
 import Link from 'next/link'
 import Head from 'next/head'
-import { 
-  Terminal, Search, Filter, ArrowRight, CheckCircle, XCircle, 
+import {
+  Terminal, Search, Filter, ArrowRight, CheckCircle, XCircle,
   AlertTriangle, HelpCircle, FileText, Settings, Sliders,
   BarChart3, Globe, Activity, Database
 } from 'lucide-react'
@@ -391,19 +391,19 @@ export default function Linux() {
         fetch('/api/telemetry/linux'),
         fetch('/api/telemetry/transparency')
       ]);
-      
+
       if (!telemetryResponse.ok) throw new Error('Network response was not ok');
-      
+
       if (transparencyResponse.ok) {
         const transparency = await transparencyResponse.json();
         setTransparencyData(transparency);
       }
-      
+
       const telemetry = await telemetryResponse.json();
-      
+
       const sortedData = sortDataWithSysmonFirst(telemetry);
       setTelemetryData(sortedData);
-      
+
       if (sortedData && sortedData.length > 0) {
         const edrNames = Object.keys(sortedData[0] || {}).filter(key =>
           key !== 'Telemetry Feature Category' &&
@@ -443,7 +443,7 @@ export default function Linux() {
   }, []);
 
   // Filter EDR options based on input text
-  const filteredEdrOptions = useMemo(() => 
+  const filteredEdrOptions = useMemo(() =>
     edrOptions.filter(edr => edr.toLowerCase().includes(filterText.toLowerCase())),
     [edrOptions, filterText]
   );
@@ -549,7 +549,7 @@ export default function Linux() {
     }
     const statusLower = String(status).toLowerCase().trim();
     const explanationText = typeof explanation === 'string' ? explanation : '';
-    
+
     if (statusLower === 'yes') {
       return <span className="status-icon yes" title="Implemented">✅</span>;
     } else if (statusLower === 'no') {
@@ -587,7 +587,7 @@ export default function Linux() {
   const renderTelemetryTable = useCallback(() => {
     // Filter and order EDRs for display
     let displayedEdrs = selectedEDRs.length > 0 ? [...selectedEDRs] : [...edrOptions];
-    
+
     // For comparison mode, just use selected EDRs
     if (isComparisonMode) {
       return (
@@ -601,23 +601,24 @@ export default function Linux() {
                   const isAuditd = edr.toLowerCase().includes('auditd');
                   const isSysmon = edr.toLowerCase().includes('sysmon');
                   // Format EDR name for better display on mobile
-                  const displayName = window.innerWidth <= 480 ? 
+                  const displayName = window.innerWidth <= 480 ?
                     edr.replace(/\s*\(.+\)/, '').trim() : edr;
-                  
+
                   // Get transparency info for this vendor
                   const vendorTransparency = transparencyData[edr] || {};
-                  
+
                   return (
-                    <th 
-                      key={edr} 
+                    <th
+                      key={edr}
                       className={`edr-column ${isAuditd ? 'auditd-header' : ''} ${isSysmon ? 'sysmon-header' : ''}`}
                     >
                       <span className="inline-flex items-center">
                         {displayName}
-                        <TransparencyIndicator 
+                        <TransparencyIndicator
                           indicators={vendorTransparency.indicators || []}
                           transparencyNote={vendorTransparency.transparency_note || ''}
                           vendorName={edr}
+                          className="ml-1"
                         />
                       </span>
                     </th>
@@ -633,8 +634,8 @@ export default function Linux() {
                   return (
                     <tr key={rowKey} className={hoverEnabled ? 'hover-highlight' : ''}>
                       {itemIndex === 0 && (
-                        <td 
-                          className="feature-column" 
+                        <td
+                          className="feature-column"
                           rowSpan={items.length}
                         >
                           {category}
@@ -648,11 +649,11 @@ export default function Linux() {
                         const isSysmon = edr.toLowerCase().includes('sysmon');
                         const explanationMap = item.__explanations || {};
                         const explanation = explanationMap[edr] || '';
-                        
+
                         return (
-                          <td 
-                            key={statusKey} 
-                            data-status={status} 
+                          <td
+                            key={statusKey}
+                            data-status={status}
                             className={`${isAuditd ? 'auditd-column' : ''} ${isSysmon ? 'sysmon-column' : ''}`}
                           >
                             {getStatusIcon(status, explanation)}
@@ -668,11 +669,11 @@ export default function Linux() {
         </div>
       );
     }
-    
+
     // For normal display mode, rearrange to put Auditd and Sysmon first (after first two columns)
     const auditdEdr = displayedEdrs.find(edr => edr.toLowerCase().includes('auditd'));
     const sysmonEdr = displayedEdrs.find(edr => edr.toLowerCase().includes('sysmon'));
-    
+
     // Remove Auditd and Sysmon from the array if they exist
     if (auditdEdr) {
       displayedEdrs = displayedEdrs.filter(edr => edr !== auditdEdr);
@@ -680,15 +681,15 @@ export default function Linux() {
     if (sysmonEdr) {
       displayedEdrs = displayedEdrs.filter(edr => edr !== sysmonEdr);
     }
-    
+
     // Add Auditd and Sysmon at the beginning
     const orderedEdrs = [];
     if (auditdEdr) orderedEdrs.push(auditdEdr);
     if (sysmonEdr) orderedEdrs.push(sysmonEdr);
-    
+
     // Add the rest of the EDRs
     orderedEdrs.push(...displayedEdrs);
-    
+
     return (
       <div className="telemetry-table-container">
         <table className={`telemetry-table`} ref={tableRef}>
@@ -700,23 +701,24 @@ export default function Linux() {
                 const isAuditd = edr.toLowerCase().includes('auditd');
                 const isSysmon = edr.toLowerCase().includes('sysmon');
                 // Format EDR name for better display on mobile
-                const displayName = window.innerWidth <= 480 ? 
+                const displayName = window.innerWidth <= 480 ?
                   edr.replace(/\s*\(.+\)/, '').trim() : edr;
-                
+
                 // Get transparency info for this vendor
                 const vendorTransparency = transparencyData[edr] || {};
-                
+
                 return (
-                  <th 
-                    key={edr} 
+                  <th
+                    key={edr}
                     className={`edr-column ${isAuditd ? 'auditd-header' : ''} ${isSysmon ? 'sysmon-header' : ''}`}
                   >
                     <span className="inline-flex items-center">
                       {displayName}
-                      <TransparencyIndicator 
+                      <TransparencyIndicator
                         indicators={vendorTransparency.indicators || []}
                         transparencyNote={vendorTransparency.transparency_note || ''}
                         vendorName={edr}
+                        className="ml-1"
                       />
                     </span>
                   </th>
@@ -732,8 +734,8 @@ export default function Linux() {
                 return (
                   <tr key={rowKey} className={hoverEnabled ? 'hover-highlight' : ''}>
                     {itemIndex === 0 && (
-                      <td 
-                        className="feature-column" 
+                      <td
+                        className="feature-column"
                         rowSpan={items.length}
                       >
                         {category}
@@ -742,9 +744,9 @@ export default function Linux() {
                     <td className="subcategory-column">
                       {subcategory}
                       {item.optional && (
-                         <span className="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800 ml-2">
-                           New
-                         </span>
+                        <span className="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800 ml-2">
+                          New
+                        </span>
                       )}
                     </td>
                     {orderedEdrs.map(edr => {
@@ -754,11 +756,11 @@ export default function Linux() {
                       const isSysmon = edr.toLowerCase().includes('sysmon');
                       const explanationMap = item.__explanations || {};
                       const explanation = explanationMap[edr] || '';
-                      
+
                       return (
-                        <td 
-                          key={statusKey} 
-                          data-status={status} 
+                        <td
+                          key={statusKey}
+                          data-status={status}
                           className={`${isAuditd ? 'auditd-column' : ''} ${isSysmon ? 'sysmon-column' : ''}`}
                         >
                           {getStatusIcon(status, explanation)}
@@ -806,30 +808,30 @@ export default function Linux() {
           <div className="absolute -top-[30%] -left-[10%] w-[70%] h-[70%] rounded-full bg-green-900/20 blur-[100px]"></div>
           <div className="absolute -bottom-[30%] -right-[10%] w-[70%] h-[70%] rounded-full bg-blue-900/20 blur-[100px]"></div>
         </div>
-        
+
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10 text-center flex flex-col items-center justify-center min-h-[420px]">
           <div className="inline-flex items-center justify-center p-3 bg-green-600/20 rounded-xl mb-8 backdrop-blur-sm ring-1 ring-green-500/50">
             <Terminal className="w-10 h-10 text-green-400" />
           </div>
-          
+
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 !text-white leading-tight">
             Linux EDR <span className="text-green-400">Telemetry</span>
           </h1>
-          
+
           <p className="mt-4 max-w-2xl mx-auto text-xl text-slate-300 leading-relaxed !text-center">
             Explore detailed telemetry capabilities and comparisons for Linux-based EDR solutions.
             Analyze coverage, gaps, and detection logic.
           </p>
 
           <div className="mt-10 flex flex-wrap justify-center gap-4">
-             <div className="flex items-center px-4 py-2 bg-slate-800/50 rounded-lg border border-slate-700 backdrop-blur-sm">
-               <Database className="w-5 h-5 text-green-400 mr-2" />
-               <span className="text-slate-300 font-medium">{isLoading ? "Loading..." : `${telemetryData.length} Signals`}</span>
-             </div>
-             <div className="flex items-center px-4 py-2 bg-slate-800/50 rounded-lg border border-slate-700 backdrop-blur-sm">
-               <Activity className="w-5 h-5 text-blue-400 mr-2" />
-               <span className="text-slate-300 font-medium">{isLoading ? "Loading..." : `${edrOptions.length} Vendors`}</span>
-             </div>
+            <div className="flex items-center px-4 py-2 bg-slate-800/50 rounded-lg border border-slate-700 backdrop-blur-sm">
+              <Database className="w-5 h-5 text-green-400 mr-2" />
+              <span className="text-slate-300 font-medium">{isLoading ? "Loading..." : `${telemetryData.length} Signals`}</span>
+            </div>
+            <div className="flex items-center px-4 py-2 bg-slate-800/50 rounded-lg border border-slate-700 backdrop-blur-sm">
+              <Activity className="w-5 h-5 text-blue-400 mr-2" />
+              <span className="text-slate-300 font-medium">{isLoading ? "Loading..." : `${edrOptions.length} Vendors`}</span>
+            </div>
           </div>
         </div>
       </section>
@@ -837,175 +839,175 @@ export default function Linux() {
       <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-12 -mt-12 relative z-20">
         {/* Main Content Card */}
         <div className="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
-          
+
           {/* Toolbar / Controls */}
           <div className="border-b border-slate-200 bg-slate-50 p-6">
-             <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
-               
-               {/* Left Side: Filters */}
-               <div className="w-full lg:w-auto flex flex-col sm:flex-row gap-4">
-                 <div className="relative group min-w-[280px]">
-                    <input 
-                      type="text" 
-                      className="block w-full pl-10 pr-3 py-2.5 border border-slate-300 rounded-lg leading-5 bg-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 sm:text-sm transition-all shadow-sm"
-                      placeholder="Search or select EDRs..."
-                      value={filterText}
-                      onChange={(e) => setFilterText(e.target.value)}
-                      onClick={() => setEdrDropdownOpen(true)}
-                    />
-                    
-                    {edrDropdownOpen && (
-                      <>
-                        <div className="fixed inset-0 z-[100]" onClick={() => setEdrDropdownOpen(false)}></div>
-                        <div className="absolute mt-1 w-full bg-white shadow-xl max-h-96 rounded-lg py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm z-[110]">
-                          {filteredEdrOptions.map(edr => (
-                            <div 
-                              key={edr}
-                              className="cursor-pointer select-none relative py-3 pl-3 pr-9 hover:bg-green-50 text-slate-700 flex items-center"
-                              onClick={() => addToComparison(edr)}
-                            >
-                              <span className={`block truncate font-medium ${selectedEDRs.includes(edr) ? 'text-green-600' : ''}`}>
-                                {edr}
+            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+
+              {/* Left Side: Filters */}
+              <div className="w-full lg:w-auto flex flex-col sm:flex-row gap-4">
+                <div className="relative group min-w-[280px]">
+                  <input
+                    type="text"
+                    className="block w-full pl-10 pr-3 py-2.5 border border-slate-300 rounded-lg leading-5 bg-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 sm:text-sm transition-all shadow-sm"
+                    placeholder="Search or select EDRs..."
+                    value={filterText}
+                    onChange={(e) => setFilterText(e.target.value)}
+                    onClick={() => setEdrDropdownOpen(true)}
+                  />
+
+                  {edrDropdownOpen && (
+                    <>
+                      <div className="fixed inset-0 z-[100]" onClick={() => setEdrDropdownOpen(false)}></div>
+                      <div className="absolute mt-1 w-full bg-white shadow-xl max-h-96 rounded-lg py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm z-[110]">
+                        {filteredEdrOptions.map(edr => (
+                          <div
+                            key={edr}
+                            className="cursor-pointer select-none relative py-3 pl-3 pr-9 hover:bg-green-50 text-slate-700 flex items-center"
+                            onClick={() => addToComparison(edr)}
+                          >
+                            <span className={`block truncate font-medium ${selectedEDRs.includes(edr) ? 'text-green-600' : ''}`}>
+                              {edr}
+                            </span>
+                            {selectedEDRs.includes(edr) && (
+                              <span className="absolute inset-y-0 right-0 flex items-center pr-4 text-green-600">
+                                <CheckCircle className="w-4 h-4" />
                               </span>
-                              {selectedEDRs.includes(edr) && (
-                                <span className="absolute inset-y-0 right-0 flex items-center pr-4 text-green-600">
-                                  <CheckCircle className="w-4 h-4" />
-                                </span>
-                              )}
-                            </div>
-                          ))}
-                        </div>
-                      </>
-                    )}
-                 </div>
-                 
-                 <div className="flex items-center space-x-2 bg-white px-3 py-2 border border-slate-300 rounded-lg shadow-sm">
-                   <label htmlFor="hoverToggle" className="flex items-center cursor-pointer select-none">
-                     <div className="relative">
-                       <input 
-                         type="checkbox" 
-                         id="hoverToggle" 
-                         className="sr-only"
-                         checked={hoverEnabled}
-                         onChange={toggleHover}
-                       />
-                       <div className={`block w-10 h-6 rounded-full transition-colors ${hoverEnabled ? 'bg-green-500' : 'bg-slate-300'}`}></div>
-                       <div className={`absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform ${hoverEnabled ? 'transform translate-x-4' : ''}`}></div>
-                     </div>
-                     <span className="ml-3 text-sm font-medium text-slate-700">Highlighting</span>
-                   </label>
-                 </div>
-               </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </>
+                  )}
+                </div>
 
-               {/* Right Side: Actions */}
-               <div className="flex flex-wrap gap-2 w-full lg:w-auto justify-start lg:justify-end">
-                  <Link href="/scores" className="inline-flex items-center px-3 py-2 border border-slate-300 shadow-sm text-sm leading-4 font-medium rounded-lg text-slate-700 bg-white hover:bg-slate-50 transition-colors">
-                    <BarChart3 className="w-4 h-4 mr-2 text-slate-500" /> Scores
-                  </Link>
-                  <Link href="/mitre-mappings" className="inline-flex items-center px-3 py-2 border border-slate-300 shadow-sm text-sm leading-4 font-medium rounded-lg text-slate-700 bg-white hover:bg-slate-50 transition-colors">
-                    <Globe className="w-4 h-4 mr-2 text-slate-500" /> MITRE
-                  </Link>
-                  <Link href="/telemetry-categories" className="inline-flex items-center px-3 py-2 border border-slate-300 shadow-sm text-sm leading-4 font-medium rounded-lg text-slate-700 bg-white hover:bg-slate-50 transition-colors">
-                    <FileText className="w-4 h-4 mr-2 text-slate-500" /> Categories
-                  </Link>
-               </div>
-             </div>
+                <div className="flex items-center space-x-2 bg-white px-3 py-2 border border-slate-300 rounded-lg shadow-sm">
+                  <label htmlFor="hoverToggle" className="flex items-center cursor-pointer select-none">
+                    <div className="relative">
+                      <input
+                        type="checkbox"
+                        id="hoverToggle"
+                        className="sr-only"
+                        checked={hoverEnabled}
+                        onChange={toggleHover}
+                      />
+                      <div className={`block w-10 h-6 rounded-full transition-colors ${hoverEnabled ? 'bg-green-500' : 'bg-slate-300'}`}></div>
+                      <div className={`absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform ${hoverEnabled ? 'transform translate-x-4' : ''}`}></div>
+                    </div>
+                    <span className="ml-3 text-sm font-medium text-slate-700">Highlighting</span>
+                  </label>
+                </div>
+              </div>
 
-             {/* Selected EDRs Tags */}
-             {selectedEDRs.length > 0 && (
-               <div className="mt-4 flex flex-wrap gap-2">
-                 {selectedEDRs.map(edr => (
-                   <span key={edr} className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800 border border-green-200">
-                     {edr}
-                     <button
-                       type="button"
-                       className="flex-shrink-0 ml-1.5 h-4 w-4 rounded-full inline-flex items-center justify-center text-green-600 hover:bg-green-200 hover:text-green-500 focus:outline-none"
-                       onClick={() => removeFromComparison(edr)}
-                     >
-                       <span className="sr-only">Remove {edr}</span>
-                       <XCircle className="w-3 h-3" />
-                     </button>
-                   </span>
-                 ))}
-                 <button 
-                    onClick={() => {
-                      setSelectedEDRs([]);
-                      setIsComparisonMode(false);
-                    }}
-                    className="text-sm text-slate-500 hover:text-red-600 underline ml-2"
-                 >
-                   Clear all
-                 </button>
-               </div>
-             )}
+              {/* Right Side: Actions */}
+              <div className="flex flex-wrap gap-2 w-full lg:w-auto justify-start lg:justify-end">
+                <Link href="/scores" className="inline-flex items-center px-3 py-2 border border-slate-300 shadow-sm text-sm leading-4 font-medium rounded-lg text-slate-700 bg-white hover:bg-slate-50 transition-colors">
+                  <BarChart3 className="w-4 h-4 mr-2 text-slate-500" /> Scores
+                </Link>
+                <Link href="/mitre-mappings" className="inline-flex items-center px-3 py-2 border border-slate-300 shadow-sm text-sm leading-4 font-medium rounded-lg text-slate-700 bg-white hover:bg-slate-50 transition-colors">
+                  <Globe className="w-4 h-4 mr-2 text-slate-500" /> MITRE
+                </Link>
+                <Link href="/telemetry-categories" className="inline-flex items-center px-3 py-2 border border-slate-300 shadow-sm text-sm leading-4 font-medium rounded-lg text-slate-700 bg-white hover:bg-slate-50 transition-colors">
+                  <FileText className="w-4 h-4 mr-2 text-slate-500" /> Categories
+                </Link>
+              </div>
+            </div>
+
+            {/* Selected EDRs Tags */}
+            {selectedEDRs.length > 0 && (
+              <div className="mt-4 flex flex-wrap gap-2">
+                {selectedEDRs.map(edr => (
+                  <span key={edr} className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800 border border-green-200">
+                    {edr}
+                    <button
+                      type="button"
+                      className="flex-shrink-0 ml-1.5 h-4 w-4 rounded-full inline-flex items-center justify-center text-green-600 hover:bg-green-200 hover:text-green-500 focus:outline-none"
+                      onClick={() => removeFromComparison(edr)}
+                    >
+                      <span className="sr-only">Remove {edr}</span>
+                      <XCircle className="w-3 h-3" />
+                    </button>
+                  </span>
+                ))}
+                <button
+                  onClick={() => {
+                    setSelectedEDRs([]);
+                    setIsComparisonMode(false);
+                  }}
+                  className="text-sm text-slate-500 hover:text-red-600 underline ml-2"
+                >
+                  Clear all
+                </button>
+              </div>
+            )}
           </div>
 
           {/* Telemetry Table Area */}
           <div className="p-0">
-             {/* Legend Bar - Integrated above table */}
-             <div className="bg-white border-b border-slate-200 px-6 py-4 overflow-x-auto">
-               <div className="flex flex-wrap gap-6 min-w-max">
-                 <div className="flex items-center text-sm text-slate-600">
-                   <span className="w-6 h-6 rounded-full bg-green-100 text-green-700 flex items-center justify-center mr-2 text-xs">✅</span>
-                   <span className="font-medium">Implemented</span>
-                 </div>
-                 <div className="flex items-center text-sm text-slate-600">
-                   <span className="w-6 h-6 rounded-full bg-red-100 text-red-700 flex items-center justify-center mr-2 text-xs">❌</span>
-                   <span className="font-medium">Not Implemented</span>
-                 </div>
-                 <div className="flex items-center text-sm text-slate-600">
-                   <span className="w-6 h-6 rounded-full bg-orange-100 text-orange-700 flex items-center justify-center mr-2 text-xs">⚠️</span>
-                   <span className="font-medium">Partially</span>
-                 </div>
-                 <div className="flex items-center text-sm text-slate-600">
-                   <span className="w-6 h-6 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center mr-2 text-xs">❓</span>
-                   <span className="font-medium">Pending</span>
-                 </div>
-                 <div className="flex items-center text-sm text-slate-600">
-                   <span className="w-6 h-6 rounded-full bg-sky-100 text-sky-700 flex items-center justify-center mr-2 text-xs">🎚️</span>
-                   <span className="font-medium">Via Enabling</span>
-                 </div>
-               </div>
-             </div>
-             
-             {/* Optional Telemetry Notice */}
-             <div className="bg-blue-50/50 border-b border-blue-100 px-6 py-3 flex items-start sm:items-center gap-3">
-               <HelpCircle className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5 sm:mt-0" />
-               <p className="text-sm text-blue-800">
-                 <span className="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-semibold bg-blue-100 text-blue-800 mr-1.5">New</span>
-                 telemetry doesn&apos;t affect scoring until 75% vendor adoption. 
-                 <Link href="/scores#optional-telemetry" className="ml-1 font-semibold underline hover:text-blue-600">Learn more</Link>
-               </p>
-             </div>
+            {/* Legend Bar - Integrated above table */}
+            <div className="bg-white border-b border-slate-200 px-6 py-4 overflow-x-auto">
+              <div className="flex flex-wrap gap-6 min-w-max">
+                <div className="flex items-center text-sm text-slate-600">
+                  <span className="w-6 h-6 rounded-full bg-green-100 text-green-700 flex items-center justify-center mr-2 text-xs">✅</span>
+                  <span className="font-medium">Implemented</span>
+                </div>
+                <div className="flex items-center text-sm text-slate-600">
+                  <span className="w-6 h-6 rounded-full bg-red-100 text-red-700 flex items-center justify-center mr-2 text-xs">❌</span>
+                  <span className="font-medium">Not Implemented</span>
+                </div>
+                <div className="flex items-center text-sm text-slate-600">
+                  <span className="w-6 h-6 rounded-full bg-orange-100 text-orange-700 flex items-center justify-center mr-2 text-xs">⚠️</span>
+                  <span className="font-medium">Partially</span>
+                </div>
+                <div className="flex items-center text-sm text-slate-600">
+                  <span className="w-6 h-6 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center mr-2 text-xs">❓</span>
+                  <span className="font-medium">Pending</span>
+                </div>
+                <div className="flex items-center text-sm text-slate-600">
+                  <span className="w-6 h-6 rounded-full bg-sky-100 text-sky-700 flex items-center justify-center mr-2 text-xs">🎚️</span>
+                  <span className="font-medium">Via Enabling</span>
+                </div>
+              </div>
+            </div>
 
-             {/* Table Content */}
-             <div className="relative min-h-[400px]">
-               {isLoading ? (
-                 <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/80 z-20 backdrop-blur-sm">
-                   <div className="w-12 h-12 border-4 border-green-200 border-t-green-600 rounded-full animate-spin mb-4"></div>
-                   <p className="text-slate-500 font-medium">Loading telemetry data...</p>
-                 </div>
-               ) : error ? (
-                 <div className="p-12 text-center">
-                   <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-red-100 text-red-600 mb-4">
-                     <AlertTriangle className="w-8 h-8" />
-                   </div>
-                   <h3 className="text-lg font-medium text-slate-900 mb-2">Unable to load data</h3>
-                   <p className="text-slate-500 mb-6 max-w-md mx-auto">{error}</p>
-                   <button 
-                     onClick={() => loadTelemetry()}
-                     className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
-                   >
-                     Retry
-                   </button>
-                 </div>
-               ) : (
-                 renderTelemetryTable()
-               )}
-             </div>
+            {/* Optional Telemetry Notice */}
+            <div className="bg-blue-50/50 border-b border-blue-100 px-6 py-3 flex items-start sm:items-center gap-3">
+              <HelpCircle className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5 sm:mt-0" />
+              <p className="text-sm text-blue-800">
+                <span className="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-semibold bg-blue-100 text-blue-800 mr-1.5">New</span>
+                telemetry doesn&apos;t affect scoring until 75% vendor adoption.
+                <Link href="/scores#optional-telemetry" className="ml-1 font-semibold underline hover:text-blue-600">Learn more</Link>
+              </p>
+            </div>
+
+            {/* Table Content */}
+            <div className="relative min-h-[400px]">
+              {isLoading ? (
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/80 z-20 backdrop-blur-sm">
+                  <div className="w-12 h-12 border-4 border-green-200 border-t-green-600 rounded-full animate-spin mb-4"></div>
+                  <p className="text-slate-500 font-medium">Loading telemetry data...</p>
+                </div>
+              ) : error ? (
+                <div className="p-12 text-center">
+                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-red-100 text-red-600 mb-4">
+                    <AlertTriangle className="w-8 h-8" />
+                  </div>
+                  <h3 className="text-lg font-medium text-slate-900 mb-2">Unable to load data</h3>
+                  <p className="text-slate-500 mb-6 max-w-md mx-auto">{error}</p>
+                  <button
+                    onClick={() => loadTelemetry()}
+                    className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+                  >
+                    Retry
+                  </button>
+                </div>
+              ) : (
+                renderTelemetryTable()
+              )}
+            </div>
           </div>
         </div>
-        
+
         <div className="mt-8 text-center text-slate-400 text-sm">
           Data is continually updated based on vendor changes and community contributions.
         </div>

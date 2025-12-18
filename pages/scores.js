@@ -6,108 +6,108 @@ import TransparencyIndicator from '../components/TransparencyIndicator'
 
 // Common scoring values for both Windows and Linux
 const FEATURES_DICT_VALUED = {
-    "Yes": 1,
-    "No": 0,
-    "Via EnablingTelemetry": 1,
-    "Partially": 0.5,
-    "Via EventLogs": 0.5,
-    "Pending Response": 0
+  "Yes": 1,
+  "No": 0,
+  "Via EnablingTelemetry": 1,
+  "Partially": 0.5,
+  "Via EventLogs": 0.5,
+  "Pending Response": 0
 };
 
 // Windows-specific categories with their weights
 const WINDOWS_CATEGORIES_VALUED = {
-    "Process Creation": 1,
-    "Process Termination": 0.5,
-    "Process Access": 1,
-    "Image/Library Loaded": 1,
-    "Remote Thread Creation": 1,
-    "Process Tampering Activity": 1,
-    "File Creation": 1,
-    "File Opened": 1,
-    "File Deletion": 1,
-    "File Modification": 1,
-    "File Renaming": 0.7,
-    "Local Account Creation": 1,
-    "Local Account Modification": 1,
-    "Local Account Deletion": 0.5,
-    "Account Login": 0.7,
-    "Account Logoff": 0.4,
-    "TCP Connection": 1,
-    "UDP Connection": 1,
-    "URL": 1,
-    "DNS Query": 1,
-    "File Downloaded": 1,
-    "MD5": 1,
-    "SHA": 1,
-    "JA3/JA3s": 1,
-    "IMPHASH": 1,
-    "Key/Value Creation": 1,
-    "Key/Value Modification": 1,
-    "Key/Value Deletion": 0.7,
-    "Scheduled Task Creation": 0.7,
-    "Scheduled Task Modification": 0.7,
-    "Scheduled Task Deletion": 0.5,
-    "Service Creation": 1,
-    "Service Modification": 0.7,
-    "Service Deletion": 0.6,
-    "Driver Loaded": 1,
-    "Driver Modification": 1,
-    "Driver Unloaded": 1,
-    "Virtual Disk Mount": 0.5,
-    "USB Device Unmount": 0.7,
-    "USB Device Mount": 1,
-    "Group Policy Modification": 0.3,
-    "Pipe Creation": 0.8,
-    "Pipe Connection": 1,
-    "Agent Start": 0.2,
-    "Agent Stop": 0.8,
-    "Agent Install": 0.2,
-    "Agent Uninstall": 1,
-    "Agent Keep-Alive": 0.2,
-    "Agent Errors": 0.2,
-    "WmiEventConsumerToFilter": 1,
-    "WmiEventConsumer": 1,
-    "WmiEventFilter": 1,
-    "BIT JOBS Activity": 1,
-    "Script-Block Activity": 1,
-    "Win32 API Telemetry": 1,
-    "Volume Shadow Copy Deletion": 0.5,
+  "Process Creation": 1,
+  "Process Termination": 0.5,
+  "Process Access": 1,
+  "Image/Library Loaded": 1,
+  "Remote Thread Creation": 1,
+  "Process Tampering Activity": 1,
+  "File Creation": 1,
+  "File Opened": 1,
+  "File Deletion": 1,
+  "File Modification": 1,
+  "File Renaming": 0.7,
+  "Local Account Creation": 1,
+  "Local Account Modification": 1,
+  "Local Account Deletion": 0.5,
+  "Account Login": 0.7,
+  "Account Logoff": 0.4,
+  "TCP Connection": 1,
+  "UDP Connection": 1,
+  "URL": 1,
+  "DNS Query": 1,
+  "File Downloaded": 1,
+  "MD5": 1,
+  "SHA": 1,
+  "JA3/JA3s": 1,
+  "IMPHASH": 1,
+  "Key/Value Creation": 1,
+  "Key/Value Modification": 1,
+  "Key/Value Deletion": 0.7,
+  "Scheduled Task Creation": 0.7,
+  "Scheduled Task Modification": 0.7,
+  "Scheduled Task Deletion": 0.5,
+  "Service Creation": 1,
+  "Service Modification": 0.7,
+  "Service Deletion": 0.6,
+  "Driver Loaded": 1,
+  "Driver Modification": 1,
+  "Driver Unloaded": 1,
+  "Virtual Disk Mount": 0.5,
+  "USB Device Unmount": 0.7,
+  "USB Device Mount": 1,
+  "Group Policy Modification": 0.3,
+  "Pipe Creation": 0.8,
+  "Pipe Connection": 1,
+  "Agent Start": 0.2,
+  "Agent Stop": 0.8,
+  "Agent Install": 0.2,
+  "Agent Uninstall": 1,
+  "Agent Keep-Alive": 0.2,
+  "Agent Errors": 0.2,
+  "WmiEventConsumerToFilter": 1,
+  "WmiEventConsumer": 1,
+  "WmiEventFilter": 1,
+  "BIT JOBS Activity": 1,
+  "Script-Block Activity": 1,
+  "Win32 API Telemetry": 1,
+  "Volume Shadow Copy Deletion": 0.5,
 };
 
 // Linux-specific categories with their weights
 const LINUX_CATEGORIES_VALUED = {
-    "Process Creation": 1,
-    "Process Termination": 0.5,
-    "File Creation": 1,
-    "File Modification": 1,
-    "File Deletion": 1,
-    "User Logon": 0.7,
-    "User Logoff": 0.4,
-    "Logon Failed": 1,
-    "Script Content": 1,
-    "Network Connection": 1,
-    "Network Socket Listen": 1,
-    "DNS Query": 1,
-    "Scheduled Task": 0.7,
-    "User Account Created": 1,
-    "User Account Modified": 1,
-    "User Account Deleted": 0.5,
-    "Driver Load": 1,
-    "Driver Modification": 1,
-    "Image Load": 1,
-    "eBPF Event": 1,
-    "Raw Access Read": 1,
-    "Process Access": 1,
-    "Process Tampering": 1,
-    "Process Call Stacks":1,
-    "Service Creation": 1,
-    "Service Modification": 0.7,
-    "Service Deletion": 0.6,
-    "Agent Start": 0.2,
-    "Agent Stop": 0.8,
-    "MD5": 1,
-    "SHA": 1,
-    "Fuzzy Hash": 1
+  "Process Creation": 1,
+  "Process Termination": 0.5,
+  "File Creation": 1,
+  "File Modification": 1,
+  "File Deletion": 1,
+  "User Logon": 0.7,
+  "User Logoff": 0.4,
+  "Logon Failed": 1,
+  "Script Content": 1,
+  "Network Connection": 1,
+  "Network Socket Listen": 1,
+  "DNS Query": 1,
+  "Scheduled Task": 0.7,
+  "User Account Created": 1,
+  "User Account Modified": 1,
+  "User Account Deleted": 0.5,
+  "Driver Load": 1,
+  "Driver Modification": 1,
+  "Image Load": 1,
+  "eBPF Event": 1,
+  "Raw Access Read": 1,
+  "Process Access": 1,
+  "Process Tampering": 1,
+  "Process Call Stacks": 1,
+  "Service Creation": 1,
+  "Service Modification": 0.7,
+  "Service Deletion": 0.6,
+  "Agent Start": 0.2,
+  "Agent Stop": 0.8,
+  "MD5": 1,
+  "SHA": 1,
+  "Fuzzy Hash": 1
 };
 
 export default function Scores() {
@@ -127,7 +127,7 @@ export default function Scores() {
 
   // Add heading links
   useHeadingLinks();
-  
+
   // Additional useEffect to re-apply heading links after content loads
   useEffect(() => {
     if (!isLoading && !error) {
@@ -144,11 +144,11 @@ export default function Scores() {
           // Remove processed class to allow for re-processing
           heading.classList.remove('heading-processed');
         });
-        
+
         // Call useHeadingLinks again (indirectly by triggering a re-render)
         setCurrentPlatform(prev => prev);
       }, 500);
-      
+
       return () => clearTimeout(timer);
     }
   }, [isLoading, error]);
@@ -174,7 +174,7 @@ export default function Scores() {
   // Function to load all telemetry data from Supabase API
   const loadAllTelemetryData = async () => {
     setIsLoading(true);
-    
+
     try {
       // Load Windows, Linux, and transparency data in parallel
       const [windowsResponse, linuxResponse, transparencyResponse] = await Promise.all([
@@ -182,24 +182,24 @@ export default function Scores() {
         fetch('/api/telemetry/linux'),
         fetch('/api/telemetry/transparency')
       ]);
-      
-      if (!windowsResponse.ok) 
+
+      if (!windowsResponse.ok)
         throw new Error(`Failed to fetch Windows telemetry data: ${windowsResponse.status}`);
-      
+
       const windowsData = await windowsResponse.json();
       setWindowsTelemetryData(windowsData);
-      
-      if (!linuxResponse.ok) 
+
+      if (!linuxResponse.ok)
         throw new Error(`Failed to fetch Linux telemetry data: ${linuxResponse.status}`);
-      
+
       const linuxData = await linuxResponse.json();
       setLinuxTelemetryData(linuxData);
-      
+
       if (transparencyResponse.ok) {
         const transparency = await transparencyResponse.json();
         setTransparencyData(transparency);
       }
-      
+
       setIsLoading(false);
     } catch (error) {
       console.error('Error loading telemetry data:', error);
@@ -210,33 +210,33 @@ export default function Scores() {
 
   // Function to calculate scores with platform-specific categories
   const calculateScores = (data, platform) => {
-    const categories = platform.toLowerCase() === 'linux' ? 
-        LINUX_CATEGORIES_VALUED : WINDOWS_CATEGORIES_VALUED;
+    const categories = platform.toLowerCase() === 'linux' ?
+      LINUX_CATEGORIES_VALUED : WINDOWS_CATEGORIES_VALUED;
 
     // Filter out optional telemetry from scoring calculation
     const scoringData = data.filter(entry => !entry.optional);
 
     const edrHeaders = Object.keys(data[0] || {}).filter(
-        key => key !== 'Telemetry Feature Category' &&
-               key !== 'Sub-Category' &&
-               key !== 'optional' &&
-               key !== '__explanations'
+      key => key !== 'Telemetry Feature Category' &&
+        key !== 'Sub-Category' &&
+        key !== 'optional' &&
+        key !== '__explanations'
     );
 
     // Initialize scores object for each EDR
     let scoresArray = edrHeaders.map(edr => ({ edr: edr, score: 0 }));
 
     scoringData.forEach(entry => {
-        const subCategory = entry['Sub-Category'];
-        const featureWeight = categories[subCategory] || 0;
+      const subCategory = entry['Sub-Category'];
+      const featureWeight = categories[subCategory] || 0;
 
-        edrHeaders.forEach((edr, index) => {
-            const status = entry[edr];
-            const statusValue = FEATURES_DICT_VALUED[status] !== undefined ? 
-                FEATURES_DICT_VALUED[status] : 0;
-            const scoreIncrement = statusValue * featureWeight;
-            scoresArray[index].score += scoreIncrement;
-        });
+      edrHeaders.forEach((edr, index) => {
+        const status = entry[edr];
+        const statusValue = FEATURES_DICT_VALUED[status] !== undefined ?
+          FEATURES_DICT_VALUED[status] : 0;
+        const scoreIncrement = statusValue * featureWeight;
+        scoresArray[index].score += scoreIncrement;
+      });
     });
 
     // Sort scores in descending order
@@ -248,11 +248,11 @@ export default function Scores() {
   // Update statistics based on scores
   const updateStats = (scoreData) => {
     if (scoreData.length === 0) return;
-    
+
     const avgScore = scoreData.reduce((acc, curr) => acc + curr.score, 0) / scoreData.length;
     const maxScore = Math.max(...scoreData.map(s => s.score));
     const minScore = Math.min(...scoreData.map(s => s.score));
-    
+
     setStats({
       avgScore,
       maxScore,
@@ -279,24 +279,24 @@ export default function Scores() {
   return (
     <TemplatePage title="EDR Telemetry Scores: Vendor-Neutral Benchmarking"
       description="Compare endpoint detection telemetry depth with transparent, weighted scoring for Windows and Linux.">
-      
+
       {/* Hero Section */}
       <section className="relative bg-slate-900 text-white py-20 overflow-hidden">
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute -top-[30%] -left-[10%] w-[70%] h-[70%] rounded-full bg-blue-900/20 blur-[100px]"></div>
           <div className="absolute -bottom-[30%] -right-[10%] w-[70%] h-[70%] rounded-full bg-indigo-900/20 blur-[100px]"></div>
         </div>
-        
+
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10 flex flex-col items-center">
           <div className="inline-flex items-center px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-300 text-sm font-medium mb-6 backdrop-blur-sm">
             <Trophy className="w-4 h-4 mr-2" />
             Transparent Scoring Methodology
           </div>
-          
+
           <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight mb-6 !text-white heading-processed">
             EDR Telemetry Scores
           </h1>
-          
+
           <div className="w-full flex justify-center">
             <p className="mt-6 text-xl !text-slate-300 max-w-3xl leading-relaxed text-center">
               Compare the telemetry capabilities of different EDR solutions based on our transparent, weighted scoring methodology.
@@ -310,29 +310,27 @@ export default function Scores() {
           {/* Platform selector */}
           <div className="flex justify-center mb-8">
             <div className="inline-flex gap-2 rounded-xl bg-slate-100 shadow-lg p-2 border border-slate-200">
-              <button 
-                className={`px-6 py-3 rounded-lg font-semibold transition-all ${
-                  currentPlatform === 'windows' 
-                    ? '!bg-blue-600 !text-white shadow-md' 
-                    : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50'
-                }`}
+              <button
+                className={`px-6 py-3 rounded-lg font-semibold transition-all ${currentPlatform === 'windows'
+                  ? '!bg-blue-600 !text-white shadow-md'
+                  : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50'
+                  }`}
                 onClick={() => setCurrentPlatform('windows')}
               >
                 Windows
               </button>
-              <button 
-                className={`px-6 py-3 rounded-lg font-semibold transition-all ${
-                  currentPlatform === 'linux' 
-                    ? '!bg-orange-500 !text-white shadow-md' 
-                    : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50'
-                }`}
+              <button
+                className={`px-6 py-3 rounded-lg font-semibold transition-all ${currentPlatform === 'linux'
+                  ? '!bg-orange-500 !text-white shadow-md'
+                  : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50'
+                  }`}
                 onClick={() => setCurrentPlatform('linux')}
               >
                 Linux
               </button>
             </div>
           </div>
-          
+
           {/* Error message */}
           {error && (
             <div className="bg-red-50 border border-red-200 rounded-xl p-6 text-center max-w-2xl mx-auto mb-8">
@@ -343,7 +341,7 @@ export default function Scores() {
               <p className="text-red-700">{error}</p>
             </div>
           )}
-          
+
           {/* Loading state */}
           {isLoading && (
             <div className="flex justify-center items-center min-h-[400px]">
@@ -353,7 +351,7 @@ export default function Scores() {
               </div>
             </div>
           )}
-          
+
           {/* Scores content */}
           {!isLoading && !error && (
             <div className="grid lg:grid-cols-3 gap-8">
@@ -364,49 +362,64 @@ export default function Scores() {
                     <table className="w-full">
                       <thead className="bg-slate-50 border-b border-slate-200">
                         <tr>
-                          <th className="px-6 py-4 text-left text-sm font-bold text-slate-700">Rank</th>
-                          <th className="px-6 py-4 text-left text-sm font-bold text-slate-700">EDR Solution</th>
-                          <th className="px-6 py-4 text-right text-sm font-bold text-slate-700">Score</th>
+                          <th className="px-2 sm:px-6 py-4 text-left text-sm font-bold text-slate-700">Rank</th>
+                          <th className="px-2 sm:px-6 py-4 text-left text-sm font-bold text-slate-700">EDR Solution</th>
+                          <th className="hidden sm:table-cell px-6 py-4 text-left text-sm font-bold text-slate-700">
+                            <span className="inline-flex items-center gap-1" title="Validation method and transparency details">
+                              Transparency
+                              <Info className="w-3.5 h-3.5 text-slate-400" />
+                            </span>
+                          </th>
+                          <th className="px-2 sm:px-6 py-4 text-right text-sm font-bold text-slate-700">Score</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-slate-100">
                         {scores.map((entry, index) => (
-                          <tr 
-                            key={entry.edr} 
-                            className={`transition-all hover:bg-slate-50 ${
-                              index === 0 ? 'bg-amber-50/50' : 
-                              index === 1 ? 'bg-slate-100/50' : 
-                              index === 2 ? 'bg-orange-50/50' : ''
-                            }`}
+                          <tr
+                            key={entry.edr}
+                            className={`transition-all hover:bg-slate-50 ${index === 0 ? 'bg-amber-50/50' :
+                              index === 1 ? 'bg-slate-100/50' :
+                                index === 2 ? 'bg-orange-50/50' : ''
+                              }`}
                           >
-                            <td className="px-6 py-4">
+                            <td className="px-2 sm:px-6 py-4">
                               <div className="flex items-center">
                                 {index === 0 && <Crown className="w-5 h-5 text-amber-500 mr-2" />}
                                 {index === 1 && <Medal className="w-5 h-5 text-slate-400 mr-2" />}
                                 {index === 2 && <Award className="w-5 h-5 text-orange-600 mr-2" />}
-                                <span className={`font-bold ${
-                                  index === 0 ? 'text-amber-600 text-xl' :
-                                  index === 1 ? 'text-slate-500 text-xl' :
-                                  index === 2 ? 'text-orange-600 text-xl' :
-                                  'text-slate-600'
-                                }`}>
+                                <span className={`font-bold ${index === 0 ? 'text-amber-600 text-xl' :
+                                    index === 1 ? 'text-slate-500 text-xl' :
+                                      index === 2 ? 'text-orange-600 text-xl' :
+                                        'text-slate-600'
+                                  }`}>
                                   {index + 1}
                                 </span>
                               </div>
                             </td>
-                            <td className="px-6 py-4">
-                              <div className="flex items-center gap-3">
+                            <td className="px-2 sm:px-6 py-4">
+                              <div className="flex flex-col gap-1">
                                 <span className="font-semibold text-slate-900 inline-flex items-center">
                                   {entry.edr}
-                                  <TransparencyIndicator 
+                                </span>
+                                <div className="sm:hidden mt-1">
+                                  <TransparencyIndicator
                                     indicators={transparencyData[entry.edr]?.indicators || []}
                                     transparencyNote={transparencyData[entry.edr]?.transparency_note || ''}
                                     vendorName={entry.edr}
+                                    showLabel={true}
                                   />
-                                </span>
+                                </div>
                               </div>
                             </td>
-                            <td className="px-6 py-4 text-right">
+                            <td className="hidden sm:table-cell px-6 py-4">
+                              <TransparencyIndicator
+                                indicators={transparencyData[entry.edr]?.indicators || []}
+                                transparencyNote={transparencyData[entry.edr]?.transparency_note || ''}
+                                vendorName={entry.edr}
+                                showLabel={true}
+                              />
+                            </td>
+                            <td className="px-2 sm:px-6 py-4 text-right">
                               <span className="text-lg font-bold text-slate-900">
                                 {entry.score.toFixed(2)}
                               </span>
@@ -418,7 +431,7 @@ export default function Scores() {
                   </div>
                 </div>
               </div>
-              
+
               {/* Statistics */}
               <div className="lg:col-span-1">
                 <div className="bg-white rounded-2xl shadow-xl p-6 border border-slate-200 sticky top-24">
@@ -426,7 +439,7 @@ export default function Scores() {
                     <BarChart3 className="w-6 h-6 text-blue-600" />
                     <h3 className="text-xl font-bold text-slate-900">Score Statistics</h3>
                   </div>
-                  
+
                   <div className="space-y-6">
                     <div className="p-4 bg-slate-50 rounded-xl">
                       <div className="flex items-center gap-2 text-sm text-slate-600 mb-2">
@@ -437,7 +450,7 @@ export default function Scores() {
                         {stats.avgScore.toFixed(2)}
                       </div>
                     </div>
-                    
+
                     <div className="p-4 bg-emerald-50 rounded-xl">
                       <div className="flex items-center gap-2 text-sm text-emerald-700 mb-2">
                         <TrendingUp className="w-4 h-4" />
@@ -447,7 +460,7 @@ export default function Scores() {
                         {stats.maxScore.toFixed(2)}
                       </div>
                     </div>
-                    
+
                     <div className="p-4 bg-red-50 rounded-xl">
                       <div className="flex items-center gap-2 text-sm text-red-700 mb-2">
                         <TrendingDown className="w-4 h-4" />
@@ -462,12 +475,12 @@ export default function Scores() {
               </div>
             </div>
           )}
-          
+
           {/* Scoring methodology */}
           <div className="mt-12 bg-white rounded-2xl shadow-xl p-8 border border-slate-200">
             <h2 id="scoring-methodology" className="text-3xl font-bold text-slate-900 mb-4">Understanding the Scores</h2>
             <p className="text-lg text-slate-600 mb-8">Our scoring system evaluates EDR solutions based on telemetry capabilities across various categories. Each telemetry feature is weighted based on its importance in endpoint detection and response.</p>
-            
+
             <div className="grid md:grid-cols-2 gap-8 mb-8">
               <div>
                 <h3 id="status-values" className="text-xl font-bold text-slate-900 mb-4">Status Values</h3>
@@ -508,11 +521,11 @@ export default function Scores() {
                   </table>
                 </div>
               </div>
-              
+
               <div>
                 <h3 id="feature-weights" className="text-xl font-bold text-slate-900 mb-4">Feature Weights</h3>
                 <p className="text-slate-600 mb-4">Each telemetry feature category is weighted based on its importance in the overall assessment. Some key examples include:</p>
-                
+
                 <div className="grid grid-cols-2 gap-2 mb-4">
                   <div className="flex justify-between items-center p-3 bg-slate-50 rounded-lg border border-slate-200">
                     <span className="text-sm font-medium text-slate-700">Process Creation</span>
@@ -563,10 +576,10 @@ export default function Scores() {
                     <span className="text-sm font-bold text-orange-600">0.4</span>
                   </div>
                 </div>
-                
-                <a 
-                  href="https://github.com/tsale/EDR-Telemetry/blob/529c238c3af4bfaa9fce77350af21a6d5758fa39/Tools/compare.py#L7-L102" 
-                  target="_blank" 
+
+                <a
+                  href="https://github.com/tsale/EDR-Telemetry/blob/529c238c3af4bfaa9fce77350af21a6d5758fa39/Tools/compare.py#L7-L102"
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium transition-colors"
                 >
@@ -575,11 +588,11 @@ export default function Scores() {
                 </a>
               </div>
             </div>
-            
+
             <div className="mt-8">
               <h3 id="optional-telemetry" className="text-xl font-bold text-slate-900 mb-4">Optional Telemetry & Fair Scoring</h3>
               <p className="text-slate-600 mb-6">To maintain fair and consistent scoring across all EDR vendors, new Sub-Categories are initially marked as &quot;optional&quot; and <strong>do not count against the final scoring</strong> until they reach sufficient adoption across the vendor ecosystem.</p>
-              
+
               <div className="bg-blue-50 border-l-4 border-blue-500 rounded-r-xl p-6 space-y-4">
                 <div>
                   <div className="flex items-start gap-2">
@@ -610,7 +623,7 @@ export default function Scores() {
                 </div>
               </div>
             </div>
-            
+
             <div className="mt-8">
               <h3 id="final-score-calculation" className="text-xl font-bold text-slate-900 mb-4">Final Score Calculation</h3>
               <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-6 text-center">
@@ -624,7 +637,7 @@ export default function Scores() {
                   The final score represents the weighted sum of all non-optional features, providing a comprehensive evaluation of each EDR solution&apos;s telemetry capabilities.
                 </p>
               </div>
-              
+
               <div className="mt-6">
                 <p className="text-slate-700 font-semibold mb-3">To calculate the score:</p>
                 <ol className="space-y-2 text-slate-600 list-decimal list-inside">
@@ -635,7 +648,7 @@ export default function Scores() {
                   <li>All weighted values are summed to produce the final score</li>
                 </ol>
               </div>
-              
+
               <p className="text-slate-600 mt-6">
                 This methodology ensures that more critical telemetry capabilities have a greater impact on the overall score, providing a fair and accurate comparison between different EDR solutions.
               </p>
