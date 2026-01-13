@@ -5,6 +5,13 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useState } from 'react'
+import { CheckCircle, AlertTriangle } from 'lucide-react'
+
+// Custom MDX components for icons
+const mdxComponents = {
+    CheckIcon: () => <CheckCircle size={16} className="inline-block text-green-600 mr-1" style={{ verticalAlign: 'middle' }} />,
+    WarnIcon: () => <AlertTriangle size={16} className="inline-block text-amber-500 mr-1" style={{ verticalAlign: 'middle' }} />,
+}
 
 export async function getStaticProps({ params }) {
     const postData = await getPostData(params.slug)
@@ -80,7 +87,7 @@ export default function Post({ postData }) {
 
                     {/* Content */}
                     <div className="prose prose-lg max-w-none mdx-article-content">
-                        <MDXRemote {...postData.mdxSource} />
+                        <MDXRemote {...postData.mdxSource} components={mdxComponents} />
                     </div>
                 </article>
             </div>
