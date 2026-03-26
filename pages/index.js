@@ -10,7 +10,7 @@ import {
 export default function Home() {
   const stats = [
     { value: "20+", label: "Solutions Analyzed", icon: Database },
-    { value: "2", label: "Platforms Covered", icon: Server },
+    { value: "3", label: "Platforms Covered", icon: Server },
     { value: "100%", label: "Open Source", icon: Globe },
     { value: "100%", label: "Vendor Agnostic", icon: Shield },
   ]
@@ -118,16 +118,16 @@ export default function Home() {
             </Link>
 
             {/* macOS */}
-            <Link href="/macos" className="group relative bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 opacity-90">
-              <div className="absolute inset-0 bg-gradient-to-br from-slate-100 to-transparent opacity-50 rounded-2xl"></div>
+            <Link href="/macos" className="group relative bg-white rounded-2xl p-6 shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-50 to-transparent opacity-50 rounded-2xl"></div>
               <div className="relative">
-                <div className="w-12 h-12 bg-slate-700 rounded-xl flex items-center justify-center mb-4 text-white shadow-lg shadow-slate-700/20 group-hover:scale-110 transition-transform">
+                <div className="w-12 h-12 bg-purple-600 rounded-xl flex items-center justify-center mb-4 text-white shadow-lg shadow-purple-600/20 group-hover:scale-110 transition-transform">
                   <Command className="w-6 h-6" />
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 mb-2">macOS</h3>
                 <p className="text-slate-600 text-sm mb-4">Native security framework integration analysis.</p>
-                <div className="flex items-center text-slate-700 text-sm font-bold">
-                  Coming Soon <ArrowRight className="w-4 h-4 ml-1" />
+                <div className="flex items-center text-purple-600 text-sm font-bold">
+                  View Telemetry <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>
             </Link>
@@ -293,25 +293,25 @@ export default function Home() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="bg-slate-800/50 backdrop-blur-sm p-6 rounded-xl border border-slate-700 hover:bg-slate-800 transition-colors">
               <Building className="w-10 h-10 text-blue-400 mb-4" />
-              <h3 className="text-lg font-bold mb-2">Mid-sized Businesses</h3>
+              <h3 className="text-lg font-bold mb-2 !text-white">Mid-sized Businesses</h3>
               <p className="text-slate-400 text-sm leading-relaxed">Validate telemetry readiness and reduce blind spots in your security posture.</p>
             </div>
             
             <div className="bg-slate-800/50 backdrop-blur-sm p-6 rounded-xl border border-slate-700 hover:bg-slate-800 transition-colors">
               <Globe className="w-10 h-10 text-emerald-400 mb-4" />
-              <h3 className="text-lg font-bold mb-2">Large Enterprises</h3>
+              <h3 className="text-lg font-bold mb-2 !text-white">Large Enterprises</h3>
               <p className="text-slate-400 text-sm leading-relaxed">Benchmark across fleets and guide platform strategy with data-driven insights.</p>
             </div>
 
             <div className="bg-slate-800/50 backdrop-blur-sm p-6 rounded-xl border border-slate-700 hover:bg-slate-800 transition-colors">
               <Users className="w-10 h-10 text-purple-400 mb-4" />
-              <h3 className="text-lg font-bold mb-2">Security Leaders</h3>
+              <h3 className="text-lg font-bold mb-2 !text-white">Security Leaders</h3>
               <p className="text-slate-400 text-sm leading-relaxed">Communicate coverage and risk with objective metrics to stakeholders.</p>
             </div>
 
             <div className="bg-slate-800/50 backdrop-blur-sm p-6 rounded-xl border border-slate-700 hover:bg-slate-800 transition-colors">
               <Shield className="w-10 h-10 text-orange-400 mb-4" />
-              <h3 className="text-lg font-bold mb-2">Detection Engineers</h3>
+              <h3 className="text-lg font-bold mb-2 !text-white">Detection Engineers</h3>
               <p className="text-slate-400 text-sm leading-relaxed">Map signals to MITRE ATT&CK and reduce alert friction with precise data.</p>
             </div>
           </div>

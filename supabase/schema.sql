@@ -24,6 +24,17 @@ CREATE TABLE IF NOT EXISTS linux_telemetry (
     UNIQUE(category, subcategory)
 );
 
+-- macOS Telemetry Categories Table
+CREATE TABLE IF NOT EXISTS macos_telemetry (
+    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+    category TEXT NOT NULL,
+    subcategory TEXT NOT NULL,
+    optional BOOLEAN DEFAULT true NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+    UNIQUE(category, subcategory)
+);
+
 -- Windows Scores Table (EDR Implementation Status)
 CREATE TABLE IF NOT EXISTS windows_table_results (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
@@ -48,11 +59,25 @@ CREATE TABLE IF NOT EXISTS linux_table_results (
     UNIQUE(telemetry_id, edr_name)
 );
 
+-- macOS Scores Table (EDR Implementation Status)
+CREATE TABLE IF NOT EXISTS macos_table_results (
+    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+    telemetry_id UUID NOT NULL REFERENCES macos_telemetry(id) ON DELETE CASCADE,
+    edr_name TEXT NOT NULL,
+    status TEXT NOT NULL CHECK (status IN ('Yes', 'No', 'Partially', 'Pending Response', 'Via EventLogs', 'Via EnablingTelemetry')),
+    explanation TEXT, -- For "Partially" status explanations
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+    UNIQUE(telemetry_id, edr_name)
+);
+
 -- Create indexes for better query performance
 CREATE INDEX IF NOT EXISTS idx_windows_telemetry_category ON windows_telemetry(category);
 CREATE INDEX IF NOT EXISTS idx_windows_telemetry_subcategory ON windows_telemetry(subcategory);
 CREATE INDEX IF NOT EXISTS idx_linux_telemetry_category ON linux_telemetry(category);
 CREATE INDEX IF NOT EXISTS idx_linux_telemetry_subcategory ON linux_telemetry(subcategory);
+CREATE INDEX IF NOT EXISTS idx_macos_telemetry_category ON macos_telemetry(category);
+CREATE INDEX IF NOT EXISTS idx_macos_telemetry_subcategory ON macos_telemetry(subcategory);
 
 CREATE INDEX IF NOT EXISTS idx_windows_table_results_telemetry_id ON windows_table_results(telemetry_id);
 CREATE INDEX IF NOT EXISTS idx_windows_table_results_edr_name ON windows_table_results(edr_name);
@@ -61,6 +86,10 @@ CREATE INDEX IF NOT EXISTS idx_windows_table_results_status ON windows_table_res
 CREATE INDEX IF NOT EXISTS idx_linux_table_results_telemetry_id ON linux_table_results(telemetry_id);
 CREATE INDEX IF NOT EXISTS idx_linux_table_results_edr_name ON linux_table_results(edr_name);
 CREATE INDEX IF NOT EXISTS idx_linux_table_results_status ON linux_table_results(status);
+
+CREATE INDEX IF NOT EXISTS idx_macos_table_results_telemetry_id ON macos_table_results(telemetry_id);
+CREATE INDEX IF NOT EXISTS idx_macos_table_results_edr_name ON macos_table_results(edr_name);
+CREATE INDEX IF NOT EXISTS idx_macos_table_results_status ON macos_table_results(status);
 
 -- Create updated_at trigger function
 CREATE OR REPLACE FUNCTION update_updated_at_column()
@@ -80,6 +109,10 @@ CREATE OR REPLACE TRIGGER update_linux_telemetry_updated_at
     BEFORE UPDATE ON linux_telemetry 
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
+CREATE OR REPLACE TRIGGER update_macos_telemetry_updated_at 
+    BEFORE UPDATE ON macos_telemetry 
+    FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
 CREATE OR REPLACE TRIGGER update_windows_table_results_updated_at 
     BEFORE UPDATE ON windows_table_results 
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
@@ -88,17 +121,25 @@ CREATE OR REPLACE TRIGGER update_linux_table_results_updated_at
     BEFORE UPDATE ON linux_table_results 
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
+CREATE OR REPLACE TRIGGER update_macos_table_results_updated_at 
+    BEFORE UPDATE ON macos_table_results 
+    FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
 -- Enable Row Level Security (optional - can be enabled later if authentication is needed)
 -- ALTER TABLE windows_telemetry ENABLE ROW LEVEL SECURITY;
 -- ALTER TABLE linux_telemetry ENABLE ROW LEVEL SECURITY;
+-- ALTER TABLE macos_telemetry ENABLE ROW LEVEL SECURITY;
 -- ALTER TABLE windows_table_results ENABLE ROW LEVEL SECURITY;
 -- ALTER TABLE linux_table_results ENABLE ROW LEVEL SECURITY;
+-- ALTER TABLE macos_table_results ENABLE ROW LEVEL SECURITY;
 
 -- Create policies for public access (uncomment if RLS is enabled)
 -- CREATE POLICY "Allow public read access" ON windows_telemetry FOR SELECT USING (true);
 -- CREATE POLICY "Allow public read access" ON linux_telemetry FOR SELECT USING (true);
+-- CREATE POLICY "Allow public read access" ON macos_telemetry FOR SELECT USING (true);
 -- CREATE POLICY "Allow public read access" ON windows_table_results FOR SELECT USING (true);
 -- CREATE POLICY "Allow public read access" ON linux_table_results FOR SELECT USING (true);
+-- CREATE POLICY "Allow public read access" ON macos_table_results FOR SELECT USING (true);
 
 -- Newsletter Subscribers Table
 -- Stores email addresses of users who subscribe to blog updates

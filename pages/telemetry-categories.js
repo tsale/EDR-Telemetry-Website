@@ -7,7 +7,7 @@ export default function TelemetryCategories() {
   const [viewMode, setViewMode] = useState('grid') // 'grid' or 'list'
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
-  const [activeTab, setActiveTab] = useState('windows') // 'windows' or 'linux'
+  const [activeTab, setActiveTab] = useState('windows') // 'windows', 'linux', or 'macos'
   
   // Handle view mode transition
   const handleViewChange = (mode) => {
@@ -492,10 +492,265 @@ export default function TelemetryCategories() {
       detectionExamples: 'Identification of known malicious files, grouping of malware variants, and integrity verification of system files on Linux systems.'
     }
   ];
+
+  // macOS telemetry category data
+  const macosCategories = [
+    {
+      id: 'process-activity',
+      title: 'Process Activity',
+      description: 'Monitors process creation and termination events on macOS systems',
+      icon: (
+        <svg viewBox="-51.2 -51.2 614.40 614.40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" fill="#66ccff" stroke="#66ccff">
+          <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+          <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+          <g id="SVGRepo_iconCarrier">
+            <title>tree</title>
+            <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
+              <g id="icon" fill="#0ac2ff" transform="translate(85.333333, 64.000000)">
+                <path d="M1.42108547e-14,-4.26325641e-14 L128,-4.26325641e-14 L128,64 L1.42108547e-14,64 L1.42108547e-14,-4.26325641e-14 Z M106.666667,106.666667 L234.666667,106.666667 L234.666667,170.666667 L106.666667,170.666667 L106.666667,106.666667 Z M106.666667,213.333333 L234.666667,213.333333 L234.666667,277.333333 L106.666667,277.333333 L106.666667,213.333333 Z M213.333333,320 L341.333333,320 L341.333333,384 L213.333333,384 L213.333333,320 Z M74.6666667,85.3333333 L74.6666667,117.333333 L85.3333333,117.333333 L85.3333333,149.333333 L42.6666667,149.333333 L42.6666667,85.3333333 L74.6666667,85.3333333 Z M181.333333,298.666667 L181.333333,330.666667 L192,330.666667 L192,362.666667 L149.333333,362.666667 L149.333333,298.666667 L181.333333,298.666667 Z M74.6666667,170.666667 L74.6666667,224 L85.3333333,224 L85.3333333,256 L42.6666667,256 L42.6666667,170.666667 L74.6666667,170.666667 Z" id="Combined-Shape"></path>
+              </g>
+            </g>
+          </g>
+        </svg>
+      ),
+      color: '#00a3e0',
+      purpose: 'This category focuses on the lifecycle of processes on macOS via EndpointSecurity exec and exit events. It provides visibility into execution flow, parent-child relationships, and process-based techniques such as LOLBINs.',
+      dataCollected: 'Process creation events (ES_EVENT_TYPE_NOTIFY_EXEC) and process termination events (ES_EVENT_TYPE_NOTIFY_EXIT).',
+      securityBenefits: 'Provides the foundation for execution visibility on macOS. Used to build process trees, attribute behavior to specific binaries, and detect suspicious parent-child relationships.',
+      detectionExamples: 'Malicious binary execution, suspicious parent-child relationships, and LOLBin abuse on macOS.'
+    },
+    {
+      id: 'file-activity',
+      title: 'File Activity',
+      description: 'Tracks file creation, modification, deletion, attribute changes, and open/access events',
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+      ),
+      color: '#9c27b0',
+      purpose: 'This category tracks file-level interactions on macOS via EndpointSecurity and FSEvents. File Open/Access is critical for detecting infostealers that read sensitive files (Keychain, browser credential stores, cookies) without modifying them.',
+      dataCollected: 'File creation, file modification, file deletion, file attribute changes, and file open/access events (ES_EVENT_TYPE_AUTH_OPEN).',
+      securityBenefits: 'Identifies payload staging, configuration tampering, persistence drops, artifact deletion, and unauthorized file reads by infostealers targeting Keychain databases and browser credential stores.',
+      detectionExamples: 'Infostealer campaigns (AMOS, Poseidon) reading credential stores, malicious script creation, and persistence payload drops.'
+    },
+    {
+      id: 'user-session-activity',
+      title: 'User & Session Activity',
+      description: 'Monitors user authentication, session events, and privilege transitions on macOS',
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+        </svg>
+      ),
+      color: '#3f51b5',
+      purpose: 'This category provides insight into account access and privilege transitions on macOS. Privilege escalation often occurs via sudo, GUI authorization prompts, or TCC manipulation.',
+      dataCollected: 'User logon, user logoff, failed logon attempts, screen lock/unlock events, and privilege escalation events (sudo).',
+      securityBenefits: 'Identifies unauthorized access attempts, privilege escalation via sudo or authorization prompts, and provides timeline reconstruction during incident response.',
+      detectionExamples: 'Brute force attacks, unauthorized sudo escalation, and anomalous login activity on macOS endpoints.'
+    },
+    {
+      id: 'script-activity',
+      title: 'Script Activity',
+      description: 'Monitors script content executed by interpreters on macOS',
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+      ),
+      color: '#03a9f4',
+      purpose: 'This category captures the content of scripts executed by interpreters: shell scripts, AppleScript, Python, and JavaScript for Automation (JXA). Many macOS post-exploitation tools rely heavily on shell and AppleScript automation.',
+      dataCollected: 'Script content and execution details for shell, AppleScript, Python, JXA, and other scripting languages.',
+      securityBenefits: 'Provides inspection of executed scripts even when the interpreter binary is benign, revealing attacker intent, encoded payloads, or automation abuse.',
+      detectionExamples: 'Malicious AppleScript automation, JXA-based post-exploitation, obfuscated shell one-liners, and LOL (living off the land) scripting techniques.'
+    },
+    {
+      id: 'network-activity',
+      title: 'Network Activity',
+      description: 'Tracks network connections, socket listeners, and DNS queries on macOS',
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+        </svg>
+      ),
+      color: '#4caf50',
+      purpose: 'This category tracks outbound C2 channels, local backdoors, and domain-based IOCs on macOS. macOS EDRs typically leverage NetworkExtension APIs to capture per-process network telemetry.',
+      dataCollected: 'Network connections, socket listening events, and DNS queries.',
+      securityBenefits: 'Enables correlation with threat intelligence, detection of beaconing and tunneling, and identification of unauthorized listeners on local ports.',
+      detectionExamples: 'Malware beaconing to C2 infrastructure, DNS-based data exfiltration, and unauthorized network listeners.'
+    },
+    {
+      id: 'persistence-activity',
+      title: 'Scheduled Task & Persistence Activity',
+      description: 'Monitors persistence mechanisms including launchd, Login Items, and cron jobs',
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      ),
+      color: '#ff5722',
+      purpose: 'Almost every long-term macOS implant must touch one of these persistence surfaces to survive reboots. Launchd items are tracked granularly (created/modified/deleted) because each operation carries different detection significance.',
+      dataCollected: 'Scheduled task changes (cron/at), launchd item creation/modification/deletion, Login Item creation/deletion.',
+      securityBenefits: 'Provides visibility into the primary macOS persistence vectors. Creation events are the highest-signal persistence indicators, while deletion may indicate cleanup or anti-forensics.',
+      detectionExamples: 'Malware establishing persistence through LaunchDaemons/LaunchAgents, Login Item abuse, and cron job manipulation.'
+    },
+    {
+      id: 'user-account-activity',
+      title: 'User Account Activity',
+      description: 'Monitors local identity and privilege changes via OpenDirectory',
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+      ),
+      color: '#673ab7',
+      purpose: 'This category covers local identity and privilege changes on macOS via OpenDirectory and dscl operations. Detects account-based persistence, lateral movement preparation, and privilege escalation via group abuse.',
+      dataCollected: 'User account creation, modification, deletion, and group membership changes.',
+      securityBenefits: 'Identifies unauthorized account creation, privilege escalation via group membership changes (e.g., adding a user to admin or wheel groups), and suspicious account modifications.',
+      detectionExamples: 'Creation of rogue local accounts, privilege escalation through group membership abuse, and unauthorized account modifications.'
+    },
+    {
+      id: 'system-extension-activity',
+      title: 'System Extension & Driver Activity',
+      description: 'Monitors SystemExtensions, DriverKit, and legacy kernel extensions on macOS',
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+        </svg>
+      ),
+      color: '#009688',
+      purpose: 'This category monitors low-level components with high privilege on macOS. macOS has been transitioning from kernel extensions (kexts) to SystemExtensions and DriverKit. EDRs themselves often run as SystemExtensions, and any third-party code at this level must be monitored.',
+      dataCollected: 'System extension install/load/uninstall events, DriverKit extension loading, and legacy kernel extension loading.',
+      securityBenefits: 'Key for detecting tampering or interference with system-level components. Each lifecycle state transition (install, load, uninstall) carries distinct security implications.',
+      detectionExamples: 'Unauthorized system extension installation, kernel extension loading from unsigned sources, and EDR tampering through extension manipulation.'
+    },
+    {
+      id: 'code-signing-trust',
+      title: 'Code Signing & Trust Activity',
+      description: 'Tracks code signing, notarization, Gatekeeper, quarantine, and XProtect events',
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+        </svg>
+      ),
+      color: '#ff9800',
+      purpose: 'One of the most macOS-specific categories. Code signing and Gatekeeper are first-class OS features with no direct Windows or Linux equivalent. Quarantine Flag Cleared is particularly important as it is the classic Gatekeeper bypass step used by many macOS malware families.',
+      dataCollected: 'Binary signature info, notarization status, quarantine flag set/cleared events, Gatekeeper decisions, and XProtect detection/remediation events.',
+      securityBenefits: 'Detects unsigned binaries, ad-hoc signatures, trust bypass attempts, Gatekeeper overrides via social engineering, and correlates Apple native XProtect verdicts with EDR sensor data.',
+      detectionExamples: 'Gatekeeper bypass via quarantine flag removal, execution of unsigned or unnotarized binaries, XProtect malware detections, and user-granted trust overrides.'
+    },
+    {
+      id: 'tcc-activity',
+      title: 'Privacy & TCC Activity',
+      description: 'Monitors Transparency, Consent, and Control (TCC) events for sensitive resource access',
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+        </svg>
+      ),
+      color: '#e91e63',
+      purpose: 'TCC is the macOS framework that enforces user consent for access to sensitive resources: camera, microphone, screen recording, Full Disk Access, contacts, and more. Direct manipulation of the TCC database is a known bypass technique used by sophisticated malware.',
+      dataCollected: 'TCC prompt shown events, TCC allow/deny decisions, TCC policy changes, and TCC access checks.',
+      securityBenefits: 'Detects unusual permission grants, TCC database manipulation bypasses, and provides visibility into what sensitive resources applications are attempting to access.',
+      detectionExamples: 'Direct TCC database manipulation for bypass, unauthorized camera/microphone access grants, and suspicious Full Disk Access permission changes.'
+    },
+    {
+      id: 'access-activity',
+      title: 'Access Activity',
+      description: 'Monitors raw device access and inter-process attacks on macOS',
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+        </svg>
+      ),
+      color: '#ff9800',
+      purpose: 'This category captures disk scraping, direct volume reads, and inter-process attacks such as task_for_pid, ptrace, and Mach port operations on macOS.',
+      dataCollected: 'Raw device access events and process access events (task_for_pid, ptrace, Mach port operations).',
+      securityBenefits: 'Helps identify exfiltration via raw disk reads and inter-process injection or tampering via process memory access.',
+      detectionExamples: 'Direct disk access bypassing file system controls, task_for_pid-based process manipulation, and Mach port abuse.'
+    },
+    {
+      id: 'process-tampering',
+      title: 'Process Tampering Activity',
+      description: 'Monitors process injection and tampering methods on macOS',
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+        </svg>
+      ),
+      color: '#f44336',
+      purpose: 'This category captures common injection and tampering methods on macOS as a single signal: remote threads, shellcode injection, dylib loading, and Mach-based manipulation.',
+      dataCollected: 'Process injection and tampering events including DYLD_INSERT_LIBRARIES abuse, Mach port-based manipulation, and task_for_pid memory operations.',
+      securityBenefits: 'Detects attempts to manipulate running processes for code injection, credential theft, or defense evasion on macOS.',
+      detectionExamples: 'DYLD_INSERT_LIBRARIES injection, Mach port abuse for process manipulation, and shellcode injection via task_for_pid.'
+    },
+    {
+      id: 'device-activity',
+      title: 'Device Activity',
+      description: 'Tracks external media mount and unmount events via DiskArbitration',
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+      ),
+      color: '#795548',
+      purpose: 'This category tracks removable storage lifecycle via DiskArbitration on macOS. DMG-based delivery remains the dominant macOS malware delivery method, making this category particularly relevant.',
+      dataCollected: 'External media mount and unmount events.',
+      securityBenefits: 'Key for DLP, detecting malware introduction via USB or DMG files, and correlating device usage with file or process activity.',
+      detectionExamples: 'Malware delivery via DMG files, data exfiltration through removable media, and unauthorized USB device connections.'
+    },
+    {
+      id: 'edr-sysops',
+      title: 'EDR SysOps',
+      description: 'Tracks EDR agent lifecycle, health, and tamper events on macOS',
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+        </svg>
+      ),
+      color: '#2196f3',
+      purpose: 'This category validates EDR agent health and trustworthiness on macOS. Aligned with the existing Windows/Linux baseline to maintain cross-platform consistency.',
+      dataCollected: 'Agent start events, agent stop events, and agent protection disabled or tamper events.',
+      securityBenefits: 'Helps identify visibility gaps, tampering attempts, and instrumentation failures. The tamper event subcategory is critical for detecting attempts to disable or interfere with the EDR agent.',
+      detectionExamples: 'EDR agent disabling, tamper protection bypass attempts, and visibility gaps due to agent failures.'
+    },
+    {
+      id: 'file-metadata',
+      title: 'File Metadata',
+      description: 'Fingerprinting of files using hashing algorithms on macOS',
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+        </svg>
+      ),
+      color: '#607d8b',
+      purpose: 'This category indicates which hash types an EDR surfaces for file correlation with threat intelligence on macOS. SHA-256 is the baseline expectation; fuzzy hashing remains rare but valuable for similarity-based detection.',
+      dataCollected: 'MD5 hashes, SHA-256 hashes, and fuzzy hash (ssdeep/TLSH) values of files.',
+      securityBenefits: 'Enables matching against known threat indicators, triage, blocking, and family-level detection through hash similarity.',
+      detectionExamples: 'Identification of known malicious files, grouping of malware variants, and integrity verification of system files on macOS.'
+    },
+    {
+      id: 'service-activity',
+      title: 'Service Activity',
+      description: 'Monitors launchd daemon and agent service lifecycle on macOS',
+      icon: (
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" />
+        </svg>
+      ),
+      color: '#795548',
+      purpose: 'This category covers long-lived OS-managed workloads on macOS, typically launchd daemons and agents. While there is conceptual overlap with the Persistence category, this specifically tracks service lifecycle events as reported by the EDR.',
+      dataCollected: 'Service creation, modification, and deletion events for launchd daemons and agents.',
+      securityBenefits: 'Useful for tracking persistent system-level execution points and detecting malicious service configurations. Attackers often hide C2 or implants as services.',
+      detectionExamples: 'Malware installing backdoor launchd services, modifying legitimate services for malicious purposes, and service deletion as anti-forensics.'
+    }
+  ];
   
   // Get the active categories based on the selected tab
   const getActiveCategories = () => {
-    return activeTab === 'windows' ? windowsCategories : linuxCategories;
+    if (activeTab === 'windows') return windowsCategories;
+    if (activeTab === 'linux') return linuxCategories;
+    return macosCategories;
   };
   
   // Filter categories based on search query
@@ -570,7 +825,7 @@ export default function TelemetryCategories() {
         <div className="-mt-8 mb-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-center">
-              <div className="inline-flex rounded-xl bg-white shadow-lg border border-slate-200 p-1">
+              <div className="inline-flex gap-2 rounded-xl bg-white shadow-lg border border-slate-200 p-1">
                 <button
                   onClick={() => handleTabChange('windows')}
                   className={`px-6 py-3 rounded-lg text-sm font-bold transition-all ${
@@ -593,6 +848,17 @@ export default function TelemetryCategories() {
                 >
                   Linux
                 </button>
+                <button
+                  onClick={() => handleTabChange('macos')}
+                  className={`px-6 py-3 rounded-lg text-sm font-bold transition-all ${
+                    activeTab === 'macos'
+                      ? '!bg-slate-700 !text-white shadow-md'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                  }`}
+                  aria-label="Show macOS telemetry categories"
+                >
+                  macOS
+                </button>
               </div>
             </div>
           </div>
@@ -602,7 +868,7 @@ export default function TelemetryCategories() {
         <div className="mb-6">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-end">
-              <div className="inline-flex rounded-lg bg-slate-100 p-1">
+              <div className="inline-flex gap-2 rounded-lg bg-slate-100 p-1">
                 <button
                   onClick={() => handleViewChange('grid')}
                   className={`inline-flex items-center px-4 py-2 rounded-md text-sm font-medium transition-all ${

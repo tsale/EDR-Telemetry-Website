@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { createServerClient } from '@supabase/ssr'
 import { serialize } from 'cookie'
-import type { Database, WindowsTelemetryWithScores, LinuxTelemetryWithScores } from '../../../utils/supabase/types'
+import type { Database, WindowsTelemetryWithScores, LinuxTelemetryWithScores, MacosTelemetryWithScores } from '../../../utils/supabase/types'
 
 function createClient(req: NextApiRequest, res: NextApiResponse) {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
@@ -49,7 +49,7 @@ function createClient(req: NextApiRequest, res: NextApiResponse) {
 
 interface CoverageAnalysis {
   telemetryId: string
-  platform: 'windows' | 'linux'
+  platform: 'windows' | 'linux' | 'macos'
   category: string
   subcategory: string
   totalVendors: number
@@ -168,11 +168,60 @@ export default async function handler(
           }
         }
 
+        // macOS coverage analysis
+        const { data: macosData, error: macosError } = await supabase
+          .from('macos_telemetry')
+          .select(`
+            *,
+            macos_table_results (
+              id,
+              edr_name,
+              status,
+              explanation,
+              created_at,
+              updated_at
+            )
+          `)
+          .order('created_at', { ascending: true })
+
+        if (macosError) {
+          console.error('macOS database error:', macosError)
+          return res.status(500).json({ error: 'Failed to fetch macOS telemetry data' })
+        }
+
+        // Process macOS data
+        if (macosData) {
+          for (const telemetry of macosData as MacosTelemetryWithScores[]) {
+            const results = telemetry.macos_table_results
+            const totalVendors = results.length
+            const implementedCount = results.filter(result => 
+              result.status === 'Yes' || 
+              result.status === 'Via EnablingTelemetry' ||
+              result.status === 'Partially' ||
+              result.status === 'Via EventLogs'
+            ).length
+            
+            const coveragePercentage = totalVendors > 0 ? (implementedCount / totalVendors) * 100 : 0
+            
+            coverageAnalysis.push({
+              telemetryId: telemetry.id,
+              platform: 'macos',
+              category: telemetry.category,
+              subcategory: telemetry.subcategory,
+              totalVendors,
+              implementedCount,
+              coveragePercentage,
+              canBePromoted: coveragePercentage >= 75 && telemetry.optional,
+              isOptional: telemetry.optional
+            })
+          }
+        }
+
         // Filter based on query parameters
         const { platform, canBePromoted, threshold } = req.query
         let filteredAnalysis = coverageAnalysis
 
-        if (platform && (platform === 'windows' || platform === 'linux')) {
+        if (platform && (platform === 'windows' || platform === 'linux' || platform === 'macos')) {
           filteredAnalysis = filteredAnalysis.filter(item => item.platform === platform)
         }
 
@@ -194,6 +243,7 @@ export default async function handler(
             canBePromoted: coverageAnalysis.filter(item => item.canBePromoted).length,
             windows: coverageAnalysis.filter(item => item.platform === 'windows').length,
             linux: coverageAnalysis.filter(item => item.platform === 'linux').length,
+            macos: coverageAnalysis.filter(item => item.platform === 'macos').length,
             averageCoverage: coverageAnalysis.reduce((acc, item) => acc + item.coveragePercentage, 0) / coverageAnalysis.length
           }
         })
@@ -206,12 +256,14 @@ export default async function handler(
           return res.status(400).json({ error: 'telemetryIds array and platform are required' })
         }
 
-        if (updatePlatform !== 'windows' && updatePlatform !== 'linux') {
-          return res.status(400).json({ error: 'Invalid platform. Must be "windows" or "linux"' })
+        if (updatePlatform !== 'windows' && updatePlatform !== 'linux' && updatePlatform !== 'macos') {
+          return res.status(400).json({ error: 'Invalid platform. Must be "windows", "linux", or "macos"' })
         }
         const tableName = updatePlatform === 'windows'
           ? 'windows_telemetry'
-          : 'linux_telemetry'
+          : updatePlatform === 'linux'
+            ? 'linux_telemetry'
+            : 'macos_telemetry'
         
         const { data: updatedTelemetry, error: updateError } = await supabase
           .from(tableName)

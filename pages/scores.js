@@ -110,10 +110,88 @@ const LINUX_CATEGORIES_VALUED = {
   "Fuzzy Hash": 1
 };
 
+// macOS-specific categories with their weights
+const MACOS_CATEGORIES_VALUED = {
+    // Process Activity
+    "Process Creation": 1.0,
+    "Process Termination": 0.5,
+    // File Activity
+    "File Creation": 1.0,
+    "File Modification": 1.0,
+    "File Deletion": 0.7,
+    "File Attribute Change": 0.5,
+    "File Open/Access": 1.0,        // Critical gap: infostealers (AMOS/Poseidon) read Keychain/browser credential stores directly
+    // User & Session Activity
+    "User Logon": 0.7,
+    "User Logoff": 0.4,
+    "Logon Failed": 1.0,
+    "Screen Lock": 0.2,
+    "Screen Unlock": 0.2,
+    "Privilege Escalation (sudo etc.)": 1.0,
+    // Script Activity
+    "Script Content": 1.0,
+    // Network Activity
+    "Network Connection": 1.0,
+    "Network Socket Listen": 1.0,
+    "DNS Query": 1.0,
+    // Scheduled Task & Persistence Activity
+    "Scheduled Task Change (cron/at)": 0.7,
+    "Launchd Item Created": 1.0,    // Primary macOS persistence mechanism
+    "Launchd Item Modified": 0.8,
+    "Launchd Item Deleted": 0.5,
+    "LoginItem Created": 1.0,       // Second major persistence vector
+    "LoginItem Deleted": 0.5,
+    // User Account Activity
+    "User Account Created": 1.0,
+    "User Account Modified": 0.8,
+    "User Account Deleted": 0.5,
+    "Group Membership Modified": 0.8,
+    // System Extension & Driver Activity
+    "System Extension Installed": 1.0,
+    "System Extension Loaded": 0.8,
+    "System Extension Uninstalled": 0.5,
+    "DriverKit Extension Loaded": 0.7,
+    "Kernel Extension Loaded (legacy)": 0.5,
+    // Code Signing & Trust Activity
+    "Binary Signature Info Recorded": 0.5,
+    "Notarization Status Recorded": 0.3,
+    "Quarantine Flag Set": 0.5,
+    "Quarantine Flag Cleared": 1.0,  // Classic Gatekeeper bypass step
+    "Gatekeeper Decision Logged": 0.8,
+    "XProtect Detection Logged": 0.8,
+    "XProtect Remediation Logged": 0.7,
+    // TCC Activity
+    "TCC Prompt Shown": 0.7,
+    "TCC Decision (Allow)": 0.8,
+    "TCC Decision (Deny)": 0.7,
+    "TCC Policy Change": 1.0,       // Direct TCC DB manipulation = TCC bypass
+    "TCC Access Check": 0.8,
+    // Memory & Injection Activity
+    "Raw Device Access": 0.8,
+    "Process Access": 1.0,
+    "Process Injection Or Tampering": 1.0,
+    // External Media
+    "External Media Mounted": 0.8,  // DMG-based delivery is the dominant macOS malware delivery method
+    "External Media Unmounted": 0.2,
+    // EDR SysOps
+    "Agent Start": 0.1,
+    "Agent Stop": 0.8,
+    "Agent Protection Disabled Or Tamper Event": 1.0,
+    // Hashing
+    "MD5 Available": 0.5,
+    "SHA-256 Available": 1.0,
+    "Fuzzy Hash Available": 0.7,
+    // Service Activity
+    "Service Created": 0.8,
+    "Service Modified": 0.6,
+    "Service Deleted": 0.5,
+}
+
 export default function Scores() {
   // State for scoring data
   const [windowsTelemetryData, setWindowsTelemetryData] = useState(null);
   const [linuxTelemetryData, setLinuxTelemetryData] = useState(null);
+  const [macosTelemetryData, setMacosTelemetryData] = useState(null);
   const [currentPlatform, setCurrentPlatform] = useState('windows');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -168,18 +246,23 @@ export default function Scores() {
       const calculatedScores = calculateScores(linuxTelemetryData, 'linux');
       setScores(calculatedScores);
       updateStats(calculatedScores);
+    } else if (currentPlatform === 'macos' && macosTelemetryData) {
+      const calculatedScores = calculateScores(macosTelemetryData, 'macos');
+      setScores(calculatedScores);
+      updateStats(calculatedScores);
     }
-  }, [currentPlatform, windowsTelemetryData, linuxTelemetryData]);
+  }, [currentPlatform, windowsTelemetryData, linuxTelemetryData, macosTelemetryData]);
 
   // Function to load all telemetry data from Supabase API
   const loadAllTelemetryData = async () => {
     setIsLoading(true);
 
     try {
-      // Load Windows, Linux, and transparency data in parallel
-      const [windowsResponse, linuxResponse, transparencyResponse] = await Promise.all([
+      // Load Windows, Linux, macOS, and transparency data in parallel
+      const [windowsResponse, linuxResponse, macosResponse, transparencyResponse] = await Promise.all([
         fetch('/api/telemetry/windows'),
         fetch('/api/telemetry/linux'),
+        fetch('/api/telemetry/macos'),
         fetch('/api/telemetry/transparency')
       ]);
 
@@ -194,6 +277,11 @@ export default function Scores() {
 
       const linuxData = await linuxResponse.json();
       setLinuxTelemetryData(linuxData);
+
+      if (macosResponse.ok) {
+        const macosData = await macosResponse.json();
+        setMacosTelemetryData(macosData);
+      }
 
       if (transparencyResponse.ok) {
         const transparency = await transparencyResponse.json();
@@ -210,8 +298,9 @@ export default function Scores() {
 
   // Function to calculate scores with platform-specific categories
   const calculateScores = (data, platform) => {
-    const categories = platform.toLowerCase() === 'linux' ?
-      LINUX_CATEGORIES_VALUED : WINDOWS_CATEGORIES_VALUED;
+    const categories = platform.toLowerCase() === 'linux' ? LINUX_CATEGORIES_VALUED :
+      platform.toLowerCase() === 'macos' ? MACOS_CATEGORIES_VALUED :
+      WINDOWS_CATEGORIES_VALUED;
 
     // Filter out optional telemetry from scoring calculation
     const scoringData = data.filter(entry => !entry.optional);
@@ -327,6 +416,15 @@ export default function Scores() {
                 onClick={() => setCurrentPlatform('linux')}
               >
                 Linux
+              </button>
+              <button
+                className={`px-6 py-3 rounded-lg font-semibold transition-all ${currentPlatform === 'macos'
+                  ? '!bg-purple-600 !text-white shadow-md'
+                  : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50'
+                  }`}
+                onClick={() => setCurrentPlatform('macos')}
+              >
+                macOS
               </button>
             </div>
           </div>

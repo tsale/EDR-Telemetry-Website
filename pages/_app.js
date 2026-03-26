@@ -1,7 +1,6 @@
 import '../styles/globals.css'
 import '../styles/windows.css'
 import '../styles/linux.css'
-import '../styles/macos.css'
 import '../styles/about.css'
 import '../styles/contact.css'
 import '../styles/eligibility.css'
@@ -16,12 +15,15 @@ import '../styles/scores.css'
 import '../styles/mitre-mappings.css'
 import '../styles/sponsorship.css'
 import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Analytics } from "@vercel/analytics/react"
 import Script from 'next/script'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { isVercelObservabilityEnabled } from '../utils/observability'
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter()
+  const isObservabilityEnabled = isVercelObservabilityEnabled()
 
   // Track page views when route changes (Google Analytics)
   useEffect(() => {
@@ -140,7 +142,12 @@ function MyApp({ Component, pageProps }) {
           }}
         />
         <Component {...pageProps} />
-        <SpeedInsights />
+        {isObservabilityEnabled ? (
+          <>
+            <SpeedInsights />
+            <Analytics />
+          </>
+        ) : null}
       </>
   )
 }

@@ -1,0 +1,419 @@
+---
+title: "macOS EDR Telemetry: A Structured Framework for Evaluating Endpoint Visibility."
+date: "2026-03-26"
+image: "/images/blog/macos-edr-telemetry.jpg"
+tags: [macOS, EDR, telemetry, framework, detection-engineering, endpoint-security]
+---
+
+# macOS EDR Telemetry: A Structured Framework for Evaluating Endpoint Visibility
+
+![macOS EDR Telemetry Framework](/images/blog/macos-edr-telemetry.jpg)
+
+The EDR Telemetry Project has been documenting and tracking endpoint detection and response capabilities across Windows and Linux platforms since its inception. Today, we're expanding that mission to include macOS, a platform that has historically received less attention in the EDR telemetry space despite growing enterprise adoption and an evolving threat landscape.
+
+This release introduces two major components:
+
+1. **A comprehensive macOS EDR telemetry framework** defining 58 subcategories across 16 categories, with initial coverage data for 8 EDR products
+2. **A macOS telemetry generator tool** that produces reproducible telemetry events for EDR testing using direct syscalls and native framework APIs
+
+Our goal remains the same: **provide transparency into what EDR products can (and should) be able to see**, empowering security practitioners, detection engineers, and organizations to make informed decisions about endpoint visibility on macOS.
+
+---
+
+## Why macOS Telemetry Matters
+
+macOS endpoints are no longer niche. They're deployed across enterprises, development teams, and executive suites. With that adoption comes increased attacker interest, particularly from infostealer campaigns (AMOS, Poseidon), supply chain attacks, and post-exploitation tooling targeting macOS-specific surfaces.
+
+Yet macOS telemetry is fundamentally different from Windows or Linux:
+
+- **EndpointSecurity (ES)** replaces traditional kernel hooks and provides a user-space API for process, file, and security events
+- **Transparency, Consent, and Control (TCC)** governs access to sensitive resources (camera, microphone, screen, documents) and must be monitored to detect unauthorized access
+- **Unified Logging System (ULS)** aggregates OS and application logs into a structured pipeline that EDRs rely on for contextual enrichment
+- **Code signing and Gatekeeper** are first-class trust mechanisms that EDRs must surface to detect unsigned binaries or trust bypasses
+- **Persistence mechanisms** (launchd, Login Items, Background Task Management) differ significantly from Windows autoruns or Linux systemd units
+
+Without clear telemetry expectations, it's difficult to evaluate whether an EDR product provides adequate visibility into these macOS-specific surfaces. This release aims to close that gap.
+
+---
+
+## The macOS EDR Telemetry Framework
+
+The framework defines **58 telemetry subcategories across 16 categories** that represent the events and data types a macOS EDR should collect, surface, and make actionable. These categories align conceptually with the existing Windows and Linux frameworks but account for macOS-specific telemetry sources and attack surfaces.
+
+The initial release includes coverage data for **8 EDR products**: Phorion, CrowdStrike Falcon, LimaCharlie, Elastic Defend, Microsoft Defender for Endpoint, BitDefender GravityZone, ESET Inspect, and Qualys EDR.
+
+### Core Telemetry Categories
+
+Below is an overview of each category with its exact subcategories and the rationale for their inclusion.
+
+#### 1. Process Activity
+
+| Subcategory |
+|-------------|
+| Process Creation |
+| Process Termination |
+
+Captures the execution lifecycle of processes via `exec` and `exit` events. Essential for building process trees, attributing behavior to specific binaries, and detecting LOLBINs or suspicious parent-child relationships. On macOS, this data comes primarily from EndpointSecurity (`ES_EVENT_TYPE_NOTIFY_EXEC`, `ES_EVENT_TYPE_NOTIFY_EXIT`).
+
+---
+
+#### 2. File Activity
+
+| Subcategory |
+|-------------|
+| File Creation |
+| File Modification |
+| File Deletion |
+| File Attribute Change |
+| File Open/Access |
+
+Maps to EndpointSecurity and FSEvents. Covers payload staging, configuration tampering, persistence drops, and artifact deletion. The inclusion of **File Open/Access** is critical for detecting infostealers that read sensitive files (Keychain databases, browser credential stores, cookies) without modifying them. This event type (`ES_EVENT_TYPE_AUTH_OPEN`) is one of the loudest but most valuable signals for unauthorized file access.
+
+---
+
+#### 3. User & Session Activity
+
+| Subcategory |
+|-------------|
+| User Logon |
+| User Logoff |
+| Logon Failed |
+| Screen Lock |
+| Screen Unlock |
+| Privilege Escalation (sudo etc.) |
+
+Models account access and privilege transitions. On macOS, privilege escalation often occurs via `sudo`, GUI authorization prompts, or TCC manipulation. Screen lock/unlock events are lower-weight but useful for timeline reconstruction during incident response. Logon/logoff events help determine who controlled the host and when.
+
+---
+
+#### 4. Script Activity
+
+| Subcategory |
+|-------------|
+| Script Content |
+
+Tracks the content of scripts executed by interpreters: shell scripts, AppleScript, Python, JavaScript for Automation (JXA), etc. Even when the interpreter binary is benign, the script content often reveals attacker intent, one-liners, encoded payloads, or automation abuse. On macOS, many post-exploitation tools and living-off-the-land techniques rely heavily on shell and AppleScript automation. Capturing script content is essential for understanding what was actually executed.
+
+---
+
+#### 5. Network Activity
+
+| Subcategory |
+|-------------|
+| Network Connection |
+| Network Socket Listen |
+| DNS Query |
+
+Shows outbound C2 channels, local backdoors, and domain-based IOCs. macOS EDRs typically leverage **NetworkExtension** APIs to capture per-process network telemetry. This data enables correlation with threat intelligence, detection of beaconing and tunneling, and identification of unauthorized listeners on local ports.
+
+---
+
+#### 6. Scheduled Task & Persistence Activity
+
+| Subcategory |
+|-------------|
+| Scheduled Task Change (cron/at) |
+| Launchd Item Created |
+| Launchd Item Modified |
+| Launchd Item Deleted |
+| LoginItem Created |
+| LoginItem Deleted |
+
+Persistence is arguably the most critical macOS-specific category. Almost every long-term macOS implant must touch one of these surfaces to survive reboots or user logouts. EDRs monitor these via EndpointSecurity events and Unified Logging. Changes to launchd plists, addition of Login Items, and modification of cron jobs are all high-signal persistence indicators. Background Task Management (BTM, macOS 13+) remains a surface to watch as coverage matures.
+
+Launchd items are tracked granularly (created/modified/deleted) because each operation carries different detection significance, creation is the highest-signal persistence indicator, while deletion may indicate cleanup or anti-forensics.
+
+---
+
+#### 7. User Account Activity
+
+| Subcategory |
+|-------------|
+| User Account Created |
+| User Account Modified |
+| User Account Deleted |
+| Group Membership Modified |
+
+Covers local identity and privilege changes. On macOS, this maps to **OpenDirectory** and `dscl` operations. Detects account-based persistence, lateral movement preparation, and privilege escalation via group abuse (e.g., adding a user to `admin` or `wheel` groups).
+
+---
+
+#### 8. System Extension & Driver Activity
+
+| Subcategory |
+|-------------|
+| System Extension Installed |
+| System Extension Loaded |
+| System Extension Uninstalled |
+| DriverKit Extension Loaded |
+| Kernel Extension Loaded (legacy) |
+
+Monitors low-level components with high privilege. macOS has been transitioning from kernel extensions (kexts) to **SystemExtensions** and **DriverKit** for several years. EDRs themselves often run as SystemExtensions. Any third-party code running at this level has significant visibility and control over the system and must be monitored for tampering or interference. We track the full lifecycle (install/load/uninstall) for system extensions separately because each state transition carries distinct security implications.
+
+---
+
+#### 9. Code Signing & Trust Activity
+
+| Subcategory |
+|-------------|
+| Binary Signature Info Recorded |
+| Notarization Status Recorded |
+| Quarantine Flag Set |
+| Quarantine Flag Cleared |
+| Gatekeeper Decision Logged |
+| XProtect Detection Logged |
+| XProtect Remediation Logged |
+
+This is one of the most macOS-specific categories. macOS code signing and Gatekeeper are first-class OS features with no direct Windows or Linux equivalent. EDRs should surface signature status, notarization state, quarantine flags, and Gatekeeper/XProtect decisions to detect unsigned binaries, ad-hoc signatures, or trust bypass attempts.
+
+**Quarantine Flag Cleared** is particularly important, clearing the quarantine extended attribute (`com.apple.quarantine`) is the classic Gatekeeper bypass step used by many macOS malware families. **Notarization Status** indicates whether Apple has scanned and approved the binary, adding another layer of trust verification.
+
+**Gatekeeper Decision Logged** is tied to macOS User Action Recording: when a user explicitly allows an application that Gatekeeper originally flagged, for example, via the "Open Anyway" prompt in System Settings, macOS records that user-granted exception. This decision is persisted so the binary can bypass Gatekeeper checks on future launches. EDRs should capture these decisions to identify cases where users have knowingly or unknowingly overridden OS-level trust controls, which is a common step in social engineering attacks that deliver unsigned or unnotarized payloads.
+
+**XProtect Detection Logged** records when Apple's built-in malware detection engine (XProtect) identifies a known-malicious file or signature match. XProtect operates as a signature-based scanner integrated into macOS, scanning files at download, launch, and quarantine evaluation time. EDRs should surface these detections to correlate Apple's native verdicts with their own sensor data, providing additional confidence in a detection or surfacing activity that the EDR itself may not have flagged independently.
+
+**XProtect Remediation Logged** captures actions taken by XProtect Remediator, Apple's background remediation service (introduced in macOS 12.3) that periodically scans for and removes known malware families. When XProtect Remediator successfully quarantines or removes a threat, that remediation event should be captured by the EDR. This is valuable for incident response: it confirms a malicious file was present on the host, provides a timeline anchor, and may reveal that a threat existed and was silently cleaned up without the security team's awareness.
+
+---
+
+#### 10. Privacy & TCC Activity
+
+| Subcategory |
+|-------------|
+| TCC Prompt Shown |
+| TCC Decision (Allow) |
+| TCC Decision (Deny) |
+| TCC Policy Change |
+| TCC Access Check |
+
+Covers access to sensitive resources: camera, microphone, screen recording, Full Disk Access, contacts, and more. TCC is the macOS framework that enforces user consent for sensitive data access. EDRs watch TCC through its database (`TCC.db`) and Unified Logging to detect unusual permission grants, bypasses, or direct database manipulation.
+
+**TCC Policy Change** is the highest-signal subcategory here, direct manipulation of the TCC database is a known TCC bypass technique used by sophisticated malware. **TCC Access Check** captures the system's verification of whether an application has the required permissions, providing visibility into what resources applications are attempting to access.
+
+---
+
+#### 11. Access Activity
+
+| Subcategory |
+|-------------|
+| Raw Device Access |
+| Process Access |
+
+Captures disk scraping, direct volume reads, and inter-process attacks (e.g., `task_for_pid`, `ptrace`, Mach port operations). Useful for spotting exfiltration via raw disk reads or injection/tampering via process memory access.
+
+---
+
+#### 12. Process Tampering Activity
+
+| Subcategory |
+|-------------|
+| Process Injection Or Tampering |
+
+Captures common injection and tampering methods as a single signal: remote threads, shellcode injection, dylib loading, and Mach-based manipulation. On macOS, techniques like `DYLD_INSERT_LIBRARIES`, Mach port abuse, and `task_for_pid`-based memory manipulation are the primary injection vectors.
+
+---
+
+#### 13. Device Activity
+
+| Subcategory |
+|-------------|
+| External Media Mounted |
+| External Media Unmounted |
+
+Tracks removable storage lifecycle via **DiskArbitration**. Key for DLP, detecting malware introduction via USB or DMG files, and correlating device usage with file or process activity. DMG-based delivery remains the dominant macOS malware delivery method.
+
+---
+
+#### 14. EDR SysOps
+
+| Subcategory |
+|-------------|
+| Agent Start |
+| Agent Stop |
+| Agent Protection Disabled Or Tamper Event |
+
+Validates agent health and trustworthiness. Helps identify visibility gaps, tampering, and instrumentation failures. The tamper event subcategory is critical for detecting attempts to disable or interfere with the EDR agent itself. This category has been aligned with the existing Windows/Linux baseline to maintain cross-platform consistency.
+
+---
+
+#### 15. File Metadata
+
+| Subcategory |
+|-------------|
+| MD5 Available |
+| SHA-256 Available |
+| Fuzzy Hash Available |
+
+Indicates which hash types an EDR surfaces for file correlation with threat intelligence. Enables triage, blocking, and family-level detection. SHA-256 is the baseline expectation; MD5 is increasingly disabled by default in some products (e.g., Elastic Defend 8.18+) due to CPU overhead; fuzzy hashing (ssdeep/TLSH) remains rare but valuable for similarity-based detection.
+
+---
+
+#### 16. Service Activity
+
+| Subcategory |
+|-------------|
+| Service Created |
+| Service Modified |
+| Service Deleted |
+
+Covers long-lived OS-managed workloads. On macOS, this typically refers to `launchd` daemons and agents, background services that persist across reboots. Attackers often hide C2 or implants as services. Note that while there is conceptual overlap with the Scheduled Task & Persistence category (both involve launchd), this category specifically tracks service lifecycle events as reported by the EDR, while the persistence category focuses on detection of persistence mechanism changes.
+
+---
+
+### macOS-Specific Telemetry Sources
+
+The framework is built around the following macOS-specific telemetry sources. Understanding these is critical for evaluating EDR capabilities on macOS.
+
+- **EndpointSecurity (ES)**: User-space API delivering process, file, and security events from the kernel. Primary sensor feed for macOS EDRs. [Apple Developer Documentation](https://developer.apple.com/documentation/endpointsecurity)
+
+- **Unified Logging System (ULS)**: Structured logging pipeline aggregating OS and app logs. Many macOS subsystems (TCC, loginwindow, opendirectoryd) only expose state transitions here. [Inside the Unified Log](https://eclecticlight.co/2025/09/23/inside-the-unified-log-1-goals-and-architecture/)
+
+- **TCC (Transparency, Consent, and Control)**: Framework enforcing user consent for sensitive data access. EDRs monitor TCC via database and logs. [Full Transparency: Controlling Apple's TCC](https://www.huntress.com/blog/full-transparency-controlling-apples-tcc)
+
+- **NetworkExtension**: API for content filters, DNS proxies, and VPN clients. EDRs use it for per-process network telemetry without kernel hooks. [Reverse Engineering the NetworkExtension API](https://blog.eriknicolasgomez.com/2022/03/16/Introducing-gnes-Reverse-engineering-the-NetworkExtension-API/)
+
+- **SystemExtensions and DriverKit**: User-space replacements for kernel extensions. EDRs adopt these for sensors and device integrations. [macOS System Extensions](https://www.apriorit.com/dev-blog/669-mac-system-extensions)
+
+- **OpenDirectory**: Directory services framework for local and network account info. Authoritative source for identity and group membership. [Open Directory Technical Brief](https://images.apple.com/server/docs/Open_Directory_TB_v10.4.pdf)
+
+- **DiskArbitration**: Mediates mount/unmount/discovery of disks and volumes. Provides timing and identity of external storage. [macOS Audit Story Part 1](https://the-sequence.com/macos-audit-story-part1)
+
+- **launchd / Background Task Management (BTM) / Login Items**: Mechanisms for background jobs and user-login tasks. Almost every long-term macOS implant touches one of these. [How Malware Persists on macOS](https://www.sentinelone.com/blog/how-malware-persists-on-macos/)
+
+---
+
+## The macOS Telemetry Generator
+
+Alongside the framework, we've developed a **macOS telemetry generator tool** to produce reproducible telemetry events for EDR testing. This tool enables security teams, researchers, and EDR vendors to validate endpoint visibility in a controlled, repeatable manner.
+
+### Design Principles
+
+1. **Syscall and API-first**: The generator prioritizes **direct syscalls and native framework APIs** (via ctypes bindings) to trigger telemetry events. This avoids reliance on external binaries where possible, which prevents EDRs from inferring activity based solely on command-line arguments or known tool signatures. Where system utilities are necessary (e.g., `hdiutil` for disk image operations), they are used with clear documentation.
+
+2. **Event coverage**: The generator covers the full spectrum of events defined in the telemetry framework, process activity, file operations, network connections, persistence mechanisms, TCC interactions, code signing, user account management, and more.
+
+3. **CSV logging**: All events are logged to CSV with timestamps and execution status, enabling easy correlation with EDR telemetry and gap analysis.
+
+4. **Documentation**: Each event type is documented in [OPERATIONS.md](https://github.com/tsale/EDR-Telemetry/blob/main/Tools/Telemetry-Generator/macOS/OPERATIONS.md), detailing the syscalls, APIs, and macOS subsystems involved. This transparency allows practitioners to understand exactly what the generator is doing and why specific events should appear in their EDR.
+
+### How It Works
+
+The generator is a Python-based tool that:
+
+- Invokes macOS system calls directly via `ctypes` bindings to libc
+- Interacts with native frameworks (CoreFoundation, Security, OpenDirectory, ServiceManagement, etc.)
+- Triggers events across all telemetry categories
+- Logs results to a CSV file with timestamps, event type, and success/failure status
+
+### Example Events
+
+Here are a few examples of events the generator produces:
+
+- **Process Creation**: Spawns a child process via `fork()` and waits for completion
+- **File Open/Access**: Opens a file read-only using `open()` + `read()` syscalls to trigger `ES_EVENT_TYPE_AUTH_OPEN`
+- **Network Connection**: Creates an outbound TCP connection using `socket()` and `connect()`
+- **Launchd Persistence**: Submits and removes a LaunchDaemon via `SMJobSubmit`/`SMJobRemove` (ServiceManagement framework)
+- **TCC Access**: Performs real TCC access checks for Screen Recording (CoreGraphics) and Accessibility (AX APIs)
+- **Code Signing Check**: Validates signature state via Security.framework for trusted vs. tampered binaries
+- **User Account Creation**: Creates and removes a local user account via OpenDirectory.framework APIs
+- **Process Access**: Attempts `task_for_pid` and `ptrace` attach to generate get-task and process access telemetry
+- **External Media**: Creates, mounts, and unmounts a disk image via DiskArbitration to generate mount/unmount events
+
+Each event is designed to align with the telemetry categories defined in the framework, ensuring that EDR products under test can be evaluated against a consistent baseline.
+
+### Getting Started
+
+The macOS telemetry generator is available in the `Tools/Telemetry-Generator/macOS/` directory of the EDR Telemetry repository.
+
+**Requirements:**
+
+- macOS 10.15 (Catalina) or later
+- Python 3.8+
+- Root privileges (run via sudo)
+- See `requirements.txt` for optional dependencies
+
+**Documentation:**
+
+- [MACOS_TELEMETRY_GENERATOR_GUIDE.md](https://github.com/tsale/EDR-Telemetry/blob/main/Tools/Telemetry-Generator/macOS/MACOS_TELEMETRY_GENERATOR_GUIDE.md): Full usage guide
+- [OPERATIONS.md](https://github.com/tsale/EDR-Telemetry/blob/main/Tools/Telemetry-Generator/macOS/OPERATIONS.md): Syscall and API details per event type
+
+**Usage:**
+
+```bash
+# Install optional dependencies
+pip3 install -r Tools/Telemetry-Generator/macOS/requirements.txt
+
+# Run all telemetry events
+sudo python3 Tools/Telemetry-Generator/macOS/macos_telem_gen.py
+
+# Run specific events only
+sudo python3 Tools/Telemetry-Generator/macOS/macos_telem_gen.py ProcessCreation FileCreation NetworkConnection
+
+# List available events
+python3 Tools/Telemetry-Generator/macOS/macos_telem_gen.py --help
+```
+
+Results are logged to `macos_telemetry_log.csv` in the current directory.
+
+---
+
+## Initial Coverage Observations
+
+The launch dataset spans 8 EDR products across the full 58-subcategory framework. The full interactive comparison table is available on the [macOS telemetry page](/macos). A few patterns stand out without drawing product-level conclusions:
+
+- **Foundational telemetry is well-served**: Process Creation and Network Connection show full coverage across all 8 products, a solid shared baseline.
+- **macOS-specific trust surfaces are largely unaddressed**: Gatekeeper Decision Logging, Notarization Status, and TCC Prompt Shown have zero coverage in the initial dataset. These surfaces are unique to macOS and are directly relevant to detecting trust bypass techniques and infostealer activity.
+- **Persistence and privacy telemetry coverage is uneven**: Launchd item tracking appears across several products, while LoginItem monitoring and TCC event surfacing remain sparse.
+
+These observations reflect initial data and are expected to shift as vendors update their products and the community contributes additional entries.
+
+---
+
+## Acknowledgments
+
+This release would not have been possible without the contributions and collaboration of many individuals:
+
+- **Olivia Gallucci ([@oliviagallucci](https://github.com/oliviagallucci))**: For the initial comprehensive [PR #150](https://github.com/tsale/EDR-Telemetry/pull/150) proposing the macOS telemetry framework, detailed category explanations, and macOS-specific telemetry source documentation. Olivia's work laid the foundation for this entire release.
+- **Callum Hall ([@calhall](https://github.com/calhall))**: For critical feedback on macOS-specific telemetry sources, ensuring the framework accurately reflects the unique aspects of macOS endpoint visibility.
+- **[@j91321](https://github.com/j91321)**: For thoughtful feedback on EDR SysOps alignment and screen lock/unlock event context, helping ensure the framework remains consistent across platforms.
+- **The broader EDR Telemetry Project community**: For ongoing discussions, feedback, and contributions that continue to improve the quality and scope of this project.
+
+---
+
+## Get Involved
+
+The macOS framework is a living dataset. Its value grows with community participation, independent testing, and vendor engagement.
+
+**For the security community:**
+
+- Test the macOS telemetry generator against your EDR deployment and compare results against the framework
+- Submit EDR telemetry reports as Pull Requests to the [EDR Telemetry repository](https://github.com/tsale/EDR-Telemetry)
+- Provide feedback on missing events, incorrect categorization, or areas for improvement
+- Contribute generator improvements, new telemetry categories, or documentation updates
+
+**For EDR vendors:**
+
+- Review the submission specifications and testing methodology in the [repository](https://github.com/tsale/EDR-Telemetry)
+- Submit corrections to existing entries or add new products via Pull Request
+- All submissions are evaluated against the same documented criteria, vendor participation is encouraged and valued
+
+**Stay connected:**
+
+- GitHub: [https://github.com/tsale/EDR-Telemetry](https://github.com/tsale/EDR-Telemetry)
+- Website: [https://www.edr-telemetry.com](https://www.edr-telemetry.com)
+- Twitter: [@kostastsale](https://twitter.com/kostastsale)
+- LinkedIn: [https://www.linkedin.com/in/kostastsale/](https://www.linkedin.com/in/kostastsale/)
+
+---
+
+## Explore the Telemetry Categories
+
+Each of the 16 categories in this framework has a detailed breakdown covering its purpose, the data it collects, security benefits, and detection examples across Windows, Linux, and macOS. If you want to understand the reasoning behind any specific category or compare coverage expectations across platforms, the [EDR Telemetry Categories](/telemetry-categories) page is the best starting point.
+
+---
+
+## Conclusion
+
+The addition of macOS to the EDR Telemetry Project represents a significant expansion of our mission to document and test endpoint visibility across all major platforms. With 58 subcategories across 16 categories, initial coverage for 8 EDR products, and a reproducible telemetry generator, security practitioners and detection engineers now have a clear framework for evaluating macOS EDR capabilities.
+
+We look forward to seeing how the community uses these resources to improve endpoint detection and response on macOS.

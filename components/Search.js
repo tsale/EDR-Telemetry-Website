@@ -70,7 +70,7 @@ const SEARCHABLE_CONTENT = [
     id: 'macos',
     title: 'macOS Telemetry',
     category: 'macos',
-    url: '/macOS',
+    url: '/macos',
     excerpt: 'macOS EDR telemetry capabilities and monitoring features',
     keywords: ['macos', 'mac', 'apple', 'telemetry', 'process', 'file']
   },

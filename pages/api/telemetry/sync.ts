@@ -43,6 +43,7 @@ function createClient(req: NextApiRequest, res: NextApiResponse) {
 
 const WINDOWS_JSON_URL = 'https://raw.githubusercontent.com/tsale/EDR-Telemetry/main/EDR_telem_windows.json'
 const LINUX_JSON_URL = 'https://raw.githubusercontent.com/tsale/EDR-Telemetry/main/EDR_telem_linux.json'
+const MACOS_JSON_URL = 'https://raw.githubusercontent.com/tsale/EDR-Telemetry/main/EDR_telem_macos.json'
 
 interface TelemetryEntry {
   'Telemetry Feature Category': string | null
@@ -67,14 +68,14 @@ export default async function handler(
 
   const { platform } = req.query
   
-  if (platform !== 'windows' && platform !== 'linux') {
-    return res.status(400).json({ error: 'Platform must be "windows" or "linux"' })
+  if (platform !== 'windows' && platform !== 'linux' && platform !== 'macos') {
+    return res.status(400).json({ error: 'Platform must be "windows", "linux", or "macos"' })
   }
 
   const supabase = createClient(req, res)
 
   try {
-    const jsonUrl = platform === 'windows' ? WINDOWS_JSON_URL : LINUX_JSON_URL
+    const jsonUrl = platform === 'windows' ? WINDOWS_JSON_URL : platform === 'linux' ? LINUX_JSON_URL : MACOS_JSON_URL
 
     // Fetch data from GitHub
     const response = await fetch(jsonUrl)
@@ -117,9 +118,18 @@ export default async function handler(
             .single()
           existingTelemetry = result.data
           selectError = result.error
-        } else {
+        } else if (platform === 'linux') {
           const result = await supabase
             .from('linux_telemetry')
+            .select('id')
+            .eq('category', category)
+            .eq('subcategory', subcategory)
+            .single()
+          existingTelemetry = result.data
+          selectError = result.error
+        } else {
+          const result = await supabase
+            .from('macos_telemetry')
             .select('id')
             .eq('category', category)
             .eq('subcategory', subcategory)
@@ -143,9 +153,17 @@ export default async function handler(
               .single()
             newTelemetry = result.data
             insertError = result.error
-          } else {
+          } else if (platform === 'linux') {
             const result = await supabase
               .from('linux_telemetry')
+              .insert({ category, subcategory })
+              .select('id')
+              .single()
+            newTelemetry = result.data
+            insertError = result.error
+          } else {
+            const result = await supabase
+              .from('macos_telemetry')
               .insert({ category, subcategory })
               .select('id')
               .single()
@@ -185,9 +203,21 @@ export default async function handler(
                 onConflict: 'telemetry_id,edr_name'
               })
             upsertError = result.error
-          } else {
+          } else if (platform === 'linux') {
             const result = await supabase
               .from('linux_table_results')
+              .upsert({
+                telemetry_id: telemetryId,
+                edr_name: edrName,
+                status: status,
+                explanation: null
+              }, {
+                onConflict: 'telemetry_id,edr_name'
+              })
+            upsertError = result.error
+          } else {
+            const result = await supabase
+              .from('macos_table_results')
               .upsert({
                 telemetry_id: telemetryId,
                 edr_name: edrName,

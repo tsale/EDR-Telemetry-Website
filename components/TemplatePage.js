@@ -2,8 +2,6 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { SpeedInsights } from "@vercel/speed-insights/next"
-import { Analytics } from "@vercel/analytics/react"
 import Search from './Search'
 import AnnouncementBanner from './AnnouncementBanner'
 import Header from './Header'
@@ -50,7 +48,7 @@ export default function TemplatePage({ children, title = 'EDR Telemetry Project'
           <>
             <meta property="og:image" content={resolvedOgImage} />
             <meta property="og:image:alt" content={title} />
-            <meta property="og:image:type" content="image/png" />
+            <meta property="og:image:type" content={resolvedOgImage.endsWith('.jpg') || resolvedOgImage.endsWith('.jpeg') ? 'image/jpeg' : 'image/png'} />
             <meta name="twitter:image" content={resolvedOgImage} />
           </>
         )}
@@ -142,9 +140,6 @@ export default function TemplatePage({ children, title = 'EDR Telemetry Project'
           </div>
         </div>
       </footer>
-
-      <SpeedInsights />
-      <Analytics />
     </div>
   )
 }
