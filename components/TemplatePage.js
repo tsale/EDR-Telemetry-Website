@@ -1,10 +1,14 @@
 import Head from 'next/head'
 import Link from 'next/link'
+import dynamic from 'next/dynamic'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import Search from './Search'
 import AnnouncementBanner from './AnnouncementBanner'
 import Header from './Header'
+
+const Search = dynamic(() => import('./Search'), {
+  ssr: false,
+})
 
 export default function TemplatePage({ children, title = 'EDR Telemetry Project', description = 'EDR Telemetry Project - Exploring telemetry capabilities of EDR solutions', ogImage = null }) {
   const [searchOpen, setSearchOpen] = useState(false)
@@ -48,7 +52,7 @@ export default function TemplatePage({ children, title = 'EDR Telemetry Project'
           <>
             <meta property="og:image" content={resolvedOgImage} />
             <meta property="og:image:alt" content={title} />
-            <meta property="og:image:type" content={resolvedOgImage.endsWith('.jpg') || resolvedOgImage.endsWith('.jpeg') ? 'image/jpeg' : 'image/png'} />
+            <meta property="og:image:type" content={resolvedOgImage.endsWith('.jpg') || resolvedOgImage.endsWith('.jpeg') ? 'image/jpeg' : resolvedOgImage.endsWith('.webp') ? 'image/webp' : 'image/png'} />
             <meta name="twitter:image" content={resolvedOgImage} />
           </>
         )}
@@ -61,7 +65,7 @@ export default function TemplatePage({ children, title = 'EDR Telemetry Project'
 
       <Header onSearchClick={() => setSearchOpen(true)} />
 
-      <Search isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
+      {searchOpen ? <Search isOpen={searchOpen} onClose={() => setSearchOpen(false)} /> : null}
 
       <main className="pb-8">{children}</main>
 
