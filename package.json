@@ -22,7 +22,6 @@
     "chart.js": "^4.4.8",
     "cheerio": "^1.1.2",
     "dotenv": "^17.2.1",
-    "gray-matter": "^4.0.3",
     "lucide-react": "^0.563.0",
     "next": "^16.2.6",
     "next-mdx-remote": "^6.0.0",
@@ -34,7 +33,8 @@
     "react-dom": "^18.3.1",
     "rehype-prism-plus": "^2.0.1",
     "remark-gfm": "^4.0.1",
-    "turndown": "^7.2.2"
+    "turndown": "^7.2.2",
+    "yaml": "^2.9.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.17",
@@ -44,9 +44,12 @@
     "autoprefixer": "^10.4.21",
     "eslint": "9.35.0",
     "eslint-config-next": "^16.2.6",
-    "postcss": "^8.5.3",
+    "postcss": "^8.5.15",
     "tailwindcss": "^4.0.16",
     "ts-node": "^10.9.2",
     "typescript": "5.9.2"
+  },
+  "overrides": {
+    "postcss": "$postcss"
   }
 }
