@@ -215,7 +215,7 @@ export default function About() {
               <div className="flex flex-col sm:flex-row justify-center gap-4">
                 <Link 
                   href="/contact" 
-                  className="inline-flex items-center justify-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-colors shadow-lg hover:shadow-xl"
+                  className="inline-flex items-center justify-center px-6 py-3 bg-blue-600 hover:bg-blue-700 !text-white hover:!text-white font-semibold rounded-xl transition-colors shadow-lg hover:shadow-xl"
                 >
                   Contact Us
                 </Link>

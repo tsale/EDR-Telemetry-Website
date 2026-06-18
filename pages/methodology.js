@@ -5,17 +5,46 @@ import useHeadingLinks from '../hooks/useHeadingLinks'
 import {
   CheckCircle, Clock, Database, FileSearch, GitPullRequest,
   Scale, Shield, Sliders, XCircle, ArrowRight, Monitor,
-  Terminal, Command, AlertTriangle, BookOpen
+  Terminal, Command, AlertTriangle, BookOpen, Target, Activity,
+  Eye, Zap, ClipboardCheck
 } from 'lucide-react'
 
 const validityCriteria = [
-  'Represents a distinct system action, not a generic clue.',
-  'Is directly collected rather than inferred from unrelated activity.',
-  'Is exposed to the product consumer for search, detection building, hunting, or investigation.',
-  'Is automatically collected as the activity occurs or within the agreed near-real-time window.',
-  'Is explicit enough for investigation and pivoting.',
-  'Is backed by the executed test, raw evidence, and expected-vs-observed mapping.',
-  'Fits project scope and is not live query, historical backfill, manual collection, or unrelated module output.'
+  {
+    icon: Target,
+    label: 'Distinct action',
+    text: 'Represents a distinct system action, not a generic clue.',
+  },
+  {
+    icon: Activity,
+    label: 'Direct collection',
+    text: 'Is directly collected rather than inferred from unrelated activity.',
+  },
+  {
+    icon: Eye,
+    label: 'Consumer access',
+    text: 'Is exposed to the product consumer for search, detection building, hunting, or investigation.',
+  },
+  {
+    icon: Zap,
+    label: 'Timely capture',
+    text: 'Is automatically collected as the activity occurs or within the agreed near-real-time window.',
+  },
+  {
+    icon: FileSearch,
+    label: 'Investigation-ready',
+    text: 'Is explicit enough for investigation and pivoting.',
+  },
+  {
+    icon: ClipboardCheck,
+    label: 'Evidence-backed',
+    text: 'Is backed by the executed test, raw evidence, and expected-vs-observed mapping.',
+  },
+  {
+    icon: Scale,
+    label: 'In scope',
+    text: 'Fits project scope and is not live query, historical backfill, manual collection, or unrelated module output.',
+  },
 ]
 
 const evidenceItems = [
@@ -152,6 +181,21 @@ export default function Methodology() {
           h1[id], h2[id], h3[id] {
             scroll-margin-top: 140px;
           }
+        }
+        .methodology-cta-section .heading-wrapper {
+          display: block;
+          width: 100%;
+          text-align: center;
+        }
+        .methodology-cta-section .heading-link {
+          left: auto;
+          right: 0;
+        }
+        .validity-criterion {
+          transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+        .validity-criterion:hover {
+          transform: translateY(-1px);
         }
       `}</style>
 
@@ -323,13 +367,46 @@ export default function Methodology() {
             <div className="grid lg:grid-cols-3 gap-6">
               <div className="lg:col-span-2 methodology-card bg-white rounded-2xl shadow-lg p-7 border border-slate-200 relative overflow-hidden">
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-400 to-cyan-400"></div>
-                <div className="grid gap-2.5">
-                  {validityCriteria.map((item, idx) => (
-                    <div key={item} className="flex items-start gap-3 px-4 py-3 bg-slate-50 rounded-lg border border-slate-100 hover:border-blue-200 hover:bg-blue-50/30 transition-colors">
-                      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-bold mt-0.5">{idx + 1}</div>
-                      <span className="text-slate-700 text-sm leading-relaxed">{item}</span>
-                    </div>
-                  ))}
+                <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-[0.14em] text-blue-600 mb-1">Required conditions</p>
+                    <p className="text-slate-600 text-sm mb-0 leading-relaxed">
+                      Every criterion must be satisfied for telemetry to receive full validity credit.
+                    </p>
+                  </div>
+                  <div className="inline-flex items-center gap-2 self-start rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700 ring-1 ring-blue-100">
+                    <CheckCircle className="h-3.5 w-3.5" />
+                    7 criteria
+                  </div>
+                </div>
+                <div className="grid sm:grid-cols-2 gap-4">
+                  {validityCriteria.map((item, idx) => {
+                    const Icon = item.icon
+                    const isLast = idx === validityCriteria.length - 1
+
+                    return (
+                      <div
+                        key={item.label}
+                        className={[
+                          'validity-criterion group relative flex gap-4 rounded-2xl border border-slate-200/80 bg-gradient-to-br from-white via-white to-slate-50/80 p-4 shadow-sm hover:border-blue-200 hover:shadow-md',
+                          isLast ? 'sm:col-span-2' : '',
+                        ].join(' ')}
+                      >
+                        <div className="flex shrink-0 flex-col items-center gap-2">
+                          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-md shadow-blue-500/20">
+                            <Icon className="h-5 w-5" aria-hidden="true" />
+                          </div>
+                          <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                            {String(idx + 1).padStart(2, '0')}
+                          </span>
+                        </div>
+                        <div className="min-w-0 pt-0.5">
+                          <h3 className="mb-1.5 text-sm font-bold text-slate-900">{item.label}</h3>
+                          <p className="mb-0 text-sm leading-relaxed text-slate-600">{item.text}</p>
+                        </div>
+                      </div>
+                    )
+                  })}
                 </div>
               </div>
               <div className="space-y-6">
@@ -412,7 +489,7 @@ export default function Methodology() {
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-400 to-teal-400"></div>
                 <div className="flex items-center gap-2 mb-4">
                   <FileSearch className="w-6 h-6 text-blue-600" />
-                  <h3 id="evidence-package" className="text-xl font-bold text-slate-900 mb-0">Minimum Evidence Package</h3>
+                  <h3 id="evidence-package" className="text-xl font-bold text-slate-900 mb-0">Minimum Evidence</h3>
                 </div>
                 <p className="text-slate-600 text-sm mb-5">Each direct-test conclusion should be traceable to evidence that can be rechecked.</p>
                 <div className="space-y-2.5">
@@ -510,13 +587,13 @@ export default function Methodology() {
           </section>
 
           {/* Versioning CTA */}
-          <section className="relative rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
+          <section className="methodology-cta-section relative rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
             <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"></div>
             <div className="absolute -top-[30%] -left-[10%] w-[50%] h-[80%] rounded-full bg-blue-900/30 blur-[100px]"></div>
             <div className="absolute -bottom-[30%] -right-[10%] w-[50%] h-[80%] rounded-full bg-indigo-900/20 blur-[100px]"></div>
-            <div className="relative p-8 md:p-12 text-center">
-              <h2 id="versioning" className="text-3xl font-bold !text-white mb-4">Versioning</h2>
-              <p className="!text-slate-300 leading-relaxed mb-8 max-w-2xl mx-auto">
+            <div className="relative p-8 md:p-12 flex flex-col items-center text-center">
+              <h2 id="versioning" className="text-3xl font-bold !text-white !text-center mb-4 w-full">Versioning</h2>
+              <p className="!text-slate-300 !text-center leading-relaxed mb-8 max-w-2xl">
                 This page summarizes methodology version 1.1 dated 2026-04-27. Live links are informational unless an agreement incorporates a later revision.
               </p>
               <div className="flex flex-col sm:flex-row justify-center gap-4">
