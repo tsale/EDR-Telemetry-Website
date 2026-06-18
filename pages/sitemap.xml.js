@@ -10,6 +10,7 @@ export async function getServerSideProps({ res }) {
     '/faq',
     '/linux',
     '/macos',
+    '/methodology',
     '/mitre-mappings',
     '/premium-services',
     '/roadmap',

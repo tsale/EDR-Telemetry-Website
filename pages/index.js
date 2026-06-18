@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { 
   ArrowRight, Shield, Activity, Database, Server, Terminal, 
   Command, HelpCircle, CheckCircle, Users, Building, Lock, 
-  BarChart3, FileText, Globe, Compass, Monitor 
+  BarChart3, FileText, Globe, Compass, Monitor, BookOpen
 } from 'lucide-react'
 
 export default function Home() {
@@ -78,9 +78,9 @@ export default function Home() {
                 <BarChart3 className="w-5 h-5 mr-2" />
                 Explore Scores
               </Link>
-              <Link href="/about" className="inline-flex items-center justify-center px-8 py-4 border border-slate-700 text-base font-bold rounded-xl !text-slate-200 hover:bg-slate-800 transition-all hover:border-slate-600">
-                <Globe className="w-5 h-5 mr-2" />
-                Learn More
+              <Link href="/methodology" className="inline-flex items-center justify-center px-8 py-4 border border-slate-700 text-base font-bold rounded-xl !text-slate-200 hover:bg-slate-800 transition-all hover:border-slate-600">
+                <BookOpen className="w-5 h-5 mr-2" />
+                Methodology
               </Link>
             </div>
           </div>
@@ -253,8 +253,8 @@ export default function Home() {
                 </div>
               </div>
 
-              <Link href="/about" className="inline-flex items-center text-blue-600 font-semibold hover:text-blue-700 group">
-                Learn More About Our Research <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <Link href="/methodology" className="inline-flex items-center text-blue-600 font-semibold hover:text-blue-700 group">
+                Learn More About Our Methodology <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
             

@@ -67,6 +67,38 @@ export default function FAQ() {
     },
     {
       id: 7,
+      question: "Does a higher score mean better protection?",
+      answer: "No. Scores reflect telemetry availability and exposed visibility under the project methodology. They do not measure prevention efficacy, detection efficacy, product quality, managed service quality, or SOC maturity.",
+      additionalContent: <p>See the <Link href="/methodology">methodology page</Link> for the full scope statement.</p>
+    },
+    {
+      id: 8,
+      question: "What counts as valid telemetry?",
+      answer: "Valid telemetry must directly represent the tested system action, be automatically collected in real time or near-real time, be exposed to the customer for search or investigation, and be backed by evidence. Live query, manual collection, historical backfill, and backend-only conclusions do not count as scoring telemetry."
+    },
+    {
+      id: 9,
+      question: "Why do alerts or detections not count by themselves?",
+      answer: "Alerts and correlated signals can be useful, but they are not substitutes for raw or near-raw event records. The project scores the telemetry that analysts can inspect, pivot on, and use for hunting, not only a product conclusion."
+    },
+    {
+      id: 10,
+      question: "What does Partially mean?",
+      answer: "Partially means some related telemetry exists, but one or more full-credit criteria fail. Common reasons include missing required fields, conditional visibility, limited subset coverage, inconsistent generation, incomplete events, or related-but-not-direct action representation."
+    },
+    {
+      id: 11,
+      question: "What evidence is needed to change a status?",
+      answer: "A status change needs enough evidence for reviewers to recheck the claim: test or action executed, expected telemetry, observed raw events or documented absence, query or search used, source/table/index, time window, observed and missing fields, screenshot or raw export, and rationale for the requested status.",
+      additionalContent: <p>Contribution requirements are summarized on the <Link href="/contribute#evidence-requirements">contribution page</Link>.</p>
+    },
+    {
+      id: 12,
+      question: "How are No or absence findings handled?",
+      answer: "No or absence findings should document the search window, sources searched, queries or search terms, covered time range, endpoint identifiers, and any relevant vendor table or index guidance consulted. A vague claim that another source exists is not enough without enough detail to perform a targeted recheck."
+    },
+    {
+      id: 13,
       anchor: "transparency-indicators",
       question: "What do the transparency indicators mean?",
       answer: "Transparency indicators show how we validated the telemetry data for each vendor. These icons appear next to vendor names in the telemetry tables and scores page:",

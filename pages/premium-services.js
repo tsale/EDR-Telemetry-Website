@@ -230,6 +230,51 @@ export default function PremiumServices() {
             </article>
           </div>
 
+          {/* Direct Evaluation Workflow */}
+          <div className="mt-16 max-w-6xl mx-auto">
+            <div className="bg-slate-50 rounded-2xl border border-slate-200 p-8 md:p-10 shadow-xl">
+              <div className="inline-flex items-center px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-sm font-medium mb-4">Methodology-backed</div>
+              <h3 id="direct-evaluation-workflow" className="text-3xl font-bold text-slate-900 mb-4">How a Direct Evaluation Works</h3>
+              <p className="text-slate-600 mb-8 max-w-3xl">
+                Contracted telemetry evaluations follow a controlled workflow so results are traceable to the tested configuration, raw evidence, and frozen methodology version.
+              </p>
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                {[
+                  'Scope and configuration manifest',
+                  'Vendor or customer validation and written sign-off',
+                  'Configuration freeze before execution',
+                  'Controlled activity execution',
+                  'Raw evidence collection and search review',
+                  'Event validation and status assignment',
+                  'Weighted scoring and caveat handling',
+                  'Report package and review session'
+                ].map((step, index) => (
+                  <div key={step} className="bg-white rounded-xl p-4 border border-slate-200">
+                    <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold mb-3">{index + 1}</div>
+                    <p className="text-slate-700 mb-0 font-medium">{step}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="bg-white rounded-xl p-6 border border-slate-200">
+                <h4 id="configuration-manifest" className="text-xl font-bold text-slate-900 mb-3">Configuration manifest captured before testing</h4>
+                <div className="grid md:grid-cols-3 gap-3 text-sm text-slate-600">
+                  <span>OS version, build, and architecture</span>
+                  <span>Sensor version and build</span>
+                  <span>Tenant or cloud region, if relevant</span>
+                  <span>SKU, license, and enabled modules</span>
+                  <span>Policy/configuration export, hash, or version identifier</span>
+                  <span>Enabled telemetry settings</span>
+                  <span>Product mode</span>
+                  <span>Retention, search, or API path</span>
+                  <span>Authorized sign-off contact and timestamp</span>
+                </div>
+              </div>
+              <Link href="/methodology#vendor-assisted-workflow" className="inline-flex mt-6 text-blue-600 hover:underline font-semibold">
+                Read the public evaluation workflow
+              </Link>
+            </div>
+          </div>
+
           {/* EDR-Comparison.com Callout */}
           <div className="mt-16 max-w-5xl mx-auto">
             <div className="relative rounded-2xl border border-slate-200 bg-white p-8 md:p-10 shadow-xl">

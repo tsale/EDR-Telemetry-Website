@@ -301,6 +301,11 @@ export default function MacOS() {
       background-color: rgba(168, 85, 247, 0.1);
       color: #7e22ce;
     }
+
+    .status-icon.via-logs {
+      background-color: rgba(59, 130, 246, 0.1);
+      color: #1d4ed8;
+    }
     
     .status-icon.via-enabling {
       background-color: rgba(14, 165, 233, 0.1);
@@ -652,6 +657,8 @@ export default function MacOS() {
       );
     } else if (statusLower === 'pending' || statusLower === 'pending response') {
       return <span className="status-icon pending" title="Pending Response"><HelpCircle className="w-5 h-5" /></span>;
+    } else if (statusLower === 'via eventlogs') {
+      return <span className="status-icon via-logs" title="Via EventLogs"><FileText className="w-4 h-4" /></span>;
     } else if (statusLower === 'via enablingtelemetry') {
       return <span className="status-icon via-enabling" title="Via Enabling Telemetry"><Sliders className="w-4 h-4" /></span>;
     }
@@ -942,9 +949,12 @@ export default function MacOS() {
               {/* Left Side: Filters */}
               <div className="w-full lg:w-auto flex flex-col sm:flex-row gap-4">
                 <div className="relative group min-w-[280px]">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Search className="h-5 w-5 text-slate-400" />
+                  </div>
                   <input
                     type="text"
-                    className="block w-full pl-10 pr-3 py-2.5 border border-slate-300 rounded-lg leading-5 bg-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 sm:text-sm transition-all shadow-sm"
+                    className="block w-full pl-10 pr-3 py-2.5 border border-slate-200 rounded-xl leading-5 bg-white shadow-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 sm:text-sm transition-all"
                     placeholder="Search or select EDRs..."
                     value={filterText}
                     onChange={(e) => setFilterText(e.target.value)}
@@ -1059,6 +1069,10 @@ export default function MacOS() {
                   <span className="font-medium">Pending</span>
                 </div>
                 <div className="flex items-center text-sm text-slate-600">
+                  <span className="w-6 h-6 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center mr-2 text-xs"><FileText className="w-3.5 h-3.5" /></span>
+                  <span className="font-medium">Via EventLogs</span>
+                </div>
+                <div className="flex items-center text-sm text-slate-600">
                   <span className="w-6 h-6 rounded-full bg-sky-100 text-sky-700 flex items-center justify-center mr-2 text-xs"><Sliders className="w-3.5 h-3.5" /></span>
                   <span className="font-medium">Via Enabling</span>
                 </div>
@@ -1072,6 +1086,8 @@ export default function MacOS() {
                 <span className="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-semibold bg-purple-100 text-purple-800 mr-1.5">New</span>
                 telemetry doesn&apos;t affect scoring until 75% vendor adoption.
                 <Link href="/scores#optional-telemetry" className="ml-1 font-semibold underline hover:text-purple-600">Learn more</Link>
+                <span className="mx-1">·</span>
+                <Link href="/methodology#status-taxonomy" className="font-semibold underline hover:text-purple-600">Status definitions</Link>
               </p>
             </div>
 

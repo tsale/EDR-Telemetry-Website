@@ -943,9 +943,12 @@ export default function Windows() {
               {/* Left Side: Filters */}
               <div className="w-full lg:w-auto flex flex-col sm:flex-row gap-4">
                 <div className="relative group min-w-[280px]">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Search className="h-5 w-5 text-slate-400" />
+                  </div>
                   <input
                     type="text"
-                    className="block w-full pl-10 pr-3 py-2.5 border border-slate-300 rounded-lg leading-5 bg-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-all shadow-sm"
+                    className="block w-full pl-10 pr-3 py-2.5 border border-slate-200 rounded-xl leading-5 bg-white shadow-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-all"
                     placeholder="Search or select EDRs..."
                     value={filterText}
                     onChange={(e) => setFilterText(e.target.value)}
@@ -1077,6 +1080,8 @@ export default function Windows() {
                 <span className="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-semibold bg-blue-100 text-blue-800 mr-1.5">New</span>
                 telemetry doesn&apos;t affect scoring until 75% vendor adoption.
                 <Link href="/scores#optional-telemetry" className="ml-1 font-semibold underline hover:text-blue-600">Learn more</Link>
+                <span className="mx-1">·</span>
+                <Link href="/methodology#status-taxonomy" className="font-semibold underline hover:text-blue-600">Status definitions</Link>
               </p>
             </div>
 

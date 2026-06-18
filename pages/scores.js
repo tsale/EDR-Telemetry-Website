@@ -551,7 +551,12 @@ export default function Scores() {
           {/* Scoring methodology */}
           <div className="mt-12 bg-white rounded-2xl shadow-xl p-8 border border-slate-200">
             <h2 id="scoring-methodology" className="text-3xl font-bold text-slate-900 mb-4">Understanding the Scores</h2>
-            <p className="text-lg text-slate-600 mb-8">Our scoring system evaluates EDR solutions based on telemetry capabilities across various categories. Each telemetry feature is weighted based on its importance in endpoint detection and response.</p>
+            <p className="text-lg text-slate-600 mb-4">Our scoring system evaluates exposed telemetry visibility across categories. Each telemetry feature is weighted based on its importance for investigation, hunting, and response.</p>
+            <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-8">
+              <p className="text-amber-900 mb-0">
+                Scores reflect telemetry availability and exposed visibility. They do not measure prevention, detection efficacy, product quality, SOC maturity, managed service quality, or full incident-response capability. See the <a href="/methodology" className="font-semibold underline hover:text-amber-700">methodology page</a> for the evidence standard.
+              </p>
+            </div>
 
             <div className="grid md:grid-cols-2 gap-8 mb-8">
               <div>
@@ -562,32 +567,39 @@ export default function Scores() {
                       <tr>
                         <th className="px-4 py-3 text-left text-sm font-bold text-slate-700">Status</th>
                         <th className="px-4 py-3 text-right text-sm font-bold text-slate-700">Value</th>
+                        <th className="px-4 py-3 text-left text-sm font-bold text-slate-700">Meaning</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-200">
                       <tr className="hover:bg-white transition-colors">
-                        <td className="px-4 py-3 text-slate-700">Yes</td>
+                        <td className="px-4 py-3 text-slate-700 font-medium">Yes</td>
                         <td className="px-4 py-3 text-right font-bold text-emerald-600">1.0</td>
+                        <td className="px-4 py-3 text-slate-600 text-sm">Required telemetry is implemented and exposed directly.</td>
                       </tr>
                       <tr className="hover:bg-white transition-colors">
-                        <td className="px-4 py-3 text-slate-700">Via EnablingTelemetry</td>
+                        <td className="px-4 py-3 text-slate-700 font-medium">Via EnablingTelemetry</td>
                         <td className="px-4 py-3 text-right font-bold text-emerald-600">1.0</td>
+                        <td className="px-4 py-3 text-slate-600 text-sm">Available only after enabling a built-in setting or feature. Same numeric value as Yes, but not equivalent to out-of-the-box Yes.</td>
                       </tr>
                       <tr className="hover:bg-white transition-colors">
-                        <td className="px-4 py-3 text-slate-700">Partially</td>
+                        <td className="px-4 py-3 text-slate-700 font-medium">Partially</td>
                         <td className="px-4 py-3 text-right font-bold text-amber-600">0.5</td>
+                        <td className="px-4 py-3 text-slate-600 text-sm">Related telemetry exists, but full-credit validity fails because it is incomplete, conditional, subset-only, inconsistent, missing required fields, or related-but-not-direct.</td>
                       </tr>
                       <tr className="hover:bg-white transition-colors">
-                        <td className="px-4 py-3 text-slate-700">Via EventLogs</td>
+                        <td className="px-4 py-3 text-slate-700 font-medium">Via EventLogs</td>
                         <td className="px-4 py-3 text-right font-bold text-amber-600">0.5</td>
+                        <td className="px-4 py-3 text-slate-600 text-sm">Surfaced through platform-native OS logs rather than independent native sensor collection.</td>
                       </tr>
                       <tr className="hover:bg-white transition-colors">
-                        <td className="px-4 py-3 text-slate-700">No</td>
+                        <td className="px-4 py-3 text-slate-700 font-medium">No</td>
                         <td className="px-4 py-3 text-right font-bold text-red-600">0</td>
+                        <td className="px-4 py-3 text-slate-600 text-sm">Telemetry is not implemented or is not exposed in a qualifying way.</td>
                       </tr>
                       <tr className="hover:bg-white transition-colors">
-                        <td className="px-4 py-3 text-slate-700">Pending Response</td>
+                        <td className="px-4 py-3 text-slate-700 font-medium">Pending Response</td>
                         <td className="px-4 py-3 text-right font-bold text-red-600">0</td>
+                        <td className="px-4 py-3 text-slate-600 text-sm">Unresolved at scoring time. It cannot be upgraded without qualifying evidence.</td>
                       </tr>
                     </tbody>
                   </table>
@@ -671,7 +683,7 @@ export default function Scores() {
                     <Info className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
                     <div>
                       <strong className="text-blue-900">75% Coverage Rule:</strong>
-                      <p className="text-blue-800 mt-1">New Sub-Categories only contribute to vendor scores once they achieve at least 75% implementation coverage across all currently supported EDR vendors.</p>
+                      <p className="text-blue-800 mt-1">New Sub-Categories only contribute to vendor scores once they achieve at least 75% implementation coverage across the supported vendor set for the scoped platform.</p>
                     </div>
                   </div>
                 </div>
@@ -679,8 +691,8 @@ export default function Scores() {
                   <div className="flex items-start gap-2">
                     <Info className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
                     <div>
-                      <strong className="text-blue-900">Why This Matters:</strong>
-                      <p className="text-blue-800 mt-1">This approach prevents unfair advantages for vendors who propose new telemetry additions, ensuring that scores reflect mature, widely-adopted telemetry capabilities rather than cutting-edge features that may not be universally supported.</p>
+                      <strong className="text-blue-900">What Counts Toward Coverage:</strong>
+                      <p className="text-blue-800 mt-1">Only <strong>Yes</strong> and <strong>Via EnablingTelemetry</strong> count as implementation coverage. <strong>Partially</strong>, <strong>Via EventLogs</strong>, <strong>No</strong>, and <strong>Pending Response</strong> do not count toward the threshold unless a future methodology version changes the rule.</p>
                     </div>
                   </div>
                 </div>
@@ -722,7 +734,7 @@ export default function Scores() {
               </div>
 
               <p className="text-slate-600 mt-6">
-                This methodology ensures that more critical telemetry capabilities have a greater impact on the overall score, providing a fair and accurate comparison between different EDR solutions.
+                This methodology ensures that higher-weight telemetry capabilities have greater score impact while preserving evidence-backed status labels. See the <a href="/methodology#status-taxonomy" className="text-blue-600 hover:underline font-medium">full status taxonomy</a> for directness and evidence rules.
               </p>
             </div>
           </div>

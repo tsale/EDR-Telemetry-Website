@@ -56,6 +56,45 @@ export default function Contribute() {
           </div>
 
           <section className="contribute-section">
+            <div className="bg-white rounded-2xl shadow-xl p-8 border border-slate-200">
+              <h2 id="evidence-requirements"><span className="step-icon">🔎</span> Evidence Requirements</h2>
+              <p className="text-slate-600 mb-6">
+                Status changes need evidence that can be rechecked. A screenshot or documentation link is useful, but disputed direct-test conclusions should also show what was executed, what was searched, and why the final status follows the methodology.
+              </p>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="p-5 rounded-xl bg-emerald-50 border border-emerald-100">
+                  <h3 id="accepted-evidence" className="text-xl font-bold text-emerald-900 mb-3">Accepted evidence</h3>
+                  <ul className="space-y-2 text-emerald-800">
+                    <li>Official vendor documentation</li>
+                    <li>Screenshots of telemetry exposed by the product</li>
+                    <li>Log extracts or raw event records</li>
+                    <li>Direct hands-on testing results</li>
+                    <li>Private documentation shared confidentially for validation</li>
+                  </ul>
+                </div>
+                <div className="p-5 rounded-xl bg-blue-50 border border-blue-100">
+                  <h3 id="direct-test-checklist" className="text-xl font-bold text-blue-900 mb-3">Direct-test checklist</h3>
+                  <ul className="space-y-2 text-blue-800">
+                    <li>Test/action executed and UTC execution timestamp</li>
+                    <li>Endpoint, OS build, sensor version, and policy/configuration</li>
+                    <li>Expected telemetry target and status being requested</li>
+                    <li>Query/search used, time window, raw event source, table, or index</li>
+                    <li>Observed fields, missing expected fields, screenshot or raw export</li>
+                    <li>Rationale for Yes, Partially, Via EventLogs, Via EnablingTelemetry, No, or Pending Response</li>
+                  </ul>
+                </div>
+              </div>
+              <div className="mt-6 p-5 rounded-xl bg-amber-50 border border-amber-100">
+                <h3 id="absence-findings-contribution" className="text-xl font-bold text-amber-900 mb-2">For No or absence findings</h3>
+                <p className="text-amber-800 mb-0">Document the search window, sources searched, queries or search terms, covered time range, endpoint identifiers examined, and any relevant vendor table or index guidance. Vague claims are not enough to upgrade or downgrade a status.</p>
+              </div>
+              <Link href="/methodology#evidence-package" className="inline-flex mt-6 text-blue-600 hover:underline font-semibold">
+                View the full evidence package standard
+              </Link>
+            </div>
+          </section>
+
+          <section className="contribute-section">
             <h2 id="contribution-steps"><span className="step-icon">🚀</span> Contribution Steps</h2>
             
             <div className="steps-flow">

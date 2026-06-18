@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/router'
-import { Search, Menu, X, ChevronDown, Github } from 'lucide-react'
+import { Search, Menu, X, ChevronDown, Github, Monitor, Terminal, Command } from 'lucide-react'
 
 export default function Header({ onSearchClick }) {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -110,6 +110,10 @@ export default function Header({ onSearchClick }) {
                 Blog
             </Link>
 
+            <Link href="/methodology" className={`px-3 py-2 text-sm font-medium ${isActive('/methodology') ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900'}`}>
+                Methodology
+            </Link>
+
             <div className="relative group px-3 py-2" ref={aboutRef}>
                 <button 
                   onClick={() => {
@@ -186,40 +190,53 @@ export default function Header({ onSearchClick }) {
           <div className="px-4 pt-2 pb-6 space-y-1">
             <Link href="/" className="block px-3 py-3 text-base font-medium text-slate-900 border-b border-slate-50">Home</Link>
             
-            <div className="py-2">
+            <div className="py-2 border-b border-slate-50">
                 <button 
                   onClick={() => setPlatformsOpen(!platformsOpen)}
-                  className="flex items-center justify-between w-full px-3 py-2 text-base font-medium text-slate-700"
+                  className="flex items-center justify-between w-full px-3 py-3 text-base font-medium text-slate-700"
                 >
-                  Platforms
-                  <ChevronDown className={`w-4 h-4 transition-transform ${platformsOpen ? 'rotate-180' : ''}`} />
+                  <span className="flex items-center gap-2">
+                    <span>Platforms</span>
+                    <span className="text-xs font-normal text-slate-400">Tap to expand</span>
+                  </span>
+                  <ChevronDown className={`w-5 h-5 transition-transform text-slate-400 ${platformsOpen ? 'rotate-180' : ''}`} />
                 </button>
                 {platformsOpen && (
-                  <div className="bg-slate-50 rounded-md mt-1 mb-2">
-                    <Link href="/windows" className="block px-3 py-2 text-base text-slate-600 hover:text-blue-600 pl-6">Windows</Link>
-                    <Link href="/linux" className="block px-3 py-2 text-base text-slate-600 hover:text-blue-600 pl-6">Linux</Link>
-                    <Link href="/macos" className="block px-3 py-2 text-base text-slate-600 hover:text-blue-600 pl-6">macOS</Link>
+                  <div className="bg-slate-50 rounded-lg mt-1 mb-2 py-2">
+                    <Link href="/windows" className="flex items-center gap-3 px-4 py-2.5 text-base text-slate-600 hover:text-blue-600">
+                      <Monitor className="w-4 h-4 text-slate-400" /> Windows
+                    </Link>
+                    <Link href="/linux" className="flex items-center gap-3 px-4 py-2.5 text-base text-slate-600 hover:text-blue-600">
+                      <Terminal className="w-4 h-4 text-slate-400" /> Linux
+                    </Link>
+                    <Link href="/macos" className="flex items-center gap-3 px-4 py-2.5 text-base text-slate-600 hover:text-blue-600">
+                      <Command className="w-4 h-4 text-slate-400" /> macOS
+                    </Link>
                   </div>
                 )}
             </div>
 
-            <Link href="/scores" className="block px-3 py-3 text-base font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-md">Scores</Link>
-            <Link href="/blog" className="block px-3 py-3 text-base font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-md">Blog</Link>
+            <Link href="/scores" className="block px-3 py-3 text-base font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-md border-b border-slate-50">Scores</Link>
+            <Link href="/blog" className="block px-3 py-3 text-base font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-md border-b border-slate-50">Blog</Link>
+            <Link href="/methodology" className="block px-3 py-3 text-base font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-md border-b border-slate-50">Methodology</Link>
             
-            <div className="py-2">
+            <div className="py-2 border-b border-slate-50">
                 <button 
                   onClick={() => setAboutOpen(!aboutOpen)}
-                  className="flex items-center justify-between w-full px-3 py-2 text-base font-medium text-slate-700"
+                  className="flex items-center justify-between w-full px-3 py-3 text-base font-medium text-slate-700"
                 >
-                  About
-                  <ChevronDown className={`w-4 h-4 transition-transform ${aboutOpen ? 'rotate-180' : ''}`} />
+                  <span className="flex items-center gap-2">
+                    <span>About</span>
+                    <span className="text-xs font-normal text-slate-400">Tap to expand</span>
+                  </span>
+                  <ChevronDown className={`w-5 h-5 transition-transform text-slate-400 ${aboutOpen ? 'rotate-180' : ''}`} />
                 </button>
                 {aboutOpen && (
-                  <div className="bg-slate-50 rounded-md mt-1 mb-2">
-                    <Link href="/about" className="block px-3 py-2 text-base text-slate-600 hover:text-blue-600 pl-6">Project Info</Link>
-                    <Link href="/eligibility" className="block px-3 py-2 text-base text-slate-600 hover:text-blue-600 pl-6">Eligibility</Link>
-                    <Link href="/telemetry-categories" className="block px-3 py-2 text-base text-slate-600 hover:text-blue-600 pl-6">Categories</Link>
-                    <Link href="/sponsorship" className="block px-3 py-2 text-base text-slate-600 hover:text-blue-600 pl-6">Support Us</Link>
+                  <div className="bg-slate-50 rounded-lg mt-1 mb-2 py-2">
+                    <Link href="/about" className="block px-4 py-2.5 text-base text-slate-600 hover:text-blue-600">Project Info</Link>
+                    <Link href="/eligibility" className="block px-4 py-2.5 text-base text-slate-600 hover:text-blue-600">Eligibility</Link>
+                    <Link href="/telemetry-categories" className="block px-4 py-2.5 text-base text-slate-600 hover:text-blue-600">Categories</Link>
+                    <Link href="/sponsorship" className="block px-4 py-2.5 text-base text-slate-600 hover:text-blue-600">Support Us</Link>
                   </div>
                 )}
             </div>

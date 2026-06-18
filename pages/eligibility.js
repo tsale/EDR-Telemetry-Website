@@ -1,4 +1,5 @@
 import TemplatePage from '../components/TemplatePage'
+import Link from 'next/link'
 import { useEffect } from 'react'
 import useHeadingLinks from '../hooks/useHeadingLinks'
 
@@ -233,6 +234,46 @@ export default function Eligibility() {
           </div>
         </div>
       </div>
+
+      <section className="bg-slate-50 py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-white rounded-2xl shadow-xl p-8 border border-slate-200">
+            <h2 id="telemetry-eligibility-standard" className="text-3xl font-bold text-slate-900 mb-4">Telemetry Eligibility Standard</h2>
+            <p className="text-slate-600 mb-6">
+              A product must expose automatically collected telemetry that a customer can search, export, hunt on, or use for investigation. Live query, point-in-time artifact collection, historical backfill, manual collection, and backend-only conclusions do not qualify as scoring telemetry.
+            </p>
+            <div className="grid md:grid-cols-3 gap-4">
+              <div className="p-5 rounded-xl bg-blue-50 border border-blue-100">
+                <h3 id="near-real-time-window" className="text-lg font-bold text-blue-900 mb-2">Near-real-time window</h3>
+                <p className="text-blue-800 text-sm mb-0">Telemetry should be available for customer search within ten minutes by default, unless an engagement explicitly defines a different window.</p>
+              </div>
+              <div className="p-5 rounded-xl bg-emerald-50 border border-emerald-100">
+                <h3 id="consumer-availability" className="text-lg font-bold text-emerald-900 mb-2">Consumer availability</h3>
+                <p className="text-emerald-800 text-sm mb-0">Telemetry must be accessible through the agreed product UI, API, or export without vendor engineering, support-only retrieval, or manual backend extraction.</p>
+              </div>
+              <div className="p-5 rounded-xl bg-amber-50 border border-amber-100">
+                <h3 id="directness-requirement" className="text-lg font-bold text-amber-900 mb-2">Directness requirement</h3>
+                <p className="text-amber-800 text-sm mb-0">Direct events count. Inferences from unrelated file, process, registry, or log activity do not receive full direct-event credit.</p>
+              </div>
+            </div>
+            <div className="mt-6 rounded-xl border border-slate-200 overflow-hidden">
+              <div className="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-200">
+                <div className="p-5 bg-emerald-50">
+                  <h3 id="direct-telemetry-visible" className="text-xl font-bold text-emerald-900 mb-2">Direct telemetry example</h3>
+                  <p className="text-emerald-800 mb-0">A direct service-creation event exposed by the product.</p>
+                </div>
+                <div className="p-5 bg-red-50">
+                  <h3 id="inferred-activity-visible" className="text-xl font-bold text-red-900 mb-2">Insufficient substitute</h3>
+                  <p className="text-red-800 mb-0">Assuming service creation from a generic process event or a registry write under the Services key.</p>
+                </div>
+              </div>
+            </div>
+            <Link href="/methodology#valid-telemetry-criteria" className="inline-flex mt-6 text-blue-600 hover:underline font-semibold">
+              Read the full methodology criteria
+            </Link>
+          </div>
+        </div>
+      </section>
 
       <div className="content-container">
         <div className="requirements-section">
