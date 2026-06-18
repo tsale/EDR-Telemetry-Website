@@ -773,7 +773,7 @@ const FeatureAdoptionTimeline = ({ platform: initialPlatform = 'all', onPlatform
         <ul>
           <li><strong>&quot;Yes&quot;</strong> - Fully implemented feature</li>
           <li><strong>&quot;Partially&quot;</strong> - Partially implemented feature</li>
-          <li><strong>&quot;Via EventLogs&quot;</strong> - Feature available through Windows Event Logs</li>
+          <li><strong>&quot;Via EventLogs&quot;</strong> - Feature available through platform-native event logs</li>
           <li><strong>&quot;Via EnablingTelemetry&quot;</strong> - Feature that can be enabled as part of the EDR product</li>
         </ul>
         <p>

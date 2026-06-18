@@ -121,7 +121,7 @@ export default function Contribute() {
                       <div className="value-item">
                         <span className="icon">🪵</span>
                         <span className="label">Via EventLogs</span>
-                        <span className="description">Collected from Windows Event Logs</span>
+                        <span className="description">Collected from platform-native event logs</span>
                       </div>
                       <div className="value-item">
                         <span className="icon">🎚️</span>

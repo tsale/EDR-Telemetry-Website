@@ -78,7 +78,7 @@ In this round of updates, we’ve made important changes to how we categorize te
 
 #### 🪵Via EventLogs
 
-Telemetry, categorized as “Via EventLogs,” refers to data that is collected from Windows Event Logs — but only if event logging is enabled at the system level. The EDR itself does not independently collect this telemetry through **Event Tracing for Windows (ETW)**. This distinction helps clarify the reliance on system-level logging configurations.
+Telemetry categorized as “Via EventLogs” refers to data collected from platform-native event logs rather than independently collected by the EDR’s own sensor instrumentation. On Windows, this typically means Windows Event Logs rather than **Event Tracing for Windows (ETW)**. On Linux and macOS, the same status can apply when telemetry is exposed by ingesting OS-managed logs such as syslog/auth logs, journald, or Unified Logging, depending on the platform and configuration. This distinction helps clarify reliance on system-level logging sources and their configuration.
 
 #### 🎚️ Via EnablingTelemetry
 

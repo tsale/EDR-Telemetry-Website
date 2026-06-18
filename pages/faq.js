@@ -61,7 +61,7 @@ export default function FAQ() {
         "❌ - Feature is not implemented",
         "⚠️ - Feature is partially implemented",
         "❓ - Information is pending or unverified",
-        "🪵 - Collected via Windows Event Logs",
+        "🪵 - Collected via platform-native event logs",
         "🎚️ - Available through additional telemetry settings"
       ]
     },
