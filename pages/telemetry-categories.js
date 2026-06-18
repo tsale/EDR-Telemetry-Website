@@ -2,6 +2,7 @@ import TemplatePage from '../components/TemplatePage'
 import { useState } from 'react'
 import styles from '../styles/telemetry-categories.module.css'
 import { Grid, List, Search, X, Database } from 'lucide-react'
+import PlatformSelector from '../components/PlatformSelector'
 
 export default function TelemetryCategories() {
   const [viewMode, setViewMode] = useState('grid') // 'grid' or 'list'
@@ -821,46 +822,9 @@ export default function TelemetryCategories() {
 
       <div className={styles.container}>
         
-        {/* Platform tabs */}
         <div className="-mt-8 mb-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-center">
-              <div className="inline-flex gap-2 rounded-xl bg-white shadow-lg border border-slate-200 p-1">
-                <button
-                  onClick={() => handleTabChange('windows')}
-                  className={`px-6 py-3 rounded-lg text-sm font-bold transition-all ${
-                    activeTab === 'windows'
-                      ? '!bg-blue-600 !text-white shadow-md'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
-                  }`}
-                  aria-label="Show Windows telemetry categories"
-                >
-                  Windows
-                </button>
-                <button
-                  onClick={() => handleTabChange('linux')}
-                  className={`px-6 py-3 rounded-lg text-sm font-bold transition-all ${
-                    activeTab === 'linux'
-                      ? '!bg-orange-600 !text-white shadow-md'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
-                  }`}
-                  aria-label="Show Linux telemetry categories"
-                >
-                  Linux
-                </button>
-                <button
-                  onClick={() => handleTabChange('macos')}
-                  className={`px-6 py-3 rounded-lg text-sm font-bold transition-all ${
-                    activeTab === 'macos'
-                      ? '!bg-slate-700 !text-white shadow-md'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
-                  }`}
-                  aria-label="Show macOS telemetry categories"
-                >
-                  macOS
-                </button>
-              </div>
-            </div>
+            <PlatformSelector value={activeTab} onChange={handleTabChange} />
           </div>
         </div>
         

@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import useHeadingLinks from '../hooks/useHeadingLinks'
 import { Trophy, TrendingUp, TrendingDown, BarChart3, Info, Github, Award, Medal, Crown } from 'lucide-react'
 import TransparencyIndicator from '../components/TransparencyIndicator'
+import PlatformSelector from '../components/PlatformSelector'
 
 // Common scoring values for both Windows and Linux
 const FEATURES_DICT_VALUED = {
@@ -396,38 +397,11 @@ export default function Scores() {
 
       <div className="bg-slate-50 min-h-screen py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Platform selector */}
-          <div className="flex justify-center mb-8">
-            <div className="inline-flex gap-2 rounded-xl bg-slate-100 shadow-lg p-2 border border-slate-200">
-              <button
-                className={`px-6 py-3 rounded-lg font-semibold transition-all ${currentPlatform === 'windows'
-                  ? '!bg-blue-600 !text-white shadow-md'
-                  : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50'
-                  }`}
-                onClick={() => setCurrentPlatform('windows')}
-              >
-                Windows
-              </button>
-              <button
-                className={`px-6 py-3 rounded-lg font-semibold transition-all ${currentPlatform === 'linux'
-                  ? '!bg-orange-500 !text-white shadow-md'
-                  : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50'
-                  }`}
-                onClick={() => setCurrentPlatform('linux')}
-              >
-                Linux
-              </button>
-              <button
-                className={`px-6 py-3 rounded-lg font-semibold transition-all ${currentPlatform === 'macos'
-                  ? '!bg-purple-600 !text-white shadow-md'
-                  : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50'
-                  }`}
-                onClick={() => setCurrentPlatform('macos')}
-              >
-                macOS
-              </button>
-            </div>
-          </div>
+          <PlatformSelector
+            className="mb-8"
+            value={currentPlatform}
+            onChange={setCurrentPlatform}
+          />
 
           {/* Error message */}
           {error && (
