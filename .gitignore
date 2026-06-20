@@ -43,3 +43,7 @@ yarn-error.log*
 
 # SQL Migrations
 supabase/migrations
+
+# Local copies of EDR-Telemetry generated stats (optional). The /statistics page
+# loads JSON from GitHub: tsale/EDR-Telemetry main data/generated/
+/public/data/stats/

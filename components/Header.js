@@ -105,6 +105,10 @@ export default function Header({ onSearchClick }) {
             <Link href="/scores" className={`px-3 py-2 text-sm font-medium ${isActive('/scores') ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900'}`}>
                 Scores
             </Link>
+
+            <Link href="/statistics" className={`px-3 py-2 text-sm font-medium ${isActive('/statistics') ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900'}`}>
+                Statistics
+            </Link>
             
             <Link href="/blog" className={`px-3 py-2 text-sm font-medium ${isPathActive('/blog') ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900'}`}>
                 Blog
@@ -217,6 +221,7 @@ export default function Header({ onSearchClick }) {
             </div>
 
             <Link href="/scores" className="block px-3 py-3 text-base font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-md border-b border-slate-50">Scores</Link>
+            <Link href="/statistics" className="block px-3 py-3 text-base font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-md border-b border-slate-50">Statistics</Link>
             <Link href="/blog" className="block px-3 py-3 text-base font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-md border-b border-slate-50">Blog</Link>
             <Link href="/methodology" className="block px-3 py-3 text-base font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-md border-b border-slate-50">Methodology</Link>
             
