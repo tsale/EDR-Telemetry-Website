@@ -23,20 +23,10 @@ export async function getServerSideProps({ res }) {
     '/windows',
   ]
 
-  const blogPages = getSortedPostsData().map((post) => ({
-    path: `/blog/${post.id}`,
-    lastmod: post.date || null,
-  }))
+  const blogPages = getSortedPostsData().map((post) => `/blog/${post.id}`)
 
-  const urls = [
-    ...staticPages.map((path) => ({ path, lastmod: null })),
-    ...blogPages,
-  ]
-    .map(({ path, lastmod }) => {
-      const loc = absoluteUrl(path)
-      const lastmodTag = lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : ''
-      return `  <url>\n    <loc>${loc}</loc>${lastmodTag}\n    <changefreq>weekly</changefreq>\n    <priority>${path === '/' ? '1.0' : path.startsWith('/blog/') ? '0.6' : '0.7'}</priority>\n  </url>`
-    })
+  const urls = [...staticPages, ...blogPages]
+    .map((path) => `  <url>\n    <loc>${absoluteUrl(path)}</loc>\n  </url>`)
     .join('\n')
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>`

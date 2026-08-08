@@ -1,5 +1,4 @@
 import { createClient } from '@supabase/supabase-js'
-import { SITE_URL } from '../../../lib/site'
 
 export default async function handler(req, res) {
   if (req.method !== 'GET') {
@@ -40,7 +39,9 @@ export default async function handler(req, res) {
 
     // If already confirmed, treat as idempotent and redirect as success
     if (subscriber.is_active) {
-      const redirect = `${SITE_URL}/blog?subscribed=1`
+      const baseUrl =
+        process.env.NEXT_PUBLIC_SITE_URL || `${req.headers['x-forwarded-proto'] || 'https'}://${req.headers.host}`
+      const redirect = `${baseUrl}/blog?subscribed=1`
 
       res.writeHead(302, { Location: redirect })
       res.end()
@@ -67,7 +68,9 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: 'Failed to confirm subscription' })
     }
 
-    const redirect = `${SITE_URL}/blog?subscribed=1`
+    const baseUrl =
+      process.env.NEXT_PUBLIC_SITE_URL || `${req.headers['x-forwarded-proto'] || 'https'}://${req.headers.host}`
+    const redirect = `${baseUrl}/blog?subscribed=1`
 
     res.writeHead(302, { Location: redirect })
     res.end()

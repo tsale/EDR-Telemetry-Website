@@ -11,11 +11,20 @@ const Search = dynamic(() => import('./Search'), {
   ssr: false,
 })
 
-export default function TemplatePage({ children, title = 'EDR Telemetry Project', description = 'EDR Telemetry Project - Exploring telemetry capabilities of EDR solutions', ogImage = null }) {
+export default function TemplatePage({
+  children,
+  title = 'EDR Telemetry Project',
+  description = 'EDR Telemetry Project - Exploring telemetry capabilities of EDR solutions',
+  ogImage = null,
+  ogType = 'website',
+  canonicalPath = null,
+}) {
   const [searchOpen, setSearchOpen] = useState(false)
   const router = useRouter()
-  const canonicalPath = normalizeSitePath(router.asPath || '/')
-  const canonicalUrl = absoluteUrl(canonicalPath)
+  // Prefer an explicit canonical for dynamic routes. Fall back to pathname
+  // (not asPath) so statically prerendered HTML gets a deterministic URL.
+  const resolvedCanonicalPath = normalizeSitePath(canonicalPath || router.pathname || '/')
+  const canonicalUrl = absoluteUrl(resolvedCanonicalPath)
   // Use provided ogImage or fall back to default logo
   const resolvedOgImage = ogImage
     ? (ogImage.startsWith('http') ? ogImage : `${SITE_URL}${ogImage.startsWith('/') ? ogImage : `/${ogImage}`}`)
@@ -42,25 +51,23 @@ export default function TemplatePage({ children, title = 'EDR Telemetry Project'
         <meta name="description" content={description} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
-        {canonicalUrl && (
-          <link rel="canonical" href={canonicalUrl} />
-        )}
+        <link rel="canonical" href={canonicalUrl} key="canonical" />
         {/* Open Graph / Twitter basic tags for better share previews */}
-        <meta property="og:type" content="website" />
-        {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
+        <meta property="og:type" content={ogType} key="og:type" />
+        <meta property="og:url" content={canonicalUrl} key="og:url" />
+        <meta property="og:title" content={title} key="og:title" />
+        <meta property="og:description" content={description} key="og:description" />
         {resolvedOgImage && (
           <>
-            <meta property="og:image" content={resolvedOgImage} />
-            <meta property="og:image:alt" content={title} />
-            <meta property="og:image:type" content={resolvedOgImage.endsWith('.jpg') || resolvedOgImage.endsWith('.jpeg') ? 'image/jpeg' : resolvedOgImage.endsWith('.webp') ? 'image/webp' : 'image/png'} />
-            <meta name="twitter:image" content={resolvedOgImage} />
+            <meta property="og:image" content={resolvedOgImage} key="og:image" />
+            <meta property="og:image:alt" content={title} key="og:image:alt" />
+            <meta property="og:image:type" content={resolvedOgImage.endsWith('.jpg') || resolvedOgImage.endsWith('.jpeg') ? 'image/jpeg' : resolvedOgImage.endsWith('.webp') ? 'image/webp' : 'image/png'} key="og:image:type" />
+            <meta name="twitter:image" content={resolvedOgImage} key="twitter:image" />
           </>
         )}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={title} />
-        <meta name="twitter:description" content={description} />
+        <meta name="twitter:card" content="summary_large_image" key="twitter:card" />
+        <meta name="twitter:title" content={title} key="twitter:title" />
+        <meta name="twitter:description" content={description} key="twitter:description" />
       </Head>
 
       <AnnouncementBanner />

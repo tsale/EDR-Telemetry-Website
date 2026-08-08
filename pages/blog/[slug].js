@@ -49,9 +49,14 @@ export default function Post({ postData }) {
         : `${SITE_URL}/images/edr_telemetry_logo.png`
 
     return (
-        <TemplatePage title={postData.title} description={description} ogImage={postData.image}>
+        <TemplatePage
+            title={postData.title}
+            description={description}
+            ogImage={postData.image}
+            ogType="article"
+            canonicalPath={`/blog/${postData.slug}`}
+        >
             <Head>
-                <meta property="og:type" content="article" />
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{
