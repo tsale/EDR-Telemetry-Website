@@ -5,6 +5,7 @@ import Head from 'next/head'
 import { useEffect } from 'react'
 import useHeadingLinks from '../hooks/useHeadingLinks'
 import { Target, TrendingUp, Building2, ExternalLink, Calendar, CheckCircle } from 'lucide-react'
+import { SITE_URL } from '../lib/site'
 
 export default function PremiumServices() {
   useHeadingLinks()
@@ -53,7 +54,7 @@ export default function PremiumServices() {
             '@context': 'https://schema.org',
             '@type': 'ProfessionalService',
             name: 'Defendpoint Consulting - EDR Telemetry Services',
-            url: (process.env.NEXT_PUBLIC_SITE_URL ? `${process.env.NEXT_PUBLIC_SITE_URL}/premium-services` : ''),
+            url: `${SITE_URL}/premium-services`,
             provider: {
               '@type': 'Organization',
               name: 'Defendpoint Consulting',

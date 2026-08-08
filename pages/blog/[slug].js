@@ -1,11 +1,11 @@
 import TemplatePage from '../../components/TemplatePage'
-import { MDXRemote } from 'next-mdx-remote';
+import { MDXRemote } from 'next-mdx-remote'
 import { getAllPostIds, getPostData } from '../../lib/blog'
 import Head from 'next/head'
-import Link from 'next/link'
 import Image from 'next/image'
 import { useState } from 'react'
 import { CheckCircle, AlertTriangle } from 'lucide-react'
+import { absoluteUrl, SITE_URL } from '../../lib/site'
 
 // Custom MDX components for icons
 const mdxComponents = {
@@ -42,11 +42,45 @@ export default function Post({ postData }) {
         .join('')
         .slice(0, 2)
         .toUpperCase()
+    const description = postData.subtitle || postData.title
+    const canonicalUrl = absoluteUrl(`/blog/${postData.slug}`)
+    const imageUrl = postData.image
+        ? (postData.image.startsWith('http') ? postData.image : `${SITE_URL}${postData.image}`)
+        : `${SITE_URL}/images/edr_telemetry_logo.png`
 
     return (
-        <TemplatePage title={postData.title} description={postData.subtitle} ogImage={postData.image}>
+        <TemplatePage title={postData.title} description={description} ogImage={postData.image}>
             <Head>
                 <meta property="og:type" content="article" />
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify({
+                            '@context': 'https://schema.org',
+                            '@type': 'Article',
+                            headline: postData.title,
+                            description,
+                            image: [imageUrl],
+                            datePublished: postData.date || undefined,
+                            author: {
+                                '@type': 'Person',
+                                name: authorName,
+                            },
+                            mainEntityOfPage: {
+                                '@type': 'WebPage',
+                                '@id': canonicalUrl,
+                            },
+                            publisher: {
+                                '@type': 'Organization',
+                                name: 'EDR Telemetry Project',
+                                logo: {
+                                    '@type': 'ImageObject',
+                                    url: `${SITE_URL}/images/edr_telemetry_logo.png`,
+                                },
+                            },
+                        }),
+                    }}
+                />
             </Head>
 
             <div className="bg-white min-h-screen font-charter">
@@ -73,7 +107,7 @@ export default function Post({ postData }) {
                                 </div>
                                 <div>
                                     <div className="flex items-center">
-                                        <span className="font-medium text-[rgba(41,41,41,1)] text-[14px]">{postData.author.name}</span>
+                                        <span className="font-medium text-[rgba(41,41,41,1)] text-[14px]">{authorName}</span>
                                     </div>
                                     <div className="flex items-center text-[14px] text-[rgba(107,107,107,1)] space-x-1">
                                         <span>{postData.readingTime} min read</span>

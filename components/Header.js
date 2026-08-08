@@ -133,7 +133,9 @@ export default function Header({ onSearchClick }) {
                         <Link href="/about" className="block px-3 py-2 text-sm text-slate-700 hover:bg-slate-50 rounded-md">Project Info</Link>
                         <Link href="/eligibility" className="block px-3 py-2 text-sm text-slate-700 hover:bg-slate-50 rounded-md">Eligibility</Link>
                         <Link href="/telemetry-categories" className="block px-3 py-2 text-sm text-slate-700 hover:bg-slate-50 rounded-md">Categories</Link>
+                        <Link href="/mitre-mappings" className="block px-3 py-2 text-sm text-slate-700 hover:bg-slate-50 rounded-md">MITRE Mappings</Link>
                         <Link href="/sponsorship" className="block px-3 py-2 text-sm text-slate-700 hover:bg-slate-50 rounded-md">Support Us</Link>
+                        <Link href="/contact" className="block px-3 py-2 text-sm text-slate-700 hover:bg-slate-50 rounded-md">Contact</Link>
                     </div>
                 </div>
             </div>
@@ -241,7 +243,9 @@ export default function Header({ onSearchClick }) {
                     <Link href="/about" className="block px-4 py-2.5 text-base text-slate-600 hover:text-blue-600">Project Info</Link>
                     <Link href="/eligibility" className="block px-4 py-2.5 text-base text-slate-600 hover:text-blue-600">Eligibility</Link>
                     <Link href="/telemetry-categories" className="block px-4 py-2.5 text-base text-slate-600 hover:text-blue-600">Categories</Link>
+                    <Link href="/mitre-mappings" className="block px-4 py-2.5 text-base text-slate-600 hover:text-blue-600">MITRE Mappings</Link>
                     <Link href="/sponsorship" className="block px-4 py-2.5 text-base text-slate-600 hover:text-blue-600">Support Us</Link>
+                    <Link href="/contact" className="block px-4 py-2.5 text-base text-slate-600 hover:text-blue-600">Contact</Link>
                   </div>
                 )}
             </div>

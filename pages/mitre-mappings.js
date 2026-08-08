@@ -1,20 +1,62 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import TemplatePage from '../components/TemplatePage'
-import { useState, useEffect } from 'react'
+import { fetchMitreMappings } from '../lib/mitreMappings'
 
-export default function MitreMappings() {
+export async function getStaticProps() {
+  try {
+    const mappings = await fetchMitreMappings()
+    return {
+      props: {
+        initialMappings: mappings,
+        initialError: null,
+      },
+      revalidate: 86400,
+    }
+  } catch (err) {
+    return {
+      props: {
+        initialMappings: [],
+        initialError: err.message || 'Failed to fetch mappings',
+      },
+      revalidate: 300,
+    }
+  }
+}
+
+export default function MitreMappings({ initialMappings = [], initialError = null }) {
   const [searchTerm, setSearchTerm] = useState('')
-  const [mappings, setMappings] = useState({})
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+  const [mappings, setMappings] = useState(initialMappings)
+  const [loading, setLoading] = useState(initialMappings.length === 0 && !initialError)
+  const [error, setError] = useState(initialError)
   const [expandedPanels, setExpandedPanels] = useState(new Set())
 
   useEffect(() => {
+    if (initialMappings.length > 0 || initialError) {
+      return
+    }
+
+    let cancelled = false
+
     fetchMitreMappings()
-  }, [])
+      .then((processedMappings) => {
+        if (cancelled) return
+        setMappings(processedMappings)
+        setError(null)
+        setLoading(false)
+      })
+      .catch((err) => {
+        if (cancelled) return
+        setError(err.message)
+        setLoading(false)
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [initialMappings, initialError])
 
   const togglePanel = (index) => {
-    setExpandedPanels(prev => {
+    setExpandedPanels((prev) => {
       const newSet = new Set(prev)
       if (newSet.has(index)) {
         newSet.delete(index)
@@ -25,6 +67,22 @@ export default function MitreMappings() {
     })
   }
 
+  const filterMappings = () => {
+    if (!searchTerm) return mappings
+
+    return mappings.filter(
+      (category) =>
+        category.name.toLowerCase().includes(searchTerm) ||
+        category.techniques.some(
+          (tech) =>
+            tech.name.toLowerCase().includes(searchTerm) ||
+            (tech.mapping && tech.mapping.toLowerCase().includes(searchTerm))
+        )
+    )
+  }
+
+  const filteredMappings = filterMappings()
+
   // When search term changes, expand all matching panels
   useEffect(() => {
     if (searchTerm) {
@@ -33,49 +91,13 @@ export default function MitreMappings() {
     } else {
       setExpandedPanels(new Set())
     }
-  }, [searchTerm])
-
-  const fetchMitreMappings = async () => {
-    try {
-      const response = await fetch('https://raw.githubusercontent.com/tsale/EDR-Telemetry/main/mitre_att%26ck_mappings.json')
-      if (!response.ok) throw new Error('Failed to fetch mappings')
-      const data = await response.json()
-      const processedMappings = processMappings(data)
-      setMappings(processedMappings)
-      setLoading(false)
-    } catch (err) {
-      setError(err.message)
-      setLoading(false)
-    }
-  }
-
-  const processMappings = (data) => {
-    const mappings = {}
-    let currentCategory = ''
-    
-    data.forEach(item => {
-      if (item["Telemetry Feature Category"]) {
-        currentCategory = item["Telemetry Feature Category"]
-        mappings[currentCategory] = {
-          name: currentCategory,
-          techniques: [],
-          description: `Techniques related to ${currentCategory.toLowerCase()}`
-        }
-      }
-      if (currentCategory && item["Sub-Category"]) {
-        mappings[currentCategory].techniques.push({
-          name: item["Sub-Category"],
-          mapping: item["MITRE ATT&CK Mappings"]
-        })
-      }
-    })
-    
-    return Object.values(mappings)
-  }
+    // filteredMappings is derived from mappings + searchTerm; avoid depending on a new array each render
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchTerm, mappings])
 
   const formatMapping = (mapping) => {
     if (!mapping || mapping === '-') return <span className="no-mapping">No mapping available</span>
-    
+
     return mapping.split(',').map((m, index) => {
       const [name, ds] = m.trim().split(' - ')
       if (!ds) return <span key={index} className="no-mapping">{name}</span>
@@ -93,43 +115,42 @@ export default function MitreMappings() {
     setSearchTerm(event.target.value.toLowerCase())
   }
 
-  const filterMappings = () => {
-    if (!searchTerm) return mappings
-    
-    return mappings.filter(category => 
-      category.name.toLowerCase().includes(searchTerm) ||
-      category.techniques.some(tech => 
-        tech.name.toLowerCase().includes(searchTerm) ||
-        (tech.mapping && tech.mapping.toLowerCase().includes(searchTerm))
-      )
+  if (loading) {
+    return (
+      <TemplatePage
+        title="MITRE ATT&CK Mappings - EDR Telemetry Project"
+        description="Map EDR telemetry feature categories to MITRE ATT&CK data sources for coverage comparison across attack techniques."
+      >
+        <div className="mitre-container">
+          <div className="mitre-header">
+            <h1>Loading MITRE ATT&CK® Mappings...</h1>
+          </div>
+        </div>
+      </TemplatePage>
     )
   }
 
-  if (loading) return (
-    <TemplatePage title="EDR Telemetry Project - MITRE Mappings">
-      <div className="mitre-container">
-        <div className="mitre-header">
-          <h1>Loading MITRE ATT&CK® Mappings...</h1>
+  if (error && mappings.length === 0) {
+    return (
+      <TemplatePage
+        title="MITRE ATT&CK Mappings - EDR Telemetry Project"
+        description="Map EDR telemetry feature categories to MITRE ATT&CK data sources for coverage comparison across attack techniques."
+      >
+        <div className="mitre-container">
+          <div className="mitre-header">
+            <h1>Error Loading MITRE ATT&CK® Mappings</h1>
+            <p>{error}</p>
+          </div>
         </div>
-      </div>
-    </TemplatePage>
-  )
-
-  if (error) return (
-    <TemplatePage title="EDR Telemetry Project - MITRE Mappings">
-      <div className="mitre-container">
-        <div className="mitre-header">
-          <h1>Error Loading MITRE ATT&CK® Mappings</h1>
-          <p>{error}</p>
-        </div>
-      </div>
-    </TemplatePage>
-  )
-
-  const filteredMappings = filterMappings()
+      </TemplatePage>
+    )
+  }
 
   return (
-    <TemplatePage title="EDR Telemetry Project - MITRE Mappings">
+    <TemplatePage
+      title="MITRE ATT&CK Mappings - EDR Telemetry Project"
+      description="Map EDR telemetry feature categories to MITRE ATT&CK data sources for coverage comparison across attack techniques."
+    >
       <div className="mitre-container">
         <div className="mitre-header">
           <h1>MITRE ATT&CK® Framework Mappings</h1>
@@ -183,4 +204,4 @@ export default function MitreMappings() {
       </div>
     </TemplatePage>
   )
-} 
+}

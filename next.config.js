@@ -11,7 +11,35 @@ const nextConfig = {
       }
     ]
   },
-  skipTrailingSlashRedirect: true,
+  async redirects() {
+    return [
+      // Legacy static-site .html URLs (pre-Next.js migration)
+      { source: '/index.html', destination: '/', permanent: true },
+      { source: '/about.html', destination: '/about', permanent: true },
+      { source: '/blog.html', destination: '/blog', permanent: true },
+      { source: '/contact.html', destination: '/contact', permanent: true },
+      { source: '/contribute.html', destination: '/contribute', permanent: true },
+      { source: '/eligibility.html', destination: '/eligibility', permanent: true },
+      { source: '/faq.html', destination: '/faq', permanent: true },
+      { source: '/linux.html', destination: '/linux', permanent: true },
+      { source: '/macos.html', destination: '/macos', permanent: true },
+      { source: '/roadmap.html', destination: '/roadmap', permanent: true },
+      { source: '/scores.html', destination: '/scores', permanent: true },
+      { source: '/sponsorship.html', destination: '/sponsorship', permanent: true },
+      { source: '/windows.html', destination: '/windows', permanent: true },
+      // Legacy underscore paths from early static pages
+      { source: '/premium_services', destination: '/premium-services', permanent: true },
+      { source: '/premium_services.html', destination: '/premium-services', permanent: true },
+      { source: '/mitre_mappings', destination: '/mitre-mappings', permanent: true },
+      { source: '/mitre_mappings.html', destination: '/mitre-mappings', permanent: true },
+      { source: '/telemetry_categories', destination: '/telemetry-categories', permanent: true },
+      { source: '/telemetry_categories.html', destination: '/telemetry-categories', permanent: true },
+      { source: '/telemetry-categories.html', destination: '/telemetry-categories', permanent: true },
+      { source: '/premium-services.html', destination: '/premium-services', permanent: true },
+      { source: '/mitre-mappings.html', destination: '/mitre-mappings', permanent: true },
+      { source: '/methodology.html', destination: '/methodology', permanent: true },
+    ]
+  },
   async rewrites() {
     return [
       {

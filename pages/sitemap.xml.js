@@ -1,6 +1,8 @@
+import { getSortedPostsData } from '../lib/blog'
+import { absoluteUrl } from '../lib/site'
+
 export async function getServerSideProps({ res }) {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || ''
-  const pages = [
+  const staticPages = [
     '/',
     '/about',
     '/blog',
@@ -16,21 +18,31 @@ export async function getServerSideProps({ res }) {
     '/roadmap',
     '/scores',
     '/sponsorship',
+    '/statistics',
     '/telemetry-categories',
     '/windows',
   ]
 
-  const urls = pages
-    .filter(Boolean)
-    .map((path) => {
-      const loc = siteUrl ? `${siteUrl}${path}` : path
-      return `  <url>\n    <loc>${loc}</loc>\n    <changefreq>weekly</changefreq>\n    <priority>${path === '/' ? '1.0' : '0.7'}</priority>\n  </url>`
+  const blogPages = getSortedPostsData().map((post) => ({
+    path: `/blog/${post.id}`,
+    lastmod: post.date || null,
+  }))
+
+  const urls = [
+    ...staticPages.map((path) => ({ path, lastmod: null })),
+    ...blogPages,
+  ]
+    .map(({ path, lastmod }) => {
+      const loc = absoluteUrl(path)
+      const lastmodTag = lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : ''
+      return `  <url>\n    <loc>${loc}</loc>${lastmodTag}\n    <changefreq>weekly</changefreq>\n    <priority>${path === '/' ? '1.0' : path.startsWith('/blog/') ? '0.6' : '0.7'}</priority>\n  </url>`
     })
     .join('\n')
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>`
 
   res.setHeader('Content-Type', 'application/xml')
+  res.setHeader('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400')
   res.write(sitemap)
   res.end()
 
@@ -40,4 +52,3 @@ export async function getServerSideProps({ res }) {
 export default function SiteMap() {
   return null
 }
-

@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import AnnouncementBanner from './AnnouncementBanner'
 import Header from './Header'
+import { absoluteUrl, normalizeSitePath, SITE_URL } from '../lib/site'
 
 const Search = dynamic(() => import('./Search'), {
   ssr: false,
@@ -13,11 +14,12 @@ const Search = dynamic(() => import('./Search'), {
 export default function TemplatePage({ children, title = 'EDR Telemetry Project', description = 'EDR Telemetry Project - Exploring telemetry capabilities of EDR solutions', ogImage = null }) {
   const [searchOpen, setSearchOpen] = useState(false)
   const router = useRouter()
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || ''
-  const canonicalPath = router.asPath ? router.asPath.split('?')[0] : ''
-  const canonicalUrl = siteUrl && canonicalPath ? `${siteUrl}${canonicalPath}` : ''
+  const canonicalPath = normalizeSitePath(router.asPath || '/')
+  const canonicalUrl = absoluteUrl(canonicalPath)
   // Use provided ogImage or fall back to default logo
-  const resolvedOgImage = ogImage ? `${siteUrl}${ogImage}` : (siteUrl ? `${siteUrl}/images/edr_telemetry_logo.png` : '')
+  const resolvedOgImage = ogImage
+    ? (ogImage.startsWith('http') ? ogImage : `${SITE_URL}${ogImage.startsWith('/') ? ogImage : `/${ogImage}`}`)
+    : `${SITE_URL}/images/edr_telemetry_logo.png`
 
   // Add keyboard shortcut for search
   useEffect(() => {
@@ -91,6 +93,7 @@ export default function TemplatePage({ children, title = 'EDR Telemetry Project'
                 <li><Link href="/sponsorship">Support Us</Link></li>
                 <li><Link href="/premium-services">Premium Services</Link></li>
                 <li><Link href="/about">About</Link></li>
+                <li><Link href="/contact">Contact</Link></li>
               </ul>
             </div>
             
