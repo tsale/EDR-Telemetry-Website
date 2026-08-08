@@ -91,12 +91,28 @@ const SEARCHABLE_CONTENT = [
     keywords: ['scores', 'comparison', 'ranking', 'evaluation']
   },
   {
+    id: 'statistics',
+    title: 'EDR Statistics',
+    category: 'scores',
+    url: '/statistics',
+    excerpt: 'Historical telemetry visibility trends and vendor improvement leaderboards',
+    keywords: ['statistics', 'trends', 'leaderboard', 'history', 'deltas', 'charts']
+  },
+  {
     id: 'mitre',
     title: 'MITRE Mappings',
     category: 'docs',
     url: '/mitre-mappings',
     excerpt: 'MITRE ATT&CK framework mappings for EDR telemetry',
     keywords: ['mitre', 'att&ck', 'framework', 'mapping', 'tactics']
+  },
+  {
+    id: 'methodology',
+    title: 'Methodology',
+    category: 'docs',
+    url: '/methodology',
+    excerpt: 'Evidence standards and scoring methodology for EDR telemetry evaluations',
+    keywords: ['methodology', 'evidence', 'standards', 'scoring', 'evaluation']
   },
   {
     id: 'premium',

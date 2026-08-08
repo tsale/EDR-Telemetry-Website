@@ -12,7 +12,10 @@ export default function Contribute() {
   }, []);
 
   return (
-    <TemplatePage title="Contribute - EDR Telemetry Project">
+    <TemplatePage
+      title="Contribute - EDR Telemetry Project"
+      description="How to contribute telemetry evidence, pull requests, and documentation updates to the EDR Telemetry Project."
+    >
       <div className="hero-section">
         <div className="hero-content">
           <h1>How to Contribute</h1>

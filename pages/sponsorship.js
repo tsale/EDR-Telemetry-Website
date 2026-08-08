@@ -194,7 +194,10 @@ export default function Sponsorship() {
   };
 
   return (
-    <TemplatePage title="Sponsorship - EDR Telemetry Project">
+    <TemplatePage
+      title="Sponsorship - EDR Telemetry Project"
+      description="Support the EDR Telemetry Project and help us maintain independence in EDR research and analysis."
+    >
       <Head>
         <title>Sponsorship - EDR Telemetry Project</title>
         <meta name="description" content="Support the EDR Telemetry Project and help us maintain independence in EDR research and analysis." />

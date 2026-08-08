@@ -168,7 +168,10 @@ export default function FAQ() {
   }
 
   return (
-    <TemplatePage title="FAQ - EDR Telemetry Project">
+    <TemplatePage
+      title="FAQ - EDR Telemetry Project"
+      description="Answers to common questions about EDR telemetry benchmarking, eligibility, scoring methodology, contributions, and project transparency."
+    >
       <div className="hero-section">
         <div className="hero-content">
           <h1>Frequently Asked Questions</h1>

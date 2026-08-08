@@ -2,6 +2,7 @@ import TemplatePage from '../components/TemplatePage'
 import Head from 'next/head'
 import { useEffect } from 'react'
 import Script from 'next/script'
+import { SITE_URL } from '../lib/site'
 
 export default function Contact() {
 
@@ -45,7 +46,7 @@ export default function Contact() {
             '@context': 'https://schema.org',
             '@type': 'ContactPage',
             name: 'Contact EDR Telemetry Project',
-            url: (process.env.NEXT_PUBLIC_SITE_URL ? `${process.env.NEXT_PUBLIC_SITE_URL}/contact` : '')
+            url: `${SITE_URL}/contact`
           }) }}
         />
         <script
@@ -54,12 +55,12 @@ export default function Contact() {
             '@context': 'https://schema.org',
             '@type': 'Organization',
             name: 'EDR Telemetry Project',
-            url: (process.env.NEXT_PUBLIC_SITE_URL || ''),
+            url: SITE_URL,
             contactPoint: [{
               '@type': 'ContactPoint',
               contactType: 'customer support',
               availableLanguage: ['English'],
-              url: (process.env.NEXT_PUBLIC_SITE_URL ? `${process.env.NEXT_PUBLIC_SITE_URL}/contact` : '')
+              url: `${SITE_URL}/contact`
             }]
           }) }}
         />

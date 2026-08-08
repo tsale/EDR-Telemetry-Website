@@ -6,6 +6,7 @@ import {
   Command, HelpCircle, CheckCircle, Users, Building, Lock, 
   BarChart3, FileText, Globe, Compass, Monitor, BookOpen
 } from 'lucide-react'
+import { SITE_URL } from '../lib/site'
 
 export default function Home() {
   const stats = [
@@ -27,8 +28,8 @@ export default function Home() {
             '@context': 'https://schema.org',
             '@type': 'Organization',
             name: 'EDR Telemetry Project',
-            url: (process.env.NEXT_PUBLIC_SITE_URL || 'https://example.com'),
-            logo: (process.env.NEXT_PUBLIC_SITE_URL ? `${process.env.NEXT_PUBLIC_SITE_URL}/images/edr_telemetry_logo.png` : 'https://example.com/images/edr_telemetry_logo.png'),
+            url: SITE_URL,
+            logo: `${SITE_URL}/images/edr_telemetry_logo.png`,
             sameAs: [
               'https://github.com/tsale/EDR-Telemetry',
               'https://twitter.com/kostastsale',
@@ -42,10 +43,10 @@ export default function Home() {
             '@context': 'https://schema.org',
             '@type': 'WebSite',
             name: 'EDR Telemetry Project',
-            url: (process.env.NEXT_PUBLIC_SITE_URL || 'https://example.com'),
+            url: SITE_URL,
             potentialAction: {
               '@type': 'SearchAction',
-              target: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://example.com'}/?q={search_term_string}`,
+              target: `${SITE_URL}/?q={search_term_string}`,
               'query-input': 'required name=search_term_string'
             }
           }) }}
@@ -171,7 +172,7 @@ export default function Home() {
               <div className="ml-4">
                 <h3 className="text-lg font-semibold text-slate-900 mb-2">Compare Depth & Coverage</h3>
                 <p className="text-slate-600">
-                  Analyze capabilities using <Link href="/scores" className="text-blue-600 hover:underline font-medium">Scores</Link> to understand vendor performance.
+                  Analyze capabilities using <Link href="/scores" className="text-blue-600 hover:underline font-medium">Scores</Link> and track historical change with <Link href="/statistics" className="text-blue-600 hover:underline font-medium">Statistics</Link>.
                 </p>
               </div>
             </div>
@@ -183,7 +184,7 @@ export default function Home() {
               <div className="ml-4">
                 <h3 className="text-lg font-semibold text-slate-900 mb-2">Explore Signals</h3>
                 <p className="text-slate-600">
-                  Deep dive into specific signals in <Link href="/telemetry-categories" className="text-blue-600 hover:underline font-medium">Telemetry Categories</Link> to validate detection logic.
+                  Deep dive into specific signals in <Link href="/telemetry-categories" className="text-blue-600 hover:underline font-medium">Telemetry Categories</Link> and <Link href="/mitre-mappings" className="text-blue-600 hover:underline font-medium">MITRE Mappings</Link>.
                 </p>
               </div>
             </div>
