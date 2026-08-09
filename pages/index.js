@@ -17,9 +17,10 @@ export default function Home() {
   ]
 
   return (
-    <TemplatePage 
-      title="EDR Telemetry Project: Transparent Benchmarking & Telemetry Analysis for Businesses"
-      description="Explore transparent, vendor-neutral EDR telemetry benchmarks. Make confident security decisions with real-world data and practical analysis for your business."
+    <TemplatePage
+      title="EDR Telemetry Project | Independent EDR Telemetry Research"
+      description="Explore open, evidence-backed research documenting endpoint telemetry visibility across EDR platforms using controlled testing and transparent methodology."
+      canonicalPath="/"
     >
       <Head>
         <script
@@ -30,6 +31,13 @@ export default function Home() {
             name: 'EDR Telemetry Project',
             url: SITE_URL,
             logo: `${SITE_URL}/images/edr_telemetry_logo.png`,
+            description: 'Open, evidence-backed research initiative documenting endpoint telemetry visibility across EDR platforms using controlled testing and transparent methodology.',
+            parentOrganization: {
+              '@type': 'Organization',
+              name: 'Defendpoint Consulting',
+              description: 'Independent EDR advisory and engineering firm.',
+              url: 'https://defendpoint.ca'
+            },
             sameAs: [
               'https://github.com/tsale/EDR-Telemetry',
               'https://twitter.com/kostastsale',
@@ -44,11 +52,7 @@ export default function Home() {
             '@type': 'WebSite',
             name: 'EDR Telemetry Project',
             url: SITE_URL,
-            potentialAction: {
-              '@type': 'SearchAction',
-              target: `${SITE_URL}/?q={search_term_string}`,
-              'query-input': 'required name=search_term_string'
-            }
+            description: 'Open, evidence-backed research documenting endpoint telemetry visibility across EDR platforms.'
           }) }}
         />
       </Head>
@@ -65,13 +69,13 @@ export default function Home() {
           <div className="text-center max-w-4xl mx-auto mb-16">
             
             <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 !text-white leading-tight">
-              EDR Telemetry of<br />
-              <span className="text-blue-400">Modern EDR Solutions</span>
+              Transparent Research on<br />{' '}
+              <span className="text-blue-400">EDR Telemetry Visibility</span>
             </h1>
             
             <p className="mt-6 text-xl !text-slate-300 text-center leading-relaxed text-balance px-4">
-              Comprehensive endpoint detection and response analysis with real-time telemetry comparison, 
-              behavioral analytics insights, and detailed platform coverage.
+              Explore controlled, evidence-backed testing of the endpoint telemetry exposed by EDR platforms
+              across Windows, Linux, and macOS.
             </p>
             
             <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
@@ -160,7 +164,7 @@ export default function Home() {
             </div>
             <h2 className="text-3xl font-bold text-slate-900 mb-4">Make Evidence-Based EDR Decisions</h2>
             <p className="text-lg text-slate-600">
-              Use our vendor-neutral research to compare telemetry depth across platforms, validate deployment quality, and set clear improvement priorities.
+              Use vendor-neutral research to compare telemetry visibility, identify potential gaps, and plan environment-specific validation. Telemetry is one input to an EDR decision, not a measure of overall product quality.
             </p>
           </div>
 
@@ -228,9 +232,9 @@ export default function Home() {
                 Empowering Security Teams with Transparency
               </h2>
               <p className="text-lg text-slate-600 mb-8">
-                The EDR Telemetry Project provides comprehensive analysis of endpoint detection and response 
-                capabilities across major operating systems. Our research helps security professionals understand 
-                the telemetry landscape and make informed decisions.
+                The EDR Telemetry Project documents and compares endpoint telemetry exposed by EDR platforms
+                under controlled, versioned test conditions. The public evidence helps practitioners understand
+                visibility differences while preserving the limits of what telemetry scores can show.
               </p>
               
               <div className="space-y-4 mb-8">
@@ -238,19 +242,19 @@ export default function Home() {
                   <div className="flex-shrink-0 p-1">
                     <CheckCircle className="w-5 h-5 text-emerald-500" />
                   </div>
-                  <p className="ml-3 text-slate-600">Comprehensive platform coverage and depth analysis</p>
+                  <p className="ml-3 text-slate-600">Cross-platform telemetry coverage and depth analysis</p>
                 </div>
                 <div className="flex items-start">
                   <div className="flex-shrink-0 p-1">
                     <CheckCircle className="w-5 h-5 text-emerald-500" />
                   </div>
-                  <p className="ml-3 text-slate-600">Real-time telemetry analysis and validation</p>
+                  <p className="ml-3 text-slate-600">Controlled activity and evidence-backed validation</p>
                 </div>
                 <div className="flex items-start">
                   <div className="flex-shrink-0 p-1">
                     <CheckCircle className="w-5 h-5 text-emerald-500" />
                   </div>
-                  <p className="ml-3 text-slate-600">Open source methodology and community driven</p>
+                  <p className="ml-3 text-slate-600">Published methodology and community-informed research</p>
                 </div>
               </div>
 
@@ -301,19 +305,19 @@ export default function Home() {
             <div className="bg-slate-800/50 backdrop-blur-sm p-6 rounded-xl border border-slate-700 hover:bg-slate-800 transition-colors">
               <Globe className="w-10 h-10 text-emerald-400 mb-4" />
               <h3 className="text-lg font-bold mb-2 !text-white">Large Enterprises</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">Benchmark across fleets and guide platform strategy with data-driven insights.</p>
+              <p className="text-slate-400 text-sm leading-relaxed">Compare telemetry evidence across platforms and inform environment-specific validation.</p>
             </div>
 
             <div className="bg-slate-800/50 backdrop-blur-sm p-6 rounded-xl border border-slate-700 hover:bg-slate-800 transition-colors">
               <Users className="w-10 h-10 text-purple-400 mb-4" />
               <h3 className="text-lg font-bold mb-2 !text-white">Security Leaders</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">Communicate coverage and risk with objective metrics to stakeholders.</p>
+              <p className="text-slate-400 text-sm leading-relaxed">Communicate telemetry coverage and documented limitations to stakeholders.</p>
             </div>
 
             <div className="bg-slate-800/50 backdrop-blur-sm p-6 rounded-xl border border-slate-700 hover:bg-slate-800 transition-colors">
               <Shield className="w-10 h-10 text-orange-400 mb-4" />
               <h3 className="text-lg font-bold mb-2 !text-white">Detection Engineers</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">Map signals to MITRE ATT&CK and reduce alert friction with precise data.</p>
+              <p className="text-slate-400 text-sm leading-relaxed">Map exposed signals to MITRE ATT&amp;CK and investigate visibility gaps.</p>
             </div>
           </div>
         </div>
@@ -336,7 +340,7 @@ export default function Home() {
                 Is the research vendor-neutral?
               </h3>
               <p className="text-slate-600 pl-5 border-l-2 border-slate-100 ml-1">
-                Yes. The EDR Telemetry Project is vendor-agnostic and focuses on transparent, evidence-based comparisons without bias.
+                The project is vendor-agnostic and applies published evidence and methodology rules. Each result should be read with its documented validation path, configuration, and limitations.
               </p>
             </div>
             
@@ -346,7 +350,7 @@ export default function Home() {
                 Can we use this to guide procurement?
               </h3>
               <p className="text-slate-600 pl-5 border-l-2 border-slate-100 ml-1">
-                Absolutely. Use the platform scores, category depth, and eligibility criteria to frame objective evaluations for your organization.
+                Use the platform scores, category depth, and eligibility criteria as one source of technical evidence. Telemetry visibility does not measure prevention, detection efficacy, operational fit, support quality, or overall product quality, so it should not determine a procurement decision by itself.
               </p>
             </div>
 
@@ -356,7 +360,7 @@ export default function Home() {
                 Do you offer help applying the benchmarks?
               </h3>
               <p className="text-slate-600 pl-5 border-l-2 border-slate-100 ml-1">
-                Yes. See <Link href="/premium-services" className="text-blue-600 hover:underline font-medium">Premium Services</Link> for benchmarking and advisory support.
+                Yes. See <Link href="/premium-services" className="text-blue-600 hover:underline font-medium">Apply the Research</Link> for EDR validation, selection, and advisory support through Defendpoint Consulting.
               </p>
             </div>
           </div>

@@ -11,7 +11,7 @@ const CATEGORIES = {
   faq: '❓',
   docs: '📚',
   support: '💝',
-  premium: '⭐',
+  premium: '🧭',
   about: 'ℹ️',
   other: '📄'
 }
@@ -34,10 +34,10 @@ const DEFAULT_SUGGESTIONS = [
   },
   {
     id: 'premium',
-    title: 'Premium Services',
+    title: 'Apply the Research',
     category: 'premium',
     url: '/premium-services',
-    excerpt: 'Professional services and enterprise support'
+    excerpt: 'Apply public EDR telemetry research through Defendpoint EDR advisory and engineering'
   },
   {
     id: 'support',
@@ -116,11 +116,11 @@ const SEARCHABLE_CONTENT = [
   },
   {
     id: 'premium',
-    title: 'Premium Services',
+    title: 'Apply the Research',
     category: 'premium',
     url: '/premium-services',
-    excerpt: 'Professional services and enterprise support options',
-    keywords: ['premium', 'services', 'enterprise', 'support', 'professional']
+    excerpt: 'Apply public EDR telemetry research to validation and platform evaluation',
+    keywords: ['edr', 'validation', 'selection', 'research', 'advisory']
   },
   {
     id: 'support',

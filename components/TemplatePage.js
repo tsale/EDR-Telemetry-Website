@@ -14,10 +14,12 @@ const Search = dynamic(() => import('./Search'), {
 export default function TemplatePage({
   children,
   title = 'EDR Telemetry Project',
-  description = 'EDR Telemetry Project - Exploring telemetry capabilities of EDR solutions',
+  description = 'Open, evidence-backed research documenting endpoint telemetry visibility across EDR platforms using controlled testing and transparent methodology.',
   ogImage = null,
   ogType = 'website',
   canonicalPath = null,
+  ogTitle = null,
+  ogDescription = null,
 }) {
   const [searchOpen, setSearchOpen] = useState(false)
   const router = useRouter()
@@ -55,8 +57,8 @@ export default function TemplatePage({
         {/* Open Graph / Twitter basic tags for better share previews */}
         <meta property="og:type" content={ogType} key="og:type" />
         <meta property="og:url" content={canonicalUrl} key="og:url" />
-        <meta property="og:title" content={title} key="og:title" />
-        <meta property="og:description" content={description} key="og:description" />
+        <meta property="og:title" content={ogTitle || title} key="og:title" />
+        <meta property="og:description" content={ogDescription || description} key="og:description" />
         {resolvedOgImage && (
           <>
             <meta property="og:image" content={resolvedOgImage} key="og:image" />
@@ -66,8 +68,8 @@ export default function TemplatePage({
           </>
         )}
         <meta name="twitter:card" content="summary_large_image" key="twitter:card" />
-        <meta name="twitter:title" content={title} key="twitter:title" />
-        <meta name="twitter:description" content={description} key="twitter:description" />
+        <meta name="twitter:title" content={ogTitle || title} key="twitter:title" />
+        <meta name="twitter:description" content={ogDescription || description} key="twitter:description" />
       </Head>
 
       <AnnouncementBanner />
@@ -84,8 +86,8 @@ export default function TemplatePage({
             <div className="footer-section">
               <h3>EDR Telemetry Project</h3>
               <p>
-                Exploring and documenting telemetry capabilities across EDR solutions
-                for Windows, Linux, and macOS platforms.
+                Exploring, testing, and documenting telemetry visibility across EDR
+                solutions for Windows, Linux, and macOS.
               </p>
             </div>
             
@@ -98,7 +100,7 @@ export default function TemplatePage({
                 <li><Link href="/scores">Scores</Link></li>
                 <li><Link href="/statistics">Statistics</Link></li>
                 <li><Link href="/sponsorship">Support Us</Link></li>
-                <li><Link href="/premium-services">Premium Services</Link></li>
+                <li><Link href="/premium-services">Apply the Research</Link></li>
                 <li><Link href="/about">About</Link></li>
                 <li><Link href="/contact">Contact</Link></li>
               </ul>
@@ -151,7 +153,7 @@ export default function TemplatePage({
           </div>
           
           <div className="footer-bottom">
-            <p className="footer-note">EDR-Telemetry is a project by Defendpoint Consulting — Independent Cybersecurity Advisory &amp; Research.</p>
+            <p className="footer-note">EDR Telemetry is a research initiative by Defendpoint Consulting, an independent EDR advisory and engineering firm.</p>
             <p>&copy; {new Date().getFullYear()} EDR Telemetry Project. All rights reserved.</p>
           </div>
         </div>

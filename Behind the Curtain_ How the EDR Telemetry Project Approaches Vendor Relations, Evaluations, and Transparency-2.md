@@ -78,7 +78,7 @@ Our approach to transparency is informational, not punitive. We do not reduce sc
 *   Separate the validation context from the technical scoring.
 *   Let you, the practitioner, decide how much weight to assign to these factors.
 
-## Community-Driven Validation
+## Community-Informed Validation
 
 A significant portion of our validation data comes from our community of independent practitioners. These contributors are often using these EDR products in real-world environments and can provide invaluable insights. They may publish their evidence publicly or share it privately with the project. 
 

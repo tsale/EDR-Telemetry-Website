@@ -37,8 +37,11 @@ export default function Contact() {
   // no Cal script initialization needed when using iframe embed
 
   return (
-    <TemplatePage title="Contact the EDR Telemetry Project"
-      description="Contact the EDR Telemetry Project for questions, partnerships, or premium telemetry services.">
+    <TemplatePage
+      title="Contact the EDR Telemetry Project"
+      description="Contact the EDR Telemetry Project to contribute evidence, report a correction, ask a research question, or discuss project support."
+      canonicalPath="/contact"
+    >
       <Head>
         <script
           type="application/ld+json"
@@ -67,8 +70,8 @@ export default function Contact() {
       </Head>
       <div className="hero-section">
         <div className="hero-content">
-          <h1>Contact Us</h1>
-          <p>Get in touch with us for questions, feedback, or sponsorship inquiries.</p>
+          <h1>Contact the EDR Telemetry Project</h1>
+          <p>Contribute evidence, report a correction, ask a research question, or discuss support for the public project.</p>
         </div>
       </div>
 
@@ -86,8 +89,8 @@ export default function Contact() {
 
       <section className="calendar-section">
         <div className="section-header" style={{ textAlign: 'center', marginLeft: 'auto', marginRight: 'auto' }}>
-          <h2>Schedule a Consultation</h2>
-          <p>Book a time to discuss your telemetry goals with Defendpoint Consulting.</p>
+          <h2>Discuss Client-Specific EDR Work</h2>
+          <p>Selection, deployment, migration, validation, optimization, and advisory engagements are delivered separately through Defendpoint Consulting.</p>
         </div>
         <div style={{ width: '100%', minHeight: 720 }}>
           <div

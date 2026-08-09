@@ -1,4 +1,5 @@
 import TemplatePage from '../components/TemplatePage'
+import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import useHeadingLinks from '../hooks/useHeadingLinks'
 import { Trophy, TrendingUp, TrendingDown, BarChart3, Info, Github, Award, Medal, Crown } from 'lucide-react'
@@ -554,7 +555,7 @@ export default function Scores() {
             <p className="text-lg text-slate-600 mb-4">Our scoring system evaluates exposed telemetry visibility across categories. Each telemetry feature is weighted based on its importance for investigation, hunting, and response.</p>
             <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-8">
               <p className="text-amber-900 mb-0">
-                Scores reflect telemetry availability and exposed visibility. They do not measure prevention, detection efficacy, product quality, SOC maturity, managed service quality, or full incident-response capability. See the <a href="/methodology" className="font-semibold underline hover:text-amber-700">methodology page</a> for the evidence standard.
+                Scores reflect telemetry availability and exposed visibility. They do not measure prevention, detection efficacy, product quality, SOC maturity, managed service quality, or full incident-response capability. See the <Link href="/methodology" className="font-semibold underline hover:text-amber-700">methodology page</Link> for the evidence standard.
               </p>
             </div>
 
@@ -734,7 +735,7 @@ export default function Scores() {
               </div>
 
               <p className="text-slate-600 mt-6">
-                This methodology ensures that higher-weight telemetry capabilities have greater score impact while preserving evidence-backed status labels. See the <a href="/methodology#status-taxonomy" className="text-blue-600 hover:underline font-medium">full status taxonomy</a> for directness and evidence rules.
+                This methodology ensures that higher-weight telemetry capabilities have greater score impact while preserving evidence-backed status labels. See the <Link href="/methodology#status-taxonomy" className="text-blue-600 hover:underline font-medium">full status taxonomy</Link> for directness and evidence rules.
               </p>
             </div>
           </div>
