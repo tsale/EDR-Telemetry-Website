@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/router'
 import { Search, Menu, X, ChevronDown, Github, Monitor, Terminal, Command } from 'lucide-react'
@@ -41,14 +42,19 @@ export default function Header({ onSearchClick }) {
     }
   }, [])
 
-  // Close mobile menu when route changes
+  // Close menus when client-side navigation starts.
   useEffect(() => {
-    setMobileMenuOpen(false)
-    setPlatformsOpen(false)
-    setAboutOpen(false)
-    setDesktopPlatformsOpen(false)
-    setDesktopAboutOpen(false)
-  }, [router.pathname])
+    const closeMenus = () => {
+      setMobileMenuOpen(false)
+      setPlatformsOpen(false)
+      setAboutOpen(false)
+      setDesktopPlatformsOpen(false)
+      setDesktopAboutOpen(false)
+    }
+
+    router.events.on('routeChangeStart', closeMenus)
+    return () => router.events.off('routeChangeStart', closeMenus)
+  }, [router.events])
 
   const isActive = (path) => router.pathname === path
   const isPathActive = (path) => router.pathname.startsWith(path)
@@ -63,32 +69,34 @@ export default function Header({ onSearchClick }) {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
+          {/* Logo — wordmark from lg up; icon-only when md nav is tight */}
           <div className="flex-shrink-0 flex items-center gap-4">
-            <Link href="/" className="flex items-center gap-3 group">
-              <div className="w-8 h-8 relative">
-                <img 
+            <Link href="/" className="flex items-center gap-2 lg:gap-3 group" aria-label="EDR Telemetry">
+              <div className="w-8 h-8 relative shrink-0">
+                <Image
                   src="/images/edr_telemetry_logo.png" 
-                  alt="EDR Telemetry" 
+                  alt="" 
+                  width={32}
+                  height={32}
                   className="w-full h-full object-contain" 
                 />
               </div>
-              <div className="flex flex-col">
-                <span className="text-lg font-bold leading-none text-slate-900 group-hover:text-blue-600 transition-colors">
-                  EDR Telemetry
-                </span>
-              </div>
+              <span className="inline md:hidden lg:inline text-lg font-bold leading-none text-slate-900 group-hover:text-blue-600 transition-colors">
+                EDR Telemetry
+              </span>
             </Link>
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-1">
-            <div className="relative group px-3 py-2" ref={platformsRef}>
+          <nav className="hidden md:flex items-center gap-0.5 lg:gap-1">
+            <div className="relative group px-2 lg:px-3 py-2" ref={platformsRef}>
                 <button 
                   onClick={() => {
                     setDesktopPlatformsOpen(!desktopPlatformsOpen)
                     setDesktopAboutOpen(false)
                   }}
+                  aria-expanded={desktopPlatformsOpen}
+                  aria-haspopup="menu"
                   className={`flex items-center gap-1 text-sm font-medium ${isPathActive('/windows') || isPathActive('/linux') || isPathActive('/macos') ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900'}`}
                 >
                     Platforms <ChevronDown className={`w-4 h-4 transition-transform ${desktopPlatformsOpen ? 'rotate-180' : ''}`} />
@@ -102,28 +110,30 @@ export default function Header({ onSearchClick }) {
                 </div>
             </div>
 
-            <Link href="/scores" className={`px-3 py-2 text-sm font-medium ${isActive('/scores') ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900'}`}>
+            <Link href="/scores" className={`px-2 lg:px-3 py-2 text-sm font-medium ${isActive('/scores') ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900'}`}>
                 Scores
             </Link>
 
-            <Link href="/statistics" className={`px-3 py-2 text-sm font-medium ${isActive('/statistics') ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900'}`}>
+            <Link href="/statistics" className={`px-2 lg:px-3 py-2 text-sm font-medium ${isActive('/statistics') ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900'}`}>
                 Statistics
             </Link>
             
-            <Link href="/blog" className={`px-3 py-2 text-sm font-medium ${isPathActive('/blog') ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900'}`}>
+            <Link href="/blog" className={`px-2 lg:px-3 py-2 text-sm font-medium ${isPathActive('/blog') ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900'}`}>
                 Blog
             </Link>
 
-            <Link href="/methodology" className={`px-3 py-2 text-sm font-medium ${isActive('/methodology') ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900'}`}>
+            <Link href="/methodology" className={`px-2 lg:px-3 py-2 text-sm font-medium ${isActive('/methodology') ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900'}`}>
                 Methodology
             </Link>
 
-            <div className="relative group px-3 py-2" ref={aboutRef}>
+            <div className="relative group px-2 lg:px-3 py-2" ref={aboutRef}>
                 <button 
                   onClick={() => {
                     setDesktopAboutOpen(!desktopAboutOpen)
                     setDesktopPlatformsOpen(false)
                   }}
+                  aria-expanded={desktopAboutOpen}
+                  aria-haspopup="menu"
                   className={`flex items-center gap-1 text-sm font-medium ${isPathActive('/about') || isPathActive('/eligibility') ? 'text-blue-600' : 'text-slate-600 hover:text-slate-900'}`}
                 >
                     About <ChevronDown className={`w-4 h-4 transition-transform ${desktopAboutOpen ? 'rotate-180' : ''}`} />
@@ -142,33 +152,40 @@ export default function Header({ onSearchClick }) {
           </nav>
 
           {/* Right Actions */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-1.5 lg:gap-3 shrink-0">
             <button 
                 onClick={onSearchClick}
-                className="flex items-center gap-2 px-3 py-2 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-md transition-colors text-sm"
+                className="flex items-center gap-2 p-1.5 lg:px-3 lg:py-2 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-md transition-colors text-sm"
                 aria-label="Search"
             >
                 <Search className="w-4 h-4" />
-                <span className="hidden lg:inline">Search...</span>
-                <kbd className="hidden lg:inline-flex h-5 select-none items-center gap-1 rounded border bg-slate-100 px-1.5 font-mono text-[10px] font-medium text-slate-500 opacity-100">
+                <span className="hidden xl:inline">Search...</span>
+                <kbd className="hidden xl:inline-flex h-5 select-none items-center gap-1 rounded border bg-slate-100 px-1.5 font-mono text-[10px] font-medium text-slate-500 opacity-100">
                   <span className="text-xs">⌘</span>K
                 </kbd>
             </button>
             
-            <div className="h-6 w-px bg-slate-200 mx-1"></div>
+            <div className="hidden lg:block h-6 w-px bg-slate-200 mx-1"></div>
 
             <a 
                 href="https://github.com/tsale/EDR-Telemetry" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="p-2 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-full transition-colors"
+                className="p-1.5 lg:p-2 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-full transition-colors"
                 aria-label="GitHub"
             >
                 <Github className="w-5 h-5" />
             </a>
             
-            <Link href="/premium-services" className="ml-2 px-4 py-2 text-sm font-medium !text-white bg-slate-900 hover:bg-slate-800 rounded-full transition-colors">
-                Premium
+            <Link
+                href="/premium-services"
+                className={`shrink-0 whitespace-nowrap inline-flex items-center px-2 py-1 lg:px-2.5 lg:py-1.5 text-sm font-medium rounded-md border transition-colors ${
+                  isActive('/premium-services')
+                    ? 'text-blue-700 bg-blue-50 border-blue-200'
+                    : 'text-blue-600 bg-blue-50/70 border-blue-100 hover:bg-blue-50 hover:border-blue-200 hover:text-blue-700'
+                }`}
+            >
+                Apply the Research
             </Link>
           </div>
 
@@ -177,12 +194,15 @@ export default function Header({ onSearchClick }) {
             <button 
                 onClick={onSearchClick}
                 className="p-2 text-slate-500 hover:text-slate-900"
+                aria-label="Search"
             >
                 <Search className="w-5 h-5" />
             </button>
             <button 
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 className="p-2 text-slate-600 hover:text-slate-900"
+                aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+                aria-expanded={mobileMenuOpen}
             >
                 {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -199,6 +219,7 @@ export default function Header({ onSearchClick }) {
             <div className="py-2 border-b border-slate-50">
                 <button 
                   onClick={() => setPlatformsOpen(!platformsOpen)}
+                  aria-expanded={platformsOpen}
                   className="flex items-center justify-between w-full px-3 py-3 text-base font-medium text-slate-700"
                 >
                   <span className="flex items-center gap-2">
@@ -230,6 +251,7 @@ export default function Header({ onSearchClick }) {
             <div className="py-2 border-b border-slate-50">
                 <button 
                   onClick={() => setAboutOpen(!aboutOpen)}
+                  aria-expanded={aboutOpen}
                   className="flex items-center justify-between w-full px-3 py-3 text-base font-medium text-slate-700"
                 >
                   <span className="flex items-center gap-2">
@@ -250,7 +272,16 @@ export default function Header({ onSearchClick }) {
                 )}
             </div>
 
-            <Link href="/premium-services" className="block mt-4 px-3 py-3 text-center text-base font-medium text-white bg-slate-900 hover:bg-slate-800 rounded-md">Premium Services</Link>
+            <Link
+              href="/premium-services"
+              className={`block mt-4 px-3 py-3 text-center text-base font-medium rounded-md border transition-colors ${
+                isActive('/premium-services')
+                  ? 'text-blue-700 bg-blue-50 border-blue-200'
+                  : 'text-blue-600 bg-blue-50/70 border-blue-100 hover:bg-blue-50 hover:border-blue-200 hover:text-blue-700'
+              }`}
+            >
+              Apply the Research
+            </Link>
             
             <div className="mt-4 flex justify-center">
                <a 
