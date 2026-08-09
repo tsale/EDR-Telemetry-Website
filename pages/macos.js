@@ -4,11 +4,12 @@ import useHeadingLinks from '../hooks/useHeadingLinks'
 import Link from 'next/link'
 import Head from 'next/head'
 import {
-  Laptop, Search, Filter, ArrowRight, CheckCircle, XCircle,
+  Search, Filter, ArrowRight, CheckCircle, XCircle,
   AlertTriangle, HelpCircle, FileText, Settings, Sliders,
   BarChart3, Globe, Activity, Database, Check, X
 } from 'lucide-react'
 import TransparencyIndicator from '../components/TransparencyIndicator'
+import { MacosLogo } from '../components/PlatformOsIcons'
 
 export default function MacOS() {
   // State for telemetry data and UI
@@ -912,8 +913,8 @@ export default function MacOS() {
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10 text-center flex flex-col items-center justify-center min-h-[420px]">
-          <div className="inline-flex items-center justify-center p-3 bg-purple-600/20 rounded-xl mb-8 backdrop-blur-sm ring-1 ring-purple-500/50">
-            <Laptop className="w-10 h-10 text-purple-400" />
+          <div className="inline-flex items-center justify-center p-5 bg-purple-600/20 rounded-xl mb-8 backdrop-blur-sm ring-1 ring-purple-500/50">
+            <MacosLogo className="w-12 h-12 text-white" />
           </div>
 
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 !text-white leading-tight">
