@@ -43,7 +43,7 @@ const DEFAULT_SUGGESTIONS = [
     id: 'support',
     title: 'Support Us',
     category: 'support',
-    url: '/sponsorship',
+    url: '/support',
     excerpt: 'Help support the EDR Telemetry Project'
   }
 ]
@@ -126,7 +126,7 @@ const SEARCHABLE_CONTENT = [
     id: 'support',
     title: 'Support Us',
     category: 'support',
-    url: '/sponsorship',
+    url: '/support',
     excerpt: 'Support the EDR Telemetry Project',
     keywords: ['support', 'sponsor', 'donate', 'contribution']
   },
@@ -153,14 +153,6 @@ const SEARCHABLE_CONTENT = [
     url: '/contribute',
     excerpt: 'How to contribute to the EDR Telemetry Project',
     keywords: ['contribute', 'guide', 'development', 'participation']
-  },
-  {
-    id: 'roadmap',
-    title: 'Project Roadmap',
-    category: 'docs',
-    url: '/roadmap',
-    excerpt: 'Future plans and development roadmap',
-    keywords: ['roadmap', 'future', 'plans', 'development']
   },
   {
     id: 'contact',

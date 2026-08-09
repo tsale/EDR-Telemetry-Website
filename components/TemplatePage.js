@@ -14,7 +14,7 @@ const Search = dynamic(() => import('./Search'), {
 export default function TemplatePage({
   children,
   title = 'EDR Telemetry Project',
-  description = 'Open, evidence-backed research documenting endpoint telemetry visibility across EDR platforms using controlled testing and transparent methodology.',
+  description = 'Compare which endpoint events EDR products expose on Windows, Linux, and macOS under published test conditions.',
   ogImage = null,
   ogType = 'website',
   canonicalPath = null,
@@ -99,7 +99,7 @@ export default function TemplatePage({
                 <li><Link href="/eligibility">Eligibility</Link></li>
                 <li><Link href="/scores">Scores</Link></li>
                 <li><Link href="/statistics">Statistics</Link></li>
-                <li><Link href="/sponsorship">Support Us</Link></li>
+                <li><Link href="/support">Support Us</Link></li>
                 <li><Link href="/premium-services">Apply the Research</Link></li>
                 <li><Link href="/about">About</Link></li>
                 <li><Link href="/contact">Contact</Link></li>
@@ -118,7 +118,6 @@ export default function TemplatePage({
                   <ul className="footer-submenu">
                     <li><Link href="/blog">Blog Posts</Link></li>
                     <li><Link href="/contribute">Contribution Guide</Link></li>
-                    <li><Link href="/roadmap">Project Roadmap</Link></li>
                   </ul>
                 </li>
               </ul>
@@ -153,7 +152,7 @@ export default function TemplatePage({
           </div>
           
           <div className="footer-bottom">
-            <p className="footer-note">EDR Telemetry is a research initiative by Defendpoint Consulting, an independent EDR advisory and engineering firm.</p>
+            <p className="footer-note">EDR Telemetry is maintained by Defendpoint Consulting.</p>
             <p>&copy; {new Date().getFullYear()} EDR Telemetry Project. All rights reserved.</p>
           </div>
         </div>

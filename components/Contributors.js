@@ -186,7 +186,7 @@ export default function Contributors() {
                     <div className="become-member">
                       <h4>Become an Enterprise Sponsor</h4>
                       <p>Partner with us and support the development of EDR Telemetry</p>
-                      <Link href="/sponsorship#monthly" className="cta-button">Learn More</Link>
+                      <Link href="/support#monthly" className="cta-button">Learn More</Link>
                     </div>
                   </div>
                 </section>
@@ -249,7 +249,7 @@ export default function Contributors() {
                     <div className="become-member">
                       <h4>Join Our Community</h4>
                       <p>Support the project and get access to exclusive content</p>
-                      <Link href="/sponsorship#monthly" className="cta-button">Become a Subscriber</Link>
+                      <Link href="/support#monthly" className="cta-button">Become a Subscriber</Link>
                     </div>
                   </div>
                 </section>

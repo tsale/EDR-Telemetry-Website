@@ -922,7 +922,7 @@ export default function Windows() {
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <div className="flex items-center px-4 py-2 bg-slate-800/50 rounded-lg border border-slate-700 backdrop-blur-sm">
               <Database className="w-5 h-5 text-blue-400 mr-2" />
-              <span className="text-slate-300 font-medium">{isLoading ? "Loading..." : `${telemetryData.length} Signals`}</span>
+              <span className="text-slate-300 font-medium">{isLoading ? "Loading..." : `${telemetryData.length} Categories`}</span>
             </div>
             <div className="flex items-center px-4 py-2 bg-slate-800/50 rounded-lg border border-slate-700 backdrop-blur-sm">
               <Activity className="w-5 h-5 text-emerald-400 mr-2" />

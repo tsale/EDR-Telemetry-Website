@@ -69,7 +69,7 @@ const reasonSteps = [
     step: '01',
     icon: Search,
     title: 'Start from the public baseline',
-    copy: 'Published telemetry research shows what was observed under controlled, versioned test conditions — a useful reference, not a deployment verdict.',
+    copy: 'Published telemetry research shows what we observed under controlled, versioned tests. Treat it as a reference, not a verdict on your deployment.',
   },
   {
     step: '02',
@@ -259,7 +259,7 @@ export default function PremiumServices() {
       title={title}
       description={description}
       ogTitle={title}
-      ogDescription="Use evidence-backed EDR telemetry research to validate an existing deployment, compare platforms, and plan targeted improvements with Defendpoint Consulting."
+      ogDescription="Apply the public telemetry research to validate a deployment, compare platforms, or plan fixes with Defendpoint Consulting."
       canonicalPath="/premium-services"
     >
       <Head>
@@ -308,7 +308,7 @@ export default function PremiumServices() {
             >
               Defendpoint Consulting helps security teams apply the EDR Telemetry Project&apos;s research to their own
               environments. Validate an existing EDR deployment, compare platforms against your requirements, and
-              turn telemetry findings into practical improvements.
+              map telemetry findings to concrete remediation priorities.
             </p>
             <div
               data-reveal
@@ -338,7 +338,7 @@ export default function PremiumServices() {
               data-reveal-delay="5"
               className="mt-14 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 border-t border-slate-800/80 pt-8 text-sm font-medium text-slate-400"
             >
-              <span>Evidence-backed methodology</span>
+              <span>Published methodology</span>
               <span className="hidden h-1 w-1 rounded-full bg-slate-600 sm:block" />
               <span>Client-specific scope</span>
               <span className="hidden h-1 w-1 rounded-full bg-slate-600 sm:block" />
@@ -357,7 +357,7 @@ export default function PremiumServices() {
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid items-start gap-12 md:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] md:gap-10 lg:gap-16">
             <div className="md:sticky md:top-28" data-reveal data-reveal-delay="1">
-              <p className="mb-4 text-sm font-bold tracking-[0.18em] text-blue-600">FROM RESEARCH TO REALITY</p>
+              <p className="mb-4 text-sm font-bold tracking-[0.18em] text-blue-600">WHY ENVIRONMENTS DIFFER</p>
               <h2 className="mb-5 text-3xl font-bold tracking-tight text-slate-900 md:text-4xl md:leading-tight">
                 Public research,
                 <span className="block text-blue-600">applied to your constraints</span>
@@ -425,7 +425,7 @@ export default function PremiumServices() {
             </h2>
             <p className="text-lg text-slate-600">
               Whether you already have an EDR or are choosing one, engagements are scoped around your requirements,
-              infrastructure, and operating model — not a generic feature checklist.
+              infrastructure, and operating model. We do not run a generic feature checklist.
             </p>
           </div>
 
@@ -433,7 +433,7 @@ export default function PremiumServices() {
             <ServicePanel
               eyebrow="EXISTING DEPLOYMENT"
               title="EDR Validation & Optimization"
-              description="Validate what your current EDR actually exposes in your environment, identify visibility and configuration gaps, and prioritize practical improvements."
+              description="Validate what your current EDR exposes in your environment, find visibility and configuration gaps, and rank remediation work."
               outcome="Best fit when you need evidence of real telemetry coverage, blind spots, and remediation priorities in a live deployment."
               items={validationItems}
               href="https://defendpoint.ca/edr-validation-optimization"
@@ -461,7 +461,7 @@ export default function PremiumServices() {
             <div className="pointer-events-none absolute -right-16 bottom-0 h-48 w-48 rounded-full bg-slate-500/20 blur-3xl" />
 
             <div className="relative mb-8 max-w-3xl" data-reveal data-reveal-delay="1">
-              <p className="mb-3 text-sm font-bold tracking-[0.18em] text-blue-300">BEYOND EVALUATION</p>
+              <p className="mb-3 text-sm font-bold tracking-[0.18em] text-blue-300">RELATED SERVICES</p>
               <h3 className="mb-3 text-2xl font-bold !text-white md:text-3xl">Need Help Beyond the Evaluation?</h3>
               <p className="text-lg !text-slate-300 leading-relaxed">
                 Defendpoint also supports EDR deployment, migration, production rollout, and ongoing lifecycle advisory
@@ -615,7 +615,7 @@ export default function PremiumServices() {
             >
               <div className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-blue-600/20 blur-3xl" />
               <div className="relative">
-                <p className="mb-3 text-sm font-bold tracking-[0.18em] text-blue-300">FULL LIFECYCLE</p>
+                <p className="mb-3 text-sm font-bold tracking-[0.18em] text-blue-300">DEFENDPOINT ENGAGEMENTS</p>
                 <h2 className="mb-4 text-2xl font-bold !text-white md:text-3xl">
                   Continue With Defendpoint Consulting
                 </h2>

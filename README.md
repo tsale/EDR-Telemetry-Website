@@ -44,7 +44,7 @@ EDR-Telemetry-Website/
 │   ├── premium-services.js
 │   ├── roadmap.js
 │   ├── scores.js
-│   ├── sponsorship.js
+│   ├── support.js
 │   ├── statistics.js
 │   ├── windows.js
 │   ├── _app.js     # Custom App component

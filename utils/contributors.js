@@ -275,7 +275,7 @@ async function fetchSponsors() {
           <div class="become-member">
             <h4>Become an Enterprise Sponsor</h4>
             <p>Partner with us and support the development of EDR Telemetry</p>
-            <a href="/sponsorship#monthly" class="cta-button">Learn More</a>
+            <a href="/support#monthly" class="cta-button">Learn More</a>
           </div>
         </div>
       </section>
@@ -292,7 +292,7 @@ async function fetchSponsors() {
           <div class="become-member">
             <h4>Join Our Community</h4>
             <p>Support the project and get access to exclusive content</p>
-            <a href="/sponsorship#monthly" class="cta-button">Become a Subscriber</a>
+            <a href="/support#monthly" class="cta-button">Become a Subscriber</a>
           </div>
         </div>
       </section>

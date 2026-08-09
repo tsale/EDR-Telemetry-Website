@@ -20,7 +20,7 @@ export default function StatisticsPage() {
   return (
     <TemplatePage
       title="EDR Telemetry Statistics: Telemetry Visibility Change Trends"
-      description="Historical statistics of EDR telemetry visibility changes across the vendor matrix — vendor improvement leaderboard, score trends, category deltas, and contribution breakdown. Data is loaded from the EDR-Telemetry repository."
+      description="Historical EDR telemetry visibility changes across the vendor matrix: improvement leaderboard, score trends, category deltas, and contribution breakdown. Data loads from the EDR-Telemetry repository."
     >
       {/* Hero — matches Scores / Methodology */}
       <section className="relative bg-slate-900 text-white py-20 md:py-24 overflow-hidden">
@@ -51,7 +51,7 @@ export default function StatisticsPage() {
           <p className="text-xl !text-slate-300 max-w-3xl leading-relaxed text-center">
             Historical trends in <strong className="font-semibold text-slate-200">EDR Telemetry visibility</strong>{' '}
             across the vendor matrix: which vendors gained coverage, which categories moved, and how
-            contributions landed. Rankings use weighted score deltas from accepted changes — not PR counts.
+            contributions landed. Rankings use weighted score deltas from accepted changes, not PR counts.
           </p>
 
           <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">

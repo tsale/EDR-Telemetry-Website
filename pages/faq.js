@@ -19,9 +19,9 @@ export default function FAQ() {
       answer: "The EDR Telemetry Project aims to:",
       list: [
         "Compare and evaluate telemetry capabilities across different EDR products",
-        "Help security practitioners make informed decisions about EDR tools",
-        "Encourage EDR vendors to be more transparent about their telemetry features",
-        "Provide a comprehensive reference for EDR telemetry capabilities"
+        "Give practitioners comparable telemetry visibility data for validation and evaluation",
+        "Push vendors toward clearer public telemetry documentation",
+        "Publish a public reference of EDR telemetry capabilities"
       ]
     },
     {
@@ -50,7 +50,7 @@ export default function FAQ() {
     {
       id: 5,
       question: "How often is the data updated?",
-      answer: "The data is updated regularly as new information becomes available. We encourage the community to help keep the information current. You can also search on Github Pull Requests/commits for the EDR you are interested in to find the last updated date."
+      answer: "We update results when new evidence lands. Search GitHub pull requests or commits for the product you care about to find the last change date."
     },
     {
       id: 6,
@@ -229,10 +229,10 @@ export default function FAQ() {
 
         {/* Contact Section */}
         <div className="contact-us-section">
-          <p>Still have questions? We&apos;re here to help!</p>
+          <p>More questions? Contact us.</p>
           <div className="contact-button-container">
             <Link href="/contact" className="contact-us-button action-button primary-button view-button">Contact Us</Link>
-            <Link href="/sponsorship" className="contact-us-button action-button secondary-button view-button">Join Our Community</Link>
+            <Link href="/support" className="contact-us-button action-button secondary-button view-button">Join Our Community</Link>
           </div>
         </div>
       </div>

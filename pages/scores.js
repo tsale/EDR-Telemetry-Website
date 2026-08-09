@@ -719,7 +719,7 @@ export default function Scores() {
                   for non-optional features
                 </div>
                 <p className="text-slate-700 mt-4 max-w-2xl mx-auto">
-                  The final score represents the weighted sum of all non-optional features, providing a comprehensive evaluation of each EDR solution&apos;s telemetry capabilities.
+                  The final score is the weighted sum of all non-optional features for that EDR's telemetry coverage.
                 </p>
               </div>
 

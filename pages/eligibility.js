@@ -156,8 +156,8 @@ export default function Eligibility() {
             </span>
           </h1>
           <p className="eligibility-description-modern">
-            Comprehensive guidelines for EDR solution implementation, including eligibility requirements, 
-            exclusion criteria, and conditional approval processes for enterprise environments.
+            Inclusion rules, exclusions, and definitions used when a product is compared for
+            telemetry visibility.
           </p>
           <div className="eligibility-buttons-modern">
             <a href="#core-requirements" className="eligibility-button-primary-modern">
@@ -176,7 +176,7 @@ export default function Eligibility() {
         <div className="definitions-header-modern">
           <h2 className="definitions-title-modern">Key Definitions</h2>
           <p className="definitions-subtitle-modern">
-            Understanding the fundamental concepts of EDR eligibility and implementation
+            Terms used in the inclusion and exclusion rules below
           </p>
         </div>
         
@@ -309,9 +309,9 @@ export default function Eligibility() {
               <div className="disclaimer-callout" style={{margin: '2rem', padding: '1.5rem', background: 'rgba(59, 130, 246, 0.05)', border: '1px solid rgba(59, 130, 246, 0.2)', borderRadius: '0.75rem'}}>
                 <div className="disclaimer-icon" style={{fontSize: '1.5rem', marginBottom: '1rem'}}>ℹ️</div>
                 <div className="disclaimer-content">
-                  <h4 style={{color: '#1e40af', marginBottom: '0.5rem', fontWeight: '600'}}>Important Note</h4>
-                  <p style={{marginBottom: '1rem', color: '#64748b', fontSize: '0.875rem', lineHeight: '1.5'}}>The exclusion of a product from this comparison does not reflect on its overall quality or effectiveness. Each solution listed below may excel in its intended use case and could be the ideal choice depending on your specific environment, security requirements, and operational needs.</p>
-                  <p style={{color: '#64748b', fontSize: '0.875rem', lineHeight: '1.5'}}>Our eligibility criteria are specifically designed for comparing traditional EDR telemetry capabilities and should not be the sole factor in evaluating security solutions for your organization.</p>
+                  <h4 style={{color: '#1e40af', marginBottom: '0.5rem', fontWeight: '600'}}>Scope note</h4>
+                  <p style={{marginBottom: '1rem', color: '#64748b', fontSize: '0.875rem', lineHeight: '1.5'}}>Exclusion means the product is out of scope for this telemetry comparison, not that it is a weak security product. Many listed products fit other use cases well.</p>
+                  <p style={{color: '#64748b', fontSize: '0.875rem', lineHeight: '1.5'}}>These criteria exist to compare traditional EDR telemetry capabilities. Do not treat them as a full product evaluation.</p>
                 </div>
               </div>
               

@@ -1,0 +1,1109 @@
+/* Methodology page — modern layout polish + motion */
+
+.meth-hero {
+  position: relative;
+  overflow: hidden;
+  background: #0f172a;
+  color: #fff;
+  padding: 5.5rem 0 5rem;
+}
+
+.meth-hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(110px);
+  pointer-events: none;
+  animation: methOrbDrift 14s ease-in-out infinite alternate;
+}
+
+.meth-hero-orb--blue {
+  top: -25%;
+  left: -8%;
+  width: 65%;
+  height: 65%;
+  background: rgba(30, 58, 138, 0.38);
+}
+
+.meth-hero-orb--indigo {
+  bottom: -28%;
+  right: -10%;
+  width: 60%;
+  height: 60%;
+  background: rgba(49, 46, 129, 0.28);
+  animation-delay: -5s;
+  animation-duration: 18s;
+}
+
+@keyframes methOrbDrift {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(2%, -2.5%) scale(1.05);
+  }
+}
+
+.meth-hero-inner {
+  position: relative;
+  z-index: 10;
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.meth-hero-title {
+  width: 100%;
+  text-align: center !important;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.meth-hero .heading-wrapper {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+.meth-hero .heading-link {
+  left: auto;
+  right: 0;
+}
+
+@media (min-width: 640px) {
+  .meth-hero-inner {
+    padding: 0 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .meth-hero-inner {
+    padding: 0 2rem;
+  }
+}
+
+.meth-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.95rem;
+  border-radius: 9999px;
+  background: rgba(37, 99, 235, 0.14);
+  border: 1px solid rgba(96, 165, 250, 0.35);
+  color: #93c5fd;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  margin-bottom: 1.75rem;
+  backdrop-filter: blur(8px);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.meth-badge:hover {
+  border-color: rgba(96, 165, 250, 0.55);
+  box-shadow: 0 0 24px rgba(59, 130, 246, 0.2);
+  transform: translateY(-1px);
+}
+
+.meth-badge-dot {
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: #60a5fa;
+  box-shadow: 0 0 0 0 rgba(96, 165, 250, 0.5);
+  animation: methPulse 2.4s ease-out infinite;
+}
+
+.meth-hero-accent {
+  position: relative;
+  display: inline-block;
+  color: #60a5fa;
+  background: linear-gradient(110deg, #93c5fd 0%, #60a5fa 35%, #818cf8 55%, #60a5fa 75%, #93c5fd 100%);
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: methShimmer 5s linear infinite;
+}
+
+@keyframes methShimmer {
+  to {
+    background-position: 220% center;
+  }
+}
+
+.meth-btn {
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s ease,
+    background 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.meth-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 20%, rgba(255, 255, 255, 0.22) 45%, transparent 70%);
+  transform: translateX(-120%);
+  transition: transform 0.55s ease;
+  pointer-events: none;
+}
+
+.meth-btn:hover::after {
+  transform: translateX(120%);
+}
+
+.meth-btn:hover {
+  transform: translateY(-3px);
+}
+
+.meth-btn--primary:hover {
+  box-shadow: 0 14px 28px rgba(37, 99, 235, 0.35);
+}
+
+.meth-btn--ghost:hover {
+  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.35);
+}
+
+@keyframes methPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(96, 165, 250, 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(96, 165, 250, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(96, 165, 250, 0);
+  }
+}
+
+.meth-enter {
+  opacity: 0;
+  animation: methEnter 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.meth-enter-delay-1 {
+  animation-delay: 0.06s;
+}
+
+.meth-enter-delay-2 {
+  animation-delay: 0.16s;
+}
+
+.meth-enter-delay-3 {
+  animation-delay: 0.26s;
+}
+
+.meth-enter-delay-4 {
+  animation-delay: 0.38s;
+}
+
+@keyframes methEnter {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.meth-nav {
+  position: sticky;
+  top: 4rem;
+  z-index: 40;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #e2e8f0;
+  box-shadow: 0 1px 0 rgba(15, 23, 42, 0.04);
+}
+
+.meth-nav-inner {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.meth-nav-inner::-webkit-scrollbar {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .meth-nav-inner {
+    padding: 0 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .meth-nav-inner {
+    padding: 0 2rem;
+  }
+}
+
+.meth-nav-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.7rem 0.9rem;
+  margin: 0.35rem 0;
+  border-radius: 9999px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  white-space: nowrap;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  color: #475569;
+  text-decoration: none;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.25s ease;
+}
+
+.meth-nav-pill:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+  border-color: #cbd5e1;
+  transform: translateY(-1px);
+}
+
+.meth-nav-pill.is-active {
+  background: #2563eb;
+  color: #fff;
+  border-color: #2563eb;
+  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.25);
+  transform: translateY(-1px) scale(1.03);
+}
+
+.meth-body {
+  background:
+    radial-gradient(ellipse 70% 40% at 50% 0%, rgba(37, 99, 235, 0.05), transparent 55%),
+    #f8fafc;
+}
+
+.meth-body-inner {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 4rem 1rem 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4.5rem;
+}
+
+@media (min-width: 640px) {
+  .meth-body-inner {
+    padding: 4.5rem 1.5rem 5.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .meth-body-inner {
+    padding: 5rem 2rem 6rem;
+  }
+}
+
+.meth-section-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+}
+
+.meth-section-num {
+  flex-shrink: 0;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(160deg, #3b82f6 0%, #1d4ed8 100%);
+  color: #fff;
+  font-size: 0.8125rem;
+  font-weight: 800;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.18) inset,
+    0 10px 20px rgba(37, 99, 235, 0.3);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
+}
+
+.meth-section-head.is-revealed .meth-section-num {
+  animation: methNumPop 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes methNumPop {
+  0% {
+    transform: scale(0.7) rotate(-8deg);
+    opacity: 0.4;
+  }
+  70% {
+    transform: scale(1.08) rotate(1deg);
+  }
+  100% {
+    transform: scale(1) rotate(0);
+    opacity: 1;
+  }
+}
+
+.meth-section-title {
+  font-size: clamp(1.5rem, 2.5vw, 1.875rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #0f172a;
+  margin: 0 0 0.35rem;
+  line-height: 1.2;
+}
+
+.meth-section-lead {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: #64748b;
+  line-height: 1.5;
+}
+
+.meth-card {
+  position: relative;
+  background: #fff;
+  border-radius: 1.15rem;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  overflow: hidden;
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s ease,
+    border-color 0.3s ease;
+}
+
+.meth-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 36px rgba(15, 23, 42, 0.08);
+  border-color: #cbd5e1;
+}
+
+.meth-card-accent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  transform: scaleX(0.35);
+  transform-origin: left center;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.meth-card.is-revealed .meth-card-accent,
+.meth-card:hover .meth-card-accent {
+  transform: scaleX(1);
+}
+
+.meth-card-accent--emerald {
+  background: linear-gradient(90deg, #34d399, #059669);
+}
+
+.meth-card-accent--red {
+  background: linear-gradient(90deg, #f87171, #dc2626);
+}
+
+.meth-card-accent--blue {
+  background: linear-gradient(90deg, #60a5fa, #4f46e5);
+}
+
+.meth-card-accent--cyan {
+  background: linear-gradient(90deg, #38bdf8, #06b6d4);
+}
+
+.meth-card-accent--amber {
+  background: linear-gradient(90deg, #fbbf24, #f97316);
+}
+
+.meth-card-accent--indigo {
+  background: linear-gradient(90deg, #818cf8, #a855f7);
+}
+
+.meth-card-accent--spectrum {
+  background: linear-gradient(90deg, #60a5fa, #818cf8, #c084fc);
+}
+
+.meth-card-body {
+  padding: 1.75rem;
+}
+
+@media (min-width: 768px) {
+  .meth-card-body {
+    padding: 2rem;
+  }
+}
+
+.meth-list-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.7rem 0.9rem;
+  border-radius: 0.75rem;
+  border: 1px solid transparent;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.meth-list-item:hover {
+  transform: translateX(3px);
+}
+
+.meth-list-item--yes {
+  background: #ecfdf5;
+  border-color: #d1fae5;
+}
+
+.meth-list-item--no {
+  background: #fef2f2;
+  border-color: #fecaca;
+}
+
+.meth-list-item--evidence {
+  background: rgba(236, 253, 245, 0.55);
+  border-color: rgba(167, 243, 208, 0.55);
+}
+
+.meth-list-item--absence {
+  background: rgba(255, 251, 235, 0.75);
+  border-color: rgba(253, 230, 138, 0.75);
+}
+
+.meth-list-icon {
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.1rem;
+}
+
+.meth-list-icon--yes {
+  background: #d1fae5;
+  color: #059669;
+}
+
+.meth-list-icon--no {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.meth-compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+.meth-compare-table thead {
+  background: #f8fafc;
+}
+
+.meth-compare-table th {
+  padding: 0.9rem 1.15rem;
+  text-align: left;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #334155;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.meth-compare-table td {
+  padding: 1rem 1.15rem;
+  font-size: 0.9375rem;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: top;
+}
+
+.meth-compare-table tbody tr {
+  transition: background 0.2s ease;
+}
+
+.meth-compare-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+.meth-compare-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.meth-table-wrap {
+  overflow-x: auto;
+  border-radius: 0.9rem;
+  border: 1px solid #e2e8f0;
+}
+
+.meth-criterion {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 1px solid #e2e8f0;
+  background: linear-gradient(160deg, #fff 0%, #f8fafc 100%);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.meth-criterion:hover {
+  transform: translateY(-2px);
+  border-color: #bfdbfe;
+  box-shadow: 0 12px 24px rgba(37, 99, 235, 0.08);
+}
+
+.meth-criterion:hover .meth-criterion-icon {
+  transform: scale(1.08) rotate(-3deg);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.25) inset,
+    0 12px 22px rgba(37, 99, 235, 0.4);
+}
+
+.meth-criterion-icon {
+  flex-shrink: 0;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: linear-gradient(160deg, #3b82f6, #4f46e5);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.2) inset,
+    0 8px 16px rgba(37, 99, 235, 0.28);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
+}
+
+.meth-callout {
+  position: relative;
+  border-radius: 1.15rem;
+  overflow: hidden;
+  padding: 1.5rem;
+  box-shadow: 0 16px 32px rgba(15, 23, 42, 0.12);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.meth-callout:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 22px 40px rgba(15, 23, 42, 0.16);
+}
+
+.meth-callout--blue {
+  background: linear-gradient(160deg, #3b82f6 0%, #1d4ed8 100%);
+  color: #fff;
+}
+
+.meth-callout--white {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+.meth-status-grid {
+  display: grid;
+  gap: 0.85rem;
+}
+
+@media (min-width: 768px) {
+  .meth-status-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1100px) {
+  .meth-status-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.meth-status-card {
+  position: relative;
+  padding: 1.15rem 1.2rem;
+  border-radius: 1rem;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.meth-status-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px rgba(15, 23, 42, 0.09);
+  border-color: color-mix(in srgb, var(--meth-status-accent, #64748b) 35%, #e2e8f0);
+}
+
+.meth-status-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.85rem;
+  bottom: 0.85rem;
+  width: 3px;
+  border-radius: 9999px;
+  background: var(--meth-status-accent, #64748b);
+  transition: top 0.3s ease, bottom 0.3s ease, width 0.3s ease;
+}
+
+.meth-status-card:hover::before {
+  top: 0.45rem;
+  bottom: 0.45rem;
+  width: 4px;
+}
+
+.meth-status-card.is-revealed .meth-status-value {
+  animation: methValuePop 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+}
+
+@keyframes methValuePop {
+  from {
+    transform: scale(0.75);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.meth-status-card--emerald {
+  --meth-status-accent: #10b981;
+}
+
+.meth-status-card--sky {
+  --meth-status-accent: #0ea5e9;
+}
+
+.meth-status-card--amber {
+  --meth-status-accent: #f59e0b;
+}
+
+.meth-status-card--blue {
+  --meth-status-accent: #3b82f6;
+}
+
+.meth-status-card--red {
+  --meth-status-accent: #ef4444;
+}
+
+.meth-status-card--purple {
+  --meth-status-accent: #a855f7;
+}
+
+.meth-status-value {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.75rem;
+  height: 1.75rem;
+  padding: 0 0.55rem;
+  border-radius: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 800;
+}
+
+.meth-status-value--full {
+  background: #d1fae5;
+  color: #047857;
+}
+
+.meth-status-value--half {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.meth-status-value--zero {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.meth-threshold {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  background:
+    radial-gradient(circle at 50% 30%, rgba(37, 99, 235, 0.12), transparent 65%),
+    #f8fafc;
+  border: 1px solid #e2e8f0;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.meth-threshold:hover {
+  transform: scale(1.02);
+  box-shadow: 0 12px 28px rgba(37, 99, 235, 0.1);
+}
+
+.meth-threshold-value {
+  font-size: clamp(3rem, 8vw, 4rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  background: linear-gradient(160deg, #2563eb, #4f46e5);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.meth-threshold.is-counted .meth-threshold-value {
+  animation: methThresholdGlow 1.2s ease both;
+}
+
+@keyframes methThresholdGlow {
+  0% {
+    filter: brightness(0.85);
+    transform: scale(0.92);
+  }
+  60% {
+    filter: brightness(1.15);
+    transform: scale(1.04);
+  }
+  100% {
+    filter: brightness(1);
+    transform: scale(1);
+  }
+}
+
+.meth-workflow {
+  position: relative;
+}
+
+.meth-workflow-step {
+  position: relative;
+  display: flex;
+  gap: 1.15rem;
+  padding-bottom: 1.75rem;
+}
+
+.meth-workflow-step:last-child {
+  padding-bottom: 0;
+}
+
+.meth-workflow-step:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  left: 1.35rem;
+  top: 3.1rem;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, #2563eb 0%, #93c5fd 70%, transparent 100%);
+  opacity: 0;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition:
+    opacity 0.5s ease,
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.meth-workflow-num {
+  flex-shrink: 0;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  color: #fff;
+  background: linear-gradient(160deg, #3b82f6, #1d4ed8);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.2) inset,
+    0 10px 18px rgba(37, 99, 235, 0.28);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.meth-workflow-step:hover .meth-workflow-num {
+  transform: scale(1.08);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.25) inset,
+    0 14px 24px rgba(37, 99, 235, 0.4);
+}
+
+.meth-platform-card {
+  display: flex;
+  gap: 0.9rem;
+  padding: 1rem 1.1rem;
+  border-radius: 0.9rem;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    background 0.25s ease;
+}
+
+.meth-platform-card:hover {
+  transform: translateY(-2px);
+  background: #fff;
+  border-color: #cbd5e1;
+}
+
+.meth-platform-icon {
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.meth-platform-icon--blue {
+  background: linear-gradient(160deg, #60a5fa, #2563eb);
+  box-shadow: 0 8px 16px rgba(37, 99, 235, 0.3);
+}
+
+.meth-platform-icon--orange {
+  background: linear-gradient(160deg, #fb923c, #ea580c);
+  box-shadow: 0 8px 16px rgba(234, 88, 12, 0.3);
+}
+
+.meth-platform-icon--purple {
+  background: linear-gradient(160deg, #c084fc, #9333ea);
+  box-shadow: 0 8px 16px rgba(147, 51, 234, 0.3);
+}
+
+.meth-platform-icon .home-platform-logo {
+  width: 1.15rem;
+  height: 1.15rem;
+  color: #ffffff;
+  fill: #ffffff;
+  filter:
+    drop-shadow(0 0 0.5px rgba(255, 255, 255, 0.95))
+    drop-shadow(0 1px 1px rgba(15, 23, 42, 0.3));
+}
+
+.meth-platform-icon--orange .home-platform-logo {
+  width: 1.3rem;
+  height: 1.3rem;
+}
+
+.meth-cta {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.25rem;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+  border: 1px solid #1e293b;
+  box-shadow: 0 24px 48px rgba(15, 23, 42, 0.25);
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .meth-cta {
+    padding: 3.25rem 2.5rem;
+  }
+}
+
+.meth-cta-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+  animation: methOrbDrift 12s ease-in-out infinite alternate;
+}
+
+.meth-cta-orb--left {
+  top: -40%;
+  left: -10%;
+  width: 50%;
+  height: 90%;
+  background: rgba(30, 64, 175, 0.35);
+}
+
+.meth-cta-orb--right {
+  bottom: -40%;
+  right: -10%;
+  width: 45%;
+  height: 85%;
+  background: rgba(67, 56, 202, 0.25);
+  animation-delay: -4s;
+  animation-duration: 16s;
+}
+
+/* Directional / scale reveal variants */
+[data-reveal-from='left'] {
+  transform: translateX(-28px);
+}
+
+[data-reveal-from='right'] {
+  transform: translateX(28px);
+}
+
+[data-reveal-from='scale'] {
+  transform: translateY(12px) scale(0.96);
+}
+
+[data-reveal-from='left'].is-revealed,
+[data-reveal-from='right'].is-revealed,
+[data-reveal-from='scale'].is-revealed {
+  transform: translate(0, 0) scale(1);
+}
+
+[data-reveal-delay='6'] {
+  transition-delay: 0.5s;
+}
+
+[data-reveal-delay='7'] {
+  transition-delay: 0.58s;
+}
+
+[data-reveal-delay='8'] {
+  transition-delay: 0.66s;
+}
+
+/* Child stagger when a revealed parent enters */
+.meth-stagger-item {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+.is-revealed .meth-stagger-item {
+  animation: methStaggerIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--meth-stagger, 0) * 70ms);
+}
+
+@media (scripting: none) {
+  .meth-stagger-item {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.is-revealed .meth-workflow-step.meth-stagger-item:not(:last-child)::before {
+  opacity: 0.55;
+  transform: scaleY(1);
+  transition-delay: calc(var(--meth-stagger, 0) * 70ms + 0.15s);
+}
+
+@keyframes methStaggerIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+h1[id],
+h2[id],
+h3[id] {
+  scroll-margin-top: 7.5rem;
+}
+
+.meth-cta .heading-wrapper {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+.meth-cta .heading-link {
+  left: auto;
+  right: 0;
+}
+
+@media (max-width: 768px) {
+  .meth-workflow-step:not(:last-child)::before {
+    display: none;
+  }
+
+  h1[id],
+  h2[id],
+  h3[id] {
+    scroll-margin-top: 8.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .meth-hero-orb,
+  .meth-badge-dot,
+  .meth-hero-accent,
+  .meth-enter,
+  .meth-enter-delay-1,
+  .meth-enter-delay-2,
+  .meth-enter-delay-3,
+  .meth-enter-delay-4,
+  .meth-cta-orb,
+  .meth-section-head.is-revealed .meth-section-num,
+  .meth-status-card.is-revealed .meth-status-value,
+  .meth-threshold.is-counted .meth-threshold-value {
+    animation: none !important;
+  }
+
+  .meth-enter,
+  .meth-enter-delay-1,
+  .meth-enter-delay-2,
+  .meth-enter-delay-3,
+  .meth-enter-delay-4 {
+    opacity: 1;
+    transform: none;
+  }
+
+  .meth-card,
+  .meth-card:hover,
+  .meth-criterion,
+  .meth-criterion:hover,
+  .meth-criterion:hover .meth-criterion-icon,
+  .meth-status-card,
+  .meth-status-card:hover,
+  .meth-list-item,
+  .meth-list-item:hover,
+  .meth-platform-card,
+  .meth-platform-card:hover,
+  .meth-workflow-num,
+  .meth-workflow-step:hover .meth-workflow-num,
+  .meth-workflow-step.is-revealed .meth-workflow-num,
+  .meth-callout,
+  .meth-callout:hover,
+  .meth-btn,
+  .meth-btn:hover,
+  .meth-nav-pill,
+  .meth-nav-pill:hover,
+  .meth-nav-pill.is-active,
+  .meth-threshold,
+  .meth-threshold:hover,
+  .meth-card-accent,
+  .meth-card.is-revealed .meth-card-accent,
+  .meth-card:hover .meth-card-accent,
+  .meth-workflow-step:not(:last-child)::before,
+  .is-revealed .meth-workflow-step.meth-stagger-item:not(:last-child)::before {
+    transition: none !important;
+    transform: none !important;
+    animation: none !important;
+    opacity: 0.55;
+  }
+
+  .meth-stagger-item,
+  .is-revealed .meth-stagger-item {
+    opacity: 1;
+    transform: none;
+    animation: none !important;
+  }
+
+  .meth-btn::after {
+    display: none;
+  }
+}

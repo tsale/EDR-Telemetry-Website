@@ -2197,15 +2197,15 @@ nav a[href="/premium-services"]::after {
 }
 
 /* Support Us nav highlight */
-nav li.active a[href="/sponsorship"],
-nav a[href="/sponsorship"] {
+nav li.active a[href="/support"],
+nav a[href="/support"] {
   color: var(--accent-color);
   font-weight: 500;
   position: relative;
 }
 
-nav li.active a[href="/sponsorship"]::after,
-nav a[href="/sponsorship"]::after {
+nav li.active a[href="/support"]::after,
+nav a[href="/support"]::after {
   content: '';
   position: absolute;
   bottom: -2px;
@@ -2216,13 +2216,13 @@ nav a[href="/sponsorship"]::after {
 }
 
 /* Footer Support Us link styling */
-.footer-section a[href="/sponsorship"] {
+.footer-section a[href="/support"] {
   color: var(--accent-color);
   font-weight: 500;
   position: relative;
 }
 
-.footer-section a[href="/sponsorship"]::after {
+.footer-section a[href="/support"]::after {
   content: '';
   position: absolute;
   bottom: -2px;
@@ -3017,7 +3017,7 @@ nav a[href="/sponsorship"]::after {
   }
 
   /* Style for Support Us link */
-  nav a[href="/sponsorship"] {
+  nav a[href="/support"] {
     color: var(--accent-color);
   }
 
