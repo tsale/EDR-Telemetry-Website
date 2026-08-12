@@ -218,7 +218,14 @@
   position: sticky;
   top: 4rem;
   z-index: 40;
-  background: rgba(255, 255, 255, 0.92);
+  left: auto;
+  right: auto;
+  width: 100%;
+  max-width: none;
+  height: auto;
+  padding: 0;
+  margin: 0;
+  background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid #e2e8f0;
   box-shadow: 0 1px 0 rgba(15, 23, 42, 0.04);
@@ -226,12 +233,16 @@
 
 .meth-nav-inner {
   max-width: 80rem;
+  width: 100%;
+  min-width: 0;
   margin: 0 auto;
   padding: 0 1rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
   overflow-x: auto;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
 }
 
@@ -254,6 +265,8 @@
 .meth-nav-pill {
   display: inline-flex;
   align-items: center;
+  flex-shrink: 0;
+  width: auto;
   padding: 0.7rem 0.9rem;
   margin: 0.35rem 0;
   border-radius: 9999px;
@@ -270,6 +283,10 @@
     border-color 0.25s ease,
     transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.25s ease;
+}
+
+.meth-nav-pill::after {
+  content: none;
 }
 
 .meth-nav-pill:hover {

@@ -104,6 +104,62 @@
     overflow-wrap: anywhere;
     word-break: break-word;
   }
+
+  /* Section pill bars: keep them in normal flow, full-width, and sticky
+     under the 4rem site header. Unscoped `nav` rules must not clip them. */
+  .elig-nav,
+  .support-nav,
+  .meth-nav,
+  .contrib-nav {
+    position: sticky;
+    top: 4rem;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    width: 100%;
+    max-width: none;
+    height: auto;
+    padding: 0;
+    margin: 0;
+    transform: none;
+  }
+
+  .elig-nav-inner,
+  .support-nav-inner,
+  .meth-nav-inner,
+  .contrib-nav-inner {
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .elig-nav-pill,
+  .support-nav-pill,
+  .meth-nav-pill,
+  .contrib-nav-pill {
+    display: inline-flex;
+    width: auto;
+    max-width: none;
+    flex-shrink: 0;
+  }
+
+  .elig-nav-pill::after,
+  .support-nav-pill::after,
+  .meth-nav-pill::after,
+  .contrib-nav-pill::after {
+    content: none;
+    display: none;
+  }
+
+  .elig-section,
+  .support-section,
+  .meth-section,
+  .contrib-section {
+    scroll-margin-top: 8.5rem;
+  }
 }
 
 @media (max-width: 480px) {

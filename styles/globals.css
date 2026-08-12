@@ -294,18 +294,18 @@ header {
   }
 }
 
-nav ul {
+header nav ul {
   display: flex;
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-nav li {
+header nav li {
   margin: 0 0.75rem;
 }
 
-nav a {
+header nav a {
   display: block;
   padding: 0.5rem 0.25rem;
   color: var(--text-color);
@@ -313,7 +313,7 @@ nav a {
   font-size: 0.95rem;
 }
 
-nav a::after {
+header nav a::after {
   content: '';
   position: absolute;
   bottom: 0;
@@ -324,35 +324,35 @@ nav a::after {
   transition: width 0.2s;
 }
 
-nav a:hover::after,
-nav li.active a::after {
+header nav a:hover::after,
+header nav li.active a::after {
   width: 100%;
 }
 
-nav li.active a {
+header nav li.active a {
   color: var(--primary-color);
   font-weight: 500;
 }
 
 /* Dropdown Navigation Styles */
-nav ul li.dropdown {
+header nav ul li.dropdown {
   position: relative;
 }
 
-nav ul li.dropdown>a {
+header nav ul li.dropdown>a {
   display: flex;
   align-items: center;
   gap: 5px;
 }
 
-nav ul li.dropdown>a:after {
+header nav ul li.dropdown>a:after {
   content: "";
   display: inline-block;
   margin-left: 5px;
   transition: transform 0.2s ease;
 }
 
-nav ul li.dropdown .dropdown-menu {
+header nav ul li.dropdown .dropdown-menu {
   position: absolute;
   top: 100%;
   left: 0;
@@ -368,32 +368,32 @@ nav ul li.dropdown .dropdown-menu {
   transition: all 0.2s ease;
 }
 
-nav ul li.dropdown:hover .dropdown-menu,
-nav ul li.dropdown .dropdown-menu.active {
+header nav ul li.dropdown:hover .dropdown-menu,
+header nav ul li.dropdown .dropdown-menu.active {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
 }
 
-nav ul li.dropdown .dropdown-menu li {
+header nav ul li.dropdown .dropdown-menu li {
   margin: 0;
   display: block;
 }
 
-nav ul li.dropdown .dropdown-menu a {
+header nav ul li.dropdown .dropdown-menu a {
   padding: 8px 16px;
   display: block;
   color: var(--text-color);
   white-space: nowrap;
 }
 
-nav ul li.dropdown .dropdown-menu a:hover {
+header nav ul li.dropdown .dropdown-menu a:hover {
   background-color: rgba(0, 0, 0, 0.05);
 }
 
 /* Mobile dropdown styles */
 @media (max-width: 768px) {
-  nav ul li.dropdown .dropdown-menu {
+  header nav ul li.dropdown .dropdown-menu {
     position: static;
     box-shadow: none;
     opacity: 1;
@@ -405,12 +405,12 @@ nav ul li.dropdown .dropdown-menu a:hover {
     padding: 0;
   }
 
-  nav ul li.dropdown .dropdown-menu.active {
+  header nav ul li.dropdown .dropdown-menu.active {
     visibility: visible;
     max-height: 300px;
   }
 
-  nav ul li.dropdown .dropdown-menu li {
+  header nav ul li.dropdown .dropdown-menu li {
     padding-left: 20px;
   }
 }
@@ -761,39 +761,6 @@ footer {
   .mobile-menu-toggle {
     display: flex;
     z-index: 1100;
-  }
-
-  nav {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 80%;
-    max-width: 300px;
-    height: 100%;
-    background-color: white;
-    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-    padding: 5rem 1.5rem 2rem;
-    transition: right 0.3s ease;
-    z-index: 1000;
-  }
-
-  nav.active {
-    right: 0;
-  }
-
-  nav ul {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  nav li {
-    margin: 0;
-    width: 100%;
-    border-bottom: 1px solid var(--border-color);
-  }
-
-  nav a {
-    padding: 1rem 0.5rem;
   }
 
   .grid-3 {
@@ -2153,9 +2120,9 @@ footer {
   cursor: pointer;
 }
 
-/* Premium Services nav highlight (legacy nav; Header CTA uses Tailwind) */
-nav li.active a[href="/premium-services"],
-nav a[href="/premium-services"] {
+/* Premium Services nav highlight (legacy header nav; Header CTA uses Tailwind) */
+header nav li.active a[href="/premium-services"],
+header nav a[href="/premium-services"] {
   font-weight: 600;
   color: var(--primary-color);
   position: relative;
@@ -2166,16 +2133,16 @@ nav a[href="/premium-services"] {
   padding: 0.375rem 0.625rem;
 }
 
-nav li.active a[href="/premium-services"]::after,
-nav a[href="/premium-services"]::after {
+header nav li.active a[href="/premium-services"]::after,
+header nav a[href="/premium-services"]::after {
   display: none;
 }
 
 /* Mobile specific premium services highlight */
 @media (max-width: 768px) {
 
-  nav li.active a[href="/premium-services"],
-  nav a[href="/premium-services"] {
+  header nav li.active a[href="/premium-services"],
+  header nav a[href="/premium-services"] {
     font-weight: 600;
     white-space: normal;
     padding: 0.75rem 1rem;
@@ -2208,15 +2175,15 @@ nav a[href="/premium-services"]::after {
 }
 
 /* Support Us nav highlight */
-nav li.active a[href="/support"],
-nav a[href="/support"] {
+header nav li.active a[href="/support"],
+header nav a[href="/support"] {
   color: var(--accent-color);
   font-weight: 500;
   position: relative;
 }
 
-nav li.active a[href="/support"]::after,
-nav a[href="/support"]::after {
+header nav li.active a[href="/support"]::after,
+header nav a[href="/support"]::after {
   content: '';
   position: absolute;
   bottom: -2px;
@@ -2861,23 +2828,23 @@ nav a[href="/support"]::after {
   }
 }
 
-/* Enhanced Desktop Menu Styles - Only affects desktop */
+/* Enhanced Desktop Menu Styles - Only affects the site header nav */
 @media (min-width: 769px) {
   .header-container {
     padding: 0 1.5rem;
   }
 
-  nav ul {
+  header nav ul {
     display: flex;
     align-items: center;
   }
 
-  nav li {
+  header nav li {
     margin: 0 0.4rem;
     position: relative;
   }
 
-  nav a {
+  header nav a {
     padding: 0.75rem 0.6rem;
     font-weight: 500;
     position: relative;
@@ -2886,12 +2853,12 @@ nav a[href="/support"]::after {
     transition: all 0.2s ease;
   }
 
-  nav a:hover {
+  header nav a:hover {
     opacity: 1;
     color: var(--primary-color);
   }
 
-  nav a::after {
+  header nav a::after {
     content: '';
     position: absolute;
     width: 0;
@@ -2903,17 +2870,17 @@ nav a[href="/support"]::after {
     border-radius: 1.5px;
   }
 
-  nav a:hover::after,
-  nav li.active a::after {
+  header nav a:hover::after,
+  header nav li.active a::after {
     width: 100%;
   }
 
-  nav li.active a {
+  header nav li.active a {
     opacity: 1;
   }
 
   /* Add subtle separator between items */
-  nav li:not(:last-child)::after {
+  header nav li:not(:last-child)::after {
     content: "";
     position: absolute;
     right: -0.4rem;
@@ -2925,15 +2892,15 @@ nav a[href="/support"]::after {
   }
 
   /* Dropdown specific styles */
-  nav ul li.dropdown>div {
+  header nav ul li.dropdown>div {
     position: relative;
   }
 
-  nav ul li.dropdown .dropdown-link {
+  header nav ul li.dropdown .dropdown-link {
     padding-right: 1.5rem;
   }
 
-  nav ul li.dropdown .dropdown-link::after {
+  header nav ul li.dropdown .dropdown-link::after {
     content: "▾";
     font-size: 0.75rem;
     position: absolute;
@@ -2948,15 +2915,15 @@ nav a[href="/support"]::after {
     opacity: 0.7;
   }
 
-  nav ul li.dropdown:hover .dropdown-link::after,
-  nav ul li.dropdown.active .dropdown-link::after {
+  header nav ul li.dropdown:hover .dropdown-link::after,
+  header nav ul li.dropdown.active .dropdown-link::after {
     width: auto;
     transform: translateY(-50%) rotate(180deg);
     opacity: 1;
   }
 
   /* Add a custom underline for dropdown links that doesn't conflict with the dropdown arrow */
-  nav ul li.dropdown .dropdown-link::before {
+  header nav ul li.dropdown .dropdown-link::before {
     content: '';
     position: absolute;
     width: 0;
@@ -2968,14 +2935,14 @@ nav a[href="/support"]::after {
     border-radius: 1.5px;
   }
 
-  nav ul li.dropdown .dropdown-link:hover::before,
-  nav ul li.dropdown.active .dropdown-link::before {
+  header nav ul li.dropdown .dropdown-link:hover::before,
+  header nav ul li.dropdown.active .dropdown-link::before {
     width: calc(100% - 1.5rem);
     /* Stop before the dropdown arrow */
   }
 
   /* Dropdown menu appearance */
-  nav ul li.dropdown .dropdown-menu {
+  header nav ul li.dropdown .dropdown-menu {
     top: calc(100% + 3px);
     /* Move it slightly lower to avoid overlap with the underline */
     border-radius: 8px;
@@ -2989,19 +2956,19 @@ nav a[href="/support"]::after {
   }
 
   /* Improved dropdown animation */
-  nav ul li.dropdown:hover .dropdown-menu {
+  header nav ul li.dropdown:hover .dropdown-menu {
     transform: translateY(0);
   }
 
-  nav ul li.dropdown .dropdown-menu li {
+  header nav ul li.dropdown .dropdown-menu li {
     margin: 0;
   }
 
-  nav ul li.dropdown .dropdown-menu li::after {
+  header nav ul li.dropdown .dropdown-menu li::after {
     display: none;
   }
 
-  nav ul li.dropdown .dropdown-menu a {
+  header nav ul li.dropdown .dropdown-menu a {
     padding: 0.7rem 1.2rem;
     opacity: 0.85;
     font-weight: 400;
@@ -3011,7 +2978,7 @@ nav a[href="/support"]::after {
     border-left: 3px solid transparent;
   }
 
-  nav ul li.dropdown .dropdown-menu a:hover {
+  header nav ul li.dropdown .dropdown-menu a:hover {
     background-color: rgba(0, 0, 0, 0.02);
     padding-left: 1.5rem;
     color: var(--primary-color);
@@ -3019,12 +2986,12 @@ nav a[href="/support"]::after {
     border-left: 3px solid var(--primary-color);
   }
 
-  nav ul li.dropdown .dropdown-menu a::after {
+  header nav ul li.dropdown .dropdown-menu a::after {
     display: none;
   }
 
   /* Special treatment for Premium Services link */
-  nav a[href="/premium-services"] {
+  header nav a[href="/premium-services"] {
     background: rgba(52, 152, 219, 0.08);
     border: 1px solid rgba(52, 152, 219, 0.2);
     border-radius: 6px;
@@ -3034,13 +3001,13 @@ nav a[href="/support"]::after {
     white-space: nowrap;
   }
 
-  nav a[href="/premium-services"]:hover {
+  header nav a[href="/premium-services"]:hover {
     background: rgba(52, 152, 219, 0.12);
     border-color: rgba(52, 152, 219, 0.3);
   }
 
   /* Style for Support Us link */
-  nav a[href="/support"] {
+  header nav a[href="/support"] {
     color: var(--accent-color);
   }
 
@@ -3050,13 +3017,13 @@ nav a[href="/support"]::after {
   }
 
   /* Active state for dropdown link */
-  nav ul li.dropdown.active .dropdown-link {
+  header nav ul li.dropdown.active .dropdown-link {
     opacity: 1;
     color: var(--primary-color);
   }
 
   /* Active state for dropdown items */
-  nav ul li.dropdown .dropdown-menu li.active a {
+  header nav ul li.dropdown .dropdown-menu li.active a {
     background-color: rgba(0, 116, 217, 0.05);
     color: var(--primary-color);
     font-weight: 500;
@@ -3068,45 +3035,45 @@ nav a[href="/support"]::after {
 @media (max-width: 768px) {
 
   /* Reset any potentially conflicting desktop styles */
-  nav a::after {
+  header nav a::after {
     display: none;
   }
 
-  nav li.dropdown .dropdown-link::after {
+  header nav li.dropdown .dropdown-link::after {
     display: none;
   }
 
   /* Ensure mobile dropdown toggles are visible */
-  nav li.dropdown .dropdown-toggle {
+  header nav li.dropdown .dropdown-toggle {
     display: inline-block;
   }
 
   /* Fix mobile menu item spacing */
-  nav li {
+  header nav li {
     margin: 0;
     width: 100%;
   }
 
   /* Reset separators for mobile */
-  nav li:not(:last-child)::after {
+  header nav li:not(:last-child)::after {
     display: none;
   }
 
   /* Adjust padding for mobile menu items */
-  nav a {
+  header nav a {
     padding: 1rem 0.5rem;
     width: 100%;
   }
 
   /* Ensure dropdown menus expand properly */
-  nav ul li.dropdown .dropdown-menu {
+  header nav ul li.dropdown .dropdown-menu {
     transform: none;
     box-shadow: none;
     border: none;
   }
 
   /* Fix Premium Services styling for mobile */
-  nav a[href="/premium-services"] {
+  header nav a[href="/premium-services"] {
     background: rgba(52, 152, 219, 0.08);
     border: 1px solid rgba(52, 152, 219, 0.2);
     border-radius: 6px;
