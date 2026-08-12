@@ -1,0 +1,125 @@
+/* Site-wide mobile layout fixes. Imported last so these rules win the cascade. */
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 2.5rem 1rem;
+  }
+
+  .hero-content h1 {
+    font-size: 1.75rem;
+    line-height: 1.2;
+  }
+
+  .hero-content p {
+    font-size: 1rem;
+  }
+
+  .home-hero,
+  .elig-hero,
+  .support-hero,
+  .meth-hero,
+  .contrib-hero {
+    padding: 3rem 0 2.75rem;
+  }
+
+  .home-cta {
+    padding: 3rem 0;
+  }
+
+  .elig-section,
+  .support-section {
+    padding: 2.75rem 0;
+  }
+
+  .home-badge,
+  .elig-badge,
+  .support-badge,
+  .meth-badge {
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 100%;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  .meth-hero-accent,
+  .contrib-hero-accent {
+    display: inline;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+
+  .elig-cta-button {
+    white-space: normal;
+    text-align: center;
+  }
+
+  .home-mock-row {
+    grid-template-columns: 1.2fr 1fr 1fr;
+    font-size: 0.7rem;
+  }
+
+  .home-mock-row > :nth-child(4) {
+    display: none;
+  }
+
+  .home-faq-answer {
+    margin-left: 0.5rem;
+    padding-left: 0.75rem;
+  }
+
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
+  }
+
+  iframe {
+    max-width: 100%;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="search"],
+  input[type="number"],
+  input[type="url"],
+  textarea,
+  select {
+    font-size: 16px;
+  }
+
+  .calendar-section {
+    padding: 0 1rem 2rem;
+  }
+
+  .mdx-article {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+
+  code {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-content h1 {
+    font-size: 1.5rem;
+  }
+
+  .home-mock-row {
+    grid-template-columns: 1.3fr 1fr;
+  }
+
+  .home-mock-row > :nth-child(3) {
+    display: none;
+  }
+
+  .legend-grid {
+    grid-template-columns: 1fr;
+  }
+}

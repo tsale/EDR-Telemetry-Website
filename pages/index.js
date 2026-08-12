@@ -291,13 +291,13 @@ export default function Home() {
               </span>
             </div>
 
-            <h1 className="home-enter home-enter-delay-2 text-5xl md:text-7xl font-extrabold tracking-tight mb-6 !text-white leading-tight">
+            <h1 className="home-enter home-enter-delay-2 text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 !text-white leading-tight">
               Transparent Research on
               <br />{' '}
               <span className="text-blue-400">EDR Telemetry Visibility</span>
             </h1>
 
-            <p className="home-enter home-enter-delay-3 mt-6 text-xl !text-slate-300 text-center leading-relaxed text-balance px-4">
+            <p className="home-enter home-enter-delay-3 mt-6 text-base sm:text-xl !text-slate-300 text-center leading-relaxed text-balance px-2 sm:px-4">
               Explore controlled, evidence-backed testing of the endpoint telemetry exposed by EDR
               platforms across Windows, Linux, and macOS.
             </p>

@@ -236,7 +236,7 @@ export default function Eligibility() {
             <Shield className="w-4 h-4" aria-hidden="true" />
             Scope criteria
           </span>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-5 !text-white leading-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-5 !text-white leading-tight">
             Eligibility and excluded products
           </h1>
           <p className="text-lg md:text-xl !text-slate-300 max-w-2xl mx-auto leading-relaxed">

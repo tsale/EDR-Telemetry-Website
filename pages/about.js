@@ -78,7 +78,7 @@ export default function About() {
               <div className="mb-4 inline-flex items-center rounded-full border border-blue-500/20 bg-blue-500/10 px-3 py-1 text-sm font-medium text-blue-300 backdrop-blur-sm">
                 <Shield className="mr-2 h-4 w-4" />MISSION, SCOPE & GOVERNANCE
               </div>
-              <h1 className="mb-4 text-4xl font-extrabold tracking-tight !text-white sm:text-5xl lg:text-[3.5rem] lg:leading-[1.08]">
+              <h1 className="mb-4 text-3xl font-extrabold tracking-tight !text-white sm:text-5xl lg:text-[3.5rem] lg:leading-[1.08]">
                 About the EDR Telemetry Project
               </h1>
               <p className="max-w-xl text-lg leading-relaxed !text-slate-300 sm:text-xl">
@@ -104,7 +104,7 @@ export default function About() {
         </div>
       </section>
 
-      <section className="bg-slate-50 py-20">
+      <section className="bg-slate-50 py-12 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
           <div>
             <div className="mx-auto mb-10 max-w-3xl text-center">

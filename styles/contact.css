@@ -23,6 +23,7 @@
 iframe {
   border: none;
   width: 100%;
+  max-width: 100%;
   min-height: 600px;
   transition: height 0.5s ease-in-out;
 }

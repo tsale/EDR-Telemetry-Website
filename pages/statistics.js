@@ -23,7 +23,7 @@ export default function StatisticsPage() {
       description="Historical EDR telemetry visibility changes across the vendor matrix: improvement leaderboard, score trends, category deltas, and contribution breakdown. Data loads from the EDR-Telemetry repository."
     >
       {/* Hero — matches Scores / Methodology */}
-      <section className="relative bg-slate-900 text-white py-20 md:py-24 overflow-hidden">
+      <section className="relative bg-slate-900 text-white py-12 sm:py-20 md:py-24 overflow-hidden">
         <div className="absolute inset-0 overflow-hidden">
           <div
             className="absolute -top-[30%] -left-[10%] w-[70%] h-[70%] rounded-full bg-blue-900/25 blur-[100px]"
@@ -41,14 +41,14 @@ export default function StatisticsPage() {
             Telemetry change statistics
           </div>
 
-          <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight mb-6 !text-white leading-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight mb-6 !text-white leading-tight">
             EDR Telemetry{' '}
             <span className="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">
               Statistics
             </span>
           </h1>
 
-          <p className="text-xl !text-slate-300 max-w-3xl leading-relaxed text-center">
+          <p className="text-base sm:text-xl !text-slate-300 max-w-3xl leading-relaxed text-center">
             Historical trends in <strong className="font-semibold text-slate-200">EDR Telemetry visibility</strong>{' '}
             across the vendor matrix: which vendors gained coverage, which categories moved, and how
             contributions landed. Rankings use weighted score deltas from accepted changes, not PR counts.

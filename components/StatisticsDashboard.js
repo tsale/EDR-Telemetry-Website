@@ -228,8 +228,8 @@ function StatCard({ icon: Icon, label, value, sub, accent = 'blue' }) {
           <Icon className="h-5 w-5" />
         </span>
         <div className="min-w-0">
-          <div className="text-xs font-medium text-slate-500 uppercase tracking-wide truncate">{label}</div>
-          <div className="text-2xl font-bold text-slate-900 leading-tight truncate">{value}</div>
+          <div className="text-xs font-medium text-slate-500 uppercase tracking-wide break-words">{label}</div>
+          <div className="text-xl sm:text-2xl font-bold text-slate-900 leading-tight break-words">{value}</div>
         </div>
       </div>
       {sub && <div className="mt-2 text-xs text-slate-500 leading-snug">{sub}</div>}
@@ -499,7 +499,7 @@ export default function StatisticsDashboard() {
 
         {/* 1. Overview cards */}
         <section>
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <StatCard icon={Activity} accent="blue" label="Change events" value={fmt(overview.totalChangeEvents)} sub="Accepted telemetry status changes scanned across history" />
             <StatCard icon={GitCommit} accent="slate" label="Commits scanned" value={fmt(overview.commitsScanned)} sub={`Across ${overview.repository || 'tsale/EDR-Telemetry'}`} />
             <StatCard icon={GitPullRequest} accent="indigo" label="PR summaries" value={fmt(overview.prSummaryCount)} sub={`${overview.prsScanned} PRs scanned in total`} />

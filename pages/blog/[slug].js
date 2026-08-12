@@ -89,7 +89,7 @@ export default function Post({ postData }) {
             </Head>
 
             <div className="bg-white min-h-screen font-charter">
-                <article className="max-w-[800px] mx-auto px-6 py-16 mdx-article">
+                <article className="max-w-[800px] mx-auto px-4 sm:px-6 py-10 sm:py-16 mdx-article">
                     {/* Author info - without hardcoded title/subtitle */}
                     <header className="mb-12">
                         <div className="flex items-center pb-6 border-b border-[rgba(242,242,242,1)]">

@@ -372,7 +372,7 @@ export default function Scores() {
       description="Compare endpoint detection telemetry depth with transparent, weighted scoring for Windows and Linux.">
 
       {/* Hero Section */}
-      <section className="relative bg-slate-900 text-white py-20 overflow-hidden">
+      <section className="relative bg-slate-900 text-white py-12 sm:py-20 overflow-hidden">
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute -top-[30%] -left-[10%] w-[70%] h-[70%] rounded-full bg-blue-900/20 blur-[100px]"></div>
           <div className="absolute -bottom-[30%] -right-[10%] w-[70%] h-[70%] rounded-full bg-indigo-900/20 blur-[100px]"></div>
@@ -384,12 +384,12 @@ export default function Scores() {
             Transparent Scoring Methodology
           </div>
 
-          <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight mb-6 !text-white heading-processed">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight mb-6 !text-white heading-processed">
             EDR Telemetry Scores
           </h1>
 
           <div className="w-full flex justify-center">
-            <p className="mt-6 text-xl !text-slate-300 max-w-3xl leading-relaxed text-center">
+            <p className="mt-6 text-base sm:text-xl !text-slate-300 max-w-3xl leading-relaxed text-center">
               Compare the telemetry capabilities of different EDR solutions based on our transparent, weighted scoring methodology.
             </p>
           </div>

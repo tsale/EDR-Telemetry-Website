@@ -300,12 +300,12 @@ export default function Contribute() {
             </span>
           </div>
 
-          <h1 className="contrib-enter contrib-enter-delay-2 contrib-hero-title text-5xl md:text-6xl font-extrabold tracking-tight mb-6 !text-white !text-center leading-tight w-full">
+          <h1 className="contrib-enter contrib-enter-delay-2 contrib-hero-title text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight mb-6 !text-white !text-center leading-tight w-full">
             How to{' '}
             <span className="contrib-hero-accent">Contribute</span>
           </h1>
 
-          <p className="contrib-enter contrib-enter-delay-3 mt-2 text-xl !text-slate-300 !text-center max-w-2xl mx-auto leading-relaxed">
+          <p className="contrib-enter contrib-enter-delay-3 mt-2 text-base sm:text-xl !text-slate-300 !text-center max-w-2xl mx-auto leading-relaxed">
             Submit telemetry updates, evidence, and docs that keep the comparison accurate.
             Follow the paths below, then open a GitHub PR.
           </p>

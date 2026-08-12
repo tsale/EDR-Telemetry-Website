@@ -81,7 +81,7 @@ export default function Contact() {
           <iframe 
             id="if21ap20" 
             src="https://fill.formnx.com/f/edr-telemetry-contact-form-21ap20" 
-            style={{ width: '1px', minWidth: '100%', height: '600px' }}
+            style={{ width: '100%', maxWidth: '100%', minWidth: 0, height: '600px' }}
             title="Contact Form"
           ></iframe>
         </div>
@@ -92,9 +92,9 @@ export default function Contact() {
           <h2>Discuss Client-Specific EDR Work</h2>
           <p>Selection, deployment, migration, validation, optimization, and advisory engagements are delivered separately through Defendpoint Consulting.</p>
         </div>
-        <div style={{ width: '100%', minHeight: 720 }}>
+        <div style={{ width: '100%', minHeight: 560 }}>
           <div
-            style={{ width: '100%', height: '100%', overflow: 'scroll', minHeight: 720 }}
+            style={{ width: '100%', height: '100%', overflow: 'auto', minHeight: 560 }}
             id="my-cal-inline-edr-telemetry-discussion-call"
           ></div>
         </div>
@@ -113,14 +113,15 @@ export default function Contact() {
       <Script id="cal-inline-embed-contact" strategy="afterInteractive">
         {`(function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
 Cal("init", "edr-telemetry-discussion-call", {origin:"https://app.cal.com"});
+const calLayout = window.matchMedia("(max-width: 768px)").matches ? "column_view" : "month_view";
 
 Cal.ns["edr-telemetry-discussion-call"]("inline", {
   elementOrSelector:"#my-cal-inline-edr-telemetry-discussion-call",
-  config: {"layout":"month_view","theme":"auto"},
+  config: {"layout": calLayout, "theme":"auto"},
   calLink: "kostas-hcq78e/edr-telemetry-discussion-call",
 });
 
-Cal.ns["edr-telemetry-discussion-call"]("ui", {"hideEventTypeDetails":false,"layout":"month_view"});`}
+Cal.ns["edr-telemetry-discussion-call"]("ui", {"hideEventTypeDetails":false,"layout": calLayout});`}
       </Script>
     </TemplatePage>
   )

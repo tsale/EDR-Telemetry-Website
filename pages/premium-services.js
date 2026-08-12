@@ -211,7 +211,10 @@ export default function PremiumServices() {
         window.Cal('init', 'edr-telemetry-discussion-call', { origin: 'https://app.cal.com' })
         window.Cal.ns['edr-telemetry-discussion-call']('inline', {
           elementOrSelector: '#my-cal-inline-edr-telemetry-discussion-call',
-          config: { layout: 'month_view', theme: 'auto' },
+          config: {
+            layout: window.matchMedia('(max-width: 768px)').matches ? 'column_view' : 'month_view',
+            theme: 'auto',
+          },
           calLink: 'kostas-hcq78e/edr-telemetry-discussion-call',
         })
         return true
@@ -281,7 +284,7 @@ export default function PremiumServices() {
       </Head>
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-slate-900 pt-20 pb-24 text-white">
+      <section className="relative overflow-hidden bg-slate-900 pt-12 pb-16 sm:pt-20 sm:pb-24 text-white">
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           <div className="absolute -top-[30%] -left-[10%] h-[70%] w-[70%] rounded-full bg-blue-900/25 blur-[100px]" />
           <div className="absolute -right-[10%] -bottom-[30%] h-[70%] w-[70%] rounded-full bg-slate-700/30 blur-[100px]" />
@@ -290,13 +293,13 @@ export default function PremiumServices() {
 
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-4xl text-center">
-            <p data-reveal data-reveal-delay="1" className="mb-6 text-sm font-semibold tracking-[0.2em] text-blue-300">
+            <p data-reveal data-reveal-delay="1" className="mb-6 px-2 text-xs sm:text-sm font-semibold tracking-wide sm:tracking-[0.2em] text-blue-300">
               FROM PUBLIC RESEARCH TO YOUR ENVIRONMENT
             </p>
             <h1
               data-reveal
               data-reveal-delay="2"
-              className="mb-6 text-5xl font-extrabold tracking-tight !text-white md:text-6xl md:leading-[1.1]"
+              className="mb-6 text-3xl sm:text-4xl font-extrabold tracking-tight !text-white md:text-6xl md:leading-[1.1]"
             >
               Apply EDR Telemetry Research{' '}
               <span className="block text-blue-400">to Your Environment</span>
@@ -304,7 +307,7 @@ export default function PremiumServices() {
             <p
               data-reveal
               data-reveal-delay="3"
-              className="mx-auto max-w-3xl text-xl leading-relaxed !text-slate-300"
+              className="mx-auto max-w-3xl text-base sm:text-xl leading-relaxed !text-slate-300"
             >
               Defendpoint Consulting helps security teams apply the EDR Telemetry Project&apos;s research to their own
               environments. Validate an existing EDR deployment, compare platforms against your requirements, and
@@ -640,7 +643,7 @@ export default function PremiumServices() {
       </section>
 
       {/* Booking */}
-      <section className="bg-slate-50 py-24">
+      <section className="bg-slate-50 py-12 sm:py-24">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <div className="mb-10 text-center" data-reveal data-reveal-delay="1">
             <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50 text-blue-600">
@@ -671,7 +674,7 @@ export default function PremiumServices() {
           >
             <div
               id="my-cal-inline-edr-telemetry-discussion-call"
-              className="w-full min-h-[720px] overflow-scroll rounded-xl bg-white"
+              className="w-full min-h-[560px] overflow-auto rounded-xl bg-white"
             />
             <p className="mt-6 text-center text-slate-600">
               If the calendar does not load,{' '}
