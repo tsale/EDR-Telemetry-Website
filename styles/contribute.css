@@ -224,20 +224,31 @@
 /* Sticky nav */
 .contrib-nav {
   position: sticky;
-  top: 0;
+  top: 4rem;
   z-index: 40;
-  background: rgba(255, 255, 255, 0.92);
+  left: auto;
+  right: auto;
+  width: 100%;
+  max-width: none;
+  height: auto;
+  padding: 0;
+  margin: 0;
+  background: rgba(255, 255, 255, 0.96);
   border-bottom: 1px solid #e2e8f0;
   backdrop-filter: blur(12px);
 }
 
 .contrib-nav-inner {
   max-width: 72rem;
+  width: 100%;
+  min-width: 0;
   margin: 0 auto;
   padding: 0.65rem 1rem;
   display: flex;
   gap: 0.45rem;
   overflow-x: auto;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
 }
 
@@ -246,17 +257,25 @@
 }
 
 .contrib-nav-pill {
+  display: inline-flex;
+  align-items: center;
   flex-shrink: 0;
+  width: auto;
   padding: 0.45rem 0.9rem;
   border-radius: 9999px;
   font-size: 0.8125rem;
   font-weight: 600;
   color: #64748b;
   text-decoration: none;
+  white-space: nowrap;
   transition:
     background 0.25s ease,
     color 0.25s ease,
     transform 0.25s ease;
+}
+
+.contrib-nav-pill::after {
+  content: none;
 }
 
 .contrib-nav-pill:hover {

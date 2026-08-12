@@ -482,6 +482,15 @@
   }
 }
 
+@media (max-width: 768px) {
+  .explorer-controls,
+  .explorer-results {
+    min-width: 0;
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
 /* Vendor Multiselect Styles */
 .vendor-multiselect {
   display: flex;

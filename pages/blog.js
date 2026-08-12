@@ -64,7 +64,7 @@ export default function Blog({ allPostsData }) {
       description="Research updates, methodology insights, and EDR telemetry analysis for security teams.">
 
       {/* Hero Section */}
-      <section className="relative bg-slate-900 text-white pt-20 pb-24 overflow-hidden">
+      <section className="relative bg-slate-900 text-white pt-12 pb-16 sm:pt-20 sm:pb-24 overflow-hidden">
         {/* Abstract Background */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute -top-[30%] -left-[10%] w-[70%] h-[70%] rounded-full bg-blue-900/20 blur-[100px]"></div>
@@ -74,11 +74,11 @@ export default function Blog({ allPostsData }) {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
           <div className="text-center max-w-4xl mx-auto">
 
-            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 !text-white leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 !text-white leading-tight">
               EDR Telemetry <span className="text-blue-400">Blog</span>
             </h1>
 
-            <p className="mt-6 text-xl !text-slate-300 text-center leading-relaxed text-balance px-4">
+            <p className="mt-6 text-base sm:text-xl !text-slate-300 text-center leading-relaxed text-balance px-2 sm:px-4">
               Insights and analysis from our research into EDR telemetry capabilities,
               methodology updates, and security industry trends.
             </p>
@@ -114,7 +114,7 @@ export default function Blog({ allPostsData }) {
                     </div>
 
                     <form onSubmit={handleNewsletterSubmit} className="space-y-2">
-                      <div className="flex gap-2">
+                      <div className="flex flex-col sm:flex-row gap-2">
                         <input
                           type="email"
                           placeholder="Email address"

@@ -792,7 +792,7 @@ export default function TelemetryCategories() {
       description="Explore endpoint detection telemetry categories across Windows, Linux, and macOS for vendor-neutral EDR comparison.">
       
       {/* Hero Section */}
-      <section className="relative bg-slate-900 text-white pt-20 pb-24 overflow-hidden">
+      <section className="relative bg-slate-900 text-white pt-12 pb-16 sm:pt-20 sm:pb-24 overflow-hidden">
         {/* Abstract Background */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute -top-[30%] -left-[10%] w-[70%] h-[70%] rounded-full bg-blue-900/20 blur-[100px]"></div>
@@ -806,14 +806,14 @@ export default function TelemetryCategories() {
               Telemetry Categories
             </div>
             
-            <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight mb-6 !text-white leading-tight"
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight mb-6 !text-white leading-tight"
               id="telemetry-categories-heading"
               aria-label="EDR Telemetry Categories"
             >
               EDR Telemetry <span className="text-blue-400">Categories</span>
             </h1>
             
-            <p className="mt-6 text-xl !text-slate-300 text-center leading-relaxed text-balance px-4">
+            <p className="mt-6 text-base sm:text-xl !text-slate-300 text-center leading-relaxed text-balance px-2 sm:px-4">
               Understanding the different types of endpoint data collected for threat detection
             </p>
           </div>
@@ -831,11 +831,11 @@ export default function TelemetryCategories() {
         {/* View toggle */}
         <div className="mb-6">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-end">
-              <div className="inline-flex gap-2 rounded-lg bg-slate-100 p-1">
+            <div className="flex justify-stretch sm:justify-end">
+              <div className="inline-flex w-full sm:w-auto gap-2 rounded-lg bg-slate-100 p-1">
                 <button
                   onClick={() => handleViewChange('grid')}
-                  className={`inline-flex items-center px-4 py-2 rounded-md text-sm font-medium transition-all ${
+                  className={`inline-flex flex-1 sm:flex-none items-center justify-center px-4 py-2 rounded-md text-sm font-medium transition-all ${
                     viewMode === 'grid'
                       ? 'bg-white text-slate-900 shadow-sm'
                       : 'text-slate-600 hover:text-slate-900'
@@ -847,7 +847,7 @@ export default function TelemetryCategories() {
                 </button>
                 <button
                   onClick={() => handleViewChange('list')}
-                  className={`inline-flex items-center px-4 py-2 rounded-md text-sm font-medium transition-all ${
+                  className={`inline-flex flex-1 sm:flex-none items-center justify-center px-4 py-2 rounded-md text-sm font-medium transition-all ${
                     viewMode === 'list'
                       ? 'bg-white text-slate-900 shadow-sm'
                       : 'text-slate-600 hover:text-slate-900'

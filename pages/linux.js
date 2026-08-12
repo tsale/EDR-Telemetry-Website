@@ -938,23 +938,23 @@ export default function Linux() {
       </Head>
 
       {/* Hero Section - Modernized */}
-      <section className="relative bg-slate-900 text-white pt-20 pb-24 overflow-hidden">
+      <section className="relative bg-slate-900 text-white pt-12 pb-16 sm:pt-20 sm:pb-24 overflow-hidden">
         {/* Abstract Background */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute -top-[30%] -left-[10%] w-[70%] h-[70%] rounded-full bg-green-900/20 blur-[100px]"></div>
           <div className="absolute -bottom-[30%] -right-[10%] w-[70%] h-[70%] rounded-full bg-blue-900/20 blur-[100px]"></div>
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10 text-center flex flex-col items-center justify-center min-h-[420px]">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10 text-center flex flex-col items-center justify-center min-h-0 sm:min-h-[420px]">
           <div className="inline-flex items-center justify-center p-5 bg-green-600/20 rounded-xl mb-8 backdrop-blur-sm ring-1 ring-green-500/50">
             <LinuxLogo className="w-12 h-12 text-white" />
           </div>
 
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 !text-white leading-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight mb-6 !text-white leading-tight">
             Linux EDR <span className="text-green-400">Telemetry</span>
           </h1>
 
-          <p className="mt-4 max-w-2xl mx-auto text-xl text-slate-300 leading-relaxed !text-center">
+          <p className="mt-4 max-w-2xl mx-auto text-base sm:text-xl text-slate-300 leading-relaxed !text-center">
             Explore detailed telemetry capabilities and comparisons for Linux-based EDR solutions.
             Analyze coverage, gaps, and detection logic.
           </p>
@@ -972,17 +972,17 @@ export default function Linux() {
         </div>
       </section>
 
-      <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-12 -mt-12 relative z-20">
+      <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 -mt-8 sm:-mt-12 relative z-20">
         {/* Main Content Card */}
         <div className="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
 
           {/* Toolbar / Controls */}
-          <div className="border-b border-slate-200 bg-slate-50 p-6">
+          <div className="border-b border-slate-200 bg-slate-50 p-4 sm:p-6">
             <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
 
               {/* Left Side: Filters */}
               <div className="w-full lg:w-auto flex flex-col sm:flex-row gap-4">
-                <div className="relative group min-w-[280px]">
+                <div className="relative group w-full min-w-0 sm:min-w-[280px]">
                   <input
                     type="text"
                     className="block w-full !py-2.5 !pl-3 !pr-10 border border-slate-200 rounded-xl leading-5 bg-white shadow-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 sm:text-sm transition-all"
@@ -1084,8 +1084,8 @@ export default function Linux() {
           {/* Telemetry Table Area */}
           <div className="p-0">
             {/* Legend Bar - Integrated above table */}
-            <div className="bg-white border-b border-slate-200 px-6 py-4 overflow-x-auto">
-              <div className="flex flex-wrap gap-6 min-w-max">
+            <div className="bg-white border-b border-slate-200 px-4 sm:px-6 py-4 overflow-x-auto">
+              <div className="flex flex-wrap gap-4 sm:gap-6">
                 <div className="flex items-center text-sm text-slate-600">
                   <span className="w-6 h-6 rounded-full bg-green-100 text-green-700 flex items-center justify-center mr-2 text-xs"><Check className="w-3.5 h-3.5" /></span>
                   <span className="font-medium">Implemented</span>

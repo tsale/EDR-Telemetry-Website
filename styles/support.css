@@ -64,18 +64,30 @@
   position: sticky;
   top: 4rem;
   z-index: 40;
-  background: rgba(255, 255, 255, 0.92);
+  left: auto;
+  right: auto;
+  width: 100%;
+  max-width: none;
+  height: auto;
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
+  background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid #e2e8f0;
 }
 
 .support-nav-inner {
   max-width: 80rem;
+  width: 100%;
+  min-width: 0;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0.15rem 1rem;
   display: flex;
   gap: 0.5rem;
   overflow-x: auto;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
 }
 
@@ -86,6 +98,8 @@
 .support-nav-pill {
   display: inline-flex;
   align-items: center;
+  flex-shrink: 0;
+  width: auto;
   padding: 0.7rem 0.9rem;
   margin: 0.35rem 0;
   border-radius: 9999px;
@@ -97,6 +111,10 @@
   color: #475569;
   text-decoration: none;
   transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.support-nav-pill::after {
+  content: none;
 }
 
 .support-nav-pill:hover {

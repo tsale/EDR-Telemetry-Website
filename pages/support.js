@@ -208,7 +208,7 @@ export default function Support() {
             <Shield className="w-4 h-4" aria-hidden="true" />
             Support the project
           </span>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-5 !text-white leading-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-5 !text-white leading-tight">
             Fund public EDR telemetry research
           </h1>
           <p className="text-lg md:text-xl !text-slate-300 max-w-2xl mx-auto leading-relaxed">

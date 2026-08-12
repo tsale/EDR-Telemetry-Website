@@ -311,12 +311,12 @@ export default function Methodology() {
             </span>
           </div>
 
-          <h1 className="meth-enter meth-enter-delay-2 meth-hero-title text-5xl md:text-6xl font-extrabold tracking-tight mb-6 !text-white !text-center leading-tight w-full">
+          <h1 className="meth-enter meth-enter-delay-2 meth-hero-title text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight mb-6 !text-white !text-center leading-tight w-full">
             Methodology &amp;{' '}
             <span className="meth-hero-accent">Evidence Standards</span>
           </h1>
 
-          <p className="meth-enter meth-enter-delay-3 mt-2 text-xl !text-slate-300 !text-center max-w-2xl mx-auto leading-relaxed">
+          <p className="meth-enter meth-enter-delay-3 mt-2 text-base sm:text-xl !text-slate-300 !text-center max-w-2xl mx-auto leading-relaxed">
             The EDR Telemetry Project measures exposed endpoint telemetry visibility. It does not
             measure prevention, detection efficacy, alert quality, managed service quality, or
             overall product quality.
@@ -471,7 +471,7 @@ export default function Methodology() {
                           <td className="text-slate-600">
                             {row.substitute}
                             {row.code && (
-                              <code className="ml-1 px-2 py-0.5 bg-slate-100 rounded text-xs font-mono text-slate-700">
+                              <code className="ml-1 px-2 py-0.5 bg-slate-100 rounded text-xs font-mono text-slate-700 break-all">
                                 {row.code}
                               </code>
                             )}
