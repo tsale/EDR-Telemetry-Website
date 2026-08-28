@@ -1,6 +1,6 @@
 # EDR Telemetry Website
 
-A comprehensive Next.js implementation of the EDR Telemetry Website, featuring Vercel Speed Insights for performance monitoring.
+A comprehensive Next.js implementation of the EDR Telemetry Website.
 
 ## Getting Started
 
@@ -56,7 +56,6 @@ EDR-Telemetry-Website/
 
 ## Features
 
-- **Speed Insights**: Integrated Vercel Speed Insights for performance monitoring
 - **Chart.js Integration**: Data visualization with Chart.js and react-chartjs-2
 - **Responsive Design**: Mobile-friendly interface
 - **React Components**: Modular, reusable components
@@ -68,7 +67,6 @@ EDR-Telemetry-Website/
 - **Next.js**: React framework for production
 - **React**: UI library
 - **Chart.js**: Data visualization
-- **Vercel Speed Insights**: Performance monitoring
 
 ## Deployment
 
@@ -86,4 +84,4 @@ Please ensure your code follows the existing style and structure.
 
 ## License
 
-ISC License 
+ISC License

@@ -22,11 +22,6 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { isVercelObservabilityEnabled } from '../utils/observability'
 
-const SpeedInsights = dynamic(
-  () => import('@vercel/speed-insights/next').then((mod) => mod.SpeedInsights),
-  { ssr: false }
-)
-
 const Analytics = dynamic(
   () => import('@vercel/analytics/react').then((mod) => mod.Analytics),
   { ssr: false }
@@ -155,7 +150,6 @@ function MyApp({ Component, pageProps }) {
         <Component {...pageProps} />
         {isObservabilityEnabled ? (
           <>
-            <SpeedInsights />
             <Analytics />
           </>
         ) : null}
