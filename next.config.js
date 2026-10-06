@@ -90,6 +90,7 @@ const nextConfig = {
               font-src * data: blob: 'unsafe-inline';
               img-src 'self' data: https: blob:;
               frame-src 'self' 
+                https://unpkg.com
                 https://js.stripe.com 
                 https://*.stripe.com
                 https://hooks.stripe.com 
@@ -104,6 +105,7 @@ const nextConfig = {
                 https://*.cal.com
                 https://fill.formnx.com;
               connect-src 'self' 
+                https://api.github.com
                 https://api.stripe.com 
                 https://js.stripe.com 
                 https://www.google-analytics.com

@@ -2,7 +2,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/router'
-import { Search, Menu, X, ChevronDown, Github, Monitor, Terminal, Command } from 'lucide-react'
+import { Search, Menu, X, ChevronDown, Monitor, Terminal, Command } from 'lucide-react'
+import GitHubStarButton from './GitHubStarButton'
 
 export default function Header({ onSearchClick }) {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -104,14 +105,14 @@ export default function Header({ onSearchClick }) {
                   className="w-full h-full object-contain" 
                 />
               </div>
-              <span className="inline md:hidden lg:inline text-lg font-bold leading-none text-slate-900 group-hover:text-blue-600 transition-colors">
+              <span className="inline lg:hidden xl:inline text-lg font-bold leading-none text-slate-900 group-hover:text-blue-600 transition-colors">
                 EDR Telemetry
               </span>
             </Link>
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-0.5 lg:gap-1">
+          <nav className="hidden lg:flex items-center gap-0.5 lg:gap-1">
             <div className="relative group px-2 lg:px-3 py-2" ref={platformsRef}>
                 <button 
                   onClick={() => {
@@ -175,7 +176,7 @@ export default function Header({ onSearchClick }) {
           </nav>
 
           {/* Right Actions */}
-          <div className="hidden md:flex items-center gap-1.5 lg:gap-3 shrink-0">
+          <div className="hidden lg:flex items-center gap-1.5 lg:gap-3 shrink-0">
             <button 
                 onClick={onSearchClick}
                 className="flex items-center gap-2 p-1.5 lg:px-3 lg:py-2 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-md transition-colors text-sm"
@@ -190,15 +191,7 @@ export default function Header({ onSearchClick }) {
             
             <div className="hidden lg:block h-6 w-px bg-slate-200 mx-1"></div>
 
-            <a 
-                href="https://github.com/tsale/EDR-Telemetry" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="p-1.5 lg:p-2 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-full transition-colors"
-                aria-label="GitHub"
-            >
-                <Github className="w-5 h-5" />
-            </a>
+            <GitHubStarButton />
             
             <Link
                 href="/premium-services"
@@ -213,7 +206,7 @@ export default function Header({ onSearchClick }) {
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center gap-2">
+          <div className="lg:hidden flex items-center gap-2">
             <button 
                 onClick={onSearchClick}
                 className="p-2 text-slate-500 hover:text-slate-900"
@@ -236,7 +229,7 @@ export default function Header({ onSearchClick }) {
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div
-          className="md:hidden bg-white border-t border-slate-100 shadow-lg overflow-y-auto overscroll-contain"
+          className="lg:hidden bg-white border-t border-slate-100 shadow-lg overflow-y-auto overscroll-contain"
           style={{ maxHeight: `calc(100dvh - ${menuTop}px)` }}
         >
           <div className="px-4 pt-2 pb-6 space-y-1">
@@ -310,15 +303,7 @@ export default function Header({ onSearchClick }) {
             </Link>
             
             <div className="mt-4 flex justify-center">
-               <a 
-                href="https://github.com/tsale/EDR-Telemetry" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-slate-500"
-              >
-                <Github className="w-5 h-5" />
-                <span className="text-sm">View on GitHub</span>
-              </a>
+              <GitHubStarButton />
             </div>
           </div>
         </div>
