@@ -284,13 +284,6 @@ export default function Home() {
 
         <div className="home-hero-inner">
           <div className="text-center max-w-4xl mx-auto mb-16">
-            <div className="home-enter home-enter-delay-1">
-              <span className="home-badge">
-                <span className="home-badge-dot" aria-hidden="true" />
-                Independent · Evidence-backed · Open
-              </span>
-            </div>
-
             <h1 className="home-enter home-enter-delay-2 text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 !text-white leading-tight">
               Transparent Research on
               <br />{' '}
