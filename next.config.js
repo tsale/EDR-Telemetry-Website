@@ -90,7 +90,6 @@ const nextConfig = {
               font-src * data: blob: 'unsafe-inline';
               img-src 'self' data: https: blob:;
               frame-src 'self' 
-                https://unpkg.com
                 https://js.stripe.com 
                 https://*.stripe.com
                 https://hooks.stripe.com 
