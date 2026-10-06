@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Star } from 'lucide-react'
+import { Github, Star } from 'lucide-react'
 
 const repositoryUrl = 'https://github.com/tsale/edr-telemetry'
 
@@ -40,6 +40,7 @@ export default function GitHubStarButton() {
         className={`inline-flex h-7 items-center gap-1.5 border border-slate-300 bg-slate-50 px-2.5 text-slate-700 hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-blue-600 focus-visible:outline-offset-2 ${starCount === null ? 'rounded' : 'rounded-l'}`}
         aria-label="Star tsale/edr-telemetry on GitHub"
       >
+        <Github className="h-4 w-4" aria-hidden="true" />
         <Star className="h-4 w-4 fill-white text-yellow-500" aria-hidden="true" />
         Star
       </a>
